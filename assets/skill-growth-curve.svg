@@ -1,0 +1,114 @@
+<svg width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ChenShuo Skills growth curve</title>
+  <desc id="desc">A premium growth chart showing ChenShuo Skills reaching 14 published skills.</desc>
+  <defs>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1130 152) rotate(132) scale(760 440)">
+      <stop stop-color="#D8B56D" stop-opacity="0.3"/>
+      <stop offset="0.48" stop-color="#62B8A7" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#090D0F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070A0C"/>
+      <stop offset="0.5" stop-color="#111819"/>
+      <stop offset="1" stop-color="#090D0F"/>
+    </linearGradient>
+    <linearGradient id="curve" x1="166" y1="562" x2="810" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E66B50"/>
+      <stop offset="0.45" stop-color="#D8B56D"/>
+      <stop offset="1" stop-color="#62B8A7"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="82" y1="156" x2="1358" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#151B1D" stop-opacity="0.94"/>
+      <stop offset="1" stop-color="#0E1415" stop-opacity="0.88"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+    <style>
+      .title { font: 900 46px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #F6EFE3; }
+      .subtitle { font: 500 21px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #B9B2A7; }
+      .label { font: 800 23px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #F6EFE3; }
+      .small { font: 500 17px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #B9B2A7; }
+      .num { font: 900 44px Arial, sans-serif; fill: #F6EFE3; }
+      .muted { font: 500 15px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #817B72; }
+      .grid { stroke: #2D3837; stroke-width: 1; stroke-dasharray: 4 12; }
+      .axis { stroke: #4D5B58; stroke-width: 2; }
+      .pulse { animation: pulse 2.8s ease-in-out infinite; transform-origin: center; }
+      .draw { stroke-dasharray: 740; stroke-dashoffset: 740; animation: draw 5s ease-in-out infinite; }
+      @keyframes pulse { 0%,100% { opacity: .72; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+      @keyframes draw { 0% { stroke-dashoffset: 740; opacity: .42; } 32%,72% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -740; opacity: .42; } }
+    </style>
+  </defs>
+
+  <rect width="1440" height="760" rx="34" fill="url(#bg)"/>
+  <rect width="1440" height="760" rx="34" fill="url(#halo)"/>
+  <path d="M80 110H1360" stroke="#202A2B"/>
+  <path d="M80 650H1360" stroke="#202A2B"/>
+
+  <text x="82" y="78" class="title">陈硕的 Skill 仓库曲线</text>
+  <text x="82" y="116" class="subtitle">ChenShuo Skills · 14 个可安装、可验证、可持续维护的 AI Agent 工作流</text>
+
+  <g filter="url(#shadow)">
+    <rect x="82" y="156" width="804" height="494" rx="22" fill="url(#panel)" stroke="#2C3736"/>
+  </g>
+  <text x="118" y="216" class="label">Skill 发布增长</text>
+  <text x="720" y="216" class="small">当前总量</text>
+  <text x="792" y="220" class="num">14</text>
+
+  <line x1="150" y1="562" x2="820" y2="562" class="axis"/>
+  <line x1="150" y1="562" x2="150" y2="274" class="axis"/>
+  <line x1="150" y1="490" x2="820" y2="490" class="grid"/>
+  <line x1="150" y1="418" x2="820" y2="418" class="grid"/>
+  <line x1="150" y1="346" x2="820" y2="346" class="grid"/>
+  <line x1="150" y1="274" x2="820" y2="274" class="grid"/>
+
+  <text x="112" y="568" class="muted">0</text>
+  <text x="104" y="496" class="muted">4</text>
+  <text x="104" y="424" class="muted">8</text>
+  <text x="96" y="352" class="muted">12</text>
+  <text x="96" y="280" class="muted">14</text>
+
+  <path d="M194 328 C310 326 406 310 506 300 C604 290 704 278 790 278 L790 562 L194 562 Z" fill="#62B8A7" fill-opacity="0.12"/>
+  <path d="M194 328 C310 326 406 310 506 300 C604 290 704 278 790 278" stroke="#1D2728" stroke-width="18" stroke-linecap="round"/>
+  <path class="draw" d="M194 328 C310 326 406 310 506 300 C604 290 704 278 790 278" stroke="url(#curve)" stroke-width="8" stroke-linecap="round"/>
+
+  <g class="pulse">
+    <circle cx="194" cy="328" r="14" fill="#E66B50" stroke="#FFE6D6" stroke-width="4"/>
+    <text x="177" y="302" class="num">12</text>
+  </g>
+  <g class="pulse">
+    <circle cx="506" cy="300" r="14" fill="#D8B56D" stroke="#FFF3CD" stroke-width="4"/>
+    <text x="490" y="274" class="num">13</text>
+  </g>
+  <g class="pulse">
+    <circle cx="790" cy="278" r="14" fill="#62B8A7" stroke="#D9FFF8" stroke-width="4"/>
+    <text x="774" y="252" class="num">14</text>
+  </g>
+
+  <text x="160" y="608" class="small">2026-05-25 首批</text>
+  <text x="450" y="608" class="small">+ goal-mode</text>
+  <text x="700" y="608" class="small">+ ending-time</text>
+
+  <g filter="url(#shadow)">
+    <rect x="930" y="156" width="428" height="494" rx="22" fill="url(#panel)" stroke="#2C3736"/>
+  </g>
+  <text x="966" y="216" class="label">分组结构</text>
+  <text x="966" y="252" class="subtitle">从目标到交付的工作流矩阵</text>
+
+  <text x="966" y="330" class="small">自动剪辑</text>
+  <rect x="966" y="354" width="330" height="28" rx="14" fill="#263130"/>
+  <rect x="966" y="354" width="220" height="28" rx="14" fill="#E66B50"/>
+  <text x="1310" y="376" class="small">4</text>
+
+  <text x="966" y="426" class="small">内容与信息图</text>
+  <rect x="966" y="450" width="330" height="28" rx="14" fill="#263130"/>
+  <rect x="966" y="450" width="220" height="28" rx="14" fill="#D8B56D"/>
+  <text x="1310" y="472" class="small">4</text>
+
+  <text x="966" y="522" class="small">设计、工程与交付</text>
+  <rect x="966" y="546" width="330" height="28" rx="14" fill="#263130"/>
+  <rect x="966" y="546" width="330" height="28" rx="14" fill="#62B8A7"/>
+  <text x="1310" y="568" class="small">6</text>
+
+  <text x="966" y="620" class="muted">统计口径：仓库中带有 SKILL.md 的发布目录。</text>
+</svg>

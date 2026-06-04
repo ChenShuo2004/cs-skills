@@ -1,8 +1,10 @@
 # Skill Inventory
 
-盘点日期：2026-05-25
+盘点日期：2026-06-04
 
 本文件只记录当前仓库内发布的 skill。
+
+当前发布数量：14 个。
 
 ## 总览
 
@@ -76,3 +78,9 @@
 3. `agents/openai.yaml` 是否与 `SKILL.md` 对齐。
 4. 是否含有本机路径、私有资料或不可公开链接。
 5. README 的 Goal Mode 是否需要更新。
+
+## README 展示资产
+
+- `assets/chenshuo-skills-hero.png`：带 `ChenShuo Skills` 和 `陈硕的 Skill 仓库` 文案的仓库首页 hero 图。
+- `assets/skill-code-animation.svg`：用 SVG/CSS 生成的代码动画和工作流关系图。
+- `assets/skill-growth-curve.svg`：仓库 skill 增长曲线和分组结构图。

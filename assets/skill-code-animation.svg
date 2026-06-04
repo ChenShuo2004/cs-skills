@@ -1,0 +1,91 @@
+<svg width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ChenShuo Skills code animation</title>
+  <desc id="desc">Animated code and workflow map for ChenShuo Skills.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070A0C"/>
+      <stop offset="0.52" stop-color="#111B1B"/>
+      <stop offset="1" stop-color="#080B0D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(720 366) rotate(90) scale(420 680)">
+      <stop stop-color="#62B8A7" stop-opacity="0.24"/>
+      <stop offset="0.46" stop-color="#D8B56D" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#070A0C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="230" y1="380" x2="1220" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E66B50"/>
+      <stop offset="0.5" stop-color="#D8B56D"/>
+      <stop offset="1" stop-color="#62B8A7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <style>
+      .title { font: 900 44px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #F6EFE3; }
+      .subtitle { font: 500 22px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #B9B2A7; }
+      .card-title { font: 800 20px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #F6EFE3; }
+      .small { font: 500 16px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #AFA79C; }
+      .code { font: 600 17px "Cascadia Mono", Consolas, monospace; fill: #D8B56D; }
+      .code-dim { font: 600 17px "Cascadia Mono", Consolas, monospace; fill: #75817E; }
+      .flow { stroke: url(#stroke); stroke-width: 3; stroke-dasharray: 10 18; animation: dash 2.8s linear infinite; }
+      .float-a { animation: floatA 5s ease-in-out infinite; }
+      .float-b { animation: floatB 5.8s ease-in-out infinite; }
+      .cursor { animation: blink 1s steps(2,end) infinite; }
+      .scan { animation: scan 4.8s ease-in-out infinite; }
+      @keyframes dash { to { stroke-dashoffset: -84; } }
+      @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+      @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
+      @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: .12; } }
+      @keyframes scan { 0%,100% { transform: translateX(-360px); opacity: 0; } 18%,72% { opacity: .5; } 100% { transform: translateX(1090px); opacity: 0; } }
+    </style>
+  </defs>
+
+  <rect width="1440" height="760" rx="34" fill="url(#bg)"/>
+  <rect width="1440" height="760" rx="34" fill="url(#glow)"/>
+  <path d="M94 116H1346" stroke="#202A2B"/>
+  <path d="M94 644H1346" stroke="#202A2B"/>
+
+  <text x="96" y="78" class="title">ChenShuo Skills · 代码动画</text>
+  <text x="96" y="116" class="subtitle">陈硕的 AI Agent Skill 仓库：Goal → Skill → Verified Output</text>
+
+  <g filter="url(#shadow)" class="float-a">
+    <rect x="96" y="170" width="386" height="418" rx="22" fill="#111719" stroke="#2D3837"/>
+    <circle cx="132" cy="210" r="7" fill="#E66B50"/>
+    <circle cx="158" cy="210" r="7" fill="#D8B56D"/>
+    <circle cx="184" cy="210" r="7" fill="#62B8A7"/>
+    <text x="130" y="260" class="code-dim">const repo = "ChenShuo Skills";</text>
+    <text x="130" y="302" class="code">goal.card()</text>
+    <text x="130" y="344" class="code-dim">  .route("$goal-mode")</text>
+    <text x="130" y="386" class="code-dim">  .select("best skill")</text>
+    <text x="130" y="428" class="code">  .verify(output)</text>
+    <rect x="130" y="456" width="234" height="2" fill="#D8B56D"/>
+    <rect class="cursor" x="372" y="441" width="10" height="28" rx="3" fill="#F6EFE3"/>
+  </g>
+
+  <path class="flow" d="M512 378 C612 254 786 254 888 378"/>
+  <path class="flow" d="M512 436 C624 556 796 556 904 436"/>
+
+  <g filter="url(#shadow)">
+    <rect x="536" y="244" width="360" height="268" rx="24" fill="#151D1F" stroke="#374342"/>
+    <text x="584" y="304" class="card-title">14 Published Skills</text>
+    <text x="584" y="344" class="small">自动剪辑 · 内容写作 · 信息图</text>
+    <text x="584" y="380" class="small">前端设计 · PRD 执行 · 交付收尾</text>
+    <rect x="584" y="422" width="230" height="14" rx="7" fill="#263130"/>
+    <rect x="584" y="422" width="172" height="14" rx="7" fill="#D8B56D"/>
+    <rect class="scan" x="536" y="244" width="140" height="268" fill="#F6EFE3" fill-opacity="0.08"/>
+  </g>
+
+  <g filter="url(#shadow)" class="float-b">
+    <rect x="958" y="170" width="386" height="418" rx="22" fill="#111719" stroke="#2D3837"/>
+    <text x="1002" y="236" class="card-title">Verified Output</text>
+    <text x="1002" y="286" class="small">README 页面</text>
+    <rect x="1152" y="270" width="106" height="18" rx="9" fill="#62B8A7"/>
+    <text x="1002" y="338" class="small">Skill 功能说明</text>
+    <rect x="1152" y="322" width="142" height="18" rx="9" fill="#D8B56D"/>
+    <text x="1002" y="390" class="small">曲线图与代码动画</text>
+    <rect x="1152" y="374" width="164" height="18" rx="9" fill="#E66B50"/>
+    <text x="1002" y="462" class="code">git push origin main</text>
+    <path d="M1002 506H1296" stroke="#2D3837"/>
+    <text x="1002" y="540" class="small">by 陈硕 / ChenShuo</text>
+  </g>
+</svg>

@@ -6,7 +6,7 @@ ChenShuo Skills 已发布为公开 GitHub 仓库：
 
 [ChenShuo2004/chenshuo-skills](https://github.com/ChenShuo2004/chenshuo-skills)
 
-首版包含 13 个 skill，按 Goal Mode 组织：
+当前包含 14 个已发布 skill，按 Goal Mode 组织：
 
 - 自动剪辑
 - 内容写作
@@ -56,8 +56,9 @@ ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流集合。
 - `open-design`
 - `ralph-runner`
 - `clean-code`
+- `ending-time`
 
-目标：支持目标澄清、前端体验设计、设计产物生成、PRD 执行和工程收尾。
+目标：支持目标澄清、前端体验设计、设计产物生成、PRD 执行、工程质量检查和最终交付收尾。
 
 ## 发布标准
 
@@ -110,7 +111,7 @@ ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流集合。
 
 ### P3：发布体验优化
 
-- 给 README 增加更短的安装区。
+- README 已增加更短的安装区、功能全景、带陈硕署名的 hero 图、代码动画和增长曲线图。
 - 给每个 skill 增加一句“适合 / 不适合”。
 - 根据真实安装反馈调整触发语。
 
