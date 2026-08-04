@@ -2,25 +2,44 @@
 
 ![CS Skills hero](assets/cs-skills-hero.png)
 
-CS Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流。它不是提示词收藏夹，而是一个从目标出发、自动路由、验证结果的精简 skill 库。
+> 一句话说目标，让 Codex 自动选择工作流，把事情推进到可验证的结果。
 
-当前仓库保留 **10 个 active skill**。唯一主入口是 `$cs-run`：先理解目标，再把任务交给最合适的下游 skill。
+CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 
-## 快速开始
+它不是 Prompt 收藏夹，也不是一堆互相抢触发的 skill，而是一套精简的任务系统：
 
-安装主入口：
+```text
+用户目标 → $cs-run → 对应 skill → 验证结果
+```
+
+当前包含 10 个 active skill，覆盖产品设计、工程开发、内容创作、深度调研、电商视频和交付收尾。
+
+## 适合谁
+
+- 用 Codex 做真实产品和 SaaS 的独立开发者。
+- 想把个人工作方法沉淀成可复用 AI 工作流的人。
+- 需要同时处理产品、代码、内容、调研和交付的 AI 创业者。
+- 不想每次都先研究“应该调用哪个 Prompt / skill”的用户。
+
+## 30 秒开始
+
+### 1. 安装主入口
 
 ```text
 帮我安装这个 skill：https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run
 ```
 
-安装后，直接说目标即可：
+`$cs-run` 是任务入口。它负责理解目标、整理输入和输出、识别约束、选择下游 skill，并在你要求执行时继续推进。
+
+> 注意：`cs-run` 负责路由，不会自动下载尚未安装的下游 skill。建议把你常用的下游 skill 一起安装。
+
+### 2. 直接说结果
 
 ```text
-$cs-run 我想把一个想法做成可以上线的产品，帮我拆解并开始执行。
+$cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并开始执行。
 ```
 
-也可以直接调用明确的下游 skill：
+### 3. 也可以直接调用具体能力
 
 ```text
 $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
@@ -30,79 +49,132 @@ $clean-code 检查这次实现，整理代码、文档和测试。
 $ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
 ```
 
-## Skill 总览
+## 它解决什么问题
 
-| 目标 | 推荐入口 | 输出 |
+| 传统问题 | CS Skills 的做法 |
+| --- | --- |
+| 不知道该从哪个 skill 开始 | 统一进入 `$cs-run`，由目标驱动路由 |
+| AI 只给建议，不负责推进 | 每个 skill 都定义输入、输出、流程和验证 |
+| 每次都要重复解释自己的工作方法 | 把真实项目经验沉淀成可复用工作流 |
+| skill 越装越多，触发互相冲突 | 只保留稳定目标，明确入口和边界 |
+| 完成后不知道是否真的交付 | 通过 `$clean-code` 和 `$ending-time` 做质量与发布收尾 |
+
+## Active Skills
+
+### 主入口
+
+| Skill | 功能 | 典型输出 |
 | --- | --- | --- |
-| 不知道该怎么开始或该用哪个 skill | `$cs-run` | Goal Card、路由结果、下一步执行 |
-| 写文章、改稿、提纲、项目故事 | `$cs-writer` | 角度、提纲、文章、改写稿或审稿意见 |
-| 产品、公司、技术、市场或竞品深度调研 | `$search-skill` | 来源、竞品对比、风险和决策建议 |
-| 抖音/电商短视频复刻、分镜和生成包 | `$auto-videl` | 分镜图、首帧图、Seedance/Flow/Veo 提示词和 QC |
-| ChatCut 主题视频的素材筹备与制作蓝图 | `$chatcut-video-blueprint` | 口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
-| 大改前保存回退点 | `$checkpoint-version` | 可恢复的本地 checkpoint |
-| 前端页面、工具、仪表盘设计与评审 | `$frontend-design` | UI 方案、实现约束和浏览器验证清单 |
-| 代码清理、重构、文档同步和质量检查 | `$clean-code` | 有边界的修改、验证命令和交付说明 |
-| Markdown PRD 转 Ralph 并 dry-run | `$ralph-runner` | Ralph PRD、overview、dry-run 日志 |
-| 验证、提交、推送、PR 或部署收尾 | `$ending-time` | 交付验证报告和 GitHub/Vercel 结果 |
+| [$cs-run](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run) | 目标澄清、任务卡和自动路由 | Goal Card、推荐路径、执行结果 |
 
-## `$cs-run` 路由原则
+### 产品与工程
 
-`cs-run` 是唯一总入口，负责：
+| Skill | 功能 | 典型输出 |
+| --- | --- | --- |
+| [$frontend-design](https://github.com/ChenShuo2004/cs-skills/tree/main/frontend-design) | 前端页面、工具、仪表盘设计与评审 | UI 方案、实现约束、浏览器验证 |
+| [$clean-code](https://github.com/ChenShuo2004/cs-skills/tree/main/clean-code) | 代码清理、重构、文档同步和质量检查 | 有边界的修改、测试和交付说明 |
+| [$ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、dry-run 日志 |
+| [$checkpoint-version](https://github.com/ChenShuo2004/cs-skills/tree/main/checkpoint-version) | 大改前保存版本和回退 | 可恢复的本地 checkpoint |
+| [$ending-time](https://github.com/ChenShuo2004/cs-skills/tree/main/ending-time) | 验证、提交、推送、PR 和部署收尾 | 交付报告、GitHub/Vercel 结果 |
 
-1. 读取当前项目上下文和已有文档。
-2. 把模糊请求整理成 Goal Card。
-3. 只询问会改变执行结果的阻塞问题。
-4. 选择一个主 skill，并在用户要求执行时直接继续。
-5. 根据输出和验证标准确认是否完成。
+### 内容、调研与视频
 
-已经退休的能力不会被自动路由：
+| Skill | 功能 | 典型输出 |
+| --- | --- | --- |
+| [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
+| [$search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
+| [$auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
+| [$chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/chatcut-video-blueprint) | ChatCut 视频制作前的策划 | 口播稿、素材清单、Motion Graphics 和逐镜头表 |
 
-- 自动剪辑、时间线渲染、MP4 导出体系。
-- 理想车主信息图体系。
-- Open Design 设计产物体系。
+## 真实使用场景
 
-`auto-videl` 只处理电商短视频创意、分镜、首帧和生成包，不等同于通用自动剪辑。
+### 从想法到产品
+
+```text
+$cs-run 我想做一个帮助独立开发者管理 AI 工作流的 SaaS。
+```
+
+先由 `$cs-run` 整理目标，再根据任务进入 `$frontend-design`、`$clean-code`、`$ralph-runner` 或 `$ending-time`。
+
+### 从项目记录到文章
+
+```text
+$cs-writer 把这次产品开发过程写成一篇适合公众号发布的文章。
+```
+
+它会提炼真实场景、选择文章角度、补齐结构，并避免编造经历、数据和结果。
+
+### 从竞品到决策
+
+```text
+$search-skill 调研这个方向的主要竞品，给出带来源的进入建议。
+```
+
+它会建立研究地图、搜索当前来源、对比竞品，并区分事实、推断、风险和行动建议。
+
+### 从产品图到电商视频
+
+```text
+$auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Google Flow 提示词。
+```
+
+它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
+
+## 设计原则
+
+每个 skill 都应该清楚回答：
+
+1. 目标是什么？
+2. 输入是什么？
+3. 输出是什么？
+4. 核心流程是什么？
+5. 边界在哪里？
+6. 怎么验证完成？
+
+新增 skill 前先确认它解决的是稳定目标，而不是一次性 Prompt；如果可以并入已有 skill，就不新增入口。
+
+## 当前边界
+
+以下方向已经从 active library 中移除：
+
+- 自动剪辑、时间线编排和通用 MP4 渲染。
+- 理想车主信息图生产。
+- Open Design 设计产物。
+
+退休目录保存在工作区外的归档中，不参与 skill 发现。
 
 ## 仓库结构
 
 ```text
 cs-skills/
-  README.md
-  LICENSE
-  assets/
-  docs/
-  auto-videl/
-  chatcut-video-blueprint/
-  checkpoint-version/
-  clean-code/
-  cs-run/
-  cs-writer/
-  ending-time/
-  frontend-design/
-  ralph-runner/
-  search-skill/
+├── README.md
+├── LICENSE
+├── assets/
+├── docs/
+├── cs-run/
+├── cs-writer/
+├── search-skill/
+├── auto-videl/
+├── chatcut-video-blueprint/
+├── frontend-design/
+├── clean-code/
+├── ralph-runner/
+├── checkpoint-version/
+└── ending-time/
 ```
 
 每个 skill 尽量保持自包含：
 
 - `SKILL.md`：触发说明和核心工作流。
-- `agents/openai.yaml`：UI 展示文案和默认 prompt。
+- `agents/openai.yaml`：UI 展示文案和默认 Prompt。
 - `references/`：需要时再读取的详细规则。
 - `scripts/`：可重复执行的确定性脚本。
 - `tests/`：关键脚本或契约的回归测试。
 
-## 维护标准
+## License
 
-新增 skill 前先确认：
-
-1. 它解决的是稳定目标，而不是一次性提示词。
-2. `description` 能清楚说明触发场景。
-3. 有明确的输入、输出、边界和验证方式。
-4. 不重复已有 skill 的入口职责。
-5. 不包含本机绝对路径、私有资料或密钥。
-
-## 视觉资产
+[MIT](LICENSE)
 
 ![CS Skills code animation](assets/skill-code-animation.svg)
 
-![Skill growth curve](assets/skill-growth-curve.svg)
+![CS Skills growth curve](assets/skill-growth-curve.svg)
