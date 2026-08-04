@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-ChenShuo Skills 已收束为 8 个 active skill，并采用单入口架构：
+ChenShuo Skills 已收束为 9 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -34,8 +34,9 @@ ChenShuo Skills 已收束为 8 个 active skill，并采用单入口架构：
 
 - `cs-writer`
 - `auto-videl`
+- `chatcut-video-blueprint`
 
-分别覆盖陈硕风格写作，以及电商短视频复刻、分镜和生成包。
+分别覆盖陈硕风格写作、电商短视频复刻与生成包，以及 ChatCut 视频素材筹备蓝图。
 
 ### 产品、工程与交付
 
@@ -46,6 +47,8 @@ ChenShuo Skills 已收束为 8 个 active skill，并采用单入口架构：
 - `ending-time`
 
 覆盖界面设计、工程质量、PRD 执行、版本回退和最后一公里交付。
+
+`chatcut-video-blueprint` 只负责从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表，不直接修改 ChatCut 项目。
 
 ## 已退休范围
 
@@ -85,6 +88,7 @@ ChenShuo Skills 已收束为 8 个 active skill，并采用单入口架构：
 - `clean-code`：对真实改动做小范围质量收尾。
 - `ralph-runner`：从 Markdown PRD 生成 dry-run。
 - `auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
+- `chatcut-video-blueprint`：用完整 brief 生成一份 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
 - `ending-time`：完成验证、提交、推送和部署收尾。
 
 ### P2：持续收束

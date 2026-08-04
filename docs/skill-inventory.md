@@ -2,7 +2,7 @@
 
 盘点日期：2026-08-04
 
-当前发布数量：8 个 active skill。
+当前发布数量：9 个 active skill。
 
 ## 总览
 
@@ -11,6 +11,7 @@
 | `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
 | `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
 | `auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
+| `chatcut-video-blueprint` | ChatCut 视频策划 | 根据主题和内容生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
 | `checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
 | `clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
@@ -44,6 +45,11 @@ Recommended skill:
 ### 电商视频
 
 - 对标复刻、九宫格分镜、Seedance、Gemini Omni、Google Flow/Veo：`$auto-videl`
+
+### ChatCut 视频筹备
+
+- 主题到口播稿、素材筛选、Motion Graphics 和声音规划：`$chatcut-video-blueprint`
+- 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 
 ### 产品与工程
 

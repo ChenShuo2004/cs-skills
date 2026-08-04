@@ -4,7 +4,7 @@
 
 ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流。它不是提示词收藏夹，而是一个从目标出发、自动路由、验证结果的精简 skill 库。
 
-当前仓库保留 **8 个 active skill**。唯一主入口是 `$cs-run`：先理解目标，再把任务交给最合适的下游 skill。
+当前仓库保留 **9 个 active skill**。唯一主入口是 `$cs-run`：先理解目标，再把任务交给最合适的下游 skill。
 
 ## 快速开始
 
@@ -36,6 +36,7 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 | 不知道该怎么开始或该用哪个 skill | `$cs-run` | Goal Card、路由结果、下一步执行 |
 | 写文章、改稿、提纲、项目故事 | `$cs-writer` | 角度、提纲、文章、改写稿或审稿意见 |
 | 抖音/电商短视频复刻、分镜和生成包 | `$auto-videl` | 分镜图、首帧图、Seedance/Flow/Veo 提示词和 QC |
+| ChatCut 主题视频的素材筹备与制作蓝图 | `$chatcut-video-blueprint` | 口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
 | 大改前保存回退点 | `$checkpoint-version` | 可恢复的本地 checkpoint |
 | 前端页面、工具、仪表盘设计与评审 | `$frontend-design` | UI 方案、实现约束和浏览器验证清单 |
 | 代码清理、重构、文档同步和质量检查 | `$clean-code` | 有边界的修改、验证命令和交付说明 |
@@ -69,6 +70,7 @@ chenshuo-skills/
   assets/
   docs/
   auto-videl/
+  chatcut-video-blueprint/
   checkpoint-version/
   clean-code/
   cs-run/

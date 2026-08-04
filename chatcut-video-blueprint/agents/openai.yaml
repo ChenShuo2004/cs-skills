@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChatCut Video Blueprint"
+  short_description: "Plan ChatCut scripts, media, MG, and sound direction."
+  default_prompt: "Use $chatcut-video-blueprint to turn this topic and source content into a ChatCut-ready script, asset list, Motion Graphics plan, sound plan, and shot map."
