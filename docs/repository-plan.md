@@ -1,8 +1,8 @@
-# ChenShuo Skills Roadmap
+# CS Skills Roadmap
 
 ## 当前状态
 
-ChenShuo Skills 已收束为 9 个 active skill，并采用单入口架构：
+CS Skills 已收束为 10 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果

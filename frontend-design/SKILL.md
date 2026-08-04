@@ -12,7 +12,7 @@ Use this skill to make frontend work feel like a real product, not a decorative 
 
 It helps Codex turn a vague UI request into a usable interface with clear business flow, information hierarchy, interaction states, responsive layout, and visual verification.
 
-For ChenShuo Skills, this skill should act as the frontend product taste layer: practical, polished, workflow-first, and careful about verification.
+For CS Skills, this skill should act as the frontend product taste layer: practical, polished, workflow-first, and careful about verification.
 
 ## When To Use
 

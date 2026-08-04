@@ -1,7 +1,7 @@
 ---
 name: cs-run
 description: |
-  Use as the main ChenShuo Skills entrypoint when the user does not explicitly name a downstream skill, asks Codex to execute or organize a task, or the goal is still unclear. Trigger for "$cs-run", "cs-run", "帮我执行", "帮我处理", "不知道用哪个 skill", "先规划再做", and vague product, content, engineering, design, or workflow requests. Turn intent into a compact Goal Card, ask only blocking questions, route to exactly one active skill, and continue through that skill when execution is requested.
+  Use as the main CS Skills entrypoint when the user does not explicitly name a downstream skill, asks Codex to execute or organize a task, or the goal is still unclear. Trigger for "$cs-run", "cs-run", "帮我执行", "帮我处理", "不知道用哪个 skill", "先规划再做", and vague product, content, engineering, design, or workflow requests. Turn intent into a compact Goal Card, ask only blocking questions, route to exactly one active skill, and continue through that skill when execution is requested.
 ---
 
 # CS Run

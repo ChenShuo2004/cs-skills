@@ -1,6 +1,6 @@
 <svg width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">ChenShuo Skills code animation</title>
-  <desc id="desc">Animated code and workflow map for ChenShuo Skills.</desc>
+  <title id="title">CS Skills code animation</title>
+  <desc id="desc">Animated code and workflow map for CS Skills.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="760" gradientUnits="userSpaceOnUse">
       <stop stop-color="#070A0C"/>
@@ -45,7 +45,7 @@
   <path d="M94 116H1346" stroke="#202A2B"/>
   <path d="M94 644H1346" stroke="#202A2B"/>
 
-  <text x="96" y="78" class="title">ChenShuo Skills · 代码动画</text>
+  <text x="96" y="78" class="title">CS Skills · 代码动画</text>
   <text x="96" y="116" class="subtitle">陈硕的 AI Agent Skill 仓库：Goal → Skill → Verified Output</text>
 
   <g filter="url(#shadow)" class="float-a">
@@ -53,7 +53,7 @@
     <circle cx="132" cy="210" r="7" fill="#E66B50"/>
     <circle cx="158" cy="210" r="7" fill="#D8B56D"/>
     <circle cx="184" cy="210" r="7" fill="#62B8A7"/>
-    <text x="130" y="260" class="code-dim">const repo = "ChenShuo Skills";</text>
+    <text x="130" y="260" class="code-dim">const repo = "cs-skills";</text>
     <text x="130" y="302" class="code">goal.card()</text>
     <text x="130" y="344" class="code-dim">  .route("$cs-run")</text>
     <text x="130" y="386" class="code-dim">  .select("best skill")</text>
@@ -67,7 +67,7 @@
 
   <g filter="url(#shadow)">
     <rect x="536" y="244" width="360" height="268" rx="24" fill="#151D1F" stroke="#374342"/>
-    <text x="584" y="304" class="card-title">8 Active Skills</text>
+    <text x="584" y="304" class="card-title">10 Active Skills</text>
     <text x="584" y="344" class="small">电商视频 · 内容写作 · 前端设计</text>
     <text x="584" y="380" class="small">版本回退 · Ralph 执行 · 交付收尾</text>
     <rect x="584" y="422" width="230" height="14" rx="7" fill="#263130"/>

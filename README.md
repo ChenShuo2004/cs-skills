@@ -1,17 +1,17 @@
-# ChenShuo Skills
+# CS Skills
 
-![ChenShuo Skills hero](assets/chenshuo-skills-hero.png)
+![CS Skills hero](assets/cs-skills-hero.png)
 
-ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流。它不是提示词收藏夹，而是一个从目标出发、自动路由、验证结果的精简 skill 库。
+CS Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流。它不是提示词收藏夹，而是一个从目标出发、自动路由、验证结果的精简 skill 库。
 
-当前仓库保留 **9 个 active skill**。唯一主入口是 `$cs-run`：先理解目标，再把任务交给最合适的下游 skill。
+当前仓库保留 **10 个 active skill**。唯一主入口是 `$cs-run`：先理解目标，再把任务交给最合适的下游 skill。
 
 ## 快速开始
 
 安装主入口：
 
 ```text
-帮我安装这个 skill：https://github.com/ChenShuo2004/chenshuo-skills/tree/main/cs-run
+帮我安装这个 skill：https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run
 ```
 
 安装后，直接说目标即可：
@@ -66,7 +66,7 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 ## 仓库结构
 
 ```text
-chenshuo-skills/
+cs-skills/
   README.md
   LICENSE
   assets/
@@ -103,6 +103,6 @@ chenshuo-skills/
 
 ## 视觉资产
 
-![ChenShuo Skills code animation](assets/skill-code-animation.svg)
+![CS Skills code animation](assets/skill-code-animation.svg)
 
 ![Skill growth curve](assets/skill-growth-curve.svg)
