@@ -1,7 +1,7 @@
 interface:
   display_name: "Search Skill"
-  short_description: "Deep competitor research with source-backed decisions."
-  default_prompt: "Use $search-skill to research this market or competitor and produce a source-backed decision brief."
+  short_description: "Source-backed research with text or PDF report handoff."
+  default_prompt: "Use $search-skill to research this market or competitor, then ask whether I want text or a PDF for a formal report."
 
 policy:
   allow_implicit_invocation: true
