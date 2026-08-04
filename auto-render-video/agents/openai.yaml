@@ -1,4 +1,0 @@
-interface:
-  display_name: "自动成片"
-  short_description: "按素材和 render-plan 直接剪辑并导出 MP4。"
-  default_prompt: "使用 $auto-render-video，根据素材和剪辑计划直接渲染视频。"

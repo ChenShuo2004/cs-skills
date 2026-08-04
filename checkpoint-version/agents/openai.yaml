@@ -1,0 +1,4 @@
+interface:
+  display_name: "Checkpoint Version"
+  short_description: "保存当前仓库版本，给大改前留下可恢复的本地回退点。"
+  default_prompt: "$checkpoint-version 保存当前仓库版本，包含 staged、unstaged 和未跟踪文件，方便我回退。"

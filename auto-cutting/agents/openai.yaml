@@ -1,4 +1,0 @@
-interface:
-  display_name: "自动剪辑"
-  short_description: "规划、渲染并验证自动剪辑流程。"
-  default_prompt: "使用 $auto-cutting 把自动剪辑需求整理成可验证流程，并在需要时直接渲染视频。"

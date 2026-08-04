@@ -1,4 +1,0 @@
-interface:
-  display_name: "自动剪辑 Ralph"
-  short_description: "把自动剪辑需求拆成 Ralph PRD 并跑安全 dry-run。"
-  default_prompt: "使用 $auto-cutting-ralph，把自动剪辑需求拆成 Ralph PRD 并运行 dry-run。"

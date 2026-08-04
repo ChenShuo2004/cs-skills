@@ -1,4 +1,0 @@
-interface:
-  display_name: "Open Design"
-  short_description: "Use local Open Design for artifact-first design workflows."
-  default_prompt: "Use $open-design to turn my brief into a polished design artifact."

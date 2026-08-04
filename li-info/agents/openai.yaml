@@ -1,4 +1,0 @@
-interface:
-  display_name: "理想信息图"
-  short_description: "短命令触发理想车主信息图生成工作流。"
-  default_prompt: "Use $li-info to create main-content-first Li Auto owner infographics from account links or daily use scenarios."

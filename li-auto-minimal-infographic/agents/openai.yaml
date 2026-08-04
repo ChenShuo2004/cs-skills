@@ -1,7 +1,0 @@
-interface:
-  display_name: "Li Auto 极简信息图"
-  short_description: "制作理想车主极简分享码信息图，含提问、生成、质检与归档"
-  brand_color: "#12362D"
-  default_prompt: "Use $li-auto-minimal-infographic to ask intake questions and create a Li Auto owner minimal share-code infographic with the right account, goal, CTA, IP style, and forbidden-content rules."
-policy:
-  allow_implicit_invocation: true

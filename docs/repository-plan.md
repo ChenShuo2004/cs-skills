@@ -2,26 +2,19 @@
 
 ## 当前状态
 
-ChenShuo Skills 已发布为公开 GitHub 仓库：
+ChenShuo Skills 已收束为 8 个 active skill，并采用单入口架构：
 
-[ChenShuo2004/chenshuo-skills](https://github.com/ChenShuo2004/chenshuo-skills)
+```text
+用户目标 → cs-run → 一个下游 skill → 验证结果
+```
 
-当前包含 14 个已发布 skill，按 Goal Mode 组织：
-
-- 自动剪辑
-- 内容写作
-- 理想车主信息图
-- 前端产品设计
-- Open Design 设计产物
-- Ralph PRD 执行
-- 代码质量和交付收尾
-- 目标澄清和 skill 路由
+主入口是 `$cs-run`，写作入口是 `$cs-writer`。
 
 ## 仓库定位
 
-ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流集合。
+这个仓库只保留真实项目中反复使用、目标稳定、可以验证的工作流。
 
-它的核心不是“提示词收藏”，而是“目标驱动的工作流入口”。每个 skill 都必须回答：
+每个 skill 都必须回答：
 
 1. 目标是什么？
 2. 输入是什么？
@@ -29,96 +22,73 @@ ChenShuo Skills 是陈硕在真实项目里沉淀的 AI Agent 工作流集合。
 4. 核心流程是什么？
 5. 怎么验证完成？
 
-## 首版 Skill
+## Active Skills
 
-### 自动剪辑组
+### 总入口
 
-- `auto-cutting`
-- `auto-cutting-prd`
-- `auto-cutting-ralph`
-- `auto-render-video`
+- `cs-run`
 
-目标：把自动剪辑从“想法”推进到“需求、计划、执行、验证”的闭环。
+负责读取项目上下文、生成 Goal Card、提出最小阻塞问题、选择下游 skill，并在用户要求时继续执行。
 
-### 内容与信息图组
+### 内容与电商视频
 
-- `happy-writer`
-- `li-auto-infographic-suite`
-- `li-auto-minimal-infographic`
-- `li-info`
+- `cs-writer`
+- `auto-videl`
 
-目标：把真实项目素材转成可发布内容，并支持理想车主信息图生产。
+分别覆盖陈硕风格写作，以及电商短视频复刻、分镜和生成包。
 
-### 设计、工程与执行组
+### 产品、工程与交付
 
-- `goal-mode`
 - `frontend-design`
-- `open-design`
-- `ralph-runner`
 - `clean-code`
+- `ralph-runner`
+- `checkpoint-version`
 - `ending-time`
 
-目标：支持目标澄清、前端体验设计、设计产物生成、PRD 执行、工程质量检查和最终交付收尾。
+覆盖界面设计、工程质量、PRD 执行、版本回退和最后一公里交付。
+
+## 已退休范围
+
+以下方向已经移出 active library：
+
+- 自动剪辑、时间线编排、MP4 渲染。
+- 理想车主信息图。
+- Open Design 设计产物。
+
+相关目录保存在工作区外的退休归档中，不参与 skill 发现。
 
 ## 发布标准
 
-每个 skill 发布前必须满足：
+每个 active skill 发布前必须满足：
 
 1. `SKILL.md` 有合法 frontmatter。
 2. `description` 能明确触发场景。
-3. `agents/openai.yaml` 存在，且默认 prompt 包含 `$skill-name`。
-4. 不包含本机绝对路径、账号、访问密钥、私有资料或不可公开链接。
-5. 复杂规则放到 `references/`，不要堆在 `SKILL.md`。
-6. 能说明目标、输入、输出、流程和验证方式。
+3. `agents/openai.yaml` 存在，默认 prompt 包含 `$skill-name`。
+4. 不包含本机绝对路径、账号、访问密钥或私有资料。
+5. 复杂规则放进 `references/`，保持 `SKILL.md` 可读。
+6. 能说明目标、输入、输出、流程、边界和验证方式。
 
-## 下一阶段
+## 下一步
 
-### P0：安装验证
+### P0：入口回归
 
-用新会话逐个测试关键安装链接：
+用新会话验证：
 
-```text
-帮我安装这个 skill：https://github.com/ChenShuo2004/chenshuo-skills/tree/main/happy-writer
-```
-
-重点验证：
-
-- 能否安装。
-- 是否按描述触发。
-- `references/` 是否能被按需读取。
-- `agents/openai.yaml` 是否展示正常。
-- `$goal-mode` 是否能在没有平台 Goal UI 时生成任务卡。
+- `$cs-run` 能把模糊产品任务路由到正确 skill。
+- `$cs-run` 不会把退休的自动剪辑、理想信息图或 Open Design 任务误路由到其他 skill。
+- `$cs-writer` 能直接完成提纲、文章、改稿和审稿。
 
 ### P1：真实任务回归
 
-用真实任务验证这些核心 skill：
+- `cs-writer`：用真实项目记录生成一篇文章。
+- `frontend-design`：完成一个页面设计和浏览器检查。
+- `clean-code`：对真实改动做小范围质量收尾。
+- `ralph-runner`：从 Markdown PRD 生成 dry-run。
+- `auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
+- `ending-time`：完成验证、提交、推送和部署收尾。
 
-- `happy-writer`：用一份项目素材生成文章。
-- `clean-code`：对一个真实代码改动做收尾。
-- `auto-render-video`：用 render-plan 生成并验证 MP4。
-- `frontend-design`：对一个本地 UI 做实现和浏览器检查。
+### P2：持续收束
 
-### P2：补案例
-
-后续可以新增 `examples/`，但不要在首版塞太多样例。
-
-建议案例：
-
-- `examples/happy-writer-project-post.md`
-- `examples/clean-code-handoff.md`
-- `examples/auto-render-video-plan.json`
-- `examples/frontend-design-review.md`
-
-### P3：发布体验优化
-
-- README 已增加更短的安装区、功能全景、带陈硕署名的 hero 图、代码动画和增长曲线图。
-- 给每个 skill 增加一句“适合 / 不适合”。
-- 根据真实安装反馈调整触发语。
-
-## 风险与待确认
-
-1. `li-auto-*` 相关 skill 依赖用户本地素材库，公开仓库只保留流程，不包含私有素材。
-2. `open-design` 依赖用户本地 Open Design 项目，路径必须由使用者提供或现场解析。
-3. `ralph-runner` 依赖本地 Ralph/Codex 环境，默认只做 dry-run 和 no-commit。
-4. `auto-render-video` 依赖 FFmpeg/FFprobe 或目标项目已有渲染链路。
-5. `happy-writer` 和 `clean-code` 需要真实任务继续打磨触发边界。
+- 新需求先进入 `$cs-run`，不要直接新增同义入口。
+- 只有连续出现、边界稳定、输出可验证的任务，才拆成独立 skill。
+- 每次新增 skill 都检查是否可以并入现有 skill。

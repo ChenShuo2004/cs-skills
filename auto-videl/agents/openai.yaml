@@ -1,0 +1,6 @@
+interface:
+  display_name: "auto Videl"
+  short_description: "复刻电商短视频，生成分镜、Seedance、Gemini Omni 或 Google Flow 提示词"
+  default_prompt: "Use $auto-videl google-flow to turn this product and benchmark video into 8-second Google Flow first-frame-to-video clips with first-frame images, Flow prompts, and optional voiceover lines."
+policy:
+  allow_implicit_invocation: true

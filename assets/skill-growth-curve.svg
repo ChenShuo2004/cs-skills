@@ -1,6 +1,6 @@
 <svg width="1440" height="760" viewBox="0 0 1440 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">ChenShuo Skills growth curve</title>
-  <desc id="desc">A premium growth chart showing ChenShuo Skills reaching 14 published skills.</desc>
+  <desc id="desc">A premium growth chart showing ChenShuo Skills reaching 8 active skills.</desc>
   <defs>
     <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1130 152) rotate(132) scale(760 440)">
       <stop stop-color="#D8B56D" stop-opacity="0.3"/>
@@ -46,14 +46,14 @@
   <path d="M80 650H1360" stroke="#202A2B"/>
 
   <text x="82" y="78" class="title">陈硕的 Skill 仓库曲线</text>
-  <text x="82" y="116" class="subtitle">ChenShuo Skills · 14 个可安装、可验证、可持续维护的 AI Agent 工作流</text>
+  <text x="82" y="116" class="subtitle">ChenShuo Skills · 8 个可安装、可验证、可持续维护的 AI Agent 工作流</text>
 
   <g filter="url(#shadow)">
     <rect x="82" y="156" width="804" height="494" rx="22" fill="url(#panel)" stroke="#2C3736"/>
   </g>
   <text x="118" y="216" class="label">Skill 发布增长</text>
   <text x="720" y="216" class="small">当前总量</text>
-  <text x="792" y="220" class="num">14</text>
+  <text x="792" y="220" class="num">8</text>
 
   <line x1="150" y1="562" x2="820" y2="562" class="axis"/>
   <line x1="150" y1="562" x2="150" y2="274" class="axis"/>
@@ -63,10 +63,10 @@
   <line x1="150" y1="274" x2="820" y2="274" class="grid"/>
 
   <text x="112" y="568" class="muted">0</text>
-  <text x="104" y="496" class="muted">4</text>
-  <text x="104" y="424" class="muted">8</text>
-  <text x="96" y="352" class="muted">12</text>
-  <text x="96" y="280" class="muted">14</text>
+  <text x="104" y="496" class="muted">2</text>
+  <text x="104" y="424" class="muted">4</text>
+  <text x="96" y="352" class="muted">6</text>
+  <text x="104" y="280" class="muted">8</text>
 
   <path d="M194 328 C310 326 406 310 506 300 C604 290 704 278 790 278 L790 562 L194 562 Z" fill="#62B8A7" fill-opacity="0.12"/>
   <path d="M194 328 C310 326 406 310 506 300 C604 290 704 278 790 278" stroke="#1D2728" stroke-width="18" stroke-linecap="round"/>
@@ -74,20 +74,20 @@
 
   <g class="pulse">
     <circle cx="194" cy="328" r="14" fill="#E66B50" stroke="#FFE6D6" stroke-width="4"/>
-    <text x="177" y="302" class="num">12</text>
+    <text x="177" y="302" class="num">4</text>
   </g>
   <g class="pulse">
     <circle cx="506" cy="300" r="14" fill="#D8B56D" stroke="#FFF3CD" stroke-width="4"/>
-    <text x="490" y="274" class="num">13</text>
+    <text x="490" y="274" class="num">6</text>
   </g>
   <g class="pulse">
     <circle cx="790" cy="278" r="14" fill="#62B8A7" stroke="#D9FFF8" stroke-width="4"/>
-    <text x="774" y="252" class="num">14</text>
+    <text x="774" y="252" class="num">8</text>
   </g>
 
   <text x="160" y="608" class="small">2026-05-25 首批</text>
-  <text x="450" y="608" class="small">+ goal-mode</text>
-  <text x="700" y="608" class="small">+ ending-time</text>
+  <text x="450" y="608" class="small">+ cs-run</text>
+  <text x="640" y="608" class="small">+ cs-writer / auto-videl / checkpoint</text>
 
   <g filter="url(#shadow)">
     <rect x="930" y="156" width="428" height="494" rx="22" fill="url(#panel)" stroke="#2C3736"/>
@@ -95,17 +95,17 @@
   <text x="966" y="216" class="label">分组结构</text>
   <text x="966" y="252" class="subtitle">从目标到交付的工作流矩阵</text>
 
-  <text x="966" y="330" class="small">自动剪辑</text>
+  <text x="966" y="330" class="small">电商视频</text>
   <rect x="966" y="354" width="330" height="28" rx="14" fill="#263130"/>
-  <rect x="966" y="354" width="220" height="28" rx="14" fill="#E66B50"/>
-  <text x="1310" y="376" class="small">4</text>
+  <rect x="966" y="354" width="62" height="28" rx="14" fill="#E66B50"/>
+  <text x="1310" y="376" class="small">1</text>
 
-  <text x="966" y="426" class="small">内容与信息图</text>
+  <text x="966" y="426" class="small">内容写作</text>
   <rect x="966" y="450" width="330" height="28" rx="14" fill="#263130"/>
-  <rect x="966" y="450" width="220" height="28" rx="14" fill="#D8B56D"/>
-  <text x="1310" y="472" class="small">4</text>
+  <rect x="966" y="450" width="62" height="28" rx="14" fill="#D8B56D"/>
+  <text x="1310" y="472" class="small">1</text>
 
-  <text x="966" y="522" class="small">设计、工程与交付</text>
+  <text x="966" y="522" class="small">路由、设计、工程与交付</text>
   <rect x="966" y="546" width="330" height="28" rx="14" fill="#263130"/>
   <rect x="966" y="546" width="330" height="28" rx="14" fill="#62B8A7"/>
   <text x="1310" y="568" class="small">6</text>

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Goal Mode"
-  short_description: "Clarify goals and route to the right ChenShuo skill."
-  default_prompt: "Use $goal-mode to clarify my intent, fill a Goal Card, and recommend the right next skill."
-
-policy:
-  allow_implicit_invocation: true

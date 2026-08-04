@@ -9,9 +9,11 @@ node_modules/
 dist/
 build/
 coverage/
+output/
 .cache/
 .next/
 .turbo/
+.codex-checkpoints/
 
 *.log
 *.tmp
@@ -21,3 +23,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+# Local experiments and generated artifacts; keep the skill library focused.
+gsap-timeline-video/
+xhs-time-wealth-*/

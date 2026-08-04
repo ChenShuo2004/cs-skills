@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS Run"
+  short_description: "Route every task to the right ChenShuo skill."
+  default_prompt: "Use $cs-run to understand my goal and route this task to the right skill."

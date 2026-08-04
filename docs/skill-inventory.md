@@ -1,86 +1,72 @@
 # Skill Inventory
 
-盘点日期：2026-06-04
+盘点日期：2026-08-04
 
-本文件只记录当前仓库内发布的 skill。
-
-当前发布数量：14 个。
+当前发布数量：8 个 active skill。
 
 ## 总览
 
 | Skill | 分组 | 目标 | 主要资源 |
 | --- | --- | --- | --- |
-| `auto-cutting` | 自动剪辑 | 规划、实现、渲染和验证自动剪辑流程 | `references/`, `assets/`, `scripts/` |
-| `auto-cutting-prd` | 自动剪辑 | 把自动剪辑想法整理成需求文档、剪辑方案或 Ralph PRD | `agents/openai.yaml` |
-| `auto-cutting-ralph` | 自动剪辑 | 把自动剪辑需求交给 Ralph dry-run 执行 | `agents/openai.yaml` |
-| `auto-render-video` | 自动剪辑 | 根据素材和 render-plan 直接导出 MP4 | `agents/openai.yaml` |
-| `goal-mode` | 目标路由 | 澄清目标并推荐下一步 skill | `agents/openai.yaml` |
-| `happy-writer` | 内容创作 | 把真实项目素材写成温暖、实用、好奇心驱动内容 | `references/style-guide.md` |
-| `li-auto-infographic-suite` | 信息图 | 生产理想车主信息图套图并做 QA/归档 | `references/current-workflow.md` |
-| `li-auto-minimal-infographic` | 信息图 | 生成极简分享码信息图 | `references/minimal-style-spec.md` |
-| `li-info` | 信息图 | 快速触发理想信息图工作流 | `agents/openai.yaml` |
-| `ending-time` | 工程发布 | 完成实现收尾、验证、GitHub 推送和 Vercel 部署 | `agents/openai.yaml` |
-| `frontend-design` | 设计 | 指导前端产品设计、实现和评审 | `agents/openai.yaml` |
-| `open-design` | 设计 | 使用本地 Open Design 项目生成设计产物 | `references/open-design-map.md` |
-| `ralph-runner` | 执行 | 把 Markdown 需求转成 Ralph PRD 并安全 dry-run | `references/` |
-| `clean-code` | 工程质量 | 清理代码、同步文档、验证交付状态 | `references/review-checklist.md` |
+| `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
+| `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
+| `auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
+| `checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
+| `frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
+| `clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
+| `ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
+| `ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 
-## Goal 分组
+## 主入口
 
-### 自动剪辑
+所有未明确指定 skill 的任务优先进入 `$cs-run`。
 
-目标：把视频制作从想法推进到方案、执行和验证。
+它维护 Goal Card：
 
-推荐入口：
+```text
+Goal:
+Inputs:
+Expected output:
+Audience/user:
+Constraints:
+Validation:
+Recommended skill:
+```
 
-- 只有想法：`$auto-cutting-prd`
-- 直接成片：`$auto-render-video`
-- 工程闭环：`$auto-cutting-ralph`
-- 不确定模式：`$auto-cutting`
+路由只选择一个主 skill。只有必要的验证或交付步骤，才追加第二个 skill。
 
-### 内容创作
+## 领域路由
 
-目标：把真实项目素材写成有温度、有方法、有可执行价值的内容。
+### 内容
 
-推荐入口：
+- 文章、提纲、项目记录、工具体验、改稿：`$cs-writer`
 
-- 文章、改稿、提纲：`$happy-writer`
+### 电商视频
 
-### 信息图
+- 对标复刻、九宫格分镜、Seedance、Gemini Omni、Google Flow/Veo：`$auto-videl`
 
-目标：围绕理想车主场景生成清晰、可发布的信息图。
+### 产品与工程
 
-推荐入口：
+- 页面、工具、仪表盘：`$frontend-design`
+- 代码清理、重构、文档同步：`$clean-code`
+- Markdown PRD 到 Ralph：`$ralph-runner`
+- 大改前保存或恢复：`$checkpoint-version`
+- 提交、推送、PR、部署：`$ending-time`
 
-- 快速入口：`$li-info`
-- 完整套图：`$li-auto-infographic-suite`
-- 极简分享码：`$li-auto-minimal-infographic`
+## 已退休能力
 
-### 设计与工程
+当前库不再提供：
 
-目标：把产品界面、设计产物、PRD 执行和代码交付串成闭环。
+- 自动剪辑和通用 MP4 渲染。
+- 理想车主信息图。
+- Open Design 设计产物。
 
-推荐入口：
+不要为退休能力保留兼容别名，否则会重新制造触发冲突。
 
-- 目标不清楚：`$goal-mode`
-- 收尾发布：`$ending-time`
-- 前端体验：`$frontend-design`
-- 设计产物：`$open-design`
-- PRD dry-run：`$ralph-runner`
-- 工程收尾：`$clean-code`
+## 发布前检查
 
-## 维护检查
-
-更新仓库时检查：
-
-1. 新 skill 是否服务一个稳定 goal。
-2. `SKILL.md` 是否有清晰触发语。
-3. `agents/openai.yaml` 是否与 `SKILL.md` 对齐。
-4. 是否含有本机路径、私有资料或不可公开链接。
-5. README 的 Goal Mode 是否需要更新。
-
-## README 展示资产
-
-- `assets/chenshuo-skills-hero.png`：带 `ChenShuo Skills` 和 `陈硕的 Skill 仓库` 文案的仓库首页 hero 图。
-- `assets/skill-code-animation.svg`：用 SVG/CSS 生成的代码动画和工作流关系图。
-- `assets/skill-growth-curve.svg`：仓库 skill 增长曲线和分组结构图。
+1. `SKILL.md` 有合法 frontmatter。
+2. `description` 能明确触发场景。
+3. `agents/openai.yaml` 与 skill 名称一致。
+4. `cs-run` 的路由表不指向已删除 skill。
+5. 新 skill 有明确目标、输入、输出、边界和验证方式。

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Happy Writer"
-  short_description: "Write warm, useful content from real project work."
-  default_prompt: "Use $happy-writer to turn my material into a warm, practical ChenShuo-style article."
-
-policy:
-  allow_implicit_invocation: true

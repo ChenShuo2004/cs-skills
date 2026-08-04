@@ -1,4 +1,0 @@
-interface:
-  display_name: "自动剪辑 PRD"
-  short_description: "把自动剪辑想法整理成需求、方案或 Ralph PRD。"
-  default_prompt: "使用 $auto-cutting-prd，把自动剪辑想法整理成可执行需求文档和 PRD。"

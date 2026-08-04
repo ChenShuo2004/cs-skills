@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS Writer"
+  short_description: "Turn real work into useful ChenShuo-style writing."
+  default_prompt: "Use $cs-writer to turn my material into a clear, warm, practical article."

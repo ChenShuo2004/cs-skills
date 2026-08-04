@@ -1,4 +1,0 @@
-interface:
-  display_name: "理想信息图套图"
-  short_description: "按账号链接或日常场景生成主体优先的信息图。"
-  default_prompt: "Use $li-auto-infographic-suite to create main-content-first Li Auto owner infographics from account links or daily use scenarios."

@@ -55,7 +55,7 @@
     <circle cx="184" cy="210" r="7" fill="#62B8A7"/>
     <text x="130" y="260" class="code-dim">const repo = "ChenShuo Skills";</text>
     <text x="130" y="302" class="code">goal.card()</text>
-    <text x="130" y="344" class="code-dim">  .route("$goal-mode")</text>
+    <text x="130" y="344" class="code-dim">  .route("$cs-run")</text>
     <text x="130" y="386" class="code-dim">  .select("best skill")</text>
     <text x="130" y="428" class="code">  .verify(output)</text>
     <rect x="130" y="456" width="234" height="2" fill="#D8B56D"/>
@@ -67,9 +67,9 @@
 
   <g filter="url(#shadow)">
     <rect x="536" y="244" width="360" height="268" rx="24" fill="#151D1F" stroke="#374342"/>
-    <text x="584" y="304" class="card-title">14 Published Skills</text>
-    <text x="584" y="344" class="small">自动剪辑 · 内容写作 · 信息图</text>
-    <text x="584" y="380" class="small">前端设计 · PRD 执行 · 交付收尾</text>
+    <text x="584" y="304" class="card-title">8 Active Skills</text>
+    <text x="584" y="344" class="small">电商视频 · 内容写作 · 前端设计</text>
+    <text x="584" y="380" class="small">版本回退 · Ralph 执行 · 交付收尾</text>
     <rect x="584" y="422" width="230" height="14" rx="7" fill="#263130"/>
     <rect x="584" y="422" width="172" height="14" rx="7" fill="#D8B56D"/>
     <rect class="scan" x="536" y="244" width="140" height="268" fill="#F6EFE3" fill-opacity="0.08"/>
