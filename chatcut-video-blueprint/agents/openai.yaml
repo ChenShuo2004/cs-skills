@@ -1,4 +1,4 @@
 interface:
-  display_name: "ChatCut Video Blueprint"
-  short_description: "Plan ChatCut scripts, media, MG, and sound direction."
-  default_prompt: "Use $chatcut-video-blueprint to turn this topic and source content into a ChatCut-ready script, asset list, Motion Graphics plan, sound plan, and shot map."
+  display_name: "ChatCut 视频制作蓝图"
+  short_description: "为 ChatCut 规划中文口播稿、素材、MG 和声音方向"
+  default_prompt: "使用 $chatcut-video-blueprint，把这个主题和相关内容整理成中文口播稿、素材清单、Motion Graphics 方案、声音设计和逐镜头表。"

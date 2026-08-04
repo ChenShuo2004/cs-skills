@@ -1,198 +1,206 @@
 ---
 name: chatcut-video-blueprint
-description: "Use when the user provides a video topic and source content and wants a ChatCut-ready production blueprint: a spoken script, prioritized media checklist, Motion Graphics plan, sound effects and music direction, and a shot-by-shot map. Use for planning materials before manual ChatCut assembly; do not use for direct timeline editing, importing, exporting, or ecommerce replication workflows."
+description: "当用户提供视频主题和相关内容，并希望为 ChatCut 准备制作蓝图时使用：输出中文口播稿、按优先级整理的素材清单、Motion Graphics 方案、音效与音乐方向及逐镜头总表。用于人工在 ChatCut 中组装前的策划；不要用于直接修改时间线、导入导出素材或电商视频复刻。除非用户指定其他语言，默认使用中文输出。"
 ---
 
-# ChatCut Video Blueprint
+# ChatCut 视频制作蓝图
 
-## Purpose and boundary
+## 目标与边界
 
-Turn a complete video brief into a practical production blueprint that the user can use to collect media and assemble manually in ChatCut.
+把完整的视频 brief 整理成可执行的制作蓝图，帮助用户准备素材，再手动在 ChatCut 中完成组装。
 
-Keep this skill planning-only:
+严格保持策划边界：
 
-- Do not create, target, or modify a ChatCut project.
-- Do not upload, import, export, render, or place assets on a timeline.
-- Do not author Motion Graphic JSX or call ChatCut MCP tools.
-- Do not invent a digital-human appearance, wardrobe, avatar, or acting design. Support a digital human only through the spoken script and delivery annotations.
-- If the user asks for direct ChatCut execution, state that this skill produces the handoff blueprint and ask them to continue with the appropriate ChatCut editing workflow.
+- 不创建、选择或修改 ChatCut 项目。
+- 不上传、导入、导出、渲染或把素材放入时间线。
+- 不编写 Motion Graphics JSX，不调用 ChatCut MCP 工具。
+- 不设计数字人的外貌、服装、头像或表演方式。数字人只通过口播稿和表达标注得到支持。
+- 如果用户要求直接操作 ChatCut，说明本 Skill 只负责制作蓝图，并将后续操作交给对应的 ChatCut 编辑工作流。
 
-Use ChatCut terminology precisely: call animated visual layers **Motion Graphics**, distinguish transparent overlays from opaque full-frame beats, and describe timing in relation to the final spoken structure.
+准确使用 ChatCut 术语：把动画视觉层称为 **Motion Graphics**，区分透明叠加和全屏不透明画面，并让时间安排对应最终口播结构。
 
-## Intake gate
+## 语言规则
 
-Collect and verify the following brief before drafting the production output. Treat each field as required unless the user explicitly marks it as not applicable.
+- 除非用户明确指定其他语言，所有面向用户的提问、说明、表格和交付内容都使用简体中文。
+- 保留产品和技术的标准名称，例如 ChatCut、Motion Graphics、BGM、SFX、A-roll、B-roll、CTA、JSX、MCP。
+- 用户提供英文素材时，可以保留必要的英文原文，但解释、结构和制作建议仍使用中文。
+- 不要因为 `agents/openai.yaml` 或路由元数据使用英文技术字段，就把最终交付改成英文。
 
-| Field | Required information |
+## 输入 brief 门槛
+
+在开始写制作方案前，先收集并核对以下信息。除非用户明确说明“不适用”，否则每一项都视为必填。
+
+| 字段 | 必须明确的内容 |
 | --- | --- |
-| Topic and goal | What the video is about and what the viewer should understand or do |
-| Source content | Raw copy, notes, transcript, product facts, reference URL, or other material to use |
-| Platform | For example TikTok, Douyin, Shorts, Instagram Reels, or another destination |
-| Duration | Target finished length, such as 30 seconds or 90 seconds |
-| Aspect ratio | For example 9:16, 1:1, or 16:9 |
-| Audience | Who is watching and what they already know |
-| Tone and pace | For example calm, direct, educational, urgent, conversational, or high-energy |
-| Visual style | Concrete reference, brand direction, or a named visual language |
-| CTA | The intended next action, or the explicit value `无 CTA` |
+| 主题与目标 | 视频讲什么，以及观众看完后要理解什么或做什么 |
+| 原始内容 | 原稿、笔记、逐字稿、产品事实、参考链接或其他可用资料 |
+| 发布平台 | 例如抖音、TikTok、Shorts、Instagram Reels 或其他平台 |
+| 成片时长 | 例如 30 秒、60 秒或 90 秒 |
+| 画幅比例 | 例如 9:16、1:1 或 16:9 |
+| 目标受众 | 谁在看，以及他们已经知道什么 |
+| 语气与节奏 | 例如平静、直接、教程感、紧迫、自然或高能 |
+| 视觉风格 | 具体参考、品牌方向或明确的视觉语言 |
+| CTA | 观众下一步要做什么；没有 CTA 时明确写“无 CTA” |
 
-Ask for all missing fields in one concise follow-up. Do not start writing the script or fabricate defaults while a required field is missing. Use optional context only after the gate is complete:
+缺少信息时，一次性列出所有缺失字段并等待用户补充。不要在必填信息缺失时先写稿，也不要擅自套用默认平台、时长、比例或风格。brief 完整后，再询问或吸收这些可选信息：
 
-- Brand colors, fonts, logo, product images, or mandatory on-screen elements.
-- Existing A-roll, B-roll, screenshots, charts, documents, or audio assets.
-- Caption or subtitle requirements.
-- Reference videos, stock sources, forbidden visuals, or copyright constraints.
-- Required language, voice, pronunciation, or terminology.
+- 品牌颜色、字体、Logo、产品图片或必须出现的画面元素。
+- 已有 A-roll、B-roll、截图、图表、文档或音频素材。
+- 字幕或双语字幕要求。
+- 参考视频、素材来源、禁止使用的画面或版权限制。
+- 语言、声音、发音、数字读法或专用名词要求。
 
-## Workflow
+## 工作流程
 
-Follow this order so every downstream recommendation is anchored to the spoken structure.
+按以下顺序执行，让所有下游建议都依附于口播结构：
 
-1. **Lock the brief.** Restate the platform, duration, ratio, audience, tone, visual direction, and CTA in one compact production header.
-2. **Choose the story spine.** Define the hook, promise or problem, supporting points, conclusion, and CTA. Remove claims that are not supported by the source content and label unresolved facts as `待确认`.
-3. **Write the spoken script.** Fit the copy to the target duration. Use natural spoken sentences, clear transitions, and delivery marks for pauses, emphasis, speed, and emotion. Treat the final script as the timing anchor for all other layers.
-4. **Derive the media plan.** Request only media that explains, proves, illustrates, or rhythmically supports a specific line or shot. Separate must-have material from optional polish.
-5. **Design Motion Graphics.** Give each graphic one viewer job, a concrete form, a speech anchor, a timing span, internal animation beats, background mode, and safe placement guidance. Use a coherent visual language across the video while allowing different editorial jobs to use different forms.
-6. **Design the sound plan.** Specify a non-distracting BGM direction and event-level SFX. Keep speech as the anchor, BGM as the follower, and short editorial accents on their own sound layer unless the brief says otherwise.
-7. **Build the shot map.** Join script, media, Motion Graphics, sound, and material IDs into one timeline table. Make inconsistencies visible before delivery.
-8. **Run the quality gate.** Check duration, source fidelity, material usefulness, visual protection, sound clarity, and completeness of the handoff.
+1. **锁定 brief。** 用一段简短的制作头部复述平台、时长、比例、受众、语气、视觉方向和 CTA。
+2. **确定故事骨架。** 定义 Hook、问题或承诺、支撑观点、结论和 CTA。删除原始内容没有支持的说法，把未确认事实标记为“待确认”。
+3. **完成口播稿。** 按目标时长控制字数，用自然口语、清晰转折和停顿/重音/语速/情绪标注完成可直接朗读的稿件。把最终口播作为所有画面和声音层的时间锚点。
+4. **推导素材计划。** 只要求能够解释、证明、展示或支持某一句口播或某一个镜头的素材，区分必需素材和可选润色素材。
+5. **设计 Motion Graphics。** 为每个图形指定一个观看任务、具体形式、口播锚点、时间范围、内部动效节奏、背景模式和安全放置建议。保持整条视频的视觉语言一致，但允许不同任务使用不同形式。
+6. **设计声音方案。** 给出不干扰人声的 BGM 方向和逐事件 SFX。把人声作为锚点、BGM 作为跟随层，短促的编辑音效单独处理，除非 brief 有其他要求。
+7. **制作逐镜头总表。** 将口播、画面、素材、Motion Graphics、声音和素材编号放进同一张时间表，提前暴露不一致。
+8. **执行质量检查。** 检查时长、素材依据、画面保护、声音清晰度和交付完整性。
 
-## Output contract
+## 固定输出格式
 
-Return the following five sections in this order, followed by the shot-by-shot map. Keep the output practical and ready to hand to a human editor.
+按以下顺序输出五个部分，最后附逐镜头总表。内容要具体到用户可以直接据此找素材和组装视频。
 
 ### 1. 制作策略
 
-Include:
+包含以下内容：
 
-- Video goal and viewer promise.
-- Platform, duration, aspect ratio, audience, tone, pace, and visual direction.
-- One-sentence core takeaway.
-- Story spine: `Hook → Problem/Promise → Key Points → Conclusion → CTA`.
-- Recommended rhythm, chapter count, and approximate time budget per chapter.
-- Important constraints, unresolved facts, and prohibited or unavailable assets.
+- 视频目标和观众承诺。
+- 平台、时长、画幅比例、受众、语气、节奏和视觉方向。
+- 一句话核心结论。
+- 故事骨架：`Hook → 问题/承诺 → 关键观点 → 结论 → CTA`。
+- 推荐节奏、章节数量，以及每个章节的大致时间预算。
+- 重要限制、待确认事实、禁止使用或暂时缺失的素材。
 
-Do not add a generic strategy paragraph that is not connected to the provided brief.
+不要写与 brief 无关的泛泛策略段落。
 
 ### 2. 素材总清单
 
-Assign each material a stable ID such as `M01`, `M02`, and `M03`. Use a table with these columns:
+为每个素材分配稳定编号，例如 `M01`、`M02`、`M03`。使用以下列：
 
 `ID | 优先级 | 类型 | 具体内容 | 用途与出现时间 | 规格 | 获取方式 | 搜索关键词 | 版权/备注`
 
-Use these priority values:
+优先级只使用以下三种：
 
-- `必需`: the edit cannot communicate the point or complete the shot without it.
-- `可选`: useful for polish, pacing, or visual variety but removable without breaking meaning.
-- `无需准备`: the moment can be covered by A-roll, a Motion Graphic, or the existing project surface.
+- `必需`：没有它就无法表达重点、完成镜头、证明事实或保持品牌识别。
+- `可选`：可以改善质感、节奏或变化，但删除后不影响信息表达。
+- `无需准备`：可以由 A-roll、Motion Graphic 或现有项目画面完成。
 
-Use these acquisition labels:
+获取方式使用以下标签：
 
-- `用户提供`: original footage, product files, brand assets, screenshots, or verified facts.
-- `素材库搜索`: stock video, photos, icons, ambience, or sound effects.
-- `AI 生成`: an image, video, voice, or graphic that can be generated from a separate prompt.
-- `ChatCut 生成`: an asset that ChatCut can create after the user approves the blueprint.
+- `用户提供`：原始视频、产品文件、品牌素材、截图或已核实事实。
+- `素材库搜索`：库存视频、图片、图标、环境声或音效。
+- `AI 生成`：可以单独生成的图片、视频、声音或图形。
+- `ChatCut 生成`：用户确认蓝图后，可交给 ChatCut 生成的素材。
 
-For every `必需` or `可选` item, state the exact subject, action, framing, orientation, duration, and any protected text, logo, product, person, or document detail. Add useful Chinese and English search keywords when stock search is appropriate. Never call a material “相关画面” or “适当音效” without describing what it must show or sound like.
+对每个 `必需` 或 `可选` 素材写清主体、动作、构图、方向、时长，以及必须保留的文字、Logo、产品、人脸或文档细节。适合素材库搜索时，同时给出中文和英文搜索关键词。禁止只写“相关画面”“适当音效”这类无法执行的描述。
 
-Do not request decorative media by default. Prefer one strong, understandable asset over a long list of generic B-roll. If a claim needs evidence, ask for the source or mark it `待确认` instead of inventing proof.
+不要默认堆很多装饰性 B-roll。优先选择少量但能准确表达意思的素材。如果某个观点需要证据，要求用户提供来源或标记为“待确认”，不要自行编造证明。
 
 ### 3. 口播稿
 
-Deliver a complete, copyable spoken script rather than an outline. Include:
+输出完整、可复制的逐字口播稿，不要只给大纲。包含：
 
-- Estimated character/word count and estimated speaking duration.
-- Section labels for `Hook`, `主体`, `结论`, and `CTA`.
-- Natural spoken punctuation and short paragraphs that map to visual beats.
-- Delivery annotations such as `[停顿 0.3s]`, `[重读：关键词]`, `[加快]`, `[放慢]`, and `[语气：坚定]` only when they improve performance.
-- A note for any pronunciation, number, brand name, or terminology that needs confirmation.
+- 预计字数/字符数和预计口播时长。
+- `Hook`、`主体`、`结论`、`CTA` 四类段落标记。
+- 自然的口语标点和能对应画面节奏的短段落。
+- 必要时添加 `[停顿 0.3s]`、`[重读：关键词]`、`[加快]`、`[放慢]`、`[语气：坚定]` 等表达标注。
+- 对发音、数字、品牌名或待确认术语给出备注。
 
-Keep the script faithful to the source content. Do not add unsupported statistics, testimonials, guarantees, or product capabilities. Make the copy usable for a digital human or voice-over without adding a separate avatar design section.
+严格遵守原始内容，不添加没有依据的统计、评价、保证、见证或产品能力。稿件要能直接交给数字人或配音使用，但不要另起数字人视觉设计章节。
 
 ### 4. 画面视觉与 Motion Graphics
 
-First decide whether each beat needs A-roll, B-roll, a still/image, a screen recording, a full-frame visual, or no additional layer. Then specify Motion Graphics only where they improve comprehension, orientation, emphasis, or pacing.
+先判断每个节拍需要 A-roll、B-roll、静态图、屏幕录制、全屏画面，还是不需要额外图层；只在能提升理解、定位、强调或节奏时加入 Motion Graphics。
 
-For every Motion Graphic, provide:
+每个 Motion Graphic 都要提供：
 
 `MG编号 | 时间段 | 对应口播 | 观看任务 | 表现形式 | 屏幕内容 | 入场/停留/退出 | 背景 | 放置与保护 | 依赖素材`
 
-Apply these rules:
+遵循以下规则：
 
-- Give the graphic a viewer job, such as identity, key claim, list, comparison, process, chapter marker, quote, or abstract relationship.
-- Describe a concrete form: name tag, emphasis treatment, step stack, diagram, chart, title beat, side treatment, or another justified form. Do not default to a card containing plain text.
-- Tie the start and end to a spoken phrase or visual event. Describe internal beats with relative timing, for example `0.0–0.2s reveal`, `0.2–1.2s hold`, `last 0.2s exit`.
-- Choose `透明叠加` for overlays over A-roll and `全屏不透明` for an intentional visual beat that replaces the footage. Do not silently cover the speaker with a full-screen design.
-- Describe placement as a safe region or composition relationship, not a guessed fixed coordinate. Protect the face, head, mouth, hands, important products, logos, existing overlays, and the subtitle/caption band.
-- State the exact text, number, icon, image, or data that must be present. If it is not known, write `待补充` rather than fabricating it.
-- Keep one shared visual language across the video: palette, typography logic, density, motion tone, and material treatment. Let unrelated viewer jobs use different forms within that language.
-- If no graphic improves the beat, write `不添加 MG` and explain why.
+- 给图形指定观看任务，例如身份信息、关键观点、列表、比较、流程、章节、引用或抽象关系。
+- 使用具体表现形式，例如姓名条、重点强调、步骤堆栈、关系图、图表、标题节拍或侧边处理。不要默认做一个只装文字的卡片。
+- 让开始和结束对应口播短语或画面事件。使用相对于 MG 自身的内部时间，例如 `0.0–0.2s 入场`、`0.2–1.2s 停留`、`最后 0.2s 退出`。
+- 叠加在 A-roll 上时使用 `透明叠加`；替代原画面的刻意视觉节拍使用 `全屏不透明`。不要在没有说明的情况下用全屏设计遮住人物。
+- 用安全区域或构图关系描述位置，不要凭空写固定坐标。保护脸、头、嘴、手、重要产品、Logo、已有图层和字幕区域。
+- 写清必须出现的文字、数字、图标、图片或数据。未知内容写“待补充”，不要编造。
+- 保持整条视频共享同一套色彩、字体逻辑、信息密度、动效节奏和材质语言；不同观看任务可以使用不同图形形式。
+- 如果该节拍不需要图形，明确写“**不添加 MG**”，并说明原因。
 
-Do not output JSX, implementation code, guessed ChatCut asset IDs, or direct MCP actions.
+不要输出 JSX、实现代码、猜测的 ChatCut asset ID 或任何直接 MCP 操作。
 
 ### 5. 声音设计
 
-#### BGM direction
+#### BGM 方向
 
-Specify:
+明确写出：
 
-- Genre or instrumentation.
-- Mood and energy curve.
-- Approximate tempo or rhythmic feel.
-- Role in the edit: intro sting, background bed, transition lift, or outro.
-- Vocal policy, normally `no prominent lyrics` under speech.
-- Search/generation keywords.
-- Fade, loop, and ducking notes.
+- 曲风或主要乐器。
+- 情绪和能量曲线。
+- 大致速度或节拍感觉。
+- 在视频中的作用：开场提示、背景铺底、转场抬升或结尾收束。
+- 人声政策：口播下通常使用“无明显人声歌词”。
+- 搜索/生成关键词。
+- 淡入淡出、循环和 ducking 处理。
 
-Keep the spoken voice intelligible. Treat narration/voice as the `anchor`, BGM as the `follower`, and use auto-ducking or manual level guidance under speech. Do not recommend a copyrighted song as though it were a free asset.
+保护口播可懂度。把人声/旁白作为 `anchor`，BGM 作为 `follower`，在讲话时使用自动 ducking 或明确的压低音量建议。不要把有版权的歌曲当作免费素材推荐。
 
-#### SFX event list
+#### SFX 事件清单
 
-Use a table with:
+使用以下列：
 
 `SFX编号 | 时间点/触发事件 | 音效 | 强度 | 作用 | 搜索关键词 | 混音备注`
 
-Use specific editorial events such as hook hit, text reveal, step change, click, notification, product contact, transition whoosh, impact, room tone, or outro resolve. Keep SFX sparse and intentional. Leave a beat empty when silence helps the message.
+使用具体编辑事件，例如 Hook 冲击、文字出现、步骤切换、点击、通知、产品接触、转场 whoosh、impact、房间底噪或结尾收束。SFX 要少而准确；如果留白更有力量，就明确保留安静节拍。
 
 ### 6. 逐镜头总表
 
-Use this exact column order:
+严格使用以下列顺序：
 
 `时间段 | 口播内容 | 画面/素材 | MG 动效 | BGM/SFX | 素材编号`
 
-Keep every row internally consistent with the script. Reference material IDs and MG/SFX IDs instead of repeating vague descriptions. Use seconds in the user-facing table, and ensure the last row reaches the planned duration without leaving unexplained gaps.
+每一行都要与口播稿一致。使用素材 ID、MG 编号和 SFX 编号，避免重复写模糊描述。用户表格统一使用秒数，并确保最后一行覆盖计划时长，不留下无法解释的空档。
 
-## Material selection rules
+## 素材筛选规则
 
-Use the following filters before adding an item to the checklist:
+把素材加入清单前，逐项执行以下筛选：
 
-1. Map the item to a specific spoken line or shot purpose.
-2. Mark it `必需` only when removing it harms meaning, proof, continuity, or required brand identity.
-3. Prefer user-owned source material for products, people, logos, claims, interfaces, and sensitive facts.
-4. Flag aspect-ratio, framing, resolution, transparency, duration, and crop requirements.
-5. Protect readable text, UI, logos, packaging, documents, and faces from accidental crop or replacement.
-6. Separate visual source material from Motion Graphic content. A chart may need data verification even when its decorative background can be generated.
-7. Avoid collecting B-roll in the first and last three seconds unless the brief explicitly makes it part of the opening or ending beat.
-8. Use `待确认` for missing source facts, brand rules, or asset availability. Do not hide uncertainty inside a confident recommendation.
+1. 把素材映射到具体口播句子或镜头任务。
+2. 只有删除后会损害信息、证据、连续性或品牌识别时，才标记为 `必需`。
+3. 产品、人物、Logo、产品能力、界面和敏感事实优先要求用户提供原始素材。
+4. 标明画幅、构图、分辨率、透明度、时长和裁切要求。
+5. 防止文字、UI、Logo、包装、文档和脸部在裁切或替换时丢失。
+6. 将视觉素材和 Motion Graphic 内容分开。图表的装饰背景可以生成，但数据必须核实。
+7. 除非 brief 明确需要，不要默认在开头和结尾前三秒安排 B-roll。
+8. 对缺失事实、品牌规则或素材可用性使用“待确认”，不要把不确定性藏在肯定语气里。
 
-## Quality gate
+## 质量检查
 
-Before returning the blueprint, verify all of the following:
+交付前确认：
 
-- The brief is complete and restated accurately.
-- The script has a clear hook, logical body, conclusion, and CTA or explicit `无 CTA`.
-- The script's length is plausible for the target duration and the delivery annotations are usable.
-- Every requested material has a purpose, priority, acquisition path, and search description.
-- Every Motion Graphic has a viewer job, concrete form, timing, background mode, safe-area guidance, and material dependency.
-- The sound plan includes a BGM direction and only intentional SFX events, with speech clarity protected.
-- The shot map covers the planned duration and uses consistent IDs.
-- No separate digital-human visual design section has been introduced.
-- No ChatCut project mutation, MCP call, JSX, export promise, or invented asset ID appears in the answer.
+- brief 已完整，且复述准确。
+- 稿件有清晰 Hook、逻辑主体、结论，以及 CTA 或明确的“无 CTA”。
+- 稿件长度与目标时长基本匹配，表达标注可以直接使用。
+- 每个素材都有用途、优先级、获取方式和可执行的搜索描述。
+- 每个 Motion Graphic 都有观看任务、具体形式、时间、背景模式、安全区域和依赖素材。
+- 声音方案包含 BGM 方向和有明确触发点的 SFX，并保护人声清晰度。
+- 逐镜头总表覆盖计划时长，且各类编号一致。
+- 没有新增独立的数字人视觉设计章节。
+- 没有 ChatCut 项目修改、MCP 调用、JSX、导出承诺或虚构的 asset ID。
+- 最终面向用户的全部内容使用中文，除非用户明确要求其他语言。
 
-## Route boundary
+## 路由边界
 
-Use this skill for topic-to-blueprint requests such as educational shorts, personal-brand videos, product explainers, tutorials, announcements, and other videos where the user needs to gather media before assembling in ChatCut.
+以下请求使用本 Skill：教育短视频、个人品牌视频、产品解释、教程、公告，以及其他需要先准备素材再手动在 ChatCut 中组装的视频。
 
-Route these requests elsewhere:
+以下请求交给其他工作流：
 
-- Benchmark-video replication, ecommerce replacement, nine-grid storyboards, Seedance, Gemini Omni, Google Flow, or Veo packages: use `$auto-videl`.
-- Actual ChatCut project creation, asset import, timeline editing, Motion Graphic authoring, captions, audio placement, verification, or export: use the matching ChatCut plugin workflow after this blueprint is approved.
+- 竞品视频复刻、电商替换、九宫格分镜、Seedance、Gemini Omni、Google Flow 或 Veo：使用 `$auto-videl`。
+- ChatCut 项目创建、素材导入、时间线编辑、Motion Graphic 编写、字幕、音频放置、验证或导出：在蓝图确认后，使用对应的 ChatCut 编辑工作流。
