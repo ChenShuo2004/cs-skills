@@ -19,6 +19,7 @@ Choose one primary route from this table:
 | User goal | Route | Typical output |
 | --- | --- | --- |
 | Write, outline, rewrite, polish, or turn project material into an article | `$cs-writer` | Angle, outline, draft, rewrite, or review |
+| Research a product, company, technology, market, or competitor set for a decision | `$search-skill` | Source-backed decision brief, comparison, risks, and next actions |
 | Design, build, revise, or review a user-facing web interface | `$frontend-design` | UI plan, implementation guidance, and browser checks |
 | Clean up code, reconcile implementation with requirements, or prepare a maintainable handoff | `$clean-code` | Scoped edits, documentation sync, tests, and verification |
 | Save a rollback point before risky repository changes | `$checkpoint-version` | Restorable local checkpoint and verification |
@@ -62,7 +63,8 @@ If a request belongs to a retired route, say that the route is no longer active 
 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
-- Respect explicit skill names. `$cs-writer`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, and `$auto-videl` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$search-skill`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, and `$auto-videl` take precedence over generic routing.
+- Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
 - Do not ask the user to choose a skill when the route is unambiguous.
 - Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.
 - Keep the Goal Card short. It is an execution aid, not a long questionnaire.

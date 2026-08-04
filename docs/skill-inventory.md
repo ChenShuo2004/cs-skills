@@ -2,7 +2,7 @@
 
 盘点日期：2026-08-04
 
-当前发布数量：8 个 active skill。
+当前发布数量：9 个 active skill。
 
 ## 总览
 
@@ -10,6 +10,7 @@
 | --- | --- | --- | --- |
 | `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
 | `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
+| `search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
 | `auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
 | `checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
@@ -40,6 +41,7 @@ Recommended skill:
 ### 内容
 
 - 文章、提纲、项目记录、工具体验、改稿：`$cs-writer`
+- 产品、公司、技术、市场、竞品调研：`$search-skill`
 
 ### 电商视频
 
