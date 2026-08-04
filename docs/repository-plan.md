@@ -8,7 +8,7 @@ ChenShuo Skills 已收束为 9 个 active skill，并采用单入口架构：
 用户目标 → cs-run → 一个下游 skill → 验证结果
 ```
 
-主入口是 `$cs-run`，写作入口是 `$cs-writer`。
+主入口是 `$cs-run`，写作入口是 `$cs-writer`，调研入口是 `$search-skill`。
 
 ## 仓库定位
 
@@ -37,6 +37,12 @@ ChenShuo Skills 已收束为 9 个 active skill，并采用单入口架构：
 - `chatcut-video-blueprint`
 
 分别覆盖陈硕风格写作、电商短视频复刻与生成包，以及 ChatCut 视频素材筹备蓝图。
+
+### 调研与决策
+
+- `search-skill`
+
+负责产品、公司、技术、市场和竞品的深度研究，输出带来源、风险和行动建议的决策简报。
 
 ### 产品、工程与交付
 
