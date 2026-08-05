@@ -1,4 +1,4 @@
 interface:
   display_name: "ChatCut 视频制作蓝图"
-  short_description: "陈硕的 ChatCut 策划：口播稿、素材清单、MG、声音方向与逐镜头表。"
-  default_prompt: "使用 $chatcut-video-blueprint，把这个主题整理成中文口播稿、素材清单、Motion Graphics 方案、声音设计和逐镜头表。"
+  short_description: "陈硕的 ChatCut 策划：先确认口播稿，再生成素材、MG、声音和逐镜头蓝图。"
+  default_prompt: "使用 $chatcut-video-blueprint，先根据主题和原始内容生成口播稿确认版：核心观点、Hook 备选、纯口播稿、表达标注和口播质检；等口播稿确认后，再生成素材清单、Motion Graphics 方案、声音设计和逐镜头表。"
