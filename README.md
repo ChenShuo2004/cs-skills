@@ -2,6 +2,8 @@
 
 ![CS Skills hero](assets/cs-skills-hero.png)
 
+[更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md)
+
 > 一句话说目标，让 Codex 自动选择工作流，把事情推进到可验证的结果。
 
 CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
