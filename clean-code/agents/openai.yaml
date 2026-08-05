@@ -1,5 +1,5 @@
 interface:
-  display_name: "陈硕 · Clean Code"
+  display_name: "Clean Code"
   short_description: "陈硕的工程收尾：按需求清理代码、同步文档、补验证并完成交接。"
   default_prompt: "使用 $clean-code 检查这次实现，按需求清理代码、同步文档、补充测试并验证结果。"
 

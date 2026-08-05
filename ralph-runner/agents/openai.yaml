@@ -1,4 +1,4 @@
 interface:
-  display_name: "陈硕 · Ralph Runner"
+  display_name: "Ralph Runner"
   short_description: "陈硕的 Ralph 工作流：Markdown 需求转 PRD，安全 dry-run 并展示迭代结果。"
   default_prompt: "使用 $ralph-runner 把 Markdown 需求转成 Ralph PRD，执行安全 dry-run，并展示每轮迭代结果。"

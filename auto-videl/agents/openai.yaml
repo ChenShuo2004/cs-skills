@@ -1,5 +1,5 @@
 interface:
-  display_name: "陈硕 · Auto Videl"
+  display_name: "auto Videl"
   short_description: "陈硕的电商短视频复刻：分镜、首帧图、Seedance / Flow / Veo 提示词与 QC。"
   default_prompt: "使用 $auto-videl 分析这个电商短视频，输出复刻分镜、首帧图提示词、Seedance / Google Flow / Veo 生成包和 QC 清单。"
 policy:
