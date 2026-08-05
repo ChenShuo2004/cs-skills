@@ -2,7 +2,14 @@
 name: cs-writer
 description: |
   Use when the user wants ChenShuo-style writing or content work: long-form articles, public account drafts, project stories, product/build logs, tool experience posts, outlines, angle selection, rewrites, polishing, or turning scattered material into readable and useful content. Trigger for "$cs-writer", "cs writer", "写文章", "写稿子", "帮我写", "续写", "扩写", "公众号", "用我的风格", "写成一篇", "内容创作", or when real source material should become warm, curious, practical writing. Do not use for pure code documentation unless the user wants a narrative article.
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # CS Writer
 

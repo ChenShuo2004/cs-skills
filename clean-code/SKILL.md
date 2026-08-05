@@ -2,7 +2,14 @@
 name: clean-code
 description: |
   Use when Codex needs to clean up code, refactor safely, review implementation quality, reconcile code with requirements, update docs after development, or prepare a maintainable handoff. Trigger for "clean code", "整理代码", "代码洁癖", "重构一下", "收尾", "新人能看懂", "review this implementation", "make it maintainable", or any request where correctness, business logic, docs, tests, and verification need to line up. This is ChenShuo's engineering cleanup skill: requirements first, business flow closed loop, small scoped edits, and verified output.
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # Clean Code
 

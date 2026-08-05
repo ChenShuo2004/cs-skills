@@ -1,4 +1,4 @@
 interface:
-  display_name: "CS Writer"
-  short_description: "Turn real work into useful ChenShuo-style writing."
-  default_prompt: "Use $cs-writer to turn my material into a clear, warm, practical article."
+  display_name: "陈硕 · CS Writer"
+  short_description: "陈硕的写作工作流：把项目素材变成具体、有观点、可发布的文章。"
+  default_prompt: "使用 $cs-writer 把我的项目素材、工具实验或产品记录整理成具体、温暖、实用的文章。"

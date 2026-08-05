@@ -2,7 +2,14 @@
 name: frontend-design
 description: |
   Use when Codex designs, implements, revises, or reviews a user-facing frontend: web app, dashboard, admin UI, editor, local browser tool, landing page, game UI, visual prototype, or interactive product workflow. Trigger when visual polish, product usability, responsive behavior, control choice, layout density, state design, assets, icons, or browser verification matters. Do not use for backend-only work unless UI behavior or product surface is affected.
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # Frontend Design
 

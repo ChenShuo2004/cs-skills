@@ -2,7 +2,14 @@
 name: ending-time
 description: |
   Use when the user asks to finish, ship, publish, commit, push, or deploy a completed implementation in one bounded delivery scope.
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # Ending Time
 

@@ -1,7 +1,14 @@
 ---
 name: ralph-runner
 description: Use when the user wants Codex to turn a Markdown requirements document into a Ralph PRD and run a safe Ralph/Codex build workflow against a local Git repository. Triggers include "ralph-runner", "run Ralph", "generate Ralph PRD", or requests to run a Markdown PRD against a repo.
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # Ralph Runner
 

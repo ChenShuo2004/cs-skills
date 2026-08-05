@@ -33,6 +33,12 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 
 > 注意：`cs-run` 负责路由，不会自动下载尚未安装的下游 skill。建议把你常用的下游 skill 一起安装。
 
+### 跨 Agent 使用与归属
+
+这是陈硕维护的 `CS Skills`。每个 skill 的核心入口都是标准 `SKILL.md`，因此只要其他 Agent 支持读取 `SKILL.md`，就可以直接复用同一套触发条件、输入输出、边界和验证规则；Codex 额外读取 `agents/openai.yaml` 来显示名称、功能描述和默认 Prompt。
+
+为了避免与其他 skill 混淆，Codex 中统一显示为“陈硕 · 功能名”；每个 `SKILL.md` 的元数据也包含作者、源码地址和兼容性说明。推荐把整个仓库作为一个 skill 集合安装，而不是只安装 `$cs-run`。
+
 ### 2. 直接说结果
 
 ```text

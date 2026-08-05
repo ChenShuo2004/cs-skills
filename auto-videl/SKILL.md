@@ -1,7 +1,14 @@
 ---
 name: auto-videl
 description: "Use when the user types $auto-videl or asks for Douyin/TikTok ecommerce video workflows, including competitor replication, strong-Hook nine-grid prompt_image.md to image2 storyboards, Seedance prompts/API submission, Gemini Omni first-frame video, or Google Flow/Veo first-frame-to-video packages."
+metadata:
+  author: "陈硕"
+  collection: "CS Skills"
+  source: "https://github.com/ChenShuo2004/cs-skills"
+  compatibility: "Codex and any agent that supports SKILL.md"
 ---
+
+<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
 # auto Videl
 

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Checkpoint Version"
-  short_description: "保存当前仓库版本，给大改前留下可恢复的本地回退点。"
-  default_prompt: "$checkpoint-version 保存当前仓库版本，包含 staged、unstaged 和未跟踪文件，方便我回退。"
+  display_name: "陈硕 · Checkpoint Version"
+  short_description: "陈硕的 Git 回退点：保存 staged、unstaged、未跟踪文件并支持恢复。"
+  default_prompt: "使用 $checkpoint-version 保存当前仓库的 staged、unstaged 和未跟踪文件，创建可恢复的本地回退点。"
