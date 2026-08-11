@@ -1,9 +1,5 @@
 # CS Skills
 
-[官方网站](https://everlightai.top/)
-
-![CS Skills hero](assets/cs-skills-hero.png)
-
 [更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md)
 
 > 一句话说目标，让 Codex 自动选择工作流，把事情推进到可验证的结果。
@@ -16,7 +12,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 用户目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、品牌 IP 视觉、文章配图、深度调研、短视频策划/制作和交付收尾。
+当前包含 11 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作和交付收尾。
 
 ## 适合谁
 
@@ -64,7 +60,6 @@ $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
 $cs-search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
 $cs-frontend-design 设计并实现这个页面，最后做浏览器验证。
 $cs-clean-code 检查这次实现，整理代码、文档和测试。
-$cs-you-wendu-ip 基于角色参考图生成一张保持身份一致的有温度 IP 插画。
 $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
 ```
 
@@ -102,7 +97,6 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | --- | --- | --- |
 | [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
 | [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
-| [$cs-you-wendu-ip](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-you-wendu-ip) | 有温度 IP 标准图、动作延展、2D/3D、联名与风格迁移 | 身份锁定的角色图、变体和 QA 结果 |
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 把中文内容的认知锚点画成小黄轻手绘正文配图 | 配图 shot list、16:9 成图和局部改图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
@@ -210,44 +204,6 @@ $cs-xiaohuang-skill 先不要生图。请找出这篇文章最值得配图的 4 
 $cs-xiaohuang-skill 把下面这篇文章生成 4 张小黄正文配图。每张只讲一个判断，16:9 横版、白底黑线、少量红橙蓝批注；先给 shot list，再逐张生成。
 ```
 
-## 有温度 IP Skill
-
-![有温度 IP Skill 封面](assets/cs-you-wendu-ip-cover.png)
-
-`$cs-you-wendu-ip` 用于稳定生成、修改和延展“有温度”品牌角色。它把角色身份拆成明确的轮廓、爱心天线、面部、四肢、颜色和品牌动作规则，让角色可以换动作、换场景、换媒介，但不会变成另一个普通萌物。
-
-安装：
-
-```text
-帮我安装这个 skill：https://github.com/ChenShuo2004/cs-skills/tree/main/cs-you-wendu-ip
-```
-
-典型调用：
-
-```text
-使用 $cs-you-wendu-ip 基于角色参考图生成一张递出连接爱心的 2D 手绘插画。
-使用 $cs-you-wendu-ip 把这个角色转换成哑光软胶 3D 版本，只改变体积和材质。
-使用 $cs-you-wendu-ip 生成 4 个轮廓结构不同、但角色 DNA 一致的形态方向。
-```
-
-### 示例产出
-
-#### 2D 标准形象
-
-![有温度 IP 2D 标准形象](cs-you-wendu-ip/assets/examples/01-standard-2d.png)
-
-#### 点亮一个物体
-
-![有温度 IP 点亮台灯](cs-you-wendu-ip/assets/examples/02-light-the-lamp.png)
-
-#### 3D 哑光软胶
-
-![有温度 IP 3D 软胶形象](cs-you-wendu-ip/assets/examples/03-soft-vinyl-3d.png)
-
-#### 四种结构方向
-
-![有温度 IP 四种形态](cs-you-wendu-ip/assets/examples/04-shape-directions.png)
-
 ## 真实使用场景
 
 ### 从想法到产品
@@ -298,14 +254,6 @@ $cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分�
 
 它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
 
-### 从参考图到稳定角色延展
-
-```text
-$cs-you-wendu-ip 保持这个角色的爱心天线、面部比例和细四肢，生成一个坐着思考的 2D 版本。
-```
-
-它会先锁定角色 DNA，再区分角色延展、媒介转换、风格迁移或联名共创，生成后按身份清单检查漂移。
-
 ## 设计原则
 
 每个 skill 都应该清楚回答：
@@ -340,7 +288,6 @@ cs-skills/
 ├── cs-run/
 ├── cs-writer/
 ├── cs-search-skill/
-├── cs-you-wendu-ip/
 ├── cs-auto-videl/
 ├── cs-chatcut-video-blueprint/
 ├── cs-xiaohuang-skill/
@@ -362,7 +309,3 @@ cs-skills/
 ## License
 
 [MIT](LICENSE)
-
-![CS Skills code animation](assets/skill-code-animation.svg)
-
-![CS Skills growth curve](assets/skill-growth-curve.svg)
