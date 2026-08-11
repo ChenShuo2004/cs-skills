@@ -94,7 +94,7 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 | [$search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
 | [$you-wendu-ip](https://github.com/ChenShuo2004/cs-skills/tree/main/you-wendu-ip) | 有温度 IP 标准图、动作延展、2D/3D、联名与风格迁移 | 身份锁定的角色图、变体和 QA 结果 |
 | [$auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
-| [$chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/chatcut-video-blueprint) | ChatCut 视频制作前的策划 | 口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$youwendu-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/youwendu-skill) | ChatCut 视频制作前的策划 | 口播稿、素材清单、Motion Graphics 和逐镜头表 |
 
 ## 有温度 IP Skill
 
@@ -212,7 +212,7 @@ cs-skills/
 ├── search-skill/
 ├── you-wendu-ip/
 ├── auto-videl/
-├── chatcut-video-blueprint/
+├── youwendu-skill/
 ├── frontend-design/
 ├── clean-code/
 ├── ralph-runner/

@@ -1,5 +1,5 @@
 ---
-name: chatcut-video-blueprint
+name: youwendu-skill
 description: "当用户提供视频主题和相关内容，并希望为 ChatCut 准备制作蓝图时使用：先完成可确认的中文口播稿，再基于确认后的口播稿输出素材清单、Motion Graphics 方案、音效与音乐方向及逐镜头总表。用于人工在 ChatCut 中组装前的策划；不要用于直接修改时间线、导入导出素材或电商视频复刻。除非用户指定其他语言，默认使用中文输出。"
 metadata:
   author: "陈硕"
@@ -10,7 +10,7 @@ metadata:
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
-# ChatCut 视频制作蓝图
+# youwendu-skill
 
 ## 目标与边界
 
