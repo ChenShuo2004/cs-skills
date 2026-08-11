@@ -97,13 +97,13 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | --- | --- | --- |
 | [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
 | [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
-| [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 把中文内容的认知锚点画成小黄轻手绘正文配图 | 配图 shot list、16:9 成图和局部改图 |
+| [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 / 有温度品牌 IP 延展与中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
 
-## 小黄正文配图 Skill
+## 小黄 IP 与正文配图 Skill
 
-`$cs-xiaohuang-skill` 把中文内容中的认知锚点，画成小黄参与行动、带中文手写标注的白底手绘正文配图。
+`$cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：既能稳定生成、编辑和延展 2D/3D、联名与风格迁移资产，也能把中文内容中的认知锚点画成小黄参与行动、带中文手写标注的白底手绘正文配图。
 
 [查看完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
 

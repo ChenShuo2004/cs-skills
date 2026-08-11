@@ -9,7 +9,7 @@ Visual direction:
 Pure white background, abundant white space, minimalist black hand-drawn pen lines with slight natural wobble, warm yellow recurring character, sparse red and blue handwritten Chinese annotations. It should feel like an absurd but clear product sketch, not a polished vector illustration.
 
 Recurring character:
-小黄, preserve the exact identity in assets/reference-xiaohuang.png: an irregular warm-yellow pear/seed-shaped worker with wax-crayon texture, a curved orange antenna ending in a hollow heart, black vertical oval eyes, a tiny black smile, peach cheeks, and thin black stick limbs with round hand ends. Calm, deadpan, and focused. 小黄 must perform the key conceptual action rather than decorate the scene. Never turn it into a generic yellow capsule, black blob, childish mascot, or an overly polished 3D character.
+小黄, preserve the exact identity in assets/reference-xiaohuang.png: an irregular warm-yellow seed-shaped worker with wax-crayon texture, a curved orange antenna ending in a hollow heart, black vertical oval eyes, a tiny black smile, peach cheeks, and thin black stick limbs with round hand ends. Calm, deadpan, and focused. 小黄 must perform the key conceptual action rather than decorate the scene. Never turn it into a pear fruit, generic yellow capsule, black blob, childish mascot, or an overly polished 3D character.
 
 Theme: {配图主题}
 Core idea: {这一张图要让读者理解的唯一关系}

@@ -2,7 +2,7 @@
 
 盘点日期：2026-08-09
 
-当前发布数量：12 个 active skill。
+当前发布数量：11 个 active skill。
 
 ## 总览
 
@@ -11,9 +11,8 @@
 | `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
 | `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
 | `cs-search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
-| `cs-you-wendu-ip` | 品牌 IP 视觉 | 保持角色 DNA，生成和延展有温度 IP 的 2D/3D、动作、联名与风格迁移资产 | `references/`, `assets/` |
 | `cs-auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
-| `cs-xiaohuang-skill` | 中文正文配图 | 将文章、帖子或方法论的认知锚点转成小黄手绘配图 | `references/` |
+| `cs-xiaohuang-skill` | 小黄 / 有温度 IP 与正文配图 | 保持同一角色 DNA，生成 2D/3D、动作、联名、风格迁移资产，或将内容认知锚点转成小黄手绘配图 | `references/`, `assets/` |
 | `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `cs-frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
 | `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
@@ -46,18 +45,15 @@ Recommended skill:
 - 文章、提纲、项目记录、工具体验、改稿：`$cs-writer`
 - 产品、公司、技术、市场、竞品调研：`$cs-search-skill`
 
-### 品牌 IP 视觉
+### 小黄 / 有温度 IP 与正文配图
 
-- 有温度 IP 标准图、动作表情、2D/3D、联名、风格迁移和身份修复：`$cs-you-wendu-ip`
-- 只处理“有温度”固定角色；不承接无关的通用生图任务。
+- 小黄 / 有温度 IP 标准图、动作表情、2D/3D、联名、风格迁移和身份修复：`$cs-xiaohuang-skill`
+- 中文文章、帖子、Notion 或方法论到 shot list、小黄轻手绘正文配图和局部改图：`$cs-xiaohuang-skill`
+- 只处理小黄 / 有温度固定角色；不承接无关的通用生图任务。
 
 ### 电商视频
 
 - 对标复刻、九宫格分镜、Seedance、Gemini Omni、Google Flow/Veo：`$cs-auto-videl`
-
-### 中文正文配图
-
-- 中文文章、帖子、Notion 或方法论到 shot list、小黄轻手绘正文配图和局部改图：`$cs-xiaohuang-skill`
 
 ### ChatCut 视频筹备
 

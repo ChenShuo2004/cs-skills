@@ -1,4 +1,0 @@
-interface:
-  display_name: "CS 有温度 IP"
-  short_description: "稳定生成、改造和延展有温度品牌角色，保持角色身份不漂移"
-  default_prompt: "使用 $cs-you-wendu-ip 基于角色参考图生成一张保持身份一致的有温度 IP 插画。"

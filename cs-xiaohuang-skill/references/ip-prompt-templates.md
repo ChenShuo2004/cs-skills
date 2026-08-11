@@ -1,14 +1,14 @@
-# 生图提示词模板
+# 小黄品牌 IP 提示词模板
 
-每个独立资产单独生成。把输入图的角色写清楚：角色身份参考、风格参考、场景参考或编辑目标。
+每个独立资产单独生成。明确标注输入图是身份参考、风格参考、场景参考还是编辑目标。
 
 ## 2D 标准图
 
 ```text
 Use case: stylized-concept
-Asset type: “有温度”品牌 IP 标准角色图
+Asset type: 小黄（有温度）品牌 IP 标准角色图
 Input images: Image 1 is the fixed character identity reference.
-Primary request: Create one polished full-body illustration of the “有温度” mascot performing {动作}.
+Primary request: Create one polished full-body illustration of the 小黄 mascot performing {动作}.
 Scene/backdrop: minimal warm-white background #FFF9EF with generous breathing room.
 Subject: one asymmetric warm-yellow seed-like lifeform, slightly leaning, fuller at the lower-left and narrower at the upper-right. Keep two widely spaced vertical black oval eyes, a tiny curved mouth, subtle orange blush, ultra-thin black limbs, and one long curved antenna ending in a hollow warm-orange heart. {连接爱心要求}
 Style/medium: premium restrained 2D hand-drawn crayon, oil-pastel and colored-pencil illustration; visible handmade grain with clean edges.
@@ -23,7 +23,7 @@ Avoid: pear, egg, ball, generic droplet, animal features, plush, fur, knit, thic
 
 ```text
 Use case: identity-preserve
-Asset type: “有温度”IP 3D collectible character render
+Asset type: 小黄（有温度）IP 3D collectible character render
 Input images: Image 1 is the identity reference; preserve the character, do not redesign it.
 Primary request: Convert the fixed mascot into a collectible 3D interpretation.
 Scene/backdrop: warm-white seamless studio background.
@@ -39,8 +39,8 @@ Avoid: pear fruit, fur, plush, knit, metal, glass toy, realistic skin, thick lim
 
 ```text
 Use case: style-transfer
-Input images: Image 1 is the “有温度” character identity and composition reference. Image 2 is only the visual-language reference.
-Primary request: Render the same “有温度” character and action using Image 2's line quality, material, palette restraint and atmosphere.
+Input images: Image 1 is the 小黄 character identity and composition reference. Image 2 is only the visual-language reference.
+Primary request: Render the same 小黄 character and action using Image 2's line quality, material, palette restraint and atmosphere.
 Constraints: preserve Image 1's silhouette logic, heart antenna, face, limb proportions and action. Transfer only visual language from Image 2. Do not copy Image 2's character body, facial identity, signature props or trademarked design. No extra elements, text or watermark.
 ```
 
@@ -49,7 +49,7 @@ Constraints: preserve Image 1's silhouette logic, heart antenna, face, limb prop
 ```text
 Use case: stylized-concept
 Asset type: IP collaboration illustration
-Input images: Image 1 is the fixed “有温度” identity reference. Image 2 is the collaborating character reference.
+Input images: Image 1 is the fixed 小黄 identity reference. Image 2 is the collaborating character reference.
 Primary request: Place both characters in one shared scene where they {共同动作}.
 Scene/backdrop: {场景}.
 Style/medium: one coherent visual language based on {画风规则}.
@@ -62,6 +62,6 @@ Constraints: preserve each character's own silhouette, facial identity and signa
 ```text
 Use case: precise-object-edit
 Input images: Image 1 is the edit target.
-Primary request: Fix only {问题部位} so it matches the fixed “有温度” character DNA.
+Primary request: Fix only {问题部位} so it matches the fixed 小黄 character DNA.
 Constraints: change only {问题部位}; preserve the current pose, composition, background, body silhouette, face, colors, texture and all unaffected elements. Do not add text, props or characters.
 ```
