@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="youwendu-skill × ChatCut：从内容想法到成片的操作指南">
+  <title>youwendu-skill × ChatCut：从想法到成片</title>
+
+  <!-- === TYPOGRAPHY === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@10..48,75..100,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* === THEME: A 的清晰结构 + C 的深蓝工作流视觉 === */
+    :root {
+      --ink: #101721;
+      --ink-soft: #506070;
+      --paper: #f7f6f1;
+      --paper-deep: #e9e7de;
+      --navy: #071326;
+      --navy-2: #102848;
+      --cyan: #33efcf;
+      --blue: #4c7dff;
+      --signal: #ff4a2f;
+      --yellow: #ffd65c;
+      --line: rgba(16, 23, 33, .14);
+      --font-display: "Bricolage Grotesque", "Noto Serif SC", serif;
+      --font-body: "Noto Sans SC", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --ease-out: cubic-bezier(.16, 1, .3, 1);
+      --ease-entrance: cubic-bezier(.22, 1, .36, 1);
+      --shadow-paper: 0 18px 44px rgba(16, 23, 33, .08);
+      --shadow-dark: 0 24px 54px rgba(0, 8, 25, .24);
+    }
+
+    /* === RESET === */
+    * { box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--ink); }
+    button { font: inherit; }
+
+    /* === FIXED 16:9 STAGE: mandatory base styles === */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+    }
+
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+    }
+
+    .slide.active,
+    .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    img,
+    video,
+    canvas,
+    svg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    @media print {
+        html,
+        body {
+            width: 1920px;
+            height: auto;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-viewport {
+            position: static;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-stage {
+            position: static;
+            width: auto;
+            height: auto;
+            transform: none !important;
+            background: none;
+        }
+
+        .slide {
+            position: relative;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            width: 1920px;
+            height: 1080px;
+            break-after: page;
+            page-break-after: always;
+        }
+
+        .slide:last-child {
+            break-after: auto;
+            page-break-after: auto;
+        }
+
+        .deck-controls { display: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* === DECK CHROME === */
+    .slide { transition: opacity .28s ease; }
+    .slide.light { --slide-bg: var(--paper); color: var(--ink); }
+    .slide.dark { --slide-bg: var(--navy); color: #eef5ff; }
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .slide.light::before {
+      opacity: .62;
+      background-image:
+        linear-gradient(rgba(16, 23, 33, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 23, 33, .06) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .slide.dark::before {
+      opacity: .7;
+      background:
+        radial-gradient(circle at 19% 15%, rgba(76, 125, 255, .32), transparent 28%),
+        radial-gradient(circle at 82% 79%, rgba(51, 239, 207, .18), transparent 26%),
+        linear-gradient(rgba(132, 175, 255, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(132, 175, 255, .15) 1px, transparent 1px);
+      background-size: auto, auto, 88px 88px, 88px 88px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+    }
+    .chrome {
+      position: absolute;
+      top: 62px;
+      left: 86px;
+      right: 86px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: inherit;
+      font: 500 18px/1 var(--font-mono);
+      letter-spacing: .1em;
+    }
+    .chrome .brand { display: flex; align-items: center; gap: 13px; }
+    .chrome .brand::before { content: ""; width: 13px; height: 13px; background: var(--signal); box-shadow: 20px 0 0 var(--cyan); }
+    .dark .chrome { color: #a6c1ed; }
+    .dark .chrome .brand::before { background: var(--cyan); box-shadow: 20px 0 0 var(--yellow); }
+    .page-index { opacity: .8; }
+    .slide-shell { position: relative; width: 100%; height: 100%; z-index: 2; }
+    .eyebrow { font: 500 19px/1.25 var(--font-mono); letter-spacing: .13em; color: var(--signal); }
+    .dark .eyebrow { color: var(--cyan); }
+    .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -.055em; }
+    .muted { color: var(--ink-soft); }
+    .dark .muted { color: #b7caeb; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .62s var(--ease-out), transform .62s var(--ease-out); }
+    .visible .reveal { opacity: 1; transform: translateY(0); }
+    .visible .reveal.delay-1 { transition-delay: .1s; }
+    .visible .reveal.delay-2 { transition-delay: .2s; }
+    .visible .reveal.delay-3 { transition-delay: .3s; }
+    .visible .reveal.delay-4 { transition-delay: .4s; }
+    .card { border: 1px solid var(--line); background: rgba(255,255,255,.52); }
+    .dark .card { border-color: rgba(165, 197, 247, .25); background: rgba(4, 15, 35, .58); }
+    .mono { font-family: var(--font-mono); }
+
+    /* === SLIDE 01: TITLE === */
+    .hero-red { position: absolute; right: 0; top: 0; width: 492px; height: 100%; background: var(--signal); }
+    .hero-red::after { content: ""; position: absolute; right: 78px; top: 152px; width: 170px; height: 170px; border-top: 4px solid var(--yellow); border-right: 4px solid var(--yellow); }
+    .hero-red::before { content: ""; position: absolute; right: 125px; top: 200px; width: 88px; height: 88px; background: var(--navy); box-shadow: 0 0 0 18px rgba(7,19,38,.16); }
+    .hero-copy { position: absolute; left: 142px; top: 210px; width: 1290px; }
+    .hero-copy h1 { margin: 30px 0 0; max-width: 1280px; font-size: 108px; line-height: 1.1; }
+    .hero-copy h1 em { color: var(--cyan); font-style: normal; }
+    .hero-copy p { margin: 39px 0 0; max-width: 885px; color: #c7d7ef; font-size: 30px; line-height: 1.65; font-weight: 500; }
+    .hero-flow { position: absolute; left: 142px; bottom: 108px; display: flex; align-items: center; gap: 18px; }
+    .hero-flow .unit { min-width: 230px; border: 1px solid rgba(164,196,255,.38); background: rgba(5,15,35,.62); padding: 20px 24px; }
+    .hero-flow .unit b { display: block; color: var(--yellow); font: 500 15px/1 var(--font-mono); letter-spacing: .12em; margin-bottom: 10px; }
+    .hero-flow .unit span { font-size: 26px; font-weight: 700; }
+    .hero-flow .arrow { color: var(--cyan); font-size: 35px; }
+
+    /* === SLIDE 02: ROLE MODEL === */
+    .role-layout { position: absolute; inset: 170px 142px 105px; display: grid; grid-template-columns: 1.05fr 1.1fr; gap: 84px; }
+    .role-layout h2 { margin: 19px 0 0; font-size: 80px; line-height: 1.12; }
+    .role-layout .intro { margin-top: 32px; max-width: 630px; font-size: 28px; line-height: 1.65; }
+    .role-stack { display: grid; gap: 18px; align-content: center; }
+    .role-card { position: relative; padding: 28px 32px 27px 118px; min-height: 140px; }
+    .role-card .number { position: absolute; left: 31px; top: 28px; font: 500 32px/1 var(--font-mono); color: var(--signal); }
+    .role-card h3 { margin: 0; font-size: 32px; letter-spacing: -.03em; }
+    .role-card p { margin: 9px 0 0; color: var(--ink-soft); font-size: 22px; line-height: 1.55; }
+    .role-card.final { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .role-card.final .number { color: var(--cyan); }
+    .role-card.final p { color: #c3d2ea; }
+    .principle { position: absolute; left: 142px; bottom: 105px; width: 663px; border-top: 3px solid var(--signal); padding-top: 21px; font-size: 25px; line-height: 1.5; font-weight: 700; }
+
+    /* === SLIDE 03: PROCESS MAP === */
+    .process-copy { position: absolute; left: 142px; top: 183px; }
+    .process-copy h2 { margin: 17px 0 0; font-size: 79px; line-height: 1.1; }
+    .process-copy p { margin-top: 24px; color: #c2d4f0; font-size: 26px; }
+    .process-track { position: absolute; left: 142px; right: 142px; bottom: 160px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; }
+    .step { min-height: 260px; padding: 27px 26px; border: 1px solid rgba(164,196,255,.26); background: rgba(5,15,35,.56); }
+    .step .n { display: block; color: var(--cyan); font: 500 17px/1 var(--font-mono); letter-spacing: .11em; }
+    .step h3 { margin: 46px 0 12px; font-size: 32px; letter-spacing: -.035em; }
+    .step p { margin: 0; color: #b8c9e5; font-size: 20px; line-height: 1.55; }
+    .step.hot { background: var(--signal); color: var(--navy); border-color: var(--signal); }
+    .step.hot .n { color: var(--navy); }
+    .step.hot p { color: rgba(7,19,38,.78); }
+
+    /* === SLIDE 04: PREPARE === */
+    .split-title { position: absolute; top: 174px; left: 142px; width: 820px; }
+    .split-title h2 { margin: 18px 0 0; font-size: 78px; line-height: 1.1; }
+    .check-grid { position: absolute; top: 182px; right: 142px; width: 744px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .check-card { min-height: 169px; padding: 25px; }
+    .check-card .tag { color: var(--signal); font: 500 15px/1 var(--font-mono); letter-spacing: .12em; }
+    .check-card h3 { margin: 25px 0 8px; font-size: 27px; letter-spacing: -.03em; }
+    .check-card p { margin: 0; color: var(--ink-soft); font-size: 19px; line-height: 1.5; }
+    .asset-tree { position: absolute; left: 142px; bottom: 112px; width: 835px; background: var(--navy); color: #eaf3ff; padding: 31px 36px; }
+    .asset-tree b { display: block; color: var(--cyan); font: 500 16px/1 var(--font-mono); letter-spacing: .11em; margin-bottom: 15px; }
+    .asset-tree pre { margin: 0; font: 500 21px/1.63 var(--font-mono); white-space: pre-wrap; }
+    .prepare-note { position: absolute; right: 142px; bottom: 135px; width: 645px; font-size: 24px; line-height: 1.55; font-weight: 700; }
+    .prepare-note strong { color: var(--signal); }
+
+    /* === SLIDE 05: INSTALL === */
+    .install-title { position: absolute; left: 142px; top: 176px; width: 650px; }
+    .install-title h2 { margin: 18px 0 0; font-size: 78px; line-height: 1.1; }
+    .install-title p { margin-top: 28px; color: var(--ink-soft); font-size: 25px; line-height: 1.6; }
+    .install-steps { position: absolute; left: 850px; right: 142px; top: 176px; display: grid; gap: 13px; }
+    .install-step { min-height: 118px; display: grid; grid-template-columns: 105px 1fr; align-items: center; padding: 20px 24px; }
+    .install-step .num { font: 500 25px/1 var(--font-mono); color: var(--signal); }
+    .install-step strong { display: block; font-size: 25px; }
+    .install-step span { display: block; margin-top: 5px; color: var(--ink-soft); font-size: 19px; line-height: 1.5; }
+    .new-session { position: absolute; left: 142px; right: 142px; bottom: 105px; padding: 28px 34px; background: var(--navy); color: #f0f7ff; display: flex; align-items: center; gap: 30px; }
+    .new-session .signal-icon { flex: 0 0 48px; height: 48px; border-radius: 50%; background: var(--cyan); color: var(--navy); display: grid; place-items: center; font: 700 27px/1 var(--font-mono); }
+    .new-session strong { color: var(--yellow); font-size: 29px; }
+    .new-session p { margin: 3px 0 0; color: #c0d2ee; font-size: 20px; }
+
+    /* === SLIDE 06: CREATE PROJECT === */
+    .project-title { position: absolute; left: 142px; top: 174px; width: 790px; }
+    .project-title h2 { margin: 18px 0 0; font-size: 76px; line-height: 1.1; }
+    .project-title p { margin-top: 26px; color: #c3d4ee; font-size: 25px; line-height: 1.6; }
+    .prompt-box { position: absolute; left: 142px; bottom: 108px; width: 1050px; border: 1px solid rgba(165,196,245,.38); padding: 27px 31px; background: rgba(5,15,35,.66); }
+    .prompt-box .label { display: block; color: var(--yellow); font: 500 15px/1 var(--font-mono); letter-spacing: .13em; margin-bottom: 15px; }
+    .prompt-box code { font: 400 23px/1.66 var(--font-body); color: #e9f5ff; white-space: pre-wrap; }
+    .ui-map { position: absolute; right: 142px; top: 178px; width: 500px; display: grid; gap: 13px; }
+    .ui-map h3 { margin: 0 0 5px; color: var(--cyan); font: 500 16px/1 var(--font-mono); letter-spacing: .12em; }
+    .ui-item { padding: 17px 20px; border-left: 3px solid var(--cyan); background: rgba(7, 28, 58, .78); }
+    .ui-item b { font-size: 22px; }
+    .ui-item span { display: block; color: #b9cbe8; margin-top: 4px; font-size: 17px; line-height: 1.45; }
+
+    /* === SLIDE 07: BRIEF === */
+    .brief-title { position: absolute; left: 142px; top: 174px; width: 820px; }
+    .brief-title h2 { margin: 18px 0 0; font-size: 78px; line-height: 1.1; }
+    .brief-title p { margin-top: 25px; font-size: 25px; line-height: 1.58; color: var(--ink-soft); }
+    .brief-list { position: absolute; left: 142px; bottom: 105px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; width: 1636px; }
+    .brief-item { min-height: 240px; padding: 24px 22px; }
+    .brief-item .dot { width: 13px; height: 13px; background: var(--signal); margin-bottom: 49px; }
+    .brief-item h3 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
+    .brief-item p { margin: 12px 0 0; color: var(--ink-soft); font-size: 19px; line-height: 1.48; }
+    .brief-item:nth-child(2) .dot, .brief-item:nth-child(4) .dot { background: var(--cyan); }
+    .brief-item:nth-child(3) .dot, .brief-item:nth-child(5) .dot { background: var(--yellow); }
+
+    /* === SLIDE 08: REQUIREMENTS PROMPT === */
+    .prompt-slide-title { position: absolute; left: 142px; top: 160px; }
+    .prompt-slide-title h2 { margin: 17px 0 0; font-size: 70px; line-height: 1.1; }
+    .prompt-grid { position: absolute; left: 142px; right: 142px; top: 365px; bottom: 112px; display: grid; grid-template-columns: 1.14fr .86fr; gap: 22px; }
+    .prompt-main { padding: 30px 34px; background: var(--navy); color: #f1f7ff; border: 1px solid rgba(165,196,245,.3); }
+    .prompt-main .label, .prompt-side .label { display: block; font: 500 15px/1 var(--font-mono); letter-spacing: .12em; margin-bottom: 18px; }
+    .prompt-main .label { color: var(--cyan); }
+    .prompt-main pre { margin: 0; font: 400 20px/1.6 var(--font-body); white-space: pre-wrap; }
+    .prompt-side { padding: 30px 34px; background: rgba(255,255,255,.65); border: 1px solid var(--line); }
+    .prompt-side .label { color: var(--signal); }
+    .prompt-side ol { margin: 0; padding-left: 29px; font-size: 22px; line-height: 1.75; font-weight: 700; }
+    .prompt-side p { margin: 28px 0 0; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 19px; line-height: 1.55; }
+
+    /* === SLIDE 09: ROUGH CUT === */
+    .rough-copy { position: absolute; left: 142px; top: 175px; width: 670px; }
+    .rough-copy h2 { margin: 18px 0 0; font-size: 77px; line-height: 1.1; }
+    .rough-copy p { margin: 25px 0 0; color: var(--ink-soft); font-size: 25px; line-height: 1.58; }
+    .rough-command { position: absolute; left: 142px; bottom: 113px; width: 720px; padding: 28px 32px; background: var(--navy); color: #eff7ff; }
+    .rough-command b { display: block; color: var(--cyan); font: 500 15px/1 var(--font-mono); letter-spacing: .12em; margin-bottom: 12px; }
+    .rough-command p { margin: 0; font-size: 21px; line-height: 1.58; }
+    .rough-steps { position: absolute; left: 940px; right: 142px; top: 174px; bottom: 112px; display: grid; grid-template-rows: repeat(5, 1fr); gap: 11px; }
+    .rough-step { display: flex; align-items: center; gap: 24px; padding: 20px 25px; }
+    .rough-step .n { flex: 0 0 51px; font: 500 19px/1 var(--font-mono); color: var(--signal); }
+    .rough-step b { font-size: 24px; }
+    .rough-step span { display: block; margin-top: 4px; color: var(--ink-soft); font-size: 17px; }
+    .rough-step.last { background: var(--signal); border-color: var(--signal); }
+    .rough-step.last .n, .rough-step.last span { color: rgba(7,19,38,.75); }
+
+    /* === SLIDE 10: LAYERED REFINEMENT === */
+    .refine-title { position: absolute; left: 142px; top: 170px; }
+    .refine-title h2 { margin: 18px 0 0; font-size: 76px; line-height: 1.1; }
+    .refine-title p { margin: 25px 0 0; color: #c2d4ef; font-size: 25px; }
+    .refine-grid { position: absolute; left: 142px; right: 142px; bottom: 112px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .refine-card { min-height: 443px; padding: 29px 31px; border: 1px solid rgba(164,196,255,.3); background: rgba(4,15,35,.61); }
+    .refine-card .badge { display: inline-grid; place-items: center; width: 47px; height: 47px; border-radius: 50%; background: var(--cyan); color: var(--navy); font: 500 17px/1 var(--font-mono); }
+    .refine-card h3 { margin: 40px 0 13px; font-size: 36px; letter-spacing: -.04em; }
+    .refine-card ul { margin: 0; padding-left: 24px; color: #c1d2ed; font-size: 20px; line-height: 1.65; }
+    .refine-card:nth-child(2) .badge { background: var(--yellow); }
+    .refine-card:nth-child(3) .badge { background: var(--signal); color: #fff; }
+
+    /* === SLIDE 11: AUDIO === */
+    .audio-left { position: absolute; left: 142px; top: 178px; width: 675px; }
+    .audio-left h2 { margin: 18px 0 0; font-size: 76px; line-height: 1.1; }
+    .audio-left p { margin: 27px 0 0; color: var(--ink-soft); font-size: 25px; line-height: 1.6; }
+    .audio-quote { position: absolute; left: 142px; bottom: 120px; width: 678px; padding: 25px 0 0; border-top: 3px solid var(--signal); font-size: 25px; line-height: 1.55; font-weight: 700; }
+    .audio-list { position: absolute; left: 900px; right: 142px; top: 175px; display: grid; gap: 13px; }
+    .audio-item { padding: 19px 24px 19px 95px; min-height: 102px; position: relative; }
+    .audio-item .sound { position: absolute; left: 24px; top: 21px; width: 44px; height: 44px; border: 2px solid var(--signal); border-radius: 50%; }
+    .audio-item .sound::before, .audio-item .sound::after { content: ""; position: absolute; left: 51px; top: 10px; width: 14px; height: 18px; border-right: 2px solid var(--signal); border-radius: 50%; }
+    .audio-item .sound::after { left: 61px; top: 5px; height: 28px; opacity: .55; }
+    .audio-item b { font-size: 23px; }
+    .audio-item p { margin: 3px 0 0; color: var(--ink-soft); font-size: 17px; line-height: 1.45; }
+
+    /* === SLIDE 12: QUALITY CONTROL === */
+    .qa-title { position: absolute; left: 142px; top: 169px; width: 790px; }
+    .qa-title h2 { margin: 18px 0 0; font-size: 75px; line-height: 1.1; }
+    .qa-title p { margin: 23px 0 0; color: #c3d5ef; font-size: 24px; line-height: 1.6; }
+    .qa-list { position: absolute; left: 142px; top: 450px; width: 1115px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+    .qa-item { min-height: 74px; display: flex; align-items: center; gap: 15px; padding: 15px 19px; border: 1px solid rgba(165,196,245,.28); background: rgba(4,15,35,.58); font-size: 20px; line-height: 1.35; }
+    .qa-item::before { content: ""; flex: 0 0 21px; width: 21px; height: 21px; border: 2px solid var(--cyan); }
+    .export-card { position: absolute; right: 142px; top: 210px; width: 440px; padding: 31px 33px; background: var(--signal); color: var(--navy); }
+    .export-card .label { font: 500 15px/1 var(--font-mono); letter-spacing: .12em; }
+    .export-card h3 { margin: 40px 0 31px; font-size: 42px; letter-spacing: -.045em; }
+    .export-card dl { margin: 0; display: grid; gap: 16px; }
+    .export-card dt { font: 500 14px/1 var(--font-mono); letter-spacing: .12em; opacity: .7; }
+    .export-card dd { margin: 6px 0 0; font-size: 23px; font-weight: 800; }
+
+    /* === SLIDE 13: PITFALLS === */
+    .pitfall-title { position: absolute; left: 142px; top: 170px; }
+    .pitfall-title h2 { margin: 18px 0 0; font-size: 75px; line-height: 1.1; }
+    .pitfall-list { position: absolute; top: 385px; left: 142px; right: 142px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; }
+    .pitfall { min-height: 415px; padding: 25px 23px; border-top: 7px solid var(--signal); }
+    .pitfall:nth-child(2) { border-top-color: var(--cyan); }
+    .pitfall:nth-child(3) { border-top-color: var(--yellow); }
+    .pitfall:nth-child(4) { border-top-color: var(--blue); }
+    .pitfall:nth-child(5) { border-top-color: var(--navy); }
+    .pitfall .num { color: var(--ink-soft); font: 500 17px/1 var(--font-mono); }
+    .pitfall h3 { margin: 54px 0 14px; font-size: 27px; line-height: 1.25; letter-spacing: -.04em; }
+    .pitfall p { margin: 0; color: var(--ink-soft); font-size: 18px; line-height: 1.58; }
+
+    /* === SLIDE 14: CLOSE === */
+    .close-orbit { position: absolute; right: 97px; top: 118px; width: 420px; height: 420px; border: 2px solid rgba(51,239,207,.46); border-radius: 50%; }
+    .close-orbit::before { content: ""; position: absolute; width: 220px; height: 220px; border: 2px solid rgba(255,214,92,.75); border-radius: 50%; top: 97px; left: 97px; }
+    .close-orbit::after { content: ""; position: absolute; width: 45px; height: 45px; background: var(--signal); border-radius: 50%; right: 20px; bottom: 63px; box-shadow: -272px 104px 0 var(--cyan); }
+    .close-copy { position: absolute; left: 142px; top: 195px; width: 1180px; }
+    .close-copy h2 { margin: 20px 0 0; max-width: 1080px; font-size: 88px; line-height: 1.1; }
+    .close-copy h2 em { font-style: normal; color: var(--yellow); }
+    .close-copy p { margin: 30px 0 0; max-width: 780px; color: #c1d3ee; font-size: 27px; line-height: 1.6; }
+    .close-rule { position: absolute; left: 142px; bottom: 110px; right: 142px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .close-rule div { padding: 22px 25px; border: 1px solid rgba(165,196,245,.29); background: rgba(4,15,35,.58); }
+    .close-rule b { display: block; color: var(--cyan); font: 500 15px/1 var(--font-mono); letter-spacing: .12em; margin-bottom: 12px; }
+    .close-rule span { font-size: 24px; font-weight: 700; }
+
+    /* === TYPOGRAPHY + MOTION UPGRADE ===
+       Editorial Chinese headings, clean instructional body copy, and staged entrances. */
+    body {
+      font-family: var(--font-body);
+      font-weight: 500;
+      letter-spacing: .008em;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    .display {
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -.07em;
+      font-variation-settings: "opsz" 40, "wdth" 92;
+      text-wrap: balance;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      font-weight: 600;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 31px;
+      height: 1px;
+      background: currentColor;
+      opacity: .82;
+    }
+    .chrome, .mono, .progress { font-variation-settings: "wght" 500; }
+    .hero-copy h1 em,
+    .close-copy h2 em {
+      background: linear-gradient(100deg, var(--cyan) 0%, #9ff8e8 47%, var(--yellow) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-red {
+      background:
+        linear-gradient(180deg, rgba(255, 111, 83, .18), rgba(92, 15, 15, .13)),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, .14) 0 1px, transparent 1px 30px),
+        var(--signal);
+    }
+    .hero-red::before { animation: title-pulse 3.8s ease-in-out infinite; }
+    .close-orbit { animation: orbit-breathe 7s ease-in-out infinite; }
+    .card { box-shadow: var(--shadow-paper); }
+    .light .card:not(.final) { background: rgba(255, 255, 255, .66); }
+    .dark .card { box-shadow: var(--shadow-dark); }
+
+    /* A soft page entrance gives every navigation step a deliberate cadence. */
+    .slide { transition: opacity .36s var(--ease-out); }
+    .slide.active .slide-shell { animation: shell-settle .72s var(--ease-entrance) both; }
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      background: linear-gradient(112deg, transparent 37%, rgba(255, 255, 255, .18) 48%, transparent 59%);
+      transform: translateX(-112%);
+    }
+    .slide.active::after { animation: entrance-sheen .82s var(--ease-entrance) both; }
+
+    /* Copy arrives first: marker, heading, then supporting explanation. */
+    .reveal {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translate3d(0, 28px, 0);
+      will-change: opacity, transform, filter;
+      transition:
+        opacity .48s var(--ease-entrance),
+        transform .72s var(--ease-entrance),
+        filter .6s var(--ease-entrance);
+    }
+    .visible .reveal { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0); }
+    .eyebrow.reveal { transform: translate3d(-18px, 0, 0) scaleX(.92); transform-origin: left center; }
+    .visible .eyebrow.reveal { transform: translate3d(0, 0, 0) scaleX(1); }
+    .display.reveal { filter: blur(12px); transform: translate3d(0, 38px, 0) scale(.985); transform-origin: left bottom; }
+    .visible .display.reveal { filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+    .visible .reveal.delay-1 { transition-delay: .11s; }
+    .visible .reveal.delay-2 { transition-delay: .23s; }
+    .visible .reveal.delay-3 { transition-delay: .35s; }
+    .visible .reveal.delay-4 { transition-delay: .47s; }
+
+    /* Dense instruction groups reveal card-by-card instead of landing all at once. */
+    .cascade { --cascade-delay: .18s; }
+    .cascade.delay-1 { --cascade-delay: .12s; }
+    .cascade.delay-2 { --cascade-delay: .24s; }
+    .cascade.delay-3 { --cascade-delay: .36s; }
+    .cascade > * {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translate3d(0, 24px, 0) scale(.987);
+      will-change: opacity, transform, filter;
+      transition:
+        opacity .38s var(--ease-entrance),
+        transform .62s var(--ease-entrance),
+        filter .48s var(--ease-entrance),
+        box-shadow .35s ease;
+    }
+    .visible .cascade > * { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+    .visible .cascade > :nth-child(1) { transition-delay: var(--cascade-delay); }
+    .visible .cascade > :nth-child(2) { transition-delay: calc(var(--cascade-delay) + .075s); }
+    .visible .cascade > :nth-child(3) { transition-delay: calc(var(--cascade-delay) + .15s); }
+    .visible .cascade > :nth-child(4) { transition-delay: calc(var(--cascade-delay) + .225s); }
+    .visible .cascade > :nth-child(5) { transition-delay: calc(var(--cascade-delay) + .3s); }
+    .visible .cascade > :nth-child(6) { transition-delay: calc(var(--cascade-delay) + .375s); }
+    .visible .cascade > :nth-child(7) { transition-delay: calc(var(--cascade-delay) + .45s); }
+    .cascade .card:hover { box-shadow: 0 25px 56px rgba(7, 19, 38, .16); }
+    .dark .cascade .card:hover { box-shadow: 0 28px 62px rgba(0, 3, 16, .36); }
+
+    @keyframes shell-settle {
+      from { opacity: .78; transform: translate3d(0, 10px, 0) scale(.997); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+    @keyframes entrance-sheen {
+      0% { opacity: 0; transform: translateX(-112%); }
+      22% { opacity: .32; }
+      100% { opacity: 0; transform: translateX(112%); }
+    }
+    @keyframes title-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 18px rgba(7,19,38,.16); }
+      50% { transform: scale(1.06); box-shadow: 0 0 0 28px rgba(7,19,38,.1); }
+    }
+    @keyframes orbit-breathe {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+      50% { transform: translate3d(-10px, 8px, 0) rotate(4deg); opacity: .82; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active .slide-shell,
+      .slide.active::after,
+      .hero-red::before,
+      .close-orbit { animation: none !important; }
+      .reveal,
+      .cascade > * {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+    @media print {
+      .slide .reveal,
+      .slide .cascade > * {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+      }
+      .slide::after { display: none; }
+    }
+
+    /* === CONTROLS AND INLINE EDITING === */
+    .nav-ui { display: flex; align-items: center; gap: 11px; color: #d8e6fb; }
+    .nav-ui button { width: 38px; height: 38px; border: 1px solid rgba(226,239,255,.36); border-radius: 50%; color: inherit; background: rgba(4,15,35,.62); cursor: pointer; }
+    .nav-ui button:hover { background: var(--signal); border-color: var(--signal); }
+    .progress { min-width: 82px; text-align: center; font: 500 13px/1 var(--font-mono); letter-spacing: .08em; }
+    .edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+    .edit-toggle { position: fixed; top: 20px; left: 20px; z-index: 10001; width: 42px; height: 42px; border: 0; border-radius: 50%; color: var(--navy); background: var(--cyan); opacity: 0; pointer-events: none; transition: opacity .3s ease; cursor: pointer; }
+    .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+    .edit-tools { position: fixed; top: 20px; left: 78px; z-index: 10001; display: flex; gap: 8px; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+    .edit-tools button { border: 1px solid rgba(226,239,255,.38); border-radius: 9px; background: rgba(4,15,35,.88); color: #e9f4ff; padding: 9px 12px; font-size: 13px; cursor: pointer; }
+    .edit-mode .edit-tools { opacity: 1; pointer-events: auto; }
+    .edit-mode [data-editable] { outline: 2px dashed var(--cyan); outline-offset: 5px; cursor: text; }
+    .edit-mode [data-editable]:focus { outline-color: var(--yellow); background: rgba(255,214,92,.12); }
+    .toast { position: fixed; right: 24px; bottom: 24px; z-index: 10002; padding: 11px 15px; border-radius: 10px; background: rgba(4,15,35,.92); color: #e8f6ff; font-size: 13px; opacity: 0; transform: translateY(10px); transition: .25s ease; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media print { .edit-hotzone, .edit-toggle, .edit-tools, .toast { display: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="deck-viewport" aria-label="youwendu-skill 与 ChatCut 从想法到成片操作指南">
+    <main class="deck-stage" id="deckStage">
+
+      <!-- === 01: COVER === -->
+      <section class="slide dark active visible" aria-label="封面">
+        <div class="hero-red"></div>
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">CS WORKFLOW</span><span class="page-index">01 / 14</span></div>
+          <div class="hero-copy">
+            <div class="eyebrow reveal" data-editable>YOUWENDU-SKILL × CHATCUT / FROM IDEA TO VIDEO</div>
+            <h1 class="display reveal delay-1" data-editable>把模糊想法<br>变成<em>可执行的成片</em></h1>
+            <p class="reveal delay-2" data-editable>一份从收敛内容想法、确认脚本，到 ChatCut 粗剪、质检与导出的操作指南。</p>
+          </div>
+          <div class="hero-flow cascade delay-3">
+            <div class="unit"><b>01 / YOUWENDU</b><span data-editable>收敛内容与脚本</span></div><span class="arrow">→</span>
+            <div class="unit"><b>02 / CHATCUT</b><span data-editable>执行剪辑</span></div><span class="arrow">→</span>
+            <div class="unit"><b>03 / YOU</b><span data-editable>完成判断</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 02: THE CORE IDEA === -->
+      <section class="slide light" aria-label="核心分工">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">CORE IDEA</span><span class="page-index">02 / 14</span></div>
+          <div class="role-layout">
+            <div>
+              <div class="eyebrow reveal">先说结论</div>
+              <h2 class="display reveal delay-1" data-editable>不是“一句话<br>生成大片”</h2>
+              <p class="intro reveal delay-2" data-editable>真正有效的方式，是先把模糊想法变成可执行方案，再让 AI 在真实时间线中完成剪辑。</p>
+            </div>
+            <div class="role-stack cascade delay-2">
+              <article class="role-card card"><span class="number">01</span><h3 data-editable>youwendu-skill = 内容策略与导演</h3><p data-editable>筛选想法、确定唯一观点、确认脚本、规划镜头并列出素材缺口。</p></article>
+              <article class="role-card card"><span class="number">02</span><h3 data-editable>ChatCut = 剪辑师与工作台</h3><p data-editable>导入素材、整理时间线、生成字幕、制作 MG、处理声音并导出。</p></article>
+              <article class="role-card card final"><span class="number">03</span><h3 data-editable>你 = 最后的判断者</h3><p data-editable>检查节奏、事实、字幕与审美；AI 提速，但不替你做创作决定。</p></article>
+            </div>
+          </div>
+          <p class="principle reveal delay-3" data-editable>核心原则：<strong>不从时间线开始，先从“这条内容究竟要让谁记住什么”开始。</strong></p>
+        </div>
+      </section>
+
+      <!-- === 03: WORKFLOW MAP === -->
+      <section class="slide dark" aria-label="完整工作流">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">WORKFLOW MAP</span><span class="page-index">03 / 14</span></div>
+          <div class="process-copy"><div class="eyebrow reveal">一条视频，六个阶段</div><h2 class="display reveal delay-1" data-editable>从素材到发布，不跳步</h2><p class="reveal delay-2" data-editable>每一步先完成确认，再进入下一步；返工成本会明显下降。</p></div>
+          <div class="process-track cascade delay-2">
+            <article class="step"><span class="n">01 / PREPARE</span><h3 data-editable>准备</h3><p data-editable>设备、账号、素材、目标</p></article>
+            <article class="step"><span class="n">02 / CONNECT</span><h3 data-editable>连接</h3><p data-editable>安装插件并新开任务</p></article>
+            <article class="step hot"><span class="n">03 / CONTENT PLAN</span><h3 data-editable>内容收敛</h3><p data-editable>从想法确定唯一观点、脚本与蓝图</p></article>
+            <article class="step"><span class="n">04 / ROUGH CUT</span><h3 data-editable>粗剪</h3><p data-editable>先验证结构与节奏</p></article>
+            <article class="step"><span class="n">05 / REFINE</span><h3 data-editable>精修</h3><p data-editable>字幕、画面、MG、声音分层处理</p></article>
+            <article class="step"><span class="n">06 / QA + EXPORT</span><h3 data-editable>质检</h3><p data-editable>检查后再导出，并保留时间线</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 04: PREPARE === -->
+      <section class="slide light" aria-label="开始前准备">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">PREPARE</span><span class="page-index">04 / 14</span></div>
+          <div class="split-title"><div class="eyebrow reveal">开始前，准备四样东西</div><h2 class="display reveal delay-1" data-editable>素材不必完美，<br>但必须可识别</h2></div>
+          <div class="check-grid cascade delay-2">
+            <article class="check-card card"><span class="tag">01 / HOST</span><h3 data-editable>电脑端 Codex</h3><p data-editable>在要剪辑的电脑上使用可安装插件的桌面端环境。</p></article>
+            <article class="check-card card"><span class="tag">02 / ACCOUNT</span><h3 data-editable>ChatCut 账号</h3><p data-editable>完成登录与授权，确保能打开项目工作台。</p></article>
+            <article class="check-card card"><span class="tag">03 / ASSETS</span><h3 data-editable>原始素材</h3><p data-editable>口播、录屏、图片、Logo、音乐与音效。</p></article>
+            <article class="check-card card"><span class="tag">04 / BRIEF</span><h3 data-editable>明确需求</h3><p data-editable>主题、时长、画幅、发布平台与表达目标。</p></article>
+          </div>
+          <div class="asset-tree reveal delay-2"><b>推荐素材目录</b><pre data-editable>项目名称
+├── 01-口播
+├── 02-产品录屏
+├── 03-补充图片
+├── 04-Logo 与品牌素材
+└── 05-音乐与音效</pre></div>
+          <p class="prepare-note reveal delay-3" data-editable><strong>命名要清楚：</strong>“首页录屏.mp4”“支付流程.mp4”比“视频1”“最终版2”更容易被正确使用。</p>
+        </div>
+      </section>
+
+      <!-- === 05: INSTALL === -->
+      <section class="slide light" aria-label="安装插件">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">CONNECT</span><span class="page-index">05 / 14</span></div>
+          <div class="install-title"><div class="eyebrow reveal">首次使用</div><h2 class="display reveal delay-1" data-editable>安装 ChatCut<br>Agent 插件</h2><p class="reveal delay-2" data-editable>优先从 ChatCut 的内置入口复制官方安装提示，再交给 Codex 完成安装与授权。</p></div>
+          <div class="install-steps cascade delay-2">
+            <article class="install-step card"><span class="num">01</span><div><strong data-editable>打开右上角个人菜单</strong><span data-editable>进入 ChatCut 编辑器后，点击个人资料入口。</span></div></article>
+            <article class="install-step card"><span class="num">02</span><div><strong data-editable>选择「Agent 插件」</strong><span data-editable>在「ChatGPT/Codex」旁点击「复制」。</span></div></article>
+            <article class="install-step card"><span class="num">03</span><div><strong data-editable>粘贴到桌面端 Codex</strong><span data-editable>发送安装提示，按浏览器页面完成登录与授权。</span></div></article>
+            <article class="install-step card"><span class="num">04</span><div><strong data-editable>确认认证成功</strong><span data-editable>让 Codex 完成官方指引，并确认插件已可用。</span></div></article>
+          </div>
+          <div class="new-session reveal delay-3"><span class="signal-icon">!</span><div><strong data-editable>最容易踩的坑：安装成功后，必须新开一个任务。</strong><p data-editable>ChatCut 工具在会话开始时加载；不要在旧任务中反复尝试调用。</p></div></div>
+        </div>
+      </section>
+
+      <!-- === 06: CREATE PROJECT === -->
+      <section class="slide dark" aria-label="创建项目">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">NEW PROJECT</span><span class="page-index">06 / 14</span></div>
+          <div class="project-title"><div class="eyebrow reveal">环境验证</div><h2 class="display reveal delay-1" data-editable>蓝图确认后，<br>再创建项目</h2><p class="reveal delay-2" data-editable>不要急着让 AI 出成片。先确认内容和脚本，再检查项目是否真的创建成功、可以使用哪些能力。</p></div>
+          <div class="prompt-box reveal delay-2"><span class="label">可以直接复制</span><code data-editable>我已确认 $youwendu-skill 输出的口播稿和制作蓝图。请使用 ChatCut 创建一个新项目，项目名称为「我的第一条产品介绍视频」。
+先不要直接开始剪辑，请先告诉我当前可调用的视频剪辑、字幕、MG 动画、素材生成和导出能力，再确认项目是否已成功创建。</code></div>
+          <aside class="ui-map cascade delay-3"><h3>你会看到的工作区</h3><div class="ui-item"><b data-editable>AI 面板</b><span data-editable>输入指令、@ 引用素材与时间线对象</span></div><div class="ui-item"><b data-editable>中央预览</b><span data-editable>查看当前播放头所在画面</span></div><div class="ui-item"><b data-editable>素材库 / 文字稿</b><span data-editable>管理媒体，或用文字稿编辑口播</span></div><div class="ui-item"><b data-editable>时间线</b><span data-editable>检查轨道、节奏、片段与最终结构</span></div></aside>
+        </div>
+      </section>
+
+      <!-- === 07: BRIEF === -->
+      <section class="slide light" aria-label="说清楚需求">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">DEFINE THE BRIEF</span><span class="page-index">07 / 14</span></div>
+          <div class="brief-title"><div class="eyebrow reveal">第一步不是上传素材</div><h2 class="display reveal delay-1" data-editable>先把想法收敛成内容</h2><p class="reveal delay-2" data-editable>“帮我剪得高级一点”几乎等于没有需求。先用 $youwendu-skill 把想法变成一个明确的内容承诺。</p></div>
+          <div class="brief-list cascade delay-2">
+            <article class="brief-item card"><div class="dot"></div><h3 data-editable>唯一观点</h3><p data-editable>观众看完只需要记住什么？</p></article>
+            <article class="brief-item card"><div class="dot"></div><h3 data-editable>目标用户</h3><p data-editable>希望谁看完、谁行动？</p></article>
+            <article class="brief-item card"><div class="dot"></div><h3 data-editable>发布平台</h3><p data-editable>抖音、X、小红书还是 YouTube？</p></article>
+            <article class="brief-item card"><div class="dot"></div><h3 data-editable>成片规格</h3><p data-editable>9:16 / 16:9 / 1:1；时长是多少？</p></article>
+            <article class="brief-item card"><div class="dot"></div><h3 data-editable>事实与素材</h3><p data-editable>什么可以证明它？哪些内容仍待确认？</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 08: PROMPT TEMPLATE === -->
+      <section class="slide light" aria-label="需求模板">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">COPY THIS</span><span class="page-index">08 / 14</span></div>
+          <div class="prompt-slide-title"><div class="eyebrow reveal">用这段话启动规划</div><h2 class="display reveal delay-1" data-editable>先确定内容，<br>不要立即剪辑</h2></div>
+          <div class="prompt-grid cascade delay-2">
+            <div class="prompt-main"><span class="label">需求模板</span><pre data-editable>使用 $youwendu-skill，把下面的内容想法整理成一条可拍的产品介绍视频。先不要创建 ChatCut 项目。
+
+我的想法 / 原始素材：【填写笔记、链接、截图或想法清单】
+目标用户：【填写用户】
+发布平台：【抖音 / X / 小红书 / YouTube】
+画幅与时长：【9:16 / 60 秒】
+视频目标：【让用户看懂产品，并愿意点击体验】
+
+请先排序并推荐一个主题；我确认后再生成口播稿和制作蓝图。</pre></div>
+            <div class="prompt-side"><span class="label">先完成这些工作</span><ol data-editable><li>合并重复想法并推荐一个主题</li><li>明确受众、核心观点与事实边界</li><li>提炼开头 Hook 并输出完整口播稿</li><li>按时间拆分镜头，标出对应素材</li><li>列出素材缺口，再进入 ChatCut 执行</li></ol><p data-editable>目的：把“我有很多想法”，变成一条可以确认、可以制作、可以验证的视频。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 09: ROUGH CUT === -->
+      <section class="slide light" aria-label="制作粗剪">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">ROUGH CUT FIRST</span><span class="page-index">09 / 14</span></div>
+          <div class="rough-copy"><div class="eyebrow reveal">第一版，只做结构</div><h2 class="display reveal delay-1" data-editable>蓝图已确认，<br>粗剪先验证节奏</h2><p class="reveal delay-2" data-editable>结构错了，字幕、动画和音乐做得越多，返工越严重。</p></div>
+          <div class="rough-command reveal delay-2"><b>粗剪要求</b><p data-editable>导入口播、录屏、图片和 Logo；删除明显口误、重复表达与过长停顿；按脚本安排口播与画面；先只使用简单硬切；完成后给预览与时间线摘要，不要直接导出。</p></div>
+          <div class="rough-steps cascade delay-2">
+            <article class="rough-step card"><span class="n">01</span><div><b data-editable>导入正确素材</b><span data-editable>口播、录屏、图片与品牌资产都要可追溯。</span></div></article>
+            <article class="rough-step card"><span class="n">02</span><div><b data-editable>清理明显问题</b><span data-editable>删口误、重复和拖沓，但保留自然呼吸。</span></div></article>
+            <article class="rough-step card"><span class="n">03</span><div><b data-editable>按脚本排时间线</b><span data-editable>让画面和口播在同一秒表达同一件事。</span></div></article>
+            <article class="rough-step card"><span class="n">04</span><div><b data-editable>先给预览</b><span data-editable>检查开头 3 秒、中段节奏、结尾行动提示。</span></div></article>
+            <article class="rough-step card last"><span class="n">STOP</span><div><b data-editable>还没确认结构？先不要进下一轮。</b><span data-editable>不要此时添加复杂动效、音乐或最终包装。</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 10: REFINEMENT === -->
+      <section class="slide dark" aria-label="分层精修">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">REFINE IN LAYERS</span><span class="page-index">10 / 14</span></div>
+          <div class="refine-title"><div class="eyebrow reveal">第二轮，分层处理</div><h2 class="display reveal delay-1" data-editable>一次只改一个层级</h2><p class="reveal delay-2" data-editable>这样才能知道每一次修改到底改善了什么，或破坏了什么。</p></div>
+          <div class="refine-grid cascade delay-2">
+            <article class="refine-card"><span class="badge">01</span><h3 data-editable>字幕</h3><ul data-editable><li>检查产品名与专有名词</li><li>每行尽量不超过 14 个汉字</li><li>避免挡住人脸和关键信息</li></ul></article>
+            <article class="refine-card"><span class="badge">02</span><h3 data-editable>画面与 B-roll</h3><ul data-editable><li>讲功能时优先用真实录屏</li><li>重要操作可放大或高亮</li><li>缺素材先列缺口，不要编造画面</li></ul></article>
+            <article class="refine-card"><span class="badge">03</span><h3 data-editable>MG 动画</h3><ul data-editable><li>只放在标题、卖点、行动提示</li><li>统一字体、颜色和圆角</li><li>动画服务信息，不要句句特效</li></ul></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 11: AUDIO === -->
+      <section class="slide light" aria-label="声音与节奏">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">AUDIO + RHYTHM</span><span class="page-index">11 / 14</span></div>
+          <div class="audio-left"><div class="eyebrow reveal">不是画面越多越好</div><h2 class="display reveal delay-1" data-editable>声音与节奏，<br>决定能否看完</h2><p class="reveal delay-2" data-editable>先让人声清楚、停顿自然、重点明确；再考虑背景音乐和音效。</p></div>
+          <div class="audio-list cascade delay-2">
+            <article class="audio-item card"><span class="sound"></span><b data-editable>清理明显底噪</b><p data-editable>让人声清晰自然，不要过度处理到失真。</p></article>
+            <article class="audio-item card"><span class="sound"></span><b data-editable>统一人声音量</b><p data-editable>避免不同片段突然变大、变小或断裂。</p></article>
+            <article class="audio-item card"><span class="sound"></span><b data-editable>背景音乐不盖住口播</b><p data-editable>让音乐承担氛围，不抢信息表达。</p></article>
+            <article class="audio-item card"><span class="sound"></span><b data-editable>音效只用于重点</b><p data-editable>转场、重点文字或按钮出现时少量使用。</p></article>
+            <article class="audio-item card"><span class="sound"></span><b data-editable>旁白先定文案再定声音</b><p data-editable>不要让 AI 一边改稿，一边直接生成最终配音。</p></article>
+          </div>
+          <p class="audio-quote reveal delay-3" data-editable>“画面负责理解，声音负责停留。”</p>
+        </div>
+      </section>
+
+      <!-- === 12: QA + EXPORT === -->
+      <section class="slide dark" aria-label="发布前质检与导出">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">QA + EXPORT</span><span class="page-index">12 / 14</span></div>
+          <div class="qa-title"><div class="eyebrow reveal">最后一步：先查问题，再统一修改</div><h2 class="display reveal delay-1" data-editable>发布前，做一次完整质检</h2><p class="reveal delay-2" data-editable>不要“能播放”就导出。先要求 Codex 输出问题清单和对应时间点，确认后再改。</p></div>
+          <div class="qa-list cascade delay-2">
+            <div class="qa-item" data-editable>口误、重复内容或异常停顿？</div><div class="qa-item" data-editable>字幕错别字、断句或遮挡？</div>
+            <div class="qa-item" data-editable>产品画面是否与当前口播一致？</div><div class="qa-item" data-editable>音乐和音效是否盖住人声？</div>
+            <div class="qa-item" data-editable>开头 3 秒是否清楚？</div><div class="qa-item" data-editable>结尾行动提示是否完整？</div>
+            <div class="qa-item" data-editable>时长、分辨率、画幅是否符合要求？</div>
+          </div>
+          <aside class="export-card reveal delay-3"><span class="label">确认最终版后导出</span><h3 data-editable>MP4<br>交付规格</h3><dl><div><dt>画幅</dt><dd data-editable>9:16</dd></div><div><dt>分辨率</dt><dd data-editable>1080 × 1920</dd></div><div><dt>文件名</dt><dd data-editable>产品名-抖音版-v1.mp4</dd></div><div><dt>保留</dt><dd data-editable>可编辑时间线</dd></div></dl></aside>
+        </div>
+      </section>
+
+      <!-- === 13: PITFALLS === -->
+      <section class="slide light" aria-label="新手常见错误">
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">AVOID THESE</span><span class="page-index">13 / 14</span></div>
+          <div class="pitfall-title"><div class="eyebrow reveal">把返工扼杀在前面</div><h2 class="display reveal delay-1" data-editable>新手最容易踩的 5 个坑</h2></div>
+          <div class="pitfall-list cascade delay-2">
+            <article class="pitfall card"><span class="num">01</span><h3 data-editable>一上来就要最终版</h3><p data-editable>先做结构，再做包装；否则每次改脚本都会牵动全部工作。</p></article>
+            <article class="pitfall card"><span class="num">02</span><h3 data-editable>不写平台和画幅</h3><p data-editable>抖音和 YouTube 的节奏、比例、字幕大小都不同。</p></article>
+            <article class="pitfall card"><span class="num">03</span><h3 data-editable>一次改太多东西</h3><p data-editable>口播、画面、字幕、音乐和动画要分层调整。</p></article>
+            <article class="pitfall card"><span class="num">04</span><h3 data-editable>不检查事实和字幕</h3><p data-editable>产品名、数字、价格、按钮文案尤其需要人工确认。</p></article>
+            <article class="pitfall card"><span class="num">05</span><h3 data-editable>只说“不好看”</h3><p data-editable>给具体时间点和具体动作，例如删停顿、提前录屏、改关键词颜色。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 14: CLOSE === -->
+      <section class="slide dark" aria-label="总结">
+        <div class="close-orbit"></div>
+        <div class="slide-shell">
+          <div class="chrome"><span class="brand">MAKE THE FIRST ONE</span><span class="page-index">14 / 14</span></div>
+          <div class="close-copy"><div class="eyebrow reveal">现在开始你的第一条视频</div><h2 class="display reveal delay-1" data-editable>youwendu-skill 负责想清楚，<br>ChatCut 负责<em>做出来</em></h2><p class="reveal delay-2" data-editable>而最终的判断、审美与表达，依然属于创作者自己。</p></div>
+          <div class="close-rule cascade delay-3"><div><b>RULE 01</b><span data-editable>先收敛内容与想法</span></div><div><b>RULE 02</b><span data-editable>每阶段先确认再继续</span></div><div><b>RULE 03</b><span data-editable>素材不足，列缺口不编造</span></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- === NAVIGATION CONTROLS === -->
+  <nav class="deck-controls nav-ui" aria-label="演示稿导航">
+    <button id="prevBtn" aria-label="上一页">←</button>
+    <span class="progress" id="progressText">01 / 14</span>
+    <button id="nextBtn" aria-label="下一页">→</button>
+  </nav>
+
+  <!-- === INLINE EDITING CONTROLS === -->
+  <div class="edit-hotzone" aria-label="编辑模式热区"></div>
+  <button class="edit-toggle" id="editToggle" title="编辑模式（E）" aria-label="编辑模式">✎</button>
+  <div class="edit-tools"><button id="saveBtn">保存本地修改</button><button id="exportBtn">下载 HTML</button></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* === PRESENTATION CONTROLLER: scaling, navigation, touch, wheel === */
+    class SlidePresentation {
+      constructor() {
+        this.slides = [...document.querySelectorAll('.slide')];
+        this.currentSlide = 0;
+        this.stage = document.getElementById('deckStage');
+        this.progress = document.getElementById('progressText');
+        this.wheelLocked = false;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.showSlide(0);
+      }
+
+      setupStageScale() {
+        const scale = () => {
+          const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+          const x = (window.innerWidth - 1920 * factor) / 2;
+          const y = (window.innerHeight - 1080 * factor) / 2;
+          this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener('keydown', (event) => {
+          if (event.target.getAttribute('contenteditable') === 'true') return;
+          if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); this.next(); }
+          if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); this.previous(); }
+          if (event.key === 'Home') { event.preventDefault(); this.showSlide(0); }
+          if (event.key === 'End') { event.preventDefault(); this.showSlide(this.slides.length - 1); }
+        });
+      }
+
+      setupTouchNav() {
+        document.addEventListener('touchstart', (event) => { const point = event.changedTouches[0]; this.touchStartX = point.clientX; this.touchStartY = point.clientY; }, { passive: true });
+        document.addEventListener('touchend', (event) => {
+          const point = event.changedTouches[0];
+          const dx = point.clientX - this.touchStartX;
+          const dy = point.clientY - this.touchStartY;
+          if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) dx < 0 ? this.next() : this.previous();
+        }, { passive: true });
+      }
+
+      setupWheelNav() {
+        document.addEventListener('wheel', (event) => {
+          if (this.wheelLocked || editor.isActive) return;
+          if (Math.abs(event.deltaY) < 20) return;
+          this.wheelLocked = true;
+          event.deltaY > 0 ? this.next() : this.previous();
+          window.setTimeout(() => { this.wheelLocked = false; }, 520);
+        }, { passive: true });
+      }
+
+      showSlide(index) {
+        this.currentSlide = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides.forEach((slide, i) => {
+          const visible = i === this.currentSlide;
+          slide.classList.toggle('active', visible);
+          slide.classList.toggle('visible', visible);
+        });
+        this.progress.textContent = `${String(this.currentSlide + 1).padStart(2, '0')} / ${String(this.slides.length).padStart(2, '0')}`;
+      }
+
+      next() { this.showSlide(this.currentSlide + 1); }
+      previous() { this.showSlide(this.currentSlide - 1); }
+    }
+
+    /* === INLINE EDITOR: local save and downloadable HTML === */
+    class InlineEditor {
+      constructor() {
+        this.isActive = false;
+        this.storageKey = 'cs-ppt-codex-chatcut-zero-to-one-v1';
+        this.editables = [...document.querySelectorAll('[data-editable]')];
+        this.toggle = document.getElementById('editToggle');
+        this.hotzone = document.querySelector('.edit-hotzone');
+        this.toast = document.getElementById('toast');
+        this.hideTimeout = null;
+        this.restore();
+        this.bind();
+      }
+
+      bind() {
+        this.toggle.addEventListener('click', () => this.toggleEditMode());
+        this.hotzone.addEventListener('mouseenter', () => { clearTimeout(this.hideTimeout); this.toggle.classList.add('show'); });
+        this.hotzone.addEventListener('mouseleave', () => this.hideToggleSoon());
+        this.hotzone.addEventListener('click', () => this.toggleEditMode());
+        this.toggle.addEventListener('mouseenter', () => clearTimeout(this.hideTimeout));
+        this.toggle.addEventListener('mouseleave', () => this.hideToggleSoon());
+        document.getElementById('saveBtn').addEventListener('click', () => this.save());
+        document.getElementById('exportBtn').addEventListener('click', () => this.download());
+        document.addEventListener('keydown', (event) => {
+          if ((event.key === 'e' || event.key === 'E') && event.target.getAttribute('contenteditable') !== 'true') this.toggleEditMode();
+          if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') { event.preventDefault(); this.save(); }
+        });
+      }
+
+      hideToggleSoon() {
+        this.hideTimeout = window.setTimeout(() => { if (!this.isActive) this.toggle.classList.remove('show'); }, 400);
+      }
+
+      toggleEditMode() {
+        this.isActive = !this.isActive;
+        document.body.classList.toggle('edit-mode', this.isActive);
+        this.toggle.classList.toggle('active', this.isActive);
+        this.editables.forEach((element) => { element.contentEditable = this.isActive ? 'true' : 'false'; });
+        this.announce(this.isActive ? '编辑模式已开启。点击文字修改，Ctrl+S 保存。' : '编辑模式已关闭。');
+      }
+
+      save() {
+        const content = this.editables.map((element) => element.innerHTML);
+        localStorage.setItem(this.storageKey, JSON.stringify(content));
+        this.announce('修改已保存到当前浏览器。');
+      }
+
+      restore() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(this.storageKey));
+          if (Array.isArray(saved)) this.editables.forEach((element, index) => { if (typeof saved[index] === 'string') element.innerHTML = saved[index]; });
+        } catch (_) { /* Ignore malformed local storage and keep original deck content. */ }
+      }
+
+      download() {
+        const documentCopy = '<!doctype html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([documentCopy], { type: 'text/html;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'codex-chatcut-zero-to-one-guide.html';
+        link.click();
+        URL.revokeObjectURL(link.href);
+        this.announce('HTML 文件已开始下载。');
+      }
+
+      announce(message) {
+        this.toast.textContent = message;
+        this.toast.classList.add('show');
+        window.clearTimeout(this.toastTimer);
+        this.toastTimer = window.setTimeout(() => this.toast.classList.remove('show'), 1800);
+      }
+    }
+
+    const editor = new InlineEditor();
+    const deck = new SlidePresentation();
+    document.getElementById('prevBtn').addEventListener('click', () => deck.previous());
+    document.getElementById('nextBtn').addEventListener('click', () => deck.next());
+  </script>
+</body>
+</html>
