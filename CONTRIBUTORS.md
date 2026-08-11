@@ -6,6 +6,10 @@ CS Skills 由陈硕（KAI）维护，并在真实项目中与 AI 编程助手协
 
 - [陈硕（ChenShuo2004）](https://github.com/ChenShuo2004)：产品方向、架构设计、内容沉淀与项目维护
 
+## 社区贡献者
+
+- [helloianneo](https://github.com/helloianneo)：中文轻手绘正文配图的开源参考与视觉表达灵感
+
 ## AI 协作者
 
 - [Claude](https://github.com/claude)：参与技能设计、文档整理与实现协作
