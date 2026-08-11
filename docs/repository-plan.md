@@ -33,7 +33,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 ### 内容、视觉与电商视频
 
 - `cs-writer`
-- `you-wendu-ip`
+- `cs-you-wendu-ip`
 - `cs-xiaohuang-skill`
 - `cs-auto-videl`
 - `cs-chatcut-video-blueprint`
@@ -94,7 +94,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 ### P1：真实任务回归
 
 - `cs-writer`：用真实项目记录生成一篇文章。
-- `you-wendu-ip`：用身份参考图生成 2D、3D 和多形态示例，并检查角色 DNA 是否漂移。
+- `cs-you-wendu-ip`：用身份参考图生成 2D、3D 和多形态示例，并检查角色 DNA 是否漂移。
 - `cs-frontend-design`：完成一个页面设计和浏览器检查。
 - `cs-clean-code`：对真实改动做小范围质量收尾。
 - `cs-ralph-runner`：从 Markdown PRD 生成 dry-run。

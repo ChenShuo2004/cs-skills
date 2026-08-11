@@ -11,7 +11,7 @@
 | `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
 | `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
 | `cs-search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
-| `you-wendu-ip` | 品牌 IP 视觉 | 保持角色 DNA，生成和延展有温度 IP 的 2D/3D、动作、联名与风格迁移资产 | `references/`, `assets/` |
+| `cs-you-wendu-ip` | 品牌 IP 视觉 | 保持角色 DNA，生成和延展有温度 IP 的 2D/3D、动作、联名与风格迁移资产 | `references/`, `assets/` |
 | `cs-auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
 | `cs-xiaohuang-skill` | 中文正文配图 | 将文章、帖子或方法论的认知锚点转成小黄手绘配图 | `references/` |
 | `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
@@ -48,7 +48,7 @@ Recommended skill:
 
 ### 品牌 IP 视觉
 
-- 有温度 IP 标准图、动作表情、2D/3D、联名、风格迁移和身份修复：`$you-wendu-ip`
+- 有温度 IP 标准图、动作表情、2D/3D、联名、风格迁移和身份修复：`$cs-you-wendu-ip`
 - 只处理“有温度”固定角色；不承接无关的通用生图任务。
 
 ### 电商视频
