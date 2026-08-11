@@ -13,7 +13,7 @@
 | `search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
 | `you-wendu-ip` | 品牌 IP 视觉 | 保持角色 DNA，生成和延展有温度 IP 的 2D/3D、动作、联名与风格迁移资产 | `references/`, `assets/` |
 | `auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
-| `youwendu-skill` | 内容到 ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `xiaohuang-skill` | 内容到 ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
 | `checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
 | `clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
@@ -56,7 +56,7 @@ Recommended skill:
 
 ### ChatCut 视频筹备
 
-- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$youwendu-skill`
+- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$xiaohuang-skill`
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 
 ### 产品与工程

@@ -1,5 +1,5 @@
 ---
-name: youwendu-skill
+name: xiaohuang-skill
 description: "当用户想把零散内容、单个观点或一批短视频想法收敛为可拍摄的 ChatCut 视频时使用：先选择最值得做的内容方向和唯一核心观点，再完成可确认的中文口播稿，最后输出素材清单、Motion Graphics 方案、声音方向和逐镜头总表。用于短视频策划和人工在 ChatCut 中组装前的准备；不要用于直接修改时间线、导入导出素材、电商视频复刻、长文写作或外部事实调研。除非用户指定其他语言，默认使用中文输出。"
 metadata:
   author: "陈硕"
@@ -10,7 +10,7 @@ metadata:
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
-# youwendu-skill · 内容到视频蓝图
+# xiaohuang-skill · 内容到视频蓝图
 
 ## 目标与边界
 
