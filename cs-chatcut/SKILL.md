@@ -1,6 +1,6 @@
 ---
-name: cs-chatcut-video-blueprint
-description: "当用户想把零散内容、单个观点或一批短视频想法收敛为可拍摄的 ChatCut 视频时使用：先选择最值得做的内容方向和唯一核心观点，再完成可确认的中文口播稿，最后输出素材清单、Motion Graphics 方案、声音方向和逐镜头总表。用于短视频策划和人工在 ChatCut 中组装前的准备；不要用于直接修改时间线、导入导出素材、电商视频复刻、长文写作或外部事实调研。除非用户指定其他语言，默认使用中文输出。"
+name: cs-chatcut
+description: "当用户要规划一条 ChatCut 短视频，或需要从内容想法到首个 ChatCut 项目的零到一操作指引时使用：先选择最值得做的主题和唯一核心观点，再完成可确认的中文口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头总表，并说明在 ChatCut 中的交接步骤。用于短视频策划、人工组装前的准备和操作上手；不要用于直接修改时间线、导入导出素材、电商视频复刻、长文写作或外部事实调研。除非用户指定其他语言，默认使用中文输出。"
 metadata:
   author: "陈硕"
   collection: "CS Skills"
@@ -10,11 +10,15 @@ metadata:
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
 
-# ChatCut 视频制作蓝图
+# ChatCut 视频策划与操作指南
 
 ## 目标与边界
 
 把零散的内容、观点和视频想法收敛成一条有明确受众、观点、证据和行动目标的短视频，再整理为可执行的制作蓝图，帮助用户准备素材并在 ChatCut 中完成组装。
+
+## 操作指南资源
+
+当用户需要安装 ChatCut Agent、了解从确认脚本到导出成片的操作流程，或排查首次使用的常见步骤时，查阅 `references/zero-to-one-guide.html`。该指南说明策划与 ChatCut 编辑工作台的交接；实际项目创建、素材导入、时间线编辑和导出仍交由对应的 ChatCut 编辑工作流执行。
 
 严格保持策划边界：
 

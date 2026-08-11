@@ -18,7 +18,7 @@
 | `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
-| `cs-chatcut-video-blueprint` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
 
 ## 主入口
 
@@ -57,7 +57,7 @@ Recommended skill:
 
 ### ChatCut 视频筹备
 
-- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$cs-chatcut-video-blueprint`
+- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics、声音规划和 ChatCut 上手：`$cs-chatcut`
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 
 ### 产品与工程

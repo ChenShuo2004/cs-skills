@@ -48,7 +48,7 @@ $cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并
 ### 3. 有很多内容想法时，先收敛成一条值得拍的视频
 
 ```text
-$cs-chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
+$cs-chatcut 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
 ```
 
 它不会直接开剪。它先帮你从想法里挑出一个有明确对象和证据的内容切口，确认口播稿后才生成素材、Motion Graphics、声音和逐镜头表。
@@ -99,7 +99,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
-| [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$cs-chatcut](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut) | ChatCut 视频策划与操作上手 | 选题排序、口播稿、素材清单、Motion Graphics、逐镜头表和零到一操作指南 |
 
 ## 小黄 IP 与正文配图 Skill
 
@@ -136,7 +136,7 @@ $cs-xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 
 ### 从很多想法到一条可拍视频
 
 ```text
-$cs-chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
+$cs-chatcut 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
@@ -192,7 +192,7 @@ cs-skills/
 ├── cs-writer/
 ├── cs-search-skill/
 ├── cs-auto-videl/
-├── cs-chatcut-video-blueprint/
+├── cs-chatcut/
 ├── cs-xiaohuang-skill/
 ├── cs-frontend-design/
 ├── cs-clean-code/
