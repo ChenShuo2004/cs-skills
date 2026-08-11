@@ -2,6 +2,7 @@
 name: cs-writer
 description: |
   Use when the user wants ChenShuo-style writing or content work: long-form articles, public account drafts, project stories, product/build logs, tool experience posts, outlines, angle selection, rewrites, polishing, or turning scattered material into readable and useful content. Trigger for "$cs-writer", "cs writer", "写文章", "写稿子", "帮我写", "续写", "扩写", "公众号", "用我的风格", "写成一篇", "内容创作", or when real source material should become warm, curious, practical writing. Do not use for pure code documentation unless the user wants a narrative article.
+  Supports X/Twitter rewriting when the user asks to turn original content into a concise, high-retention post.
 metadata:
   author: "陈硕"
   collection: "CS Skills"
@@ -38,6 +39,7 @@ Choose one mode before writing:
 - **Outline**: create the article spine, section purpose, and evidence needed.
 - **Draft**: write the complete piece from the supplied material.
 - **Rewrite**: preserve the user's meaning while improving structure, rhythm, clarity, and usefulness.
+- **X Rewrite**: turn supplied source material into one concise, high-retention X/Twitter post without changing its meaning.
 - **Polish**: make a near-final draft more natural without changing its claims or personality.
 - **Review**: diagnose truth, usefulness, specificity, rhythm, and voice, then give targeted edits.
 
@@ -71,6 +73,20 @@ Prefer topics that hit all three. If only one is present, improve the angle or a
 - Prefer a specific scene over an abstract opening.
 - Let technical explanations return quickly to the user's real goal.
 
+## X / Twitter Rewrite
+
+Use this mode when the user supplies original content and asks to make it an X/Twitter post or requests a viral-style rewrite.
+
+- Preserve the original meaning, core value, scope, and factual certainty. Improve presentation; never manufacture a stronger claim, result, or controversy.
+- Deliver the post directly with no explanation unless the user requests one.
+- Keep it within 280 characters, counting all text, emoji, spaces, and line breaks. If the source cannot be conveyed truthfully within that limit, retain the most important value point rather than squeezing in every detail.
+- Open with a three-second hook: a strong but truthful view, a counterintuitive fact already supported by the source, or a practical "How to" promise.
+- Use mobile-first spacing: short standalone sentences, blank lines between ideas, and compact lists when useful.
+- Use emoji sparingly as visual cues (for example: 🧵, 👉, ✅); never let emoji replace meaning or make the post feel templated.
+- Sound conversational, confident, specific, and human. Avoid literal-translation phrasing, vague hype, and AI-sounding filler.
+- Highlight only truly important terms with CAPS or Markdown bold. Do not overuse either.
+- End with a natural CTA that invites a relevant reply, save, repost, or opinion. Do not append irrelevant engagement bait.
+
 ## Hard Rules
 
 - Never invent first-hand experience, numbers, screenshots, user reactions, product results, or external facts.
@@ -101,4 +117,5 @@ For detailed rhythm, opening, and article-spine guidance, read [references/style
 - For outlines, include the purpose and evidence for each major section.
 - For drafts, deliver the article directly, followed by only the missing-fact notes that affect truth.
 - For rewrites and polish, preserve intent and explain only the changes that materially improve the piece.
+- For X/Twitter rewrites, deliver exactly one post within 280 characters, with mobile-friendly line breaks and a relevant CTA.
 - For reviews, lead with the highest-impact issues and give targeted replacement suggestions.
