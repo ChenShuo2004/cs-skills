@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 已收束为 10 个 active skill，并采用单入口架构：
+CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -30,13 +30,14 @@ CS Skills 已收束为 10 个 active skill，并采用单入口架构：
 
 负责读取项目上下文、生成 Goal Card、提出最小阻塞问题、选择下游 skill，并在用户要求时继续执行。
 
-### 内容与电商视频
+### 内容、视觉与电商视频
 
 - `cs-writer`
+- `you-wendu-ip`
 - `auto-videl`
 - `chatcut-video-blueprint`
 
-分别覆盖陈硕风格写作、电商短视频复刻与生成包，以及 ChatCut 视频素材筹备蓝图。
+分别覆盖陈硕风格写作、有温度品牌 IP 的一致性延展、电商短视频复刻与生成包，以及 ChatCut 视频素材筹备蓝图。
 
 ### 调研与决策
 
@@ -90,6 +91,7 @@ CS Skills 已收束为 10 个 active skill，并采用单入口架构：
 ### P1：真实任务回归
 
 - `cs-writer`：用真实项目记录生成一篇文章。
+- `you-wendu-ip`：用身份参考图生成 2D、3D 和多形态示例，并检查角色 DNA 是否漂移。
 - `frontend-design`：完成一个页面设计和浏览器检查。
 - `clean-code`：对真实改动做小范围质量收尾。
 - `ralph-runner`：从 Markdown PRD 生成 dry-run。

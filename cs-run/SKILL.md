@@ -32,6 +32,7 @@ Choose one primary route from this table:
 | Save a rollback point before risky repository changes | `$checkpoint-version` | Restorable local checkpoint and verification |
 | Turn a Markdown PRD into a Ralph workflow or dry-run | `$ralph-runner` | Ralph PRD, overview, dry-run output, and logs |
 | Verify, commit, push, open a PR, or deploy a completed change | `$ending-time` | Delivery verification and GitHub/Vercel handoff |
+| Generate, edit, convert, or extend the fixed “有温度” brand IP while preserving character identity | `$you-wendu-ip` | 2D/3D character assets, action variants, collaboration art, and identity QA |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$auto-videl` | Storyboards, prompts, generation package, and QC |
 | 根据主题和相关内容规划 ChatCut 视频 | `$chatcut-video-blueprint` | 中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
@@ -71,7 +72,8 @@ If a request belongs to a retired route, say that the route is no longer active 
 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
-- Respect explicit skill names. `$cs-writer`, `$search-skill`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, `$auto-videl`, and `$chatcut-video-blueprint` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$search-skill`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, `$you-wendu-ip`, `$auto-videl`, and `$chatcut-video-blueprint` take precedence over generic routing.
+- Route requests about “有温度 IP”, “温度种子”, the hollow-heart antenna, fixed character extensions, 2D/3D character conversion, collaboration art, or identity-preserving style transfer to `$you-wendu-ip`. Do not use it for unrelated general image generation.
 - Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
 - 将 ChatCut 主题到制作蓝图的请求路由到 `$chatcut-video-blueprint`；实际 ChatCut 项目编辑和电商视频复刻继续使用各自的专用工作流。
 - Do not ask the user to choose a skill when the route is unambiguous.
