@@ -34,7 +34,8 @@ Choose one primary route from this table:
 | Verify, commit, push, open a PR, or deploy a completed change | `$ending-time` | Delivery verification and GitHub/Vercel handoff |
 | Generate, edit, convert, or extend the fixed “有温度” brand IP while preserving character identity | `$you-wendu-ip` | 2D/3D character assets, action variants, collaboration art, and identity QA |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$auto-videl` | Storyboards, prompts, generation package, and QC |
-| 将单个或一批内容想法收敛为 ChatCut 短视频 | `$xiaohuang-skill` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
+| 为中文文章、帖子、Notion 或方法论设计/生成正文配图 | `$xiaohuang-skill` | 配图 shot list、16:9 小黄手绘配图或局部改图 |
+| 将单个或一批内容想法收敛为 ChatCut 短视频 | `$chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
 
 ## Retired Routes
@@ -72,10 +73,10 @@ If a request belongs to a retired route, say that the route is no longer active 
 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
-- Respect explicit skill names. `$cs-writer`, `$search-skill`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, `$you-wendu-ip`, `$auto-videl`, and `$xiaohuang-skill` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$search-skill`, `$frontend-design`, `$clean-code`, `$checkpoint-version`, `$ralph-runner`, `$ending-time`, `$you-wendu-ip`, `$auto-videl`, `$xiaohuang-skill`, and `$chatcut-video-blueprint` take precedence over generic routing.
 - Route requests about “有温度 IP”, “温度种子”, the hollow-heart antenna, fixed character extensions, 2D/3D character conversion, collaboration art, or identity-preserving style transfer to `$you-wendu-ip`. Do not use it for unrelated general image generation.
 - Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
-- 将内容想法、短视频主题到 ChatCut 制作蓝图的请求路由到 `$xiaohuang-skill`；文章或长文改写交给 `$cs-writer`，实际 ChatCut 项目编辑和电商视频复刻继续使用各自的专用工作流。
+- 将中文文章、观点或方法论转成正文配图的请求路由到 `$xiaohuang-skill`；将内容想法、短视频主题到 ChatCut 制作蓝图的请求路由到 `$chatcut-video-blueprint`；文章或长文改写交给 `$cs-writer`，实际 ChatCut 项目编辑和电商视频复刻继续使用各自的专用工作流。
 - Do not ask the user to choose a skill when the route is unambiguous.
 - Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.
 - Keep the Goal Card short. It is an execution aid, not a long questionnaire.

@@ -1,4 +1,4 @@
 interface:
   display_name: "xiaohuang-skill"
-  short_description: "把零散想法收敛为可拍的口播、素材和分镜蓝图。"
-  default_prompt: "使用 $xiaohuang-skill，把我的零散内容和想法先排优先级并确定一个视频主题，再生成口播稿确认版和制作蓝图。"
+  short_description: "将中文文章、知识内容和方法论转成有记忆点的轻手绘正文配图。"
+  default_prompt: "使用 $xiaohuang-skill，为这篇中文文章先设计配图 shot list，再逐张生成小黄手绘正文配图。"

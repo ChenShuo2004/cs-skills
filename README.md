@@ -14,7 +14,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 用户目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 11 个 active skill，覆盖产品设计、工程开发、内容创作、深度调研、品牌 IP 视觉、电商视频和交付收尾。
+当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、品牌 IP 视觉、文章配图、深度调研、短视频策划/制作和交付收尾。
 
 ## 适合谁
 
@@ -50,7 +50,7 @@ $cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并
 ### 3. 有很多内容想法时，先收敛成一条值得拍的视频
 
 ```text
-$xiaohuang-skill 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
+$chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
 ```
 
 它不会直接开剪。它先帮你从想法里挑出一个有明确对象和证据的内容切口，确认口播稿后才生成素材、Motion Graphics、声音和逐镜头表。
@@ -101,8 +101,9 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 | [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
 | [$search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
 | [$you-wendu-ip](https://github.com/ChenShuo2004/cs-skills/tree/main/you-wendu-ip) | 有温度 IP 标准图、动作延展、2D/3D、联名与风格迁移 | 身份锁定的角色图、变体和 QA 结果 |
+| [$xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/xiaohuang-skill) | 中文内容的轻手绘正文配图 | 配图 shot list、16:9 小黄正文配图和局部改图 |
 | [$auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
-| [$xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/xiaohuang-skill) | 把内容想法收敛为 ChatCut 视频蓝图 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
 
 ## 有温度 IP Skill
 
@@ -160,10 +161,18 @@ $cs-writer 把这次产品开发过程写成一篇适合公众号发布的文章
 
 它会提炼真实场景、选择文章角度、补齐结构，并避免编造经历、数据和结果。
 
+### 从文章到正文配图
+
+```text
+$xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 个位置，输出 shot list：每张图的核心意思、小黄动作、构图和中文标注词。
+```
+
+它把文章中的判断、关系和转折画成白底轻手绘正文配图。每张图只讲一个核心意思，适合公众号、博客、Notion 和方法论文档。
+
 ### 从很多想法到一条可拍视频
 
 ```text
-$xiaohuang-skill 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
+$chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
@@ -228,6 +237,7 @@ cs-skills/
 ├── search-skill/
 ├── you-wendu-ip/
 ├── auto-videl/
+├── chatcut-video-blueprint/
 ├── xiaohuang-skill/
 ├── frontend-design/
 ├── clean-code/
