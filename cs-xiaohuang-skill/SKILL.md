@@ -18,6 +18,7 @@ metadata:
 
 - `references/style-dna.md`：视觉语言、颜色和禁忌。
 - `references/xiaohuang-ip.md`：小黄角色和动作规则。
+- `assets/reference-xiaohuang.png`：小黄身份锚点；生成或更新图片时必须作为角色参考图查看。
 - `references/composition-patterns.md`：构图选择与原创隐喻方法。
 - `references/prompt-template.md`：单张生成和局部编辑模板。
 - `references/qa-checklist.md`：生成后的检查与修正规则。
@@ -41,7 +42,7 @@ metadata:
 ## 硬规则
 
 - 默认生成 16:9 横版正文配图，纯白背景、黑色轻手绘线条和充足留白。
-- 小黄必须是画面的核心行动者，不得只是角落装饰；去掉小黄后画面核心动作应不成立。
+- 小黄必须严格保持 `assets/reference-xiaohuang.png` 的暖黄梨形身体、爱心天线、椭圆眼睛、腮红与细手脚，并成为画面的核心行动者；不得变成通用黄色胶囊或角落装饰。
 - 一张图只解释一个认知动作或关系，正文标注要短，最多 6 处。
 - 保持怪诞、轻松、克制和产品草图感；不要做成儿童插画、商业海报、课程课件或正式流程图。
 - 不复制参考案例、他人 IP、旧图构图或原图中的受保护角色；为当前内容重新发明隐喻。
