@@ -8,7 +8,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 用户目标 → cs-run → 一个下游 skill → 验证结果
 ```
 
-主入口是 `$cs-run`，写作入口是 `$cs-writer`，调研入口是 `$search-skill`。
+主入口是 `$cs-run`，写作入口是 `$cs-writer`，调研入口是 `$cs-search-skill`。
 
 ## 仓库定位
 
@@ -34,31 +34,31 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 - `cs-writer`
 - `you-wendu-ip`
-- `xiaohuang-skill`
-- `auto-videl`
-- `chatcut-video-blueprint`
+- `cs-xiaohuang-skill`
+- `cs-auto-videl`
+- `cs-chatcut-video-blueprint`
 
 分别覆盖陈硕风格写作、有温度品牌 IP 的一致性延展、中文正文配图、电商短视频复刻与生成包，以及从内容想法到 ChatCut 制作蓝图的收敛流程。
 
 ### 调研与决策
 
-- `search-skill`
+- `cs-search-skill`
 
 负责产品、公司、技术、市场和竞品的深度研究，输出带来源、风险和行动建议的决策简报。
 
 ### 产品、工程与交付
 
-- `frontend-design`
-- `clean-code`
-- `ralph-runner`
-- `checkpoint-version`
-- `ending-time`
+- `cs-frontend-design`
+- `cs-clean-code`
+- `cs-ralph-runner`
+- `cs-checkpoint-version`
+- `cs-ending-time`
 
 覆盖界面设计、工程质量、PRD 执行、版本回退和最后一公里交付。
 
-`xiaohuang-skill` 将中文文章、帖子或方法论中的认知锚点转为小黄轻手绘正文配图；不做 ChatCut 策划、商业 KV、PPT 信息图或复杂架构图。
+`cs-xiaohuang-skill` 将中文文章、帖子或方法论中的认知锚点转为小黄轻手绘正文配图；不做 ChatCut 策划、商业 KV、PPT 信息图或复杂架构图。
 
-`chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
+`cs-chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
 
 ## 已退休范围
 
@@ -95,13 +95,13 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 - `cs-writer`：用真实项目记录生成一篇文章。
 - `you-wendu-ip`：用身份参考图生成 2D、3D 和多形态示例，并检查角色 DNA 是否漂移。
-- `frontend-design`：完成一个页面设计和浏览器检查。
-- `clean-code`：对真实改动做小范围质量收尾。
-- `ralph-runner`：从 Markdown PRD 生成 dry-run。
-- `auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
-- `xiaohuang-skill`：用真实文章生成 shot list 和至少一张正文配图，并验证小黄参与、留白和非 PPT 感。
-- `chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
-- `ending-time`：完成验证、提交、推送和部署收尾。
+- `cs-frontend-design`：完成一个页面设计和浏览器检查。
+- `cs-clean-code`：对真实改动做小范围质量收尾。
+- `cs-ralph-runner`：从 Markdown PRD 生成 dry-run。
+- `cs-auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
+- `cs-xiaohuang-skill`：用真实文章生成 shot list 和至少一张正文配图，并验证小黄参与、留白和非 PPT 感。
+- `cs-chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
+- `cs-ending-time`：完成验证、提交、推送和部署收尾。
 
 ### P2：持续收束
 

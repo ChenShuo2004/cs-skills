@@ -50,7 +50,7 @@ $cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并
 ### 3. 有很多内容想法时，先收敛成一条值得拍的视频
 
 ```text
-$chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
+$cs-chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
 ```
 
 它不会直接开剪。它先帮你从想法里挑出一个有明确对象和证据的内容切口，确认口播稿后才生成素材、Motion Graphics、声音和逐镜头表。
@@ -59,11 +59,11 @@ $chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合
 
 ```text
 $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
-$search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
-$frontend-design 设计并实现这个页面，最后做浏览器验证。
-$clean-code 检查这次实现，整理代码、文档和测试。
+$cs-search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
+$cs-frontend-design 设计并实现这个页面，最后做浏览器验证。
+$cs-clean-code 检查这次实现，整理代码、文档和测试。
 $you-wendu-ip 基于角色参考图生成一张保持身份一致的有温度 IP 插画。
-$ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
+$cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
 ```
 
 ## 它解决什么问题
@@ -74,7 +74,7 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 | AI 只给建议，不负责推进 | 每个 skill 都定义输入、输出、流程和验证 |
 | 每次都要重复解释自己的工作方法 | 把真实项目经验沉淀成可复用工作流 |
 | skill 越装越多，触发互相冲突 | 只保留稳定目标，明确入口和边界 |
-| 完成后不知道是否真的交付 | 通过 `$clean-code` 和 `$ending-time` 做质量与发布收尾 |
+| 完成后不知道是否真的交付 | 通过 `$cs-clean-code` 和 `$cs-ending-time` 做质量与发布收尾 |
 
 ## Active Skills
 
@@ -88,22 +88,22 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 
 | Skill | 功能 | 典型输出 |
 | --- | --- | --- |
-| [$frontend-design](https://github.com/ChenShuo2004/cs-skills/tree/main/frontend-design) | 前端页面、工具、仪表盘设计与评审 | UI 方案、实现约束、浏览器验证 |
-| [$clean-code](https://github.com/ChenShuo2004/cs-skills/tree/main/clean-code) | 代码清理、重构、文档同步和质量检查 | 有边界的修改、测试和交付说明 |
-| [$ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、dry-run 日志 |
-| [$checkpoint-version](https://github.com/ChenShuo2004/cs-skills/tree/main/checkpoint-version) | 大改前保存版本和回退 | 可恢复的本地 checkpoint |
-| [$ending-time](https://github.com/ChenShuo2004/cs-skills/tree/main/ending-time) | 验证、提交、推送、PR 和部署收尾 | 交付报告、GitHub/Vercel 结果 |
+| [$cs-frontend-design](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-frontend-design) | 前端页面、工具、仪表盘设计与评审 | UI 方案、实现约束、浏览器验证 |
+| [$cs-clean-code](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-clean-code) | 代码清理、重构、文档同步和质量检查 | 有边界的修改、测试和交付说明 |
+| [$cs-ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、dry-run 日志 |
+| [$cs-checkpoint-version](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-checkpoint-version) | 大改前保存版本和回退 | 可恢复的本地 checkpoint |
+| [$cs-ending-time](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ending-time) | 验证、提交、推送、PR 和部署收尾 | 交付报告、GitHub/Vercel 结果 |
 
 ### 内容、调研、视觉与视频
 
 | Skill | 功能 | 典型输出 |
 | --- | --- | --- |
 | [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
-| [$search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
+| [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
 | [$you-wendu-ip](https://github.com/ChenShuo2004/cs-skills/tree/main/you-wendu-ip) | 有温度 IP 标准图、动作延展、2D/3D、联名与风格迁移 | 身份锁定的角色图、变体和 QA 结果 |
-| [$xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/xiaohuang-skill) | 中文内容的轻手绘正文配图 | 配图 shot list、16:9 小黄正文配图和局部改图 |
-| [$auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
-| [$chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 中文内容的轻手绘正文配图 | 配图 shot list、16:9 小黄正文配图和局部改图 |
+| [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
+| [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
 
 ## 有温度 IP Skill
 
@@ -151,7 +151,7 @@ $ending-time 这个功能已经完成，帮我验证、提交、推送和部署�
 $cs-run 我想做一个帮助独立开发者管理 AI 工作流的 SaaS。
 ```
 
-先由 `$cs-run` 整理目标，再根据任务进入 `$frontend-design`、`$clean-code`、`$ralph-runner` 或 `$ending-time`。
+先由 `$cs-run` 整理目标，再根据任务进入 `$cs-frontend-design`、`$cs-clean-code`、`$cs-ralph-runner` 或 `$cs-ending-time`。
 
 ### 从项目记录到文章
 
@@ -164,7 +164,7 @@ $cs-writer 把这次产品开发过程写成一篇适合公众号发布的文章
 ### 从文章到正文配图
 
 ```text
-$xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 个位置，输出 shot list：每张图的核心意思、小黄动作、构图和中文标注词。
+$cs-xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 个位置，输出 shot list：每张图的核心意思、小黄动作、构图和中文标注词。
 ```
 
 它把文章中的判断、关系和转折画成白底轻手绘正文配图。每张图只讲一个核心意思，适合公众号、博客、Notion 和方法论文档。
@@ -172,7 +172,7 @@ $xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 个
 ### 从很多想法到一条可拍视频
 
 ```text
-$chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
+$cs-chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
@@ -180,7 +180,7 @@ $chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作流�
 ### 从竞品到决策
 
 ```text
-$search-skill 调研这个方向的主要竞品，给出带来源的进入建议。
+$cs-search-skill 调研这个方向的主要竞品，给出带来源的进入建议。
 ```
 
 它会建立研究地图、搜索当前来源、对比竞品，并区分事实、推断、风险和行动建议。
@@ -188,7 +188,7 @@ $search-skill 调研这个方向的主要竞品，给出带来源的进入建议
 ### 从产品图到电商视频
 
 ```text
-$auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Google Flow 提示词。
+$cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Google Flow 提示词。
 ```
 
 它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
@@ -234,16 +234,16 @@ cs-skills/
 ├── docs/
 ├── cs-run/
 ├── cs-writer/
-├── search-skill/
+├── cs-search-skill/
 ├── you-wendu-ip/
-├── auto-videl/
-├── chatcut-video-blueprint/
-├── xiaohuang-skill/
-├── frontend-design/
-├── clean-code/
-├── ralph-runner/
-├── checkpoint-version/
-└── ending-time/
+├── cs-auto-videl/
+├── cs-chatcut-video-blueprint/
+├── cs-xiaohuang-skill/
+├── cs-frontend-design/
+├── cs-clean-code/
+├── cs-ralph-runner/
+├── cs-checkpoint-version/
+└── cs-ending-time/
 ```
 
 每个 skill 尽量保持自包含：

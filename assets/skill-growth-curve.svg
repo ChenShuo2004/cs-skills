@@ -87,7 +87,7 @@
 
   <text x="160" y="608" class="small">2026-05-25 首批</text>
   <text x="450" y="608" class="small">+ cs-run</text>
-  <text x="640" y="608" class="small">+ cs-writer / auto-videl / checkpoint</text>
+  <text x="640" y="608" class="small">+ cs-writer / cs-auto-videl / cs-checkpoint</text>
 
   <g filter="url(#shadow)">
     <rect x="930" y="156" width="428" height="494" rx="22" fill="url(#panel)" stroke="#2C3736"/>

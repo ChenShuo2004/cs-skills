@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS ChatCut 视频制作蓝图"
+  short_description: "把零散想法收敛成可拍短视频的口播、素材、声音与分镜蓝图。"
+  default_prompt: "使用 $cs-chatcut-video-blueprint，把我的零散内容和想法先排优先级并确定一个视频主题，再生成口播稿确认版和制作蓝图。"
