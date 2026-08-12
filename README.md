@@ -21,11 +21,11 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 - 需要同时处理产品、代码、内容、调研和交付的 AI 创业者。
 - 不想每次都先研究“应该调用哪个 Prompt / skill”的用户。
 
-## 第一个讲解：小黄 IP 与正文配图 Skill
+## 小黄 IP 与正文配图 Skill（第一个讲解）
 
-这是本 README 第一个讲解的内容：了解如何用 `$cs-xiaohuang-skill` 稳定生成小黄品牌 IP 资产和中文正文配图。
+`$cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：既能稳定生成、编辑和延展 2D/3D、联名与风格迁移资产，也能把中文内容中的认知锚点画成小黄参与行动、带中文手写标注的白底手绘正文配图。
 
-[查看小黄 Skill 的完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
+[查看完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
 
 ## 30 秒开始
 
@@ -106,12 +106,6 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
-
-## 小黄 IP 与正文配图 Skill
-
-`$cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：既能稳定生成、编辑和延展 2D/3D、联名与风格迁移资产，也能把中文内容中的认知锚点画成小黄参与行动、带中文手写标注的白底手绘正文配图。
-
-[查看完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
 
 ## 真实使用场景
 
