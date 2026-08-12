@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1560" role="img" aria-labelledby="title desc">
+  <title id="title">CS Skills：从 cs-run 到 10 条下游路由的工作流</title>
+  <desc id="desc">用户目标进入 cs-run，形成 Goal Card，通过信息检查后选择唯一的主路由。十个下游 skill 按内容创作与产品工程分组，并在需要时回到验证和交付。</desc>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@400;500;600;700&amp;display=swap');
+    text { font-family: 'JetBrains Mono', 'Noto Sans SC', 'PingFang SC', sans-serif; }
+    .title { fill: #f8fafc; font-size: 26px; font-weight: 700; }
+    .subtitle { fill: #94a3b8; font-size: 13px; font-weight: 400; }
+    .group { fill: #f8fafc; font-size: 14px; font-weight: 700; }
+    .group-note { fill: #94a3b8; font-size: 11px; font-weight: 400; }
+    .name { fill: #f8fafc; font-size: 14px; font-weight: 700; }
+    .detail { fill: #cbd5e1; font-size: 11px; font-weight: 400; }
+    .output { fill: #94a3b8; font-size: 10px; font-weight: 400; }
+    .tiny { fill: #94a3b8; font-size: 9px; font-weight: 400; }
+    .arrow-label { fill: #cbd5e1; font-size: 10px; font-weight: 500; }
+    .process-mask { fill: #0f172a; }
+    .process { fill: rgba(8, 51, 68, 0.40); stroke: #22d3ee; stroke-width: 1.5; }
+    .secondary { fill: rgba(6, 78, 59, 0.40); stroke: #34d399; stroke-width: 1.5; }
+    .tertiary { fill: rgba(76, 29, 149, 0.40); stroke: #a78bfa; stroke-width: 1.5; }
+    .accent { fill: rgba(120, 53, 15, 0.32); stroke: #fbbf24; stroke-width: 1.5; }
+    .alert { fill: rgba(136, 19, 55, 0.40); stroke: #fb7185; stroke-width: 1.5; }
+    .highlight { fill: rgba(59, 130, 246, 0.28); stroke: #60a5fa; stroke-width: 1.8; }
+    .route-line { fill: none; stroke: #64748b; stroke-width: 1.2; marker-end: url(#arrow); }
+    .happy-line { fill: none; stroke: #60a5fa; stroke-width: 1.8; marker-end: url(#arrow-blue); }
+    .optional-line { fill: none; stroke: #fb923c; stroke-width: 1.4; stroke-dasharray: 6 5; marker-end: url(#arrow-orange); }
+    .loop-line { fill: none; stroke: #fb7185; stroke-width: 1.3; stroke-dasharray: 5 5; marker-end: url(#arrow-rose); }
+  </style>
+
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fb923c"/>
+    </marker>
+    <marker id="arrow-rose" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fb7185"/>
+    </marker>
+  </defs>
+
+  <rect width="2400" height="1560" fill="#0f172a"/>
+  <rect width="2400" height="1560" fill="url(#grid)"/>
+
+  <text x="70" y="58" class="title">CS Skills 路由总图</text>
+  <text x="70" y="86" class="subtitle">1 个统一入口 + 10 个下游 Skill ｜ 一次执行只选择 1 条主路由 ｜ 虚线为必要时的二次路由</text>
+
+  <!-- group boundaries -->
+  <rect x="48" y="742" width="2304" height="240" rx="14" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="8 5"/>
+  <text x="72" y="771" class="group">内容、研究与创意</text>
+  <text x="72" y="791" class="group-note">选择其中一个作为主路由；产出内容、研究结论、配图或视频生成包</text>
+
+  <rect x="48" y="1034" width="2304" height="250" rx="14" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="8 5"/>
+  <text x="72" y="1063" class="group">产品与工程</text>
+  <text x="72" y="1083" class="group-note">设计、质量、执行与发布；任务进入交付阶段时再调用相应 Skill</text>
+
+  <!-- connectors behind nodes -->
+  <path d="M1200 154 L1200 190" class="happy-line"/>
+  <path d="M1200 302 L1200 330" class="happy-line"/>
+  <path d="M1200 420 L1200 452" class="happy-line"/>
+  <path d="M1200 528 L1200 570" class="happy-line"/>
+  <path d="M1270 490 L1710 490" class="loop-line"/>
+  <path d="M1910 530 L1910 605 L1445 605" class="loop-line"/>
+  <path d="M1200 674 L1200 702" class="happy-line"/>
+
+  <!-- route buses -->
+  <path d="M1200 702 L1200 720 L260 720 L260 800" class="route-line"/>
+  <path d="M1200 720 L700 720 L700 800" class="route-line"/>
+  <path d="M1200 720 L1140 720 L1140 800" class="route-line"/>
+  <path d="M1200 720 L1580 720 L1580 800" class="route-line"/>
+  <path d="M1200 720 L2020 720 L2020 800" class="route-line"/>
+  <path d="M1200 702 L1200 1012 L260 1012 L260 1094" class="route-line"/>
+  <path d="M1200 1012 L700 1012 L700 1094" class="route-line"/>
+  <path d="M1200 1012 L1140 1012 L1140 1094" class="route-line"/>
+  <path d="M1200 1012 L1580 1012 L1580 1094" class="route-line"/>
+  <path d="M1200 1012 L2020 1012 L2020 1094" class="route-line"/>
+
+  <!-- optional post-route connections -->
+  <path d="M440 912 L540 912" class="optional-line"/>
+  <path d="M440 1206 L540 1206" class="optional-line"/>
+  <path d="M880 1206 L1920 1206" class="optional-line"/>
+  <path d="M1760 1206 L1850 1206 L1850 620 L1495 620" class="loop-line"/>
+
+  <!-- outcome connectors -->
+  <path d="M260 920 L260 1340 L1020 1340" class="route-line"/>
+  <path d="M700 920 L700 1340" class="route-line"/>
+  <path d="M1140 920 L1140 1340" class="route-line"/>
+  <path d="M1580 920 L1580 1340" class="route-line"/>
+  <path d="M2020 920 L2020 1340 L1380 1340" class="route-line"/>
+  <path d="M260 1214 L260 1340" class="route-line"/>
+  <path d="M700 1214 L700 1340" class="route-line"/>
+  <path d="M1140 1214 L1140 1340" class="route-line"/>
+  <path d="M1580 1214 L1580 1340" class="route-line"/>
+  <path d="M2020 1214 L2020 1340" class="route-line"/>
+  <path d="M1200 1340 L1200 1380" class="happy-line"/>
+  <path d="M1200 1460 L1200 1488" class="happy-line"/>
+
+  <!-- top nodes -->
+  <rect x="1030" y="90" width="340" height="64" rx="28" class="process-mask"/>
+  <rect x="1030" y="90" width="340" height="64" rx="28" class="highlight"/>
+  <text x="1200" y="118" class="name" text-anchor="middle">用户目标</text>
+  <text x="1200" y="138" class="detail" text-anchor="middle">一句需求 / 一份材料 / 一个已完成任务</text>
+
+  <rect x="910" y="190" width="580" height="112" rx="8" class="process-mask"/>
+  <rect x="910" y="190" width="580" height="112" rx="8" class="highlight"/>
+  <text x="1200" y="226" class="name" text-anchor="middle">01 · $cs-run</text>
+  <text x="1200" y="252" class="detail" text-anchor="middle">读取上下文，理解用户真正要完成的事</text>
+  <text x="1200" y="276" class="output" text-anchor="middle">不要求用户先研究目录或选择 Skill</text>
+
+  <rect x="960" y="330" width="480" height="90" rx="8" class="process-mask"/>
+  <rect x="960" y="330" width="480" height="90" rx="8" class="process"/>
+  <text x="1200" y="360" class="name" text-anchor="middle">Goal Card</text>
+  <text x="1200" y="385" class="detail" text-anchor="middle">目标 · 输入 · 预期输出 · 受众</text>
+  <text x="1200" y="405" class="output" text-anchor="middle">约束 · 验证方式 · 推荐路线</text>
+
+  <g transform="translate(1200 490)">
+    <polygon points="0,-38 70,0 0,38 -70,0" fill="#0f172a"/>
+    <polygon points="0,-38 70,0 0,38 -70,0" class="accent"/>
+    <text x="0" y="-5" class="detail" text-anchor="middle">信息足够</text>
+    <text x="0" y="13" class="detail" text-anchor="middle">且可安全执行？</text>
+  </g>
+  <text x="1215" y="552" class="arrow-label">是</text>
+  <text x="1450" y="480" class="arrow-label" fill="#fb7185">否</text>
+
+  <rect x="1710" y="450" width="400" height="80" rx="8" class="process-mask"/>
+  <rect x="1710" y="450" width="400" height="80" rx="8" class="alert"/>
+  <text x="1910" y="480" class="name" text-anchor="middle">只补最少关键问题</text>
+  <text x="1910" y="506" class="output" text-anchor="middle">只问会改变路线、事实或安全的内容</text>
+
+  <rect x="905" y="570" width="590" height="104" rx="8" class="process-mask"/>
+  <rect x="905" y="570" width="590" height="104" rx="8" class="tertiary"/>
+  <text x="1200" y="606" class="name" text-anchor="middle">选择唯一主路由</text>
+  <text x="1200" y="632" class="detail" text-anchor="middle">一次任务只进入 1 个下游 Skill</text>
+  <text x="1200" y="654" class="output" text-anchor="middle">必要时才二次路由到验证、配图或交付</text>
+
+  <!-- content and creative route nodes -->
+  <g>
+    <rect x="80" y="800" width="360" height="120" rx="8" class="process-mask"/><rect x="80" y="800" width="360" height="120" rx="8" class="secondary"/>
+    <text x="260" y="832" class="name" text-anchor="middle">02 · cs-writer</text>
+    <text x="260" y="858" class="detail" text-anchor="middle">文章、帖子、改写、提纲、润色</text>
+    <text x="260" y="886" class="output" text-anchor="middle">→ 可发布文案</text>
+  </g>
+  <g>
+    <rect x="520" y="800" width="360" height="120" rx="8" class="process-mask"/><rect x="520" y="800" width="360" height="120" rx="8" class="secondary"/>
+    <text x="700" y="832" class="name" text-anchor="middle">03 · cs-search-skill</text>
+    <text x="700" y="858" class="detail" text-anchor="middle">产品、技术、市场、竞品调研</text>
+    <text x="700" y="886" class="output" text-anchor="middle">→ 带来源的决策简报</text>
+  </g>
+  <g>
+    <rect x="960" y="800" width="360" height="120" rx="8" class="process-mask"/><rect x="960" y="800" width="360" height="120" rx="8" class="tertiary"/>
+    <text x="1140" y="832" class="name" text-anchor="middle">09 · cs-xiaohuang-skill</text>
+    <text x="1140" y="858" class="detail" text-anchor="middle">小黄 IP、文章配图、角色资产</text>
+    <text x="1140" y="886" class="output" text-anchor="middle">→ shot list / 插图 / 资产</text>
+  </g>
+  <g>
+    <rect x="1400" y="800" width="360" height="120" rx="8" class="process-mask"/><rect x="1400" y="800" width="360" height="120" rx="8" class="tertiary"/>
+    <text x="1580" y="832" class="name" text-anchor="middle">10 · cs-auto-videl</text>
+    <text x="1580" y="858" class="detail" text-anchor="middle">电商视频复刻与生成包</text>
+    <text x="1580" y="886" class="output" text-anchor="middle">→ 分镜 / 首帧 / 生成提示词</text>
+  </g>
+  <g>
+    <rect x="1840" y="800" width="360" height="120" rx="8" class="process-mask"/><rect x="1840" y="800" width="360" height="120" rx="8" class="tertiary"/>
+    <text x="2020" y="832" class="name" text-anchor="middle">11 · cs-chatcut-blueprint</text>
+    <text x="2020" y="858" class="detail" text-anchor="middle">内容想法 → 短视频制作蓝图</text>
+    <text x="2020" y="886" class="output" text-anchor="middle">→ 选题 / 口播 / 素材 / 逐镜表</text>
+  </g>
+  <text x="490" y="901" class="tiny" fill="#fb923c">文章需要配图时，二次路由</text>
+
+  <!-- product and engineering route nodes -->
+  <g>
+    <rect x="80" y="1094" width="360" height="120" rx="8" class="process-mask"/><rect x="80" y="1094" width="360" height="120" rx="8" class="process"/>
+    <text x="260" y="1126" class="name" text-anchor="middle">04 · cs-frontend-design</text>
+    <text x="260" y="1152" class="detail" text-anchor="middle">页面设计、实现、浏览器验证</text>
+    <text x="260" y="1180" class="output" text-anchor="middle">→ 已检查的 UI / 交互</text>
+  </g>
+  <g>
+    <rect x="520" y="1094" width="360" height="120" rx="8" class="process-mask"/><rect x="520" y="1094" width="360" height="120" rx="8" class="process"/>
+    <text x="700" y="1126" class="name" text-anchor="middle">05 · cs-clean-code</text>
+    <text x="700" y="1152" class="detail" text-anchor="middle">清理实现、文档与测试</text>
+    <text x="700" y="1180" class="output" text-anchor="middle">→ 可维护的交付版本</text>
+  </g>
+  <g>
+    <rect x="960" y="1094" width="360" height="120" rx="8" class="process-mask"/><rect x="960" y="1094" width="360" height="120" rx="8" class="process"/>
+    <text x="1140" y="1126" class="name" text-anchor="middle">06 · cs-ralph-runner</text>
+    <text x="1140" y="1152" class="detail" text-anchor="middle">Markdown PRD 转 Ralph 工作流</text>
+    <text x="1140" y="1180" class="output" text-anchor="middle">→ PRD / overview / dry-run 日志</text>
+  </g>
+  <g>
+    <rect x="1400" y="1094" width="360" height="120" rx="8" class="process-mask"/><rect x="1400" y="1094" width="360" height="120" rx="8" class="accent"/>
+    <text x="1580" y="1126" class="name" text-anchor="middle">07 · cs-checkpoint-version</text>
+    <text x="1580" y="1152" class="detail" text-anchor="middle">大改前保存可回退版本</text>
+    <text x="1580" y="1180" class="output" text-anchor="middle">→ 可验证的 checkpoint</text>
+  </g>
+  <g>
+    <rect x="1840" y="1094" width="360" height="120" rx="8" class="process-mask"/><rect x="1840" y="1094" width="360" height="120" rx="8" class="highlight"/>
+    <text x="2020" y="1126" class="name" text-anchor="middle">08 · cs-ending-time</text>
+    <text x="2020" y="1152" class="detail" text-anchor="middle">验证、提交、推送、PR、部署</text>
+    <text x="2020" y="1180" class="output" text-anchor="middle">→ 交付报告与发布结果</text>
+  </g>
+  <text x="1000" y="1195" class="tiny" fill="#fb923c">实现完成且需交付时，进入收尾</text>
+  <text x="1650" y="1000" class="tiny" fill="#fb7185">checkpoint 后回到 $cs-run 继续原目标</text>
+
+  <!-- result and finish -->
+  <rect x="1020" y="1300" width="360" height="80" rx="8" class="process-mask"/>
+  <rect x="1020" y="1300" width="360" height="80" rx="8" class="highlight"/>
+  <text x="1200" y="1330" class="name" text-anchor="middle">可验证的具体结果</text>
+  <text x="1200" y="1356" class="detail" text-anchor="middle">文案 / 简报 / UI / 资产 / 生成包 / 发布结果</text>
+
+  <g transform="translate(1200 1420)">
+    <polygon points="0,-40 78,0 0,40 -78,0" fill="#0f172a"/>
+    <polygon points="0,-40 78,0 0,40 -78,0" class="accent"/>
+    <text x="0" y="-5" class="detail" text-anchor="middle">目标是否</text>
+    <text x="0" y="14" class="detail" text-anchor="middle">完成？</text>
+  </g>
+  <text x="1216" y="1474" class="arrow-label">是</text>
+
+  <rect x="990" y="1488" width="420" height="54" rx="26" class="process-mask"/>
+  <rect x="990" y="1488" width="420" height="54" rx="26" class="highlight"/>
+  <text x="1200" y="1521" class="name" text-anchor="middle">完成：结果、验证与剩余风险清楚可见</text>
+
+  <!-- legend -->
+  <g transform="translate(70 1422)">
+    <line x1="0" y1="0" x2="48" y2="0" class="happy-line"/>
+    <text x="60" y="4" class="tiny">主流程</text>
+    <line x1="150" y1="0" x2="198" y2="0" class="optional-line"/>
+    <text x="210" y="4" class="tiny">可选二次路由</text>
+    <line x1="340" y1="0" x2="388" y2="0" class="loop-line"/>
+    <text x="400" y="4" class="tiny">补信息 / checkpoint 回环</text>
+  </g>
+</svg>
