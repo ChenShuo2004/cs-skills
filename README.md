@@ -21,6 +21,12 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 - 需要同时处理产品、代码、内容、调研和交付的 AI 创业者。
 - 不想每次都先研究“应该调用哪个 Prompt / skill”的用户。
 
+## 第一个讲解：小黄 IP 与正文配图 Skill
+
+这是本 README 第一个讲解的内容：了解如何用 `$cs-xiaohuang-skill` 稳定生成小黄品牌 IP 资产和中文正文配图。
+
+[查看小黄 Skill 的完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
+
 ## 30 秒开始
 
 ### 1. 安装主入口
