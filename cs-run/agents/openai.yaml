@@ -1,4 +1,4 @@
 interface:
   display_name: "cs-skills"
-  short_description: "陈硕的总入口：整理 Goal Card，把目标路由到一个可执行 skill。"
-  default_prompt: "使用 $cs-run 理解我的目标，整理 Goal Card，并把任务路由到最合适的陈硕 skill。"
+  short_description: "陈硕的显式总入口：为模糊或跨域目标整理 Goal Card 并路由。"
+  default_prompt: "使用 $cs-run 为这个模糊或跨域目标整理 Goal Card，并路由到最合适的陈硕 skill。"

@@ -1,0 +1,83 @@
+{
+  "contracts": [
+    {
+      "name": "routing",
+      "checks": [
+        {
+          "path": "cs-run/SKILL.md",
+          "contains": [
+            "only when the user explicitly invokes \"$cs-run\"",
+            "Do not intercept requests that clearly belong to an active downstream skill.",
+            "Select exactly one primary skill.",
+            "## Multi-Step Handoff Rules",
+            "delivery is always a later step after implementation and verification.",
+            "A later Git, PR, preview deployment, or production deployment action remains separately authorized."
+          ]
+        },
+        {
+          "path": "cs-frontend-design/SKILL.md",
+          "contains": [
+            "## Work Modes",
+            "## Delivery Contract (required)",
+            "Page Spec",
+            "State Matrix",
+            "Verification Evidence"
+          ]
+        },
+        {
+          "path": "cs-clean-code/SKILL.md",
+          "contains": [
+            "## Delivery Contract (required)",
+            "Cleanup Diagnostic Card",
+            "Requirement → Implementation → Verification",
+            "Stop and ask for direction only when the required scope would change a public contract, schema, deployment, or user-owned work."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "engineering-delivery",
+      "checks": [
+        {
+          "path": "cs-clean-code/SKILL.md",
+          "contains": ["Do not stage, commit, push, open a PR, or deploy."],
+          "absent": ["The user says \"收尾\""]
+        },
+        {
+          "path": "cs-ending-time/SKILL.md",
+          "contains": [
+            "## Authorization Matrix (required)",
+            "require separate explicit authorization for each Git, PR, preview deployment, and production deployment action.",
+            "deploy to **preview** or **production**?"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chatcut-blueprint",
+      "checks": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md",
+          "contains": [
+            "不创建、选择或修改 ChatCut 项目。",
+            "不上传、导入、导出、渲染或把素材放入时间线。",
+            "第一轮默认在这里暂停，等待用户确认或修改口播稿。"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "xiaohuang",
+      "checks": [
+        {
+          "path": "cs-xiaohuang-skill/SKILL.md",
+          "contains": [
+            "先判定模式，再读取对应参考资料",
+            "默认只给出 3～6 张 shot list，不生成图片",
+            "只有用户明确要求“生成图片 / 生图 / 出图”时"
+          ]
+        }
+      ]
+    }
+  ]
+}

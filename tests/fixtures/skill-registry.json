@@ -1,0 +1,16 @@
+{
+  "version": "0.3.0",
+  "skills": [
+    { "name": "cs-auto-videl", "displayName": "CS Auto Videl", "releaseLevel": "script-regression" },
+    { "name": "cs-chatcut-video-blueprint", "displayName": "CS ChatCut 视频制作蓝图", "releaseLevel": "core" },
+    { "name": "cs-checkpoint-version", "displayName": "CS Checkpoint Version", "releaseLevel": "script-regression" },
+    { "name": "cs-clean-code", "displayName": "CS Clean Code", "releaseLevel": "core" },
+    { "name": "cs-ending-time", "displayName": "CS Ending Time", "releaseLevel": "core" },
+    { "name": "cs-frontend-design", "displayName": "CS Frontend Design", "releaseLevel": "contract" },
+    { "name": "cs-ralph-runner", "displayName": "CS Ralph Runner", "releaseLevel": "contract" },
+    { "name": "cs-run", "displayName": "cs-skills", "releaseLevel": "core" },
+    { "name": "cs-search-skill", "displayName": "CS Search Skill", "releaseLevel": "contract" },
+    { "name": "cs-writer", "displayName": "CS Writer", "releaseLevel": "contract" },
+    { "name": "cs-xiaohuang-skill", "displayName": "CS 小黄 IP 与正文配图", "releaseLevel": "core" }
+  ]
+}

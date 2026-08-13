@@ -2,11 +2,6 @@
 name: cs-frontend-design
 description: |
   Use when Codex designs, implements, revises, or reviews a user-facing frontend: web app, dashboard, admin UI, editor, local browser tool, landing page, game UI, visual prototype, or interactive product workflow. Trigger when visual polish, product usability, responsive behavior, control choice, layout density, state design, assets, icons, or browser verification matters. Do not use for backend-only work unless UI behavior or product surface is affected.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
@@ -31,15 +26,55 @@ For CS Skills, this skill should act as the frontend product taste layer: practi
 
 Do not use this skill for backend-only tasks, data migrations, API-only changes, or pure copy edits unless they affect the visible user experience.
 
+## Work Modes
+
+Choose one mode before editing. Do not blend a review into an implementation or turn a narrow iteration into a redesign.
+
+| Mode | Use when | Required outcome |
+| --- | --- | --- |
+| Build | A screen, flow, or visible feature must be created | Page Spec, implementation, state coverage, verification evidence |
+| Iterate | An existing UI must change without changing its product purpose | Change brief, targeted implementation, regression checks |
+| Review | The user needs findings or a design decision, not code changes | Ranked findings, evidence, recommended next action |
+
+## Delivery Contract (required)
+
+Before implementing, assemble a compact **Page Spec** from the task and repository context. Do not ask for information already available in the project. Ask only when the missing answer changes the primary user, primary action, or acceptance criteria.
+
+```text
+Mode: Build | Iterate | Review
+Screen / route:
+Primary user and job:
+Primary action and expected result:
+Inputs, data, and permissions:
+Information hierarchy:
+Required states: loading / empty / error / success / disabled / destructive confirmation
+Responsive behavior:
+Existing components, tokens, and assets to reuse:
+Acceptance criteria:
+Non-goals:
+```
+
+For Build and Iterate, turn the Page Spec into a **State Matrix** before final verification. Cover only states that the feature can actually reach; do not manufacture decorative states.
+
+| Surface | Default | Loading | Empty | Error | Success / selected | Disabled / destructive |
+| --- | --- | --- | --- | --- | --- |
+| Primary workflow |  |  |  |  |  |  |
+| Data or content area |  |  |  |  |  |  |
+| Secondary action |  |  |  |  |  |  |
+
+Read [references/execution-contract.md](references/execution-contract.md) when a task needs a fuller Page Spec, review format, or browser-evidence template.
+
 ## Core Workflow
 
 1. Read the project docs, PRD, README, route notes, or task brief before touching UI.
 2. Inspect the existing app: framework, routes, components, CSS system, assets, icons, and design conventions.
-3. Map the user goal: input, output, primary action, state transitions, edge cases, and likely failure points.
-4. Identify the product type: operational tool, dashboard, editor, consumer app, landing page, game, portfolio, or content site.
-5. Design the first screen as the real working experience unless the user explicitly asks for a marketing page.
-6. Implement with the repo's existing component library and style system first. Add dependencies only when the stack cannot reasonably handle the job.
-7. Verify visually when a browser or dev server is available: page loads, key controls render, no blank state, no obvious console errors, and desktop/mobile layouts do not overlap.
+3. Select Build, Iterate, or Review and create the appropriate compact contract.
+4. Map the user goal: input, output, primary action, state transitions, edge cases, and likely failure points.
+5. Identify the product type: operational tool, dashboard, editor, consumer app, landing page, game, portfolio, or content site.
+6. Design the first screen as the real working experience unless the user explicitly asks for a marketing page.
+7. Implement with the repo's existing component library and style system first. Add dependencies only when the stack cannot reasonably handle the job.
+8. Check the State Matrix against the implementation. Add only the missing reachable states that block completion.
+9. Verify visually when a browser or dev server is available: page loads, key controls render, no blank state, no obvious console errors, and desktop/mobile layouts do not overlap.
 
 ## Product Fit
 
@@ -94,13 +129,23 @@ Before finalizing frontend work:
 - Verify the page in a browser when browser tooling is available.
 - Check desktop and mobile widths for overlap, clipped text, unusable controls, and broken navigation.
 - Confirm referenced assets load and images are not dark, blurred, overly cropped, or irrelevant.
+- Record **Verification Evidence**: command or browser route, viewport(s), user action, observed result, and any blocker.
 - Report any verification blocker directly, distinguishing environment/tool failure from app failure.
 
 ## Output Expectations
 
-When implementing, report the user-facing changes, the design decisions that matter, files touched, and verification performed.
+For Build or Iterate, report:
 
-When reviewing, lead with concrete issues and file/line references. Prioritize broken flows, unusable controls, responsive failures, missing states, accessibility risks, and visual regressions.
+```text
+Mode and Page Spec summary:
+User-facing change:
+States covered / intentionally not applicable:
+Files changed:
+Verification Evidence:
+Remaining risk or blocker:
+```
+
+For Review, lead with concrete findings and file/line or screen references. Mark each finding as P0 (blocked), P1 (workflow risk), P2 (quality), or P3 (polish), then give the smallest recommended next action. Prioritize broken flows, unusable controls, responsive failures, missing states, accessibility risks, and visual regressions.
 
 ## Boundaries
 

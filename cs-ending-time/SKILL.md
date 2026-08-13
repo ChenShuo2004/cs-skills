@@ -1,12 +1,7 @@
 ---
 name: cs-ending-time
 description: |
-  Use when the user asks to finish, ship, publish, commit, push, or deploy a completed implementation in one bounded delivery scope.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
+  Use when the user explicitly asks to finish, ship, publish, commit, push, create a PR, or deploy a completed implementation in one bounded delivery scope. Verify locally by default, but require separate explicit authorization for each Git, PR, preview deployment, and production deployment action.
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
@@ -63,6 +58,23 @@ Do not use this skill for pure planning, pure code review, or non-Git/non-Vercel
 - Serialize production updates: preview deployments may run concurrently, but production alias/branch changes require the production lock.
 - Keep secrets out of Git. Never commit `.env`, `.env.local`, tokens, project auth files, or local cache/output directories.
 
+## Authorization Matrix (required)
+
+Local inspection and verification are part of this workflow and may run once the user asks to finish or verify a bounded delivery. Every external or repository-mutating action needs its own explicit authorization; do not infer permission from a general request to “收尾” or “上线”.
+
+| Action | Required user authorization | Default when absent |
+| --- | --- | --- |
+| Local tests, build, lint, typecheck, browser checks | Request to verify or finish the delivery | Run the relevant local checks |
+| `git add` and commit | “提交” / “commit” | Leave changes unstaged and report the exact files |
+| `git push` | “推送” / “push” | Do not contact the remote |
+| Create or update a PR | “创建 PR” / “提 PR” | Do not create a PR |
+| Preview deployment | “部署到预览” / “preview deploy” | Ask whether preview or production is intended |
+| Production deployment or promotion | “部署到生产” / “production deploy” | Do not change production |
+
+- If the user asks only to “部署”, ask one concise question: deploy to **preview** or **production**?
+- A commit does not authorize push; a push does not authorize PR creation; a preview deployment does not authorize production promotion.
+- Record which authorized actions actually ran and which requested delivery actions remain pending.
+
 ## Workflow
 
 1. Orient in the repo.
@@ -92,20 +104,20 @@ Do not use this skill for pure planning, pure code review, or non-Git/non-Vercel
    - If scripts are missing, inspect package files and run the nearest meaningful check.
    - If verification is blocked by auth, missing env vars, external services, or local tooling, say exactly what is blocked.
 
-6. Prepare Git.
+6. Prepare Git only when commit authorization is explicit.
    - Run `git status --short --branch`.
    - Inspect diffs for changed files that will be staged.
    - If the worktree is mixed, stage explicit files only.
    - If on `main`, `master`, or a protected/default branch and the user did not ask for direct commit, create a branch named `codex/<short-purpose>`.
    - Commit with a concise message that describes the delivered behavior.
 
-7. Push to GitHub.
+7. Push to GitHub only when push authorization is explicit.
    - Push the current branch with tracking.
    - If the user asks for a PR, create one after push and include validation in the PR body.
    - If the user asks for direct production delivery and the repo normally deploys from the pushed branch, confirm the branch/deploy relationship.
    - If this push can update production, acquire the production lock before pushing.
 
-8. Deploy with Vercel.
+8. Deploy with Vercel only when preview or production authorization is explicit.
    - Prefer the repo's existing GitHub-to-Vercel integration when it is configured and the pushed branch is expected to deploy.
    - Use a unique preview deployment for parallel work, then promote the exact verified deployment while holding the production lock.
    - Use Vercel CLI as fallback or when the user asks for immediate production deployment: `vercel --prod`; this still requires the production lock.
@@ -138,6 +150,7 @@ Do not use this skill for pure planning, pure code review, or non-Git/non-Vercel
 - Do not commit generated dependency folders, build output, logs, local browser caches, or secrets unless the repo intentionally tracks them.
 - If pre-existing changes are present, work with them. Do not revert them.
 - If a deploy requires environment variable changes, explain the required variables and where they must be configured.
+- Never treat “完成”, “收尾”, “上线”, or a local verification request as authorization to commit, push, open a PR, or deploy.
 
 ## Vercel Checks
 

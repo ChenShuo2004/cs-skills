@@ -7,11 +7,6 @@ description: >-
   web sources, compare 3-5 relevant competitors, separate facts from inference,
   and return cited findings, risks, and actions. Do not use for simple factual
   lookups or article drafting.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

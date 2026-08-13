@@ -1,11 +1,6 @@
 ---
 name: cs-ralph-runner
 description: Use when the user wants Codex to turn a Markdown requirements document into a Ralph PRD and run a safe Ralph/Codex build workflow against a local Git repository. Triggers include "cs-ralph-runner", "run Ralph", "generate Ralph PRD", or requests to run a Markdown PRD against a repo.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
@@ -25,12 +20,11 @@ Use this skill to run a controlled local workflow in Codex:
 
 This skill is for Codex desktop/local CLI workflows. It is not a graphical project picker.
 
-## `$` Workflow Triggers
+## Workflow Trigger
 
-- `$cs-ralph-runner`: generic Markdown requirements to Ralph PRD and safe build workflow.
-- `$auto-cutting-ralph`: automatic video editing requirements to Ralph PRD, dry-run build, output generation plan, and verification feedback.
-- `$auto-cutting-prd`: automatic video editing requirements or PRD only, without running Ralph build unless requested.
-- `$auto-render-video`: direct render workflow; use Ralph only if the user asks for implementation automation.
+- `$cs-ralph-runner`: turn a Markdown requirement into a Ralph PRD and safe local dry-run workflow.
+
+Automatic video editing, timeline rendering, MP4 export, and their former aliases are retired from this library. Do not route them into Ralph; report that the workflow is no longer active and ask whether the user wants a dedicated replacement skill.
 
 ## Inputs
 
@@ -232,14 +226,6 @@ Use a Ralph-compatible schema:
 ```
 
 Keep stories small enough for one Codex run. Prefer 3-8 stories for a normal feature. Split large requests by page, API, data model, state flow, or verification path.
-
-For automatic video editing requirements, first load the `auto-cutting` skill and read:
-
-```text
-../auto-cutting/references/optimized-ralph-workflow.md
-```
-
-Then generate stories around the full closed loop: requirements and output mode, material manifest, metadata probing, editing plan, output generation, subtitles/audio, and verification report. If the user asks for direct video output, the PRD must include a render plan path, the render command, and the report path. Prefer the `li-auto-auto-cutting` project alias when the user does not provide another target.
 
 If using `ralph.cmd prd` is reliable for the document size, it is acceptable:
 

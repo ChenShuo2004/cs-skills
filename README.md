@@ -9,7 +9,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 它不是 Prompt 收藏夹，也不是一堆互相抢触发的 skill，而是一套精简的任务系统：
 
 ```text
-用户目标 → $cs-run → 对应 skill → 验证结果
+模糊/跨域目标 → $cs-run → 对应 skill → 验证结果
 ```
 
 当前包含 11 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作和交付收尾。
@@ -35,7 +35,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 帮我安装这个 skill：https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run
 ```
 
-`$cs-run` 是任务入口。它负责理解目标、整理输入和输出、识别约束、选择下游 skill，并在你要求执行时继续推进。
+`$cs-run` 是显式优先的任务入口：当你不知道选哪个 skill、需要规划跨域任务，或目标还无法归类时使用。已经明确属于某个领域的请求，直接调用对应 skill 即可。
 
 > 注意：`cs-run` 负责路由，不会自动下载尚未安装的下游 skill。建议把你常用的下游 skill 一起安装。
 
@@ -43,7 +43,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 
 这是陈硕维护的 `CS Skills`。每个 skill 的核心入口都是标准 `SKILL.md`，因此只要其他 Agent 支持读取 `SKILL.md`，就可以直接复用同一套触发条件、输入输出、边界和验证规则；Codex 额外读取 `agents/openai.yaml` 来显示名称、功能描述和默认 Prompt。
 
-为了避免与其他 skill 混淆，Codex 主入口显示为 `cs-skills`，下游 skill 保留具体功能名，右侧功能描述统一标注“陈硕的……”。每个 `SKILL.md` 的元数据也包含作者、源码地址和兼容性说明。推荐把整个仓库作为一个 skill 集合安装，而不是只安装 `$cs-run`。
+为了避免与其他 skill 混淆，Codex 主入口显示为 `cs-skills`，下游 skill 保留具体功能名，右侧功能描述统一标注“陈硕的……”。作者、源码地址和兼容性说明保留在 Skill UI 配置与仓库资料中；`SKILL.md` frontmatter 只维护发现所需的名称和描述。推荐把整个仓库作为一个 skill 集合安装，而不是只安装 `$cs-run`。
 
 ### 2. 直接说结果
 
@@ -169,6 +169,19 @@ $cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分�
 6. 怎么验证完成？
 
 新增 skill 前先确认它解决的是稳定目标，而不是一次性 Prompt；如果可以并入已有 skill，就不新增入口。
+
+## 质量验证
+
+发布或合并前先运行：
+
+```powershell
+node scripts/validate-skills.mjs
+
+$env:CS_SKILLS_PYTHON = "C:\Path\To\python.exe"
+node scripts/run-regression.mjs
+```
+
+第一条命令检查 11 个 active skill 的 frontmatter、UI 配置、资源引用、路由和核心边界；第二条还会运行 `cs-auto-videl` 与 `cs-checkpoint-version` 的现有回归测试。GitHub Actions 在 PR 与 `main` 推送时执行同一套检查。每次发布前，还要按 [docs/evals/v0.3.0.md](docs/evals/v0.3.0.md) 用新会话完成人工验收。
 
 ## 当前边界
 

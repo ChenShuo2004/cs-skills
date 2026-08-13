@@ -22,7 +22,7 @@
 
 ## 主入口
 
-所有未明确指定 skill 的任务优先进入 `$cs-run`。
+`$cs-run` 是显式优先的总入口：用于用户明确调用、需要选择 Skill、需要规划跨域任务，或目标无法判断所属 Skill 的场景。已经明确属于某个 active Skill 的请求直接进入对应 Skill。
 
 它维护 Goal Card：
 
@@ -85,3 +85,5 @@ Recommended skill:
 3. `agents/openai.yaml` 与 skill 名称一致。
 4. `cs-run` 的路由表不指向已删除 skill。
 5. 新 skill 有明确目标、输入、输出、边界和验证方式。
+6. `node scripts/validate-skills.mjs` 通过；涉及脚本的 Skill 同时通过统一回归命令。
+7. 版本发布前完成 `docs/evals/<version>.md` 的新会话人工验收。

@@ -2,11 +2,6 @@
 name: cs-checkpoint-version
 description: |
   Use when the user asks to save the current repository version, create a rollback point, checkpoint dirty worktree changes, preserve staged/unstaged/untracked files before risky edits, or restore a prior checkpoint. Trigger for "$cs-checkpoint-version", "保存当前版本", "方便回退", "回退点", "checkpoint", "rollback", "restore checkpoint", or similar wording.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

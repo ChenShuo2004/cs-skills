@@ -8,7 +8,7 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 用户目标 → cs-run → 一个下游 skill → 验证结果
 ```
 
-主入口是 `$cs-run`，写作入口是 `$cs-writer`，调研入口是 `$cs-search-skill`。
+主入口 `$cs-run` 采用显式优先：用户明确调用、需要选择 Skill、需要规划跨域任务或目标无法归类时使用；明确的写作、调研和执行请求直接进入对应 Skill。
 
 ## 仓库定位
 
@@ -79,8 +79,24 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 4. 不包含本机绝对路径、账号、访问密钥或私有资料。
 5. 复杂规则放进 `references/`，保持 `SKILL.md` 可读。
 6. 能说明目标、输入、输出、流程、边界和验证方式。
+7. `node scripts/validate-skills.mjs` 通过；有脚本回归的 skill 同时通过 `node scripts/run-regression.mjs`。
+8. 发布版本使用全新会话完成 `docs/evals/<version>.md` 中的人工验收。
 
 ## 下一步
+
+### v0.3.0：稳定性与可回归质量体系
+
+- 所有 active Skill 通过统一静态契约检查。
+- 四条核心链路通过自动场景契约，并在发布前使用新会话完成人工验收。
+- `cs-run` 显式优先；Git、PR、预览部署和生产部署均采用逐项明确授权。
+- 生产部署锁脚本与并发测试延后到下一版本；保留现有生产安全规则。
+
+### v0.4.0：高频 Skill 执行合同
+
+- `$cs-frontend-design` 固化 Build、Iterate、Review 三种模式；每次界面实现提供 Page Spec、State Matrix 与可复查的验证证据。
+- `$cs-clean-code` 固化 Cleanup Diagnostic Card、风险范围闸门及 Requirement → Implementation → Verification 映射，避免“看起来更干净”却无法证明业务正确。
+- `$cs-run` 固化冲突请求的优先级和多步骤交接；交付动作始终落在主任务完成后的单独授权步骤。
+- 为三项能力新增自动契约和路由案例；发布前真人验收覆盖其实际输出质量。
 
 ### P0：入口回归
 
@@ -103,6 +119,6 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 
 ### P2：持续收束
 
-- 新需求先进入 `$cs-run`，不要直接新增同义入口。
+- 新的模糊或跨域需求先进入 `$cs-run`；已经明确属于一个 active Skill 的请求直接进入该 Skill，不新增同义入口。
 - 只有连续出现、边界稳定、输出可验证的任务，才拆成独立 skill。
 - 每次新增 skill 都检查是否可以并入现有 skill。

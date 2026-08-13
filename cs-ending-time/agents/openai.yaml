@@ -1,7 +1,7 @@
 interface:
   display_name: "CS Ending Time"
   short_description: "陈硕的交付收尾：验证、提交、推送、创建 PR 与部署。"
-  default_prompt: "使用 $cs-ending-time 收尾这个页面或功能，先验证结果，再按需提交、推送、创建 PR 或部署。"
+  default_prompt: "使用 $cs-ending-time 收尾这个页面或功能，先完成本地验证；提交、推送、PR、预览部署和生产部署逐项等待我的明确授权。"
 
 policy:
   allow_implicit_invocation: true

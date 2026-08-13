@@ -2,6 +2,31 @@
 
 ## 未发布
 
+### v0.4.0：高频工作流执行合同
+
+- 为 `$cs-frontend-design` 增加 Build / Iterate / Review 模式、Page Spec、State Matrix 与验证证据格式。
+- 为 `$cs-clean-code` 增加 Cleanup Diagnostic Card、风险范围闸门与 Requirement → Implementation → Verification 映射。
+- 为 `$cs-run` 增加多目标优先级和跨 Skill 交接表，确保“整理后提交”“做完后部署”等请求不会越权并行执行。
+- 扩展自动契约、路由案例与发布前人工验收，覆盖上述行为。
+
+## v0.3.0 · 2026-08-12
+
+### 稳定性
+
+- 将 `$cs-run` 调整为显式优先入口，明确任务直接进入下游 skill。
+- 分离 `$cs-clean-code` 的本地质量职责与 `$cs-ending-time` 的交付职责；Git、PR、预览部署和生产部署采用逐项明确授权。
+- 为 ChatCut 蓝图和小黄正文配图固化不可越界与默认确认边界。
+
+### 质量体系
+
+- 新增零依赖 Node 静态验证器、核心链路契约与路由案例。
+- 新增统一回归命令，覆盖静态检查、`cs-auto-videl` Python 回归和 `cs-checkpoint-version` PowerShell 恢复测试。
+- 新增 Windows GitHub Actions 质量门槛及 v0.3.0 发布前真人验收清单。
+
+### 兼容性
+
+- 所有 active `SKILL.md` frontmatter 仅保留 `name` 与 `description`，提升跨 Agent 兼容性。
+
 - 将 `$cs-you-wendu-ip` 完整合并到 `$cs-xiaohuang-skill`；小黄成为“有温度”品牌 IP 与中文正文配图的唯一入口。
 - 合并角色 DNA、媒介与形态、品牌提示词、QA 规则和示例资产；采用单一干净身份参考图，避免角色标准分叉。
 - 将 `$cs-xiaohuang-skill` 的完整介绍与示例移入 skill 二级页面，根 README 只保留入口。

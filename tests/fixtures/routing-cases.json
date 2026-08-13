@@ -1,0 +1,82 @@
+{
+  "cases": [
+    {
+      "id": "direct-writer",
+      "prompt": "把这份项目记录写成一篇公众号文章。",
+      "mode": "direct",
+      "expectedSkills": ["cs-writer"],
+      "evidence": [{ "path": "cs-writer/SKILL.md", "contains": "写文章" }]
+    },
+    {
+      "id": "direct-research",
+      "prompt": "调研这个产品和三个主要竞品，给我进入建议。",
+      "mode": "direct",
+      "expectedSkills": ["cs-search-skill"],
+      "evidence": [{ "path": "cs-search-skill/SKILL.md", "contains": "竞品分析" }]
+    },
+    {
+      "id": "ambiguous-cross-domain-plan",
+      "prompt": "我有一个 SaaS 想法，先帮我梳理产品、调研和上线步骤。",
+      "mode": "entrypoint",
+      "expectedSkills": ["cs-run"],
+      "evidence": [{ "path": "cs-run/SKILL.md", "contains": "asks to plan a cross-domain task" }]
+    },
+    {
+      "id": "retired-auto-editing",
+      "prompt": "把这些素材自动剪辑并导出 MP4。",
+      "mode": "unsupported",
+      "expectedSkills": [],
+      "evidence": [{ "path": "cs-run/SKILL.md", "contains": "Automatic editing, timeline rendering, MP4 export" }]
+    },
+    {
+      "id": "clean-then-explicit-delivery",
+      "prompt": "先整理代码、补本地验证；确认后再提交。",
+      "mode": "sequence",
+      "expectedSkills": ["cs-clean-code", "cs-ending-time"],
+      "evidence": [
+        { "path": "cs-clean-code/SKILL.md", "contains": "Do not stage, commit, push, open a PR, or deploy." },
+        { "path": "cs-ending-time/SKILL.md", "contains": "A commit does not authorize push" }
+      ]
+    },
+    {
+      "id": "research-then-writing",
+      "prompt": "调研 AI 工作流市场后写一篇公众号文章。",
+      "mode": "sequence",
+      "expectedSkills": ["cs-search-skill", "cs-writer"],
+      "evidence": [
+        { "path": "cs-run/SKILL.md", "contains": "“调研后写文章”" },
+        { "path": "cs-run/SKILL.md", "contains": "Finish the evidence brief; then ask whether to turn approved findings into a `$cs-writer` draft." }
+      ]
+    },
+    {
+      "id": "checkpoint-before-frontend",
+      "prompt": "先保存当前版本，再把这个设置页改成可用产品。",
+      "mode": "sequence",
+      "expectedSkills": ["cs-checkpoint-version", "cs-frontend-design"],
+      "evidence": [
+        { "path": "cs-run/SKILL.md", "contains": "“先保存再大改”" },
+        { "path": "cs-run/SKILL.md", "contains": "Create and verify the checkpoint before starting the requested downstream implementation skill." }
+      ]
+    },
+    {
+      "id": "frontend-build-contract",
+      "prompt": "为 AI 工作流 SaaS 设计并实现任务列表页。",
+      "mode": "direct",
+      "expectedSkills": ["cs-frontend-design"],
+      "evidence": [
+        { "path": "cs-frontend-design/SKILL.md", "contains": "Mode: Build | Iterate | Review" },
+        { "path": "cs-frontend-design/SKILL.md", "contains": "For Build and Iterate, turn the Page Spec into a **State Matrix**" }
+      ]
+    },
+    {
+      "id": "clean-code-diagnostic-contract",
+      "prompt": "整理已完成的导入流程，补足验证和文档。",
+      "mode": "direct",
+      "expectedSkills": ["cs-clean-code"],
+      "evidence": [
+        { "path": "cs-clean-code/SKILL.md", "contains": "Start every non-trivial cleanup with a **Cleanup Diagnostic Card**." },
+        { "path": "cs-clean-code/SKILL.md", "contains": "If a requirement has no trustworthy verification, keep it as a named residual risk" }
+      ]
+    }
+  ]
+}
