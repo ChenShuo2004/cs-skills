@@ -1,3 +1,5 @@
+
+
 # CS Skills
 
 [更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md)
@@ -152,7 +154,7 @@ $cs-search-skill 调研这个方向的主要竞品，给出带来源的进入建
 ### 从产品图到电商视频
 
 ```text
-$cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Google Flow 提示词。
+$cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Seedance 提示词。
 ```
 
 它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
