@@ -1,0 +1,7 @@
+interface:
+  display_name: "GPT-5.6 复位"
+  short_description: "校正过度追求完美、反复验证与范围失控，恢复面向用户价值的执行判断"
+  default_prompt: "使用 $cs-recover-skill 复位当前任务，识别无效内耗后推进最有价值的下一步。"
+
+policy:
+  allow_implicit_invocation: true
