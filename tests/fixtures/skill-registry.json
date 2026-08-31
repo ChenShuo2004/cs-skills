@@ -7,6 +7,7 @@
     { "name": "cs-clean-code", "displayName": "CS Clean Code", "releaseLevel": "core" },
     { "name": "cs-ending-time", "displayName": "CS Ending Time", "releaseLevel": "core" },
     { "name": "cs-frontend-design", "displayName": "CS Frontend Design", "releaseLevel": "contract" },
+    { "name": "cs-narration-phrase-timeline", "displayName": "CS 口播短语时间表", "releaseLevel": "contract" },
     { "name": "cs-ralph-runner", "displayName": "CS Ralph Runner", "releaseLevel": "contract" },
     { "name": "cs-run", "displayName": "cs-skills", "releaseLevel": "core" },
     { "name": "cs-search-skill", "displayName": "CS Search Skill", "releaseLevel": "contract" },

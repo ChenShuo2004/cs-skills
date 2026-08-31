@@ -213,8 +213,8 @@ if (registry && coreContracts && routeCases) {
     .map((entry) => entry.name)
     .sort();
 
-  if (activeDirectories.length !== 11) {
-    errors.push(`Expected 11 active skills, found ${activeDirectories.length}: ${activeDirectories.join(", ")}`);
+  if (activeDirectories.length !== 12) {
+    errors.push(`Expected 12 active skills, found ${activeDirectories.length}: ${activeDirectories.join(", ")}`);
   }
   if (activeDirectories.join("|") !== [...registryNames].sort().join("|")) {
     errors.push("skill-registry.json must exactly match active skill directories");

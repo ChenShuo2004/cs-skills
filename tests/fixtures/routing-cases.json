@@ -15,6 +15,13 @@
       "evidence": [{ "path": "cs-search-skill/SKILL.md", "contains": "竞品分析" }]
     },
     {
+      "id": "direct-narration-phrase-timeline",
+      "prompt": "用这条最终口播音频和逐字稿生成 phrase-timeline.json，给字幕和信息图动画用。",
+      "mode": "direct",
+      "expectedSkills": ["cs-narration-phrase-timeline"],
+      "evidence": [{ "path": "cs-narration-phrase-timeline/SKILL.md", "contains": "phrase-timeline.json" }]
+    },
+    {
       "id": "ambiguous-cross-domain-plan",
       "prompt": "我有一个 SaaS 想法，先帮我梳理产品、调研和上线步骤。",
       "mode": "entrypoint",

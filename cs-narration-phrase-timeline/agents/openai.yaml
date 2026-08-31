@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 口播短语时间表"
+  short_description: "将真实旁白与原稿对齐为逐短语的毫秒、帧号和置信度数据。"
+  default_prompt: "使用 $cs-narration-phrase-timeline，根据这条最终口播音频和逐字稿生成可用于字幕与动画的 phrase-timeline.json。"
+policy:
+  allow_implicit_invocation: true

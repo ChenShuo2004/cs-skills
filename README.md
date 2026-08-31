@@ -12,7 +12,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 模糊/跨域目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 11 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作和交付收尾。
+当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、口播对齐和交付收尾。
 
 ## 适合谁
 
@@ -106,6 +106,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$cs-narration-phrase-timeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-narration-phrase-timeline) | 最终口播的短语级真实音频对齐 | `phrase-timeline.json`、词级边界、字幕与动画时间基准 |
 
 ## 真实使用场景
 
@@ -140,6 +141,14 @@ $cs-chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作�
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
+
+### 从最终口播到字幕和动画时间基准
+
+```text
+$cs-narration-phrase-timeline 这里是最终旁白音频和实际朗读稿。请生成逐短语时间表，供字幕和信息图动画使用；不能按字数估算。
+```
+
+它只将真实音频和原稿对齐成数据，不负责配音、剪辑或成片导出。已有动态信息图工作台时，优先复用它在配音完成后自动生成的时间表。
 
 ### 从竞品到决策
 
@@ -187,7 +196,7 @@ node scripts/run-regression.mjs
 
 以下方向已经从 active library 中移除：
 
-- 自动剪辑、时间线编排和通用 MP4 渲染。
+- 自动剪辑、通用时间线编排和 MP4 渲染；真实音频的短语时间对齐除外。
 - 理想车主信息图生产。
 - Open Design 设计产物。
 
@@ -206,6 +215,7 @@ cs-skills/
 ├── cs-search-skill/
 ├── cs-auto-videl/
 ├── cs-chatcut-video-blueprint/
+├── cs-narration-phrase-timeline/
 ├── cs-xiaohuang-skill/
 ├── cs-frontend-design/
 ├── cs-clean-code/

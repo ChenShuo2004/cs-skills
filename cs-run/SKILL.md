@@ -32,13 +32,14 @@ Choose one primary route from this table:
 | Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
 | 将单个或一批内容想法收敛为 ChatCut 短视频 | `$cs-chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
+| 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
 
 ## Retired Routes
 
 Do not route to removed skills:
 
-- Automatic editing, timeline rendering, MP4 export, and automatic-editing Ralph workflows are retired from this library.
+- Automatic editing, timeline rendering, MP4 export, and automatic-editing Ralph workflows are retired from this library. Here, timeline rendering means generic visual timeline building; this does not include audio-backed phrase alignment, which only supplies timing data.
 - Li Auto infographic workflows are retired from this library.
 - Open Design artifact workflows are retired from this library.
 
@@ -70,12 +71,13 @@ If a request belongs to a retired route, say that the route is no longer active 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
 - Do not intercept a request that clearly belongs to an active downstream skill. Explain the selected downstream skill directly instead of generating a Goal Card unless the user asks for planning.
-- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, and `$cs-chatcut-video-blueprint` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut-video-blueprint`, and `$cs-narration-phrase-timeline` take precedence over generic routing.
 - Apply outcome priority when a request names several activities: (1) a retired or unsupported outcome stops routing; (2) an explicit active skill wins; (3) an immediately executable primary artifact wins; (4) planning wins only when no primary artifact can be chosen; (5) delivery is always a later step after implementation and verification.
 - Treat research, writing, design, implementation, cleanup, checkpoint, and delivery as different artifacts. Route the first artifact that is both explicitly requested and safe to start; name later artifacts as a sequence, not concurrent routes.
 - Route requests about “小黄”、“有温度 IP”、“温度种子”、空心爱心天线、固定角色延展、2D/3D 转换、联名、风格迁移或身份修复 to `$cs-xiaohuang-skill`. Do not use it for unrelated general image generation.
 - Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$cs-search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
 - 将中文文章、观点或方法论转成正文配图的请求也路由到 `$cs-xiaohuang-skill`；将内容想法、短视频主题到 ChatCut 制作蓝图的请求路由到 `$cs-chatcut-video-blueprint`；文章或长文改写交给 `$cs-writer`，实际 ChatCut 项目编辑和电商视频复刻继续使用各自的专用工作流。
+- 用户提供最终口播音频和实际朗读稿，要求逐句/逐短语时间标注、`phrase-timeline.json`、Whisper 对齐字幕或旁白驱动动画时，路由到 `$cs-narration-phrase-timeline`。没有最终音频时，不要把预计时长作为对齐结果。
 - Do not ask the user to choose a skill when the route is unambiguous.
 - Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.
 - Keep the Goal Card short. It is an execution aid, not a long questionnaire.

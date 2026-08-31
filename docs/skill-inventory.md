@@ -2,7 +2,7 @@
 
 盘点日期：2026-08-09
 
-当前发布数量：11 个 active skill。
+当前发布数量：12 个 active skill。
 
 ## 总览
 
@@ -19,6 +19,7 @@
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 | `cs-chatcut-video-blueprint` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `cs-narration-phrase-timeline` | 口播音频对齐 | 使用最终旁白和实际朗读稿生成逐短语毫秒/帧号时间表 | `references/schema.md` |
 
 ## 主入口
 
@@ -59,6 +60,11 @@ Recommended skill:
 
 - 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$cs-chatcut-video-blueprint`
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
+
+### 口播音频对齐
+
+- 最终口播音频与逐字稿到 `phrase-timeline.json`、Whisper 词级边界、字幕和动画时间基准：`$cs-narration-phrase-timeline`
+- 只交付真实音频对齐数据；不生成配音、不按字数估算时长、不剪辑或渲染视频。
 
 ### 产品与工程
 

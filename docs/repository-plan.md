@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 11 个 active skill，并采用单入口架构：
+CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -36,8 +36,9 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 - `cs-xiaohuang-skill`
 - `cs-auto-videl`
 - `cs-chatcut-video-blueprint`
+- `cs-narration-phrase-timeline`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包，以及从内容想法到 ChatCut 制作蓝图的收敛流程。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作蓝图的收敛流程，以及最终口播的真实短语时间对齐。
 
 ### 调研与决策
 
@@ -59,11 +60,13 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 
 `cs-chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
 
+`cs-narration-phrase-timeline` 将最终旁白音频和实际朗读稿对齐为逐短语的真实毫秒/帧号数据，供字幕、重点词和动态图文使用；不生成配音、不估算时长、不剪辑或渲染 MP4。
+
 ## 已退休范围
 
 以下方向已经移出 active library：
 
-- 自动剪辑、时间线编排、MP4 渲染。
+- 自动剪辑、通用时间线编排、MP4 渲染；真实音频的短语时间对齐除外。
 - 理想车主信息图。
 - Open Design 设计产物。
 
@@ -115,6 +118,7 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 - `cs-auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
 - `cs-chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
+- `cs-narration-phrase-timeline`：用最终音频与逐字稿生成短语时间表，验证顺序、真实时间边界、覆盖率与无估算回退。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 
 ### P2：持续收束
