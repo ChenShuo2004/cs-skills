@@ -1,0 +1,21 @@
+{
+  "out": "public/captures",
+  "viewport": { "width": 1440, "height": 900 },
+  "deviceScaleFactor": 2,
+  "locale": "zh-CN",
+  "colorScheme": "dark",
+  "overlayTexts": ["购买完整内容", "免费使用", "接受全部 Cookie"],
+  "targets": [
+    {
+      "label": "brand-home",
+      "url": "https://example.com/home",
+      "needles": ["不同的入口", "实验室", "阅览室"]
+    },
+    {
+      "label": "room-theme",
+      "url": "https://example.com/theme",
+      "panel": ".main-panel",
+      "needles": ["阅读专题", "知识地图", "相关工具"]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 网页宣传片"
+  short_description: "陈硕的网页产品演示片：真实页面长截图 + Remotion 运镜，渲染可交付 mp4。"
+  default_prompt: "使用 $cs-web-promo-film，把这个网页做成 40 秒左右的产品演示宣传片；先确认时长、叙事顺序和色调，再采集真实页面并渲染成片。"
+policy:
+  allow_implicit_invocation: true

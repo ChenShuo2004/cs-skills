@@ -1,8 +1,8 @@
 # Skill Inventory
 
-盘点日期：2026-08-09
+盘点日期：2026-09-03
 
-当前发布数量：11 个 active skill。
+当前发布数量：12 个 active skill。
 
 ## 总览
 
@@ -19,6 +19,7 @@
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 | `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
+| `cs-web-promo-film` | 网页产品演示片 | 把真实网页做成 30–60 秒产品演示宣传片：采集长截图、Remotion 运镜、渲染无音轨 mp4，并可附口播稿 | `references/`, `scripts/`, `assets/promo-starter/` |
 
 ## 主入口
 
@@ -60,6 +61,11 @@ Recommended skill:
 - 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics、声音规划和 ChatCut 上手：`$cs-chatcut`
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 
+### 网页产品演示片
+
+- 把真实网页做成 30–60 秒产品演示宣传片：`$cs-web-promo-film`
+- 只拍匿名访客能打开的公开页，不重绘产品界面；电商对标复刻仍走 `$cs-auto-videl`，ChatCut 策划仍走 `$cs-chatcut`。
+
 ### 产品与工程
 
 - 页面、工具、仪表盘：`$cs-frontend-design`
@@ -72,7 +78,7 @@ Recommended skill:
 
 当前库不再提供：
 
-- 自动剪辑和通用 MP4 渲染。
+- 自动剪辑和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`。
 - 理想车主信息图。
 - Open Design 设计产物。
 

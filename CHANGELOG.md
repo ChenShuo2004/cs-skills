@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- 新增 `$cs-web-promo-film`：把真实网页做成 30–60 秒产品演示宣传片（Playwright 长截图 + Remotion 运镜 + 可交付 mp4）。
+- 将 `$cs-web-promo-film` 接入 `$cs-run` 路由、技能清单和仓库规划；active skill 数量由 11 更新为 12。
 - 将 `$cs-you-wendu-ip` 完整合并到 `$cs-xiaohuang-skill`；小黄成为“有温度”品牌 IP 与中文正文配图的唯一入口。
 - 合并角色 DNA、媒介与形态、品牌提示词、QA 规则和示例资产；采用单一干净身份参考图，避免角色标准分叉。
 - 将 `$cs-xiaohuang-skill` 的完整介绍与示例移入 skill 二级页面，根 README 只保留入口。

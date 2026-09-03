@@ -12,7 +12,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 用户目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 11 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作和交付收尾。
+当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、网页产品演示片和交付收尾。
 
 ## 适合谁
 
@@ -58,6 +58,7 @@ $cs-chatcut 我有一批关于 AI 创业的内容想法。请先合并重复项�
 ```text
 $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
 $cs-search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
+$cs-web-promo-film 把这个网页做成 40 秒产品演示宣传片。
 $cs-frontend-design 设计并实现这个页面，最后做浏览器验证。
 $cs-clean-code 检查这次实现，整理代码、文档和测试。
 $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
@@ -100,6 +101,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut) | ChatCut 视频策划与操作上手 | 选题排序、口播稿、素材清单、Motion Graphics、逐镜头表和零到一操作指南 |
+| [$cs-web-promo-film](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-web-promo-film) | 真实网页产品演示宣传片 | Remotion 工程、无音轨 mp4、可选口播稿 |
 
 ## 小黄 IP 与正文配图 Skill
 
@@ -157,6 +159,14 @@ $cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分�
 
 它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
 
+### 从网页到产品演示片
+
+```text
+$cs-web-promo-film 把这个产品页做成 40 秒宣传片，先讲核心内容，再讲知识地图和工具两个入口。
+```
+
+它用 Playwright 采集真实页面长截图，再用 Remotion 做推进、滚动和点击，不重绘产品界面。默认无音轨，需要口播时单独出稿。
+
 ## 设计原则
 
 每个 skill 都应该清楚回答：
@@ -174,7 +184,7 @@ $cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分�
 
 以下方向已经从 active library 中移除：
 
-- 自动剪辑、时间线编排和通用 MP4 渲染。
+- 自动剪辑、时间线编排和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`，不是通用渲染能力的回归。
 - 理想车主信息图生产。
 - Open Design 设计产物。
 
@@ -193,6 +203,7 @@ cs-skills/
 ├── cs-search-skill/
 ├── cs-auto-videl/
 ├── cs-chatcut/
+├── cs-web-promo-film/
 ├── cs-xiaohuang-skill/
 ├── cs-frontend-design/
 ├── cs-clean-code/

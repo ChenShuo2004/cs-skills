@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 11 个 active skill，并采用单入口架构：
+CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -36,8 +36,9 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 - `cs-xiaohuang-skill`
 - `cs-auto-videl`
 - `cs-chatcut`
+- `cs-web-promo-film`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包，以及从内容想法到 ChatCut 制作与上手指引的收敛流程。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，以及把真实网页做成产品演示宣传片。
 
 ### 调研与决策
 
@@ -59,11 +60,13 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 
 `cs-chatcut` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表，并提供从策划到 ChatCut 工作台的上手指引；不直接修改 ChatCut 项目。
 
+`cs-web-promo-film` 用 Playwright 采集真实页面长截图，再用 Remotion 做推进、滚动和点击，渲染 30–60 秒无音轨 mp4；不重绘产品界面，也不承接电商对标复刻或 ChatCut 时间线剪辑。
+
 ## 已退休范围
 
 以下方向已经移出 active library：
 
-- 自动剪辑、时间线编排、MP4 渲染。
+- 自动剪辑、时间线编排、MP4 渲染。网页产品演示片走 `$cs-web-promo-film`，不是通用渲染能力的回归。
 - 理想车主信息图。
 - Open Design 设计产物。
 
@@ -99,6 +102,7 @@ CS Skills 当前包含 11 个 active skill，并采用单入口架构：
 - `cs-auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
 - `cs-chatcut`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构、上手指引与路由边界。
+- `cs-web-promo-film`：用一个公开产品页走采集、运镜、渲染和抽帧验收，确认转场不接黑、无音轨、指针落在真实链接上。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 
 ### P2：持续收束
