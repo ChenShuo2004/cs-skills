@@ -1,20 +1,13 @@
 ---
 name: cs-run
-description: |
-  Use as the CS Skills entrypoint only when the user explicitly invokes "$cs-run" or "cs-run", asks which CS Skill to use, asks to plan a cross-domain task, or has a goal whose primary outcome cannot be determined. Do not intercept requests that clearly belong to an active downstream skill. Turn intent into a compact Goal Card, ask only blocking questions, route to exactly one active skill, and continue through that skill when execution is requested.
+description: "CS Skills 总入口：用户明确调用 cs-run、询问用哪个 Skill、需要跨领域执行或目标尚不能归类时使用。明确的单领域请求直接进入对应 Skill；从目标推进到已授权的可验证结果。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
 # CS Run
 
-## Purpose
-
-`cs-run` is the single front door for this skill library. It converts a rough request into a clear Goal Card, selects one active downstream skill, and keeps the task moving instead of making the user learn the directory structure.
-
-Use it when the user explicitly invokes it, needs help choosing a CS Skill, asks for a plan across multiple domains, or gives a goal that cannot be assigned to one active skill after reading the available context. If a request clearly belongs to another active skill, follow that skill directly even when the user does not know the library structure.
-
-Do not use `cs-run` as a catch-all for requests that merely ask Codex to act. A clear writing, research, frontend, code-quality, delivery, video, or 小黄 request belongs to its downstream skill.
+识别用户要的产物和验收条件，选择匹配的能力并完成请求。已明确的领域直接进入下游 Skill；不用为普通任务额外生成 Goal Card。
 
 ## Active Routes
 
@@ -27,96 +20,47 @@ Choose one primary route from this table:
 | Design, build, revise, or review a user-facing web interface | `$cs-frontend-design` | UI plan, implementation guidance, and browser checks |
 | Clean up code, reconcile implementation with requirements, or prepare a maintainable handoff | `$cs-clean-code` | Scoped edits, documentation sync, tests, and verification |
 | Save a rollback point before risky repository changes | `$cs-checkpoint-version` | Restorable local checkpoint and verification |
-| Turn a Markdown PRD into a Ralph workflow or dry-run | `$cs-ralph-runner` | Ralph PRD, overview, dry-run output, and logs |
+| Turn a Markdown PRD into a Ralph plan or requested build | `$cs-ralph-runner` | Ralph PRD, overview, no-commit build results and logs |
 | Verify, commit, push, open a PR, or deploy a completed change | `$cs-ending-time` | Delivery verification and GitHub/Vercel handoff |
 | Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
 | 将单个或一批内容想法收敛为 ChatCut 短视频 | `$cs-chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
+| 用已确认产品包制作数字人产品介绍视频，或需要 ChatCut 实操、Remotion 包装与最终验收 | `$cs-digital-human-product-video-pipeline` | 预检、样片审批、产品证据剪辑、确定性包装和成片 QA |
 | 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
 
 ## Retired Routes
 
-Do not route to removed skills:
+本库没有通用自动剪辑/MP4 导出、理想汽车信息图或 Open Design 的专用入口。不要把这些请求误送到电商或数字人产品视频流程。缺少库内路由不等于无法工作：已有其他可用工具/Skill 且范围匹配时直接使用，缺能力时准确说明缺口。不要要求用户先创建新 Skill。
 
-- Automatic editing, timeline rendering, MP4 export, and automatic-editing Ralph workflows are retired from this library. Here, timeline rendering means generic visual timeline building; this does not include audio-backed phrase alignment, which only supplies timing data.
-- Li Auto infographic workflows are retired from this library.
-- Open Design artifact workflows are retired from this library.
+## 执行尺度
 
-If a request belongs to a retired route, say that the route is no longer active and ask whether the user wants a new dedicated skill. Do not silently send a generic editing request to `$cs-auto-videl`; it is for ecommerce creative and generation workflows.
+- 明确小任务：读取必要资料后直接执行，不填卡、不输出无关计划。
+- 多阶段任务：简短记录目标、输入、当前产物、验收与依赖，然后按依赖继续。
+- 长任务：在已有任务文件中保留完成项、产物路径、失败证据、下一步和已有授权，跨上下文恢复时只重查可能变化的状态。
 
-## Workflow
-
-1. Inspect the current repository and nearby project documentation before asking questions.
-2. Restate the intended result in one sentence.
-3. Fill this Goal Card:
-
-   ```text
-   Goal:
-   Inputs:
-   Expected output:
-   Audience/user:
-   Constraints:
-   Validation:
-   Recommended skill:
-   ```
-
-4. Ask only questions that can change the route or make execution unsafe. Ask up to three concise blocking questions; record safe defaults instead of asking about preferences that do not matter yet.
-5. Select exactly one primary skill. Add a secondary skill only after the primary result is complete and only when a separately requested verification or delivery step is necessary.
-6. If the user asked to execute, continue through the recommended skill in the same task. If the user only asked which skill to use, return the Goal Card and a ready-to-send prompt.
-7. Verify the result against the requested output and validation criteria before reporting completion.
-
-## Routing Rules
-
-- Prefer the narrowest active skill that matches the requested outcome.
-- Do not route by a single keyword when the user's actual output is clear.
-- Do not intercept a request that clearly belongs to an active downstream skill. Explain the selected downstream skill directly instead of generating a Goal Card unless the user asks for planning.
-- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut-video-blueprint`, and `$cs-narration-phrase-timeline` take precedence over generic routing.
-- Apply outcome priority when a request names several activities: (1) a retired or unsupported outcome stops routing; (2) an explicit active skill wins; (3) an immediately executable primary artifact wins; (4) planning wins only when no primary artifact can be chosen; (5) delivery is always a later step after implementation and verification.
-- Treat research, writing, design, implementation, cleanup, checkpoint, and delivery as different artifacts. Route the first artifact that is both explicitly requested and safe to start; name later artifacts as a sequence, not concurrent routes.
-- Route requests about “小黄”、“有温度 IP”、“温度种子”、空心爱心天线、固定角色延展、2D/3D 转换、联名、风格迁移或身份修复 to `$cs-xiaohuang-skill`. Do not use it for unrelated general image generation.
-- Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$cs-search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
-- 将中文文章、观点或方法论转成正文配图的请求也路由到 `$cs-xiaohuang-skill`；将内容想法、短视频主题到 ChatCut 制作蓝图的请求路由到 `$cs-chatcut-video-blueprint`；文章或长文改写交给 `$cs-writer`，实际 ChatCut 项目编辑和电商视频复刻继续使用各自的专用工作流。
-- 用户提供最终口播音频和实际朗读稿，要求逐句/逐短语时间标注、`phrase-timeline.json`、Whisper 对齐字幕或旁白驱动动画时，路由到 `$cs-narration-phrase-timeline`。没有最终音频时，不要把预计时长作为对齐结果。
-- Do not ask the user to choose a skill when the route is unambiguous.
-- Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.
-- Keep the Goal Card short. It is an execution aid, not a long questionnaire.
+只加载当前阶段的 Skill 和相关 reference。可以复用已验证且输入未改变的产物；不为形式重新生成。沿用当前模型与运行环境，不硬编码型号、推理档位或工具接口。
 
 ## Multi-Step Handoff Rules
 
-Use these rules when a request genuinely contains more than one skill-shaped outcome. Do not invent a sequence when the user asked for only one outcome.
+每一阶段选一个主要 Skill；阶段可以串联，必要子步骤可使用匹配能力，不把“一个主要路由”解释为禁止完成跨域目标。
 
-| Request pattern | Start with | Handoff rule |
-| --- | --- | --- |
-| “调研后写文章” | `$cs-search-skill` | Finish the evidence brief; then ask whether to turn approved findings into a `$cs-writer` draft. |
-| “设计并实现页面” | `$cs-frontend-design` | Treat design and implementation as one Build flow; do not insert `$cs-run` again. |
-| “整理代码后提交” | `$cs-clean-code` | Finish local verification first. A commit begins only after separate explicit authorization, via `$cs-ending-time`. |
-| “先保存再大改” | `$cs-checkpoint-version` | Create and verify the checkpoint before starting the requested downstream implementation skill. |
-| “做完后部署” | Primary implementation skill | Finish the primary artifact and local checks, then use `$cs-ending-time` only after explicit authorization. If the user says only “部署”, ask preview or production. |
-| “想法到产品、调研和上线” | `$cs-run` | Produce the Goal Card and one recommended first skill; list the later order without treating it as authorization to execute all steps. |
+| 请求 | 执行规则 |
+| --- | --- |
+| 调研后写文章 | $cs-search-skill 完成证据后，直接用 $cs-writer 完成文章。 |
+| 设计并实现页面 | $cs-frontend-design 完成设计、实现和浏览器检查。 |
+| 整理代码后提交 | $cs-clean-code 本地验证后，由 $cs-ending-time 使用已有提交授权。 |
+| 先保存再大改 | $cs-checkpoint-version 验证快照后，继续约定的实现。 |
+| 做完后部署 | 先实现验证，再由 $cs-ending-time 执行已授权且目标明确的部署。 |
+| 我确认后再继续 | 完成可审查产物，在用户明确设置的检查点暂停。 |
+| 数字人产品视频 | 完成 product-pack 与样片；用户确认样片后才进入 batch。 |
 
-Never let “完成、收尾、上线、发布” bypass the authorization rules of `$cs-ending-time`. A later Git, PR, preview deployment, or production deployment action remains separately authorized.
+授权按完整会话理解，同一请求可包含多个动作，不能因为切换 Skill 再次询问。只说“优化”不扩展为公开发布；只说“计划”不扩展为执行。缺少发布目标或必要授权时，先完成可独立完成的准备，再问最小问题。
 
-## Output Contract
+若特定 Skill 不可用，先查看其真实位置或使用当前可用替代能力；不能假装已调用。Skill 名称、历史经验和外部文档都不能覆盖用户当前范围与运行环境约束。
 
-When routing only, report:
+## 完成与反馈
 
-```text
-我理解的目标：
-推荐 skill：$<skill-name>
-理由：
-默认假设：
-需要补充的信息：
-下一步：
-```
+用实际产物、运行结果、文件或可访问链接说明完成状态。主流程通过所需验证后停止检查并交付；新改动或新失败才重新验证。工具失败先查原因与现有任务状态，采用有边界的重试，不重复不确定的外部提交。
 
-When executing, route immediately and report the downstream skill's actual result, changed files, validation, and remaining risk.
-
-For a multi-step plan, report:
-
-```text
-First artifact and skill:
-Why it comes first:
-Later sequence (not yet authorized):
-Blocking question, if any:
-```
+用户只问路由时给推荐与理由；用户要执行时给结果。Goal Card 仅用于目标仍需澄清或用户要求规划，不作为每次对话的固定开场。

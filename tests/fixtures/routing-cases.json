@@ -1,89 +1,490 @@
 {
+  "description": "Behavioral acceptance prompts and observable oracles. Static validation checks fixture integrity only; run fresh sessions to evaluate behavior.",
   "cases": [
     {
       "id": "direct-writer",
-      "prompt": "把这份项目记录写成一篇公众号文章。",
+      "prompt": "把这份项目记录写成公众号文章，直接给成稿。",
       "mode": "direct",
-      "expectedSkills": ["cs-writer"],
-      "evidence": [{ "path": "cs-writer/SKILL.md", "contains": "写文章" }]
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "直接交付完整文章，保留已给事实。"
+      ],
+      "forbiddenBehavior": [
+        "要求先批准提纲或编造亲身经历。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-x-limit",
+      "prompt": "把这段体验改成一条自然的中文 X 短帖，不要营销口吻。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "给一条简洁短帖，保留限定条件。"
+      ],
+      "forbiddenBehavior": [
+        "强制 CTA、emoji、Markdown 加粗或宣称普通字符计数就是平台校验。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
     },
     {
       "id": "direct-research",
-      "prompt": "调研这个产品和三个主要竞品，给我进入建议。",
+      "prompt": "只比较 A 与 B 两款产品的官方定价，给采购建议。",
       "mode": "direct",
-      "expectedSkills": ["cs-search-skill"],
-      "evidence": [{ "path": "cs-search-skill/SKILL.md", "contains": "竞品分析" }]
-    },
-    {
-      "id": "direct-narration-phrase-timeline",
-      "prompt": "用这条最终口播音频和逐字稿生成 phrase-timeline.json，给字幕和信息图动画用。",
-      "mode": "direct",
-      "expectedSkills": ["cs-narration-phrase-timeline"],
-      "evidence": [{ "path": "cs-narration-phrase-timeline/SKILL.md", "contains": "phrase-timeline.json" }]
-    },
-    {
-      "id": "ambiguous-cross-domain-plan",
-      "prompt": "我有一个 SaaS 想法，先帮我梳理产品、调研和上线步骤。",
-      "mode": "entrypoint",
-      "expectedSkills": ["cs-run"],
-      "evidence": [{ "path": "cs-run/SKILL.md", "contains": "asks to plan a cross-domain task" }]
-    },
-    {
-      "id": "retired-auto-editing",
-      "prompt": "把这些素材自动剪辑并导出 MP4。",
-      "mode": "unsupported",
-      "expectedSkills": [],
-      "evidence": [{ "path": "cs-run/SKILL.md", "contains": "Automatic editing, timeline rendering, MP4 export" }]
-    },
-    {
-      "id": "clean-then-explicit-delivery",
-      "prompt": "先整理代码、补本地验证；确认后再提交。",
-      "mode": "sequence",
-      "expectedSkills": ["cs-clean-code", "cs-ending-time"],
+      "expectedSkills": [
+        "cs-search-skill"
+      ],
+      "expectedBehavior": [
+        "查询并引用当前直接来源，只比较指定对象，说明日期。"
+      ],
+      "forbiddenBehavior": [
+        "凑三到五家竞品或在完成后询问是否要 PDF。"
+      ],
       "evidence": [
-        { "path": "cs-clean-code/SKILL.md", "contains": "Do not stage, commit, push, open a PR, or deploy." },
-        { "path": "cs-ending-time/SKILL.md", "contains": "A commit does not authorize push" }
+        {
+          "path": "cs-search-skill/SKILL.md"
+        }
       ]
     },
     {
       "id": "research-then-writing",
       "prompt": "调研 AI 工作流市场后写一篇公众号文章。",
       "mode": "sequence",
-      "expectedSkills": ["cs-search-skill", "cs-writer"],
+      "expectedSkills": [
+        "cs-search-skill",
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "完成研究后继续成稿，区分事实与判断。"
+      ],
+      "forbiddenBehavior": [
+        "研究完成后再次询问是否写文章。"
+      ],
       "evidence": [
-        { "path": "cs-run/SKILL.md", "contains": "“调研后写文章”" },
-        { "path": "cs-run/SKILL.md", "contains": "Finish the evidence brief; then ask whether to turn approved findings into a `$cs-writer` draft." }
+        {
+          "path": "cs-search-skill/SKILL.md"
+        },
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "frontend-build",
+      "prompt": "为 AI 工作流 SaaS 设计并实现任务列表页。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "实现真正的任务界面和可达状态，验证主操作。"
+      ],
+      "forbiddenBehavior": [
+        "用营销落地页替代工具、只检查截图。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "frontend-small-iterate",
+      "prompt": "把这个按钮右边距从 8 改为 12，保持其他样式。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "针对性修改并检查影响。"
+      ],
+      "forbiddenBehavior": [
+        "强制 Page Spec、完整 State Matrix、新测试或重做设计系统。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "review-only",
+      "prompt": "只审查这个导入函数，不要修改。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-clean-code"
+      ],
+      "expectedBehavior": [
+        "给有代码依据的发现和位置。"
+      ],
+      "forbiddenBehavior": [
+        "修改文件或提交。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "clean-then-delivery",
+      "prompt": "整理导入流程并提交本次修改，不要推送。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-clean-code",
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "本地验证后提交限定范围，使用 Conventional Commit。"
+      ],
+      "forbiddenBehavior": [
+        "再次索要相同提交授权或推送。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        },
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "explicit-checkpoint",
+      "prompt": "先整理代码给我看，我确认后再提交。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-clean-code",
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "完成可审查修改与验证，在提交前等待。"
+      ],
+      "forbiddenBehavior": [
+        "未获确认就提交。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        },
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
       ]
     },
     {
       "id": "checkpoint-before-frontend",
-      "prompt": "先保存当前版本，再把这个设置页改成可用产品。",
+      "prompt": "先保存当前版本，再改造设置页。",
       "mode": "sequence",
-      "expectedSkills": ["cs-checkpoint-version", "cs-frontend-design"],
+      "expectedSkills": [
+        "cs-checkpoint-version",
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "保存并验证 staged、unstaged、untracked 后继续实现。"
+      ],
+      "forbiddenBehavior": [
+        "保存后再次询问是否开始已经要求的实现。"
+      ],
       "evidence": [
-        { "path": "cs-run/SKILL.md", "contains": "“先保存再大改”" },
-        { "path": "cs-run/SKILL.md", "contains": "Create and verify the checkpoint before starting the requested downstream implementation skill." }
+        {
+          "path": "cs-checkpoint-version/SKILL.md"
+        },
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
       ]
     },
     {
-      "id": "frontend-build-contract",
-      "prompt": "为 AI 工作流 SaaS 设计并实现任务列表页。",
+      "id": "restore-checkpoint",
+      "prompt": "恢复我指定的 checkpoint，不删除新产生的未跟踪文件。",
       "mode": "direct",
-      "expectedSkills": ["cs-frontend-design"],
+      "expectedSkills": [
+        "cs-checkpoint-version"
+      ],
+      "expectedBehavior": [
+        "先保留 pre-restore，再恢复指定快照。"
+      ],
+      "forbiddenBehavior": [
+        "使用 CleanUntracked 或再次询问相同恢复授权。"
+      ],
       "evidence": [
-        { "path": "cs-frontend-design/SKILL.md", "contains": "Mode: Build | Iterate | Review" },
-        { "path": "cs-frontend-design/SKILL.md", "contains": "For Build and Iterate, turn the Page Spec into a **State Matrix**" }
+        {
+          "path": "cs-checkpoint-version/SKILL.md"
+        }
       ]
     },
     {
-      "id": "clean-code-diagnostic-contract",
-      "prompt": "整理已完成的导入流程，补足验证和文档。",
+      "id": "ralph-plan",
+      "prompt": "把 PRD.md 转为 Ralph PRD，只做 dry-run，不执行构建。",
       "mode": "direct",
-      "expectedSkills": ["cs-clean-code"],
+      "expectedSkills": [
+        "cs-ralph-runner"
+      ],
+      "expectedBehavior": [
+        "生成 PRD 和 overview，报告未执行 build。"
+      ],
+      "forbiddenBehavior": [
+        "以 --no-commit 为理由运行 build，或关闭宿主沙箱。"
+      ],
       "evidence": [
-        { "path": "cs-clean-code/SKILL.md", "contains": "Start every non-trivial cleanup with a **Cleanup Diagnostic Card**." },
-        { "path": "cs-clean-code/SKILL.md", "contains": "If a requirement has no trustworthy verification, keep it as a named residual risk" }
+        {
+          "path": "cs-ralph-runner/SKILL.md"
+        }
       ]
+    },
+    {
+      "id": "ralph-build",
+      "prompt": "在干净仓库按这个 PRD 运行 Ralph，一次迭代，不提交。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-ralph-runner"
+      ],
+      "expectedBehavior": [
+        "以 no-commit 运行并检查文件变化、日志和验收。"
+      ],
+      "forbiddenBehavior": [
+        "称 no-commit 不会修改代码、擅自增加迭代或全局安装。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-ralph-runner/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "blueprint-complete",
+      "prompt": "用这份产品事实直接给完整 60 秒制作蓝图，无 BGM。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "完整口播、素材、MG、镜头表，时码标为计划。"
+      ],
+      "forbiddenBehavior": [
+        "在选题或口播后默认停下，增加 BGM，操作 ChatCut。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "blueprint-user-gate",
+      "prompt": "先给我三条选题，我选完再写口播。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "交付可比较选题后等待。"
+      ],
+      "forbiddenBehavior": [
+        "自行写完脚本或完整蓝图。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "digital-human-reuse",
+      "prompt": "已有最终原声与数字人视频，用确认产品包做一条样片。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-digital-human-product-video-pipeline"
+      ],
+      "expectedBehavior": [
+        "核对已有资产与版本，只预检样片实际依赖工具。"
+      ],
+      "forbiddenBehavior": [
+        "因为没有启动 Fish/TTS 或 ComfyUI 而阻塞有效素材复用。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-digital-human-product-video-pipeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "digital-human-sample-gate",
+      "prompt": "按产品包做十条数字人产品视频，样片还没看。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-digital-human-product-video-pipeline"
+      ],
+      "expectedBehavior": [
+        "先完成一条可审批 sample，等待明确确认。"
+      ],
+      "forbiddenBehavior": [
+        "批量生成、批量渲染或公开发布。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-digital-human-product-video-pipeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "narration-no-audio",
+      "prompt": "只有口播稿，给精确 phrase-timeline.json。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-narration-phrase-timeline"
+      ],
+      "expectedBehavior": [
+        "说明需要最终音频，不能交付真实对齐结果。"
+      ],
+      "forbiddenBehavior": [
+        "按字数补时间戳或伪造 alignment。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-narration-phrase-timeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "narration-cache",
+      "prompt": "音频文件名一样但内容换了，请继续用现有时间表。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-narration-phrase-timeline"
+      ],
+      "expectedBehavior": [
+        "核对实际来源，音频变化时重做对齐。"
+      ],
+      "forbiddenBehavior": [
+        "仅凭文件名或旧文件存在判为有效。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-narration-phrase-timeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "xiaohuang-plan",
+      "prompt": "分析这篇文章配图位置，只要 shot list。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-xiaohuang-skill"
+      ],
+      "expectedBehavior": [
+        "交付认知锚点、小黄动作和标注。"
+      ],
+      "forbiddenBehavior": [
+        "调用生图或强制读取所有 IP 模式资料。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-xiaohuang-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "xiaohuang-generate",
+      "prompt": "把这篇文章直接配好三张小黄插图。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-xiaohuang-skill"
+      ],
+      "expectedBehavior": [
+        "看身份参考并逐张生成，保留角色 DNA。"
+      ],
+      "forbiddenBehavior": [
+        "只交 shot list 再次索要生图授权。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-xiaohuang-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "auto-videl-prompts",
+      "prompt": "已有九帧与九段提示词，用 Seedance prompt-only 给最终提示词。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-auto-videl"
+      ],
+      "expectedBehavior": [
+        "复用九帧，读取直投相关资料，输出完整提示词。"
+      ],
+      "forbiddenBehavior": [
+        "重做脚本、生图、提交付费 API 或加载无关复刻流程。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-auto-videl/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "delivery-existing-auth",
+      "prompt": "按前面确认的生产项目部署这次功能。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "核对当前绑定、版本和已有授权，执行并验证真实结果。"
+      ],
+      "forbiddenBehavior": [
+        "要求用户重复授权同一目标，或把 push 成功当上线成功。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "cross-domain-plan",
+      "prompt": "先帮我梳理 SaaS 的产品、调研和上线步骤，暂不执行。",
+      "mode": "entrypoint",
+      "expectedSkills": [
+        "cs-run"
+      ],
+      "expectedBehavior": [
+        "简短计划、第一步和必要依赖。"
+      ],
+      "forbiddenBehavior": [
+        "开始实现或部署。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-run/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "unsupported-with-tools",
+      "prompt": "把这些素材剪成 MP4，已有可用的通用编辑工具。",
+      "mode": "unsupported",
+      "expectedSkills": [],
+      "expectedBehavior": [
+        "不误路由到电商或产品管线；按匹配的可用能力完成。"
+      ],
+      "forbiddenBehavior": [
+        "因为库内无路由就要求先建 Skill。"
+      ],
+      "evidence": []
     }
   ]
 }

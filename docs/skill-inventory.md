@@ -1,8 +1,8 @@
 # Skill Inventory
 
-盘点日期：2026-08-09
+盘点日期：2026-09-12
 
-当前发布数量：12 个 active skill。
+当前工作树数量：13 个 active skill。
 
 ## 总览
 
@@ -16,16 +16,17 @@
 | `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `cs-frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
 | `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
-| `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
+| `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 与 overview / no-commit 构建 | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 | `cs-chatcut-video-blueprint` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `cs-digital-human-product-video-pipeline` | 数字人产品视频流水线 | 以产品包预检、样片审批和最终 QA 编排数字人、产品证据、ChatCut 与 Remotion | `references/`, `scripts/`, `tests/` |
 | `cs-narration-phrase-timeline` | 口播音频对齐 | 使用最终旁白和实际朗读稿生成逐短语毫秒/帧号时间表 | `references/schema.md` |
 
 ## 主入口
 
 `$cs-run` 是显式优先的总入口：用于用户明确调用、需要选择 Skill、需要规划跨域任务，或目标无法判断所属 Skill 的场景。已经明确属于某个 active Skill 的请求直接进入对应 Skill。
 
-它维护 Goal Card：
+仅目标需澄清或复杂规划时使用 Goal Card：
 
 ```text
 Goal:
@@ -37,7 +38,7 @@ Validation:
 Recommended skill:
 ```
 
-路由只选择一个主 skill。只有必要的验证或交付步骤，才追加第二个 skill。
+每阶段选择一个主 Skill；用户已授权的多阶段目标按依赖串联，切换 Skill 不重复索要同一授权。
 
 ## 领域路由
 
@@ -60,6 +61,8 @@ Recommended skill:
 
 - 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$cs-chatcut-video-blueprint`
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
+- 已确认产品包或蓝图到数字人产品视频、ChatCut 实操、Remotion 包装和最终验收：`$cs-digital-human-product-video-pipeline`
+- 该 Skill 先报告预检状态；sample 样片未获确认时，不批量生成、渲染或发布。
 
 ### 口播音频对齐
 
@@ -78,7 +81,7 @@ Recommended skill:
 
 当前库不再提供：
 
-- 自动剪辑和通用 MP4 渲染。
+- 自动剪辑和通用 MP4 渲染；有产品包、样片审批和最终 QA 的数字人产品视频流水线除外。
 - 理想车主信息图。
 - Open Design 设计产物。
 

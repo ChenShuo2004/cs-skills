@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "product": {
+    "id": "avatar-demo",
+    "name": "数字人产品",
+    "claims": [
+      {
+        "id": "claim-01",
+        "statement": "没有素材佐证的能力",
+        "evidenceIds": ["missing-ui"]
+      }
+    ]
+  },
+  "assets": {
+    "productEvidence": []
+  },
+  "delivery": {
+    "platform": "横版产品介绍",
+    "cta": "私信了解"
+  },
+  "voice": {
+    "mode": "unknown"
+  },
+  "avatar": {
+    "mode": "approved-local-comfyui"
+  },
+  "style": {
+    "id": "product-explainer-sample"
+  },
+  "audio": {
+    "bgm": "licensed-track"
+  },
+  "approval": {
+    "mode": "batch-now"
+  }
+}

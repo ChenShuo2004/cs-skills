@@ -1,116 +1,38 @@
 ---
 name: cs-writer
-description: |
-  Use when the user wants ChenShuo-style writing or content work: long-form articles, public account drafts, project stories, product/build logs, tool experience posts, outlines, angle selection, rewrites, polishing, or turning scattered material into readable and useful content. Trigger for "$cs-writer", "cs writer", "写文章", "写稿子", "帮我写", "续写", "扩写", "公众号", "用我的风格", "写成一篇", "内容创作", or when real source material should become warm, curious, practical writing. Do not use for pure code documentation unless the user wants a narrative article.
-  Supports X/Twitter rewriting when the user asks to turn original content into a concise, high-retention post.
+description: "按陈硕的表达方式写文章、公众号稿、项目复盘、工具体验、X 短帖，或对已有内容提纲、改写、润色与审稿。基于真实素材保留个人判断；不用于纯代码文档。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
 # CS Writer
 
-## Purpose
+把真实产品、项目经历、工具实验和个人观察写成具体、诚实、实用的内容。读者应该听见一个亲手做事的人在表达判断。
 
-`cs-writer` is ChenShuo's integrated writing skill. It turns real project material, tool experiments, product decisions, and rough ideas into writing that is specific, honest, warm, and useful.
+## 从请求到成稿
 
-The voice is a practical builder talking honestly about something that was interesting enough to test, build, or rethink.
+识别素材、读者、平台和交付形式。用户要成稿就直接写；要提纲、角度或审稿就只交付该项，不强制“选角度 → 确认提纲 → 写稿”的多轮流程。
 
-## Input Contract
+素材中能确定的信息不重复询问。个人经历、结果或关键数字不足时，保留原来的不确定性，或附最小待补事实；不编造案例、评价、营收和亲身体验。
 
-Before drafting, identify what is available:
+## 陈硕的表达
 
-- Source material: notes, transcripts, links, screenshots, documents, product records, or rough ideas.
-- Audience: who should read this and what they already know.
-- Outcome: article, outline, angle options, rewrite, polish, public account draft, or short content.
-- Constraints: length, platform, language, tone, evidence, links, and publishing format.
+- 从真实场景、具体动作、产品问题或可识别的损失切入，再给自己的判断。
+- 技术说明回到读者需要解决的问题；使用实际产品名与可核实细节。
+- 短段落、直接表达，保留试错、犹豫与限定条件；不写企业宣传腔、万能金句或“AI 时代”式开场。
+- 每段增加新信息。观点、证据、经历和下一步形成连贯推进，但不强制每篇都套复盘或教程结构。
+- 改写优先保留用户主旨、立场、事实确定性与篇幅要求；不要为“更吸引人”夸大承诺。
 
-Do not ask for information that can be inferred from the material. Ask only for facts that affect truth, audience fit, or the requested output. If the material is thin, identify the missing real details: what happened, what was tried, what failed, what changed, and what the reader should be able to do afterward.
+长文需要节奏或开头参考时，读取 [style guide](references/style-guide.md)。短帖、小段润色不加载长文教程。
 
-## Mode Selection
+## X / Twitter
 
-Choose one mode before writing:
+默认交付一条紧凑短帖，保留关键价值与可读留白。长度按用户要求和目标平台当前规则；用户未指定时以简洁表达为目标，不把 280 个普通 Unicode 字符当成平台计数规则。若要求严格限长，用平台计数工具或对应规则校验，不能把估算标为通过。
 
-- **Angle**: propose 2-3 concrete angles and recommend one.
-- **Outline**: create the article spine, section purpose, and evidence needed.
-- **Draft**: write the complete piece from the supplied material.
-- **Rewrite**: preserve the user's meaning while improving structure, rhythm, clarity, and usefulness.
-- **X Rewrite**: turn supplied source material into one concise, high-retention X/Twitter post without changing its meaning.
-- **Polish**: make a near-final draft more natural without changing its claims or personality.
-- **Review**: diagnose truth, usefulness, specificity, rhythm, and voice, then give targeted edits.
+开头要具体、可信。默认不加 Markdown 加粗、强制 emoji 或套路 CTA；仅在语境自然或用户要求时加。帖子直接交付，不附写作过程。
 
-## Angle Check
+## 完成标准
 
-Use HVC before drafting:
+检查事实是否有来源、是否保留用户立场、有没有泛句和重复段落，按请求交付完整稿件。外部最新事实需要查证；若用户只要求润色已给文本，不无故扩大为调研。
 
-- **Happy**: Is there a real curiosity, surprise, tension, or enjoyable discovery?
-- **Value**: Will the reader learn something, save time, or make a better decision?
-- **Concrete**: Do we have scenes, tools, numbers, screenshots, prompts, code, or before/after results?
-
-Prefer topics that hit all three. If only one is present, improve the angle or ask for the smallest missing piece.
-
-## Writing Workflow
-
-1. Digest the material into facts, scenes, claims, emotional moments, and open questions.
-2. Choose the mode, article type, audience, and central angle.
-3. Separate verified facts, reasonable inference, and missing personal details.
-4. Build a spine: concrete scene or problem → why it mattered → attempts and friction → what worked → reusable method → reader's next action.
-5. Draft in a warm, practical voice with short paragraphs, direct judgment, real tool names, and concrete details.
-6. End with a useful takeaway, checklist, example, or next step rather than a generic summary.
-7. Run the self-check before delivery and call out facts that still need confirmation.
-
-## ChenShuo Voice
-
-- Builder first: write from real products, workflows, experiments, and delivery pressure.
-- Requirements brain: when the topic is a system, make goal, input, output, edge cases, and verification visible.
-- Warm and curious: keep the feeling of “this is interesting, let's see what it can do”.
-- Useful by the end: give the reader a method, decision rule, checklist, or concrete example.
-- Human, not corporate: show uncertainty and messy parts; avoid empty slogans.
-- Prefer a specific scene over an abstract opening.
-- Let technical explanations return quickly to the user's real goal.
-
-## X / Twitter Rewrite
-
-Use this mode when the user supplies original content and asks to make it an X/Twitter post or requests a viral-style rewrite.
-
-- Preserve the original meaning, core value, scope, and factual certainty. Improve presentation; never manufacture a stronger claim, result, or controversy.
-- Deliver the post directly with no explanation unless the user requests one.
-- Keep it within 280 characters, counting all text, emoji, spaces, and line breaks. If the source cannot be conveyed truthfully within that limit, retain the most important value point rather than squeezing in every detail.
-- Open with a three-second hook: a strong but truthful view, a counterintuitive fact already supported by the source, or a practical "How to" promise.
-- Use mobile-first spacing: short standalone sentences, blank lines between ideas, and compact lists when useful.
-- Use emoji sparingly as visual cues (for example: 🧵, 👉, ✅); never let emoji replace meaning or make the post feel templated.
-- Sound conversational, confident, specific, and human. Avoid literal-translation phrasing, vague hype, and AI-sounding filler.
-- Highlight only truly important terms with CAPS or Markdown bold. Do not overuse either.
-- End with a natural CTA that invites a relevant reply, save, repost, or opinion. Do not append irrelevant engagement bait.
-
-## Hard Rules
-
-- Never invent first-hand experience, numbers, screenshots, user reactions, product results, or external facts.
-- Mark the difference between fact, inference, and pending confirmation.
-- Do not hide weak evidence behind confident wording.
-- Avoid openings such as “in the age of AI” and avoid decorative corporate language.
-- Do not over-structure a narrative article with excessive headings and bullet lists.
-- Preserve the user's core meaning when rewriting.
-- Do not turn a writing task into an image, frontend, or engineering implementation task unless the user explicitly asks for that deliverable.
-
-## Self Check
-
-Before final output, ask:
-
-- Where is the real scene?
-- Where is the surprise or tension?
-- Where is the reusable method?
-- What can the reader do next?
-- Which sentence still sounds generic?
-- Which claim needs evidence or user confirmation?
-- Does this sound like a practical AI workflow builder rather than a generic content machine?
-
-For detailed rhythm, opening, and article-spine guidance, read [references/style-guide.md](references/style-guide.md).
-
-## Output Expectations
-
-- For angle work, give 2-3 options and recommend one.
-- For outlines, include the purpose and evidence for each major section.
-- For drafts, deliver the article directly, followed by only the missing-fact notes that affect truth.
-- For rewrites and polish, preserve intent and explain only the changes that materially improve the piece.
-- For X/Twitter rewrites, deliver exactly one post within 280 characters, with mobile-friendly line breaks and a relevant CTA.
-- For reviews, lead with the highest-impact issues and give targeted replacement suggestions.
+事实、推断与未知要区分；必要待补说明置于稿件后。发布与给他人发消息需要用户相应授权，写稿本身不包含发布。

@@ -2,7 +2,7 @@
   "version": 1,
   "autoRunAfterInitialSetup": true,
   "executionPreviewRequiresConfirmation": false,
-  "defaultMode": "dry-run",
+  "defaultMode": "no-commit",
   "defaultIterations": 1,
   "requireExplicitCommitPermission": true,
   "stopOnDirtyWorktree": true,

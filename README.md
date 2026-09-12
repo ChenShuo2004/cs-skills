@@ -12,7 +12,18 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 模糊/跨域目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、口播对齐和交付收尾。
+当前包含 13 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划、数字人产品视频流水线、口播对齐和交付收尾。
+
+## v0.6 工作方式调整（本地候选）
+
+这轮按当前强模型的能力重新整理了全部 13 个入口：明确的小任务直接做；长流程只加载当前阶段的资料；“调研后写文章”“整理后提交”沿用会话已有授权连续执行。用户指定的确认点、样片审批、产品事实和真实音频时间约束继续保留。
+
+- 计划卡与状态矩阵按复杂度使用，不再是每次任务的必填表。
+- 电商视频、蓝图、Ralph 与生产并发的细节分阶段读取。
+- Ralph 的 no-commit 是会修改代码的真实构建，dry-run 只做 PRD/overview。
+- 静态检查、脚本回归与新会话行为验收分别记录，不把文档匹配当模型效果验证。
+
+设计依据、逐 Skill 改动和验收状态见 [本轮优化记录](docs/evals/v0.6.0.md)。
 
 ## 适合谁
 
@@ -57,9 +68,17 @@ $cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并
 $cs-chatcut-video-blueprint 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
 ```
 
-它不会直接开剪。它先帮你从想法里挑出一个有明确对象和证据的内容切口，确认口播稿后才生成素材、Motion Graphics、声音和逐镜头表。
+它不会直接开剪。它按请求的深度交付选题、口播或完整蓝图。明确要求先选题、确认后继续时保留该节点；直接要完整蓝图时连续完成。
 
-### 4. 也可以直接调用具体能力
+### 4. 从确认产品包到可验收的数字人产品视频
+
+~~~text
+$cs-digital-human-product-video-pipeline 这是确认后的 product-pack.json。请先预检 ChatCut、FFmpeg、ComfyUI、Fish/TTS 和 Remotion，生成一条样片；我确认前不要批量或发布。
+~~~
+
+它以产品事实和证据素材为约束，先做预检，再完成一条可审批样片。ChatCut 负责真实剪辑，Remotion 负责确定性包装，导出后必须同时完成时间线、关键帧、音频和编码验收。
+
+### 5. 也可以直接调用具体能力
 
 ```text
 $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
@@ -85,7 +104,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 
 | Skill | 功能 | 典型输出 |
 | --- | --- | --- |
-| [$cs-run](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run) | 目标澄清、任务卡和自动路由 | Goal Card、推荐路径、执行结果 |
+| [$cs-run](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run) | 目标澄清、任务卡和自动路由 | 按需目标卡、推荐路径、执行结果 |
 
 ### 产品与工程
 
@@ -93,7 +112,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | --- | --- | --- |
 | [$cs-frontend-design](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-frontend-design) | 前端页面、工具、仪表盘设计与评审 | UI 方案、实现约束、浏览器验证 |
 | [$cs-clean-code](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-clean-code) | 代码清理、重构、文档同步和质量检查 | 有边界的修改、测试和交付说明 |
-| [$cs-ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、dry-run 日志 |
+| [$cs-ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、no-commit 构建日志 |
 | [$cs-checkpoint-version](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-checkpoint-version) | 大改前保存版本和回退 | 可恢复的本地 checkpoint |
 | [$cs-ending-time](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ending-time) | 验证、提交、推送、PR 和部署收尾 | 交付报告、GitHub/Vercel 结果 |
 
@@ -106,6 +125,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$cs-digital-human-product-video-pipeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-digital-human-product-video-pipeline) | 数字人产品介绍视频全链路 | 产品包预检、样片审批、ChatCut 剪辑、Remotion 包装和最终 QA |
 | [$cs-narration-phrase-timeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-narration-phrase-timeline) | 最终口播的短语级真实音频对齐 | `phrase-timeline.json`、词级边界、字幕与动画时间基准 |
 
 ## 真实使用场景
@@ -141,6 +161,14 @@ $cs-chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作�
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
+
+### 从确认产品包到数字人产品成片
+
+~~~text
+$cs-digital-human-product-video-pipeline 用确认的产品事实、组件视频、数字人和旁白制作 60 秒横版产品介绍。先做 sample；我确认后才允许 batch。
+~~~
+
+它用产品包锁定事实和禁用断言，预检本地能力后只做一条代表性样片。样片通过后才进入全片；ChatCut 的项目结构、Remotion 合成帧和 ffprobe 的成片规格共同构成验收证据。
 
 ### 从最终口播到字幕和动画时间基准
 
@@ -190,13 +218,13 @@ $env:CS_SKILLS_PYTHON = "C:\Path\To\python.exe"
 node scripts/run-regression.mjs
 ```
 
-第一条命令检查 11 个 active skill 的 frontmatter、UI 配置、资源引用、路由和核心边界；第二条还会运行 `cs-auto-videl` 与 `cs-checkpoint-version` 的现有回归测试。GitHub Actions 在 PR 与 `main` 推送时执行同一套检查。每次发布前，还要按 [docs/evals/v0.3.0.md](docs/evals/v0.3.0.md) 用新会话完成人工验收。
+第一条命令检查 13 个 active skill 的 frontmatter、UI 配置、资源引用、路由和核心边界；第二条还会运行 `cs-digital-human-product-video-pipeline`、`cs-auto-videl` 与 `cs-checkpoint-version` 的回归测试。GitHub Actions 在 PR 与 `main` 推送时执行同一套检查。每次发布前，还要按 [docs/evals/v0.5.0.md](docs/evals/v0.5.0.md) 用新会话完成人工验收。
 
 ## 当前边界
 
 以下方向已经从 active library 中移除：
 
-- 自动剪辑、通用时间线编排和 MP4 渲染；真实音频的短语时间对齐除外。
+- 自动剪辑、通用时间线编排和 MP4 渲染；真实音频的短语时间对齐与有产品包、样片审批和最终 QA 的数字人产品视频流水线除外。
 - 理想车主信息图生产。
 - Open Design 设计产物。
 
@@ -215,6 +243,7 @@ cs-skills/
 ├── cs-search-skill/
 ├── cs-auto-videl/
 ├── cs-chatcut-video-blueprint/
+├── cs-digital-human-product-video-pipeline/
 ├── cs-narration-phrase-timeline/
 ├── cs-xiaohuang-skill/
 ├── cs-frontend-design/

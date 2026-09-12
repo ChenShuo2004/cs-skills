@@ -1,7 +1,7 @@
 interface:
   display_name: "CS Clean Code"
-  short_description: "陈硕的工程收尾：按需求清理代码、同步文档、补验证并完成交接。"
-  default_prompt: "使用 $cs-clean-code 检查这次实现，按需求清理代码、同步文档、补充测试并验证结果。"
+  short_description: "陈硕的工程质量工作流：定位问题、最小修改与适度验证交付。"
+  default_prompt: "使用 $cs-clean-code，检查并整理本次实现，保留已有工作，完成适用验证。"
 
 policy:
   allow_implicit_invocation: true

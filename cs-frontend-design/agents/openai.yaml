@@ -1,7 +1,7 @@
 interface:
   display_name: "CS Frontend Design"
-  short_description: "陈硕的产品 UI 工作流：设计、实现、响应式检查与浏览器验证。"
-  default_prompt: "使用 $cs-frontend-design 把这个前端需求做成可用、精致、响应式并经过浏览器验证的产品界面。"
+  short_description: "陈硕的前端产品工作流：实现真实交互，沿用设计语言并验证。"
+  default_prompt: "使用 $cs-frontend-design，完成这个页面的产品体验与实现，并验证实际主流程。"
 
 policy:
   allow_implicit_invocation: true

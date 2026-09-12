@@ -2,10 +2,10 @@
 
 ## 当前状态
 
-CS Skills 当前包含 12 个 active skill，并采用单入口架构：
+CS Skills 当前包含 13 个 active skill，并采用单入口架构：
 
 ```text
-用户目标 → cs-run → 一个下游 skill → 验证结果
+用户目标 → cs-run → 按阶段选择所需 skill → 验证结果
 ```
 
 主入口 `$cs-run` 采用显式优先：用户明确调用、需要选择 Skill、需要规划跨域任务或目标无法归类时使用；明确的写作、调研和执行请求直接进入对应 Skill。
@@ -28,7 +28,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 - `cs-run`
 
-负责读取项目上下文、生成 Goal Card、提出最小阻塞问题、选择下游 skill，并在用户要求时继续执行。
+负责读取必要上下文、按需澄清目标、选择每阶段的能力并连续完成已授权任务。
 
 ### 内容、视觉与电商视频
 
@@ -36,9 +36,10 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 - `cs-xiaohuang-skill`
 - `cs-auto-videl`
 - `cs-chatcut-video-blueprint`
+- `cs-digital-human-product-video-pipeline`
 - `cs-narration-phrase-timeline`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作蓝图的收敛流程，以及最终口播的真实短语时间对齐。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作蓝图的收敛流程、数字人产品视频的预检到最终验收，以及最终口播的真实短语时间对齐。
 
 ### 调研与决策
 
@@ -60,13 +61,15 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 
 `cs-chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
 
+`cs-digital-human-product-video-pipeline` 接收确认后的产品包或蓝图交接，按 plan、sample、batch 预检与编排数字人、产品证据、ChatCut 剪辑、Remotion 包装和成片 QA；用户确认样片前不允许批量或发布。
+
 `cs-narration-phrase-timeline` 将最终旁白音频和实际朗读稿对齐为逐短语的真实毫秒/帧号数据，供字幕、重点词和动态图文使用；不生成配音、不估算时长、不剪辑或渲染 MP4。
 
 ## 已退休范围
 
 以下方向已经移出 active library：
 
-- 自动剪辑、通用时间线编排、MP4 渲染；真实音频的短语时间对齐除外。
+- 自动剪辑、通用时间线编排、MP4 渲染；真实音频的短语时间对齐与有产品包、样片审批和最终 QA 的数字人产品视频流水线除外。
 - 理想车主信息图。
 - Open Design 设计产物。
 
@@ -85,7 +88,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 7. `node scripts/validate-skills.mjs` 通过；有脚本回归的 skill 同时通过 `node scripts/run-regression.mjs`。
 8. 发布版本使用全新会话完成 `docs/evals/<version>.md` 中的人工验收。
 
-## 下一步
+## 版本演进（历史规则以当前 SKILL.md 为准）
 
 ### v0.3.0：稳定性与可回归质量体系
 
@@ -101,6 +104,19 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 - `$cs-run` 固化冲突请求的优先级和多步骤交接；交付动作始终落在主任务完成后的单独授权步骤。
 - 为三项能力新增自动契约和路由案例；发布前真人验收覆盖其实际输出质量。
 
+### v0.5.0：数字人产品视频流水线
+
+- 新增 `$cs-digital-human-product-video-pipeline`，把产品事实、口播、配音、数字人、产品场景、ChatCut、Remotion 和最终验收统一为可恢复的七阶段流程。
+- 用 product-pack.json、passed/degraded/blocked 预检、sample-then-batch 审批和 QA 报告保证生产可追溯，不猜测本地接口或凭据。
+- 只将明确的数字人产品介绍视频作为窄范围例外，通用自动剪辑仍保持退休。
+
+### v0.6.0：按当前模型能力简化执行
+
+- 全部 13 个入口按实际决策价值整理，移除通用教程与重复确认。
+- 保留专用资产、脚本、数据合同和真实验收；长细节按阶段读取。
+- 修正 Ralph no-commit/dry-run 语义、按需工具预检与恢复。
+- 增加递归资源验证和可观察行为案例；详见 docs/evals/v0.6.0.md。
+
 ### P0：入口回归
 
 用新会话验证：
@@ -114,10 +130,11 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 - `cs-writer`：用真实项目记录生成一篇文章。
 - `cs-frontend-design`：完成一个页面设计和浏览器检查。
 - `cs-clean-code`：对真实改动做小范围质量收尾。
-- `cs-ralph-runner`：从 Markdown PRD 生成 dry-run。
+- `cs-ralph-runner`：从 Markdown PRD 生成 overview；只在要求执行时运行 no-commit build。
 - `cs-auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
 - `cs-chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
+- `cs-digital-human-product-video-pipeline`：用确认产品包完成真实预检与一条样片；检查事实追溯、无 BGM、PIP 回退、样片审批和导出 QA，缺少本地生成配置时准确停止。
 - `cs-narration-phrase-timeline`：用最终音频与逐字稿生成短语时间表，验证顺序、真实时间边界、覆盖率与无估算回退。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 

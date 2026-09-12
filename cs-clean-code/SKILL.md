@@ -1,136 +1,38 @@
 ---
 name: cs-clean-code
-description: |
-  Use when Codex needs to clean up code, refactor safely, review implementation quality, reconcile code with requirements, update docs after development, or prepare a maintainable local handoff. Trigger for "clean code", "整理代码", "代码洁癖", "重构一下", "新人能看懂", "review this implementation", "make it maintainable", or any request where correctness, business logic, docs, tests, and local verification need to line up. This is ChenShuo's engineering cleanup skill: requirements first, business flow closed loop, small scoped edits, and verified output. Do not use it for Git, PR, or deployment delivery actions.
+description: "整理代码、重构、审查实现、修复已定位问题或同步开发文档时使用。聚焦需求与业务行为、最小修改和本地验证；Git 或部署收尾由 cs-ending-time 处理。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
-# Clean Code
+# CS Clean Code
 
-## Purpose
+让实现符合需求，降低维护成本。保留现有框架、公共接口与用户改动；不为风格一致重写可用模块。
 
-Use this skill as ChenShuo's code quality and handoff layer.
+## 先定位再修改
 
-The goal is not to make code look elegant in isolation. The goal is to make the implementation match the requirement, keep business logic complete, remove avoidable complexity, and leave the project easier for the next human or agent to continue.
+读取拥有该行为的代码、相关项目指令、测试和错误证据。Bug 先复现或找到可追溯的失败路径，再解释原因和最小修复。
 
-## When To Use
+明确请求是审查还是修改：只要求 review 时给发现，不自动修复；要求整理、修复时直接执行。可推断的命名、目录和实现细节自行决定。
 
-- The user asks to clean, refactor, organize, simplify, review, or polish code.
-- A feature is implemented but needs a final quality pass before handoff or delivery.
-- Docs, README, AGENTS.md, or task notes may be stale after code changes.
-- The code works, but the data flow, state flow, errors, tests, or naming feel messy.
-- The user says "整理一下", "新人能直接上手", "代码洁癖", or "clean code".
+## 按风险选择工作量
 
-Do not use this skill for purely visual design work unless code maintainability is also part of the task.
+- 小范围重命名、删重复、文案或注释调整：直接修改并检查 diff，不强制计划卡或新增测试。
+- 行为修改：从输入、状态变化到输出追踪一条业务路径，覆盖本次缺陷与相关失败条件；复用已有测试。
+- 跨模块重构、迁移或多项验收：用简短诊断记录说明原因、影响范围、接口约束和验证方案。需要时参考 [review checklist](references/review-checklist.md)。
 
-## ChenShuo Principles
+公共接口变化若已在用户要求内，继续实现兼容或迁移方案；只有会超出约定范围、损失用户数据或破坏他人工作且无法隔离时才需要决定。请求确认之前先完成不依赖该决定的工作。
 
-- Requirements first: read the PRD, README, AGENTS.md, docs, task notes, and existing tests before changing code.
-- Business logic over surface polish: trace the user goal, inputs, outputs, state transitions, permissions, and failure paths.
-- Small edits: fix the real problem without unrelated rewrites.
-- Consistency: follow the project's existing framework, naming, directory structure, and helper APIs.
-- Verification: every meaningful cleanup should end with a concrete check, even if the check is a targeted manual inspection.
-- Handoff quality: docs and code should tell the same story.
+## 修改与验证
 
-## Delivery Contract (required)
+沿用现有组件和依赖。修复真正拥有逻辑的模块；更新因本次行为变化失效的文档、命令或示例，不写无关历史说明。
 
-Start every non-trivial cleanup with a **Cleanup Diagnostic Card**. Build it from the repository, task, and tests before editing; do not ask the user to repeat information that is already available.
+每个行为修改保留“需求 → 修改 → 验证”的证据，可以是一段说明，不强制表格。按影响运行针对性测试、类型检查或构建；UI 行为需要真实交互证据。通过必需检查后即交付，只有新改动、失败或未解假设才扩大检查。
 
-```text
-Requested outcome:
-Evidence reviewed: requirement / docs / tests / runtime signal
-Observed problem and likely cause:
-Owned files and public contracts:
-In-scope changes:
-Out-of-scope changes:
-Risk level: low / medium / high
-Verification plan:
-Docs to synchronize:
-```
+测试应能发现实际回归，不为可逆的小改动编写重复实现的测试。不因工具缺失冒充通过：报告失败命令、原因及仍未验证的行为。
 
-For every behavior-changing edit, maintain a **Requirement → Implementation → Verification** mapping. A cleanup is not complete because the code looks simpler; it is complete only when the requested behavior and its evidence still line up.
+## 交付
 
-| Requirement or observed problem | Owning file / change | Verification | Result or blocker |
-| --- | --- | --- | --- |
-|  |  |  |  |
+说明改了什么、原因、实际验证和剩余阻塞。Bug 修复补一句如何避免再次发生。审查以有证据的发现及文件位置开头。
 
-Use the mapping in the final report. If a requirement has no trustworthy verification, keep it as a named residual risk rather than claiming completion.
-
-## Workflow
-
-1. Inspect the project context.
-   Read the relevant docs and list the files or modules that own the behavior.
-
-2. Create the Cleanup Diagnostic Card.
-   State the observed problem, probable cause, ownership boundary, risk, verification plan, and non-goals. Stop and ask for direction only when the required scope would change a public contract, schema, deployment, or user-owned work.
-
-3. Map the logic before editing.
-   Identify the user goal, inputs, outputs, core flow, edge cases, error states, affected public contracts, and Requirement → Implementation → Verification rows.
-
-4. Classify the cleanup.
-   Decide whether the task is correctness cleanup, maintainability cleanup, docs sync, test coverage, or handoff preparation.
-
-5. Edit with the smallest useful scope.
-   Prefer local simplification, clearer names, duplicate removal, safer guards, and better boundaries over broad architecture changes.
-
-6. Synchronize knowledge.
-   If behavior, commands, routes, environment variables, data structures, or workflow changed, update the relevant README, docs, or agent instructions.
-
-7. Verify the mapping.
-   Run focused tests, lint, typecheck, build, or manual checks for each affected behavior. If verification is blocked, record the attempted command, blocker, and residual risk.
-
-For broad reviews or milestone cleanup, read [references/review-checklist.md](references/review-checklist.md).
-
-## Cleanup Levels
-
-### L1 Correctness
-
-- The implementation matches the documented requirement.
-- Data flow, state flow, and error flow are complete.
-- Edge cases are handled where the project already expects handling.
-- Public APIs, routes, schemas, and return values remain compatible unless the user asked to change them.
-
-### L2 Maintainability
-
-- Names describe business meaning, not temporary implementation details.
-- Shared behavior lives in the right local abstraction, but no abstraction is added just to look tidy.
-- Dead code, stale comments, repeated branches, and unused paths are removed when safe.
-- Complex blocks have short useful comments only where they prevent future confusion.
-
-### L3 Knowledge Sync
-
-- README and docs reflect how the code actually runs.
-- AGENTS.md or project agent notes contain only rules that future agents need to avoid mistakes.
-- Historical narration does not crowd out current instructions.
-- Relative dates are replaced with concrete dates when timing matters.
-
-### L4 Verification
-
-- Tests or checks cover the changed behavior at the right level.
-- Manual verification steps are concrete enough for the user to repeat.
-- Remaining risk is named directly.
-
-## Output Expectations
-
-After work, report using this compact handoff:
-
-```text
-Cleanup Diagnostic Card summary:
-Changes and business reason:
-Requirement → Implementation → Verification:
-Files and docs synchronized:
-Verification run:
-Residual risk / user decision needed:
-```
-
-For code review, lead with findings first and include file/line references.
-
-## Boundaries
-
-- Do not rewrite working modules just because another style looks nicer.
-- Do not silently change public contracts, schemas, or data formats.
-- Do not delete user changes you did not make.
-- Do not add dependencies unless the repo cannot reasonably solve the problem without them.
-- Do not claim cleanup is complete without verification or a clear verification blocker.
-- Do not stage, commit, push, open a PR, or deploy. After local quality work is complete, use `$cs-ending-time` only when the user explicitly asks for a delivery action.
+只请求本地整理时不扩大为发布。若用户已要求“整理后提交/推送”，本地验证完成后继续 $cs-ending-time，沿用已有授权；若用户明确“确认后再提交”，在该处停下。

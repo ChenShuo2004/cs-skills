@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0",
+  "product": {
+    "id": "avatar-demo",
+    "name": "数字人产品",
+    "claims": [
+      {
+        "id": "claim-01",
+        "statement": "可从产品界面直接确认的功能",
+        "evidenceIds": ["ui-01"]
+      }
+    ],
+    "prohibitedClaims": ["未经证实的效果保证"]
+  },
+  "assets": {
+    "productEvidence": [
+      {
+        "id": "ui-01",
+        "kind": "screen-recording",
+        "source": "user-provided",
+        "usage": "证明 claim-01"
+      }
+    ],
+    "referenceVideos": [],
+    "brand": []
+  },
+  "delivery": {
+    "platform": "横版产品介绍",
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "durationSeconds": 60,
+    "language": "zh-CN",
+    "cta": "私信了解"
+  },
+  "voice": {
+    "mode": "user-recording-or-approved-local-tts",
+    "consentReference": "user-approved"
+  },
+  "avatar": {
+    "mode": "approved-local-comfyui",
+    "pip": { "enabled": true, "position": "lower-left" }
+  },
+  "style": {
+    "id": "product-explainer-sample",
+    "parameters": {}
+  },
+  "audio": {
+    "bgm": "none",
+    "sfx": "minimal"
+  },
+  "approval": {
+    "mode": "sample-then-batch"
+  }
+}

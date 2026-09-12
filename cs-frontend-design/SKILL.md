@@ -1,156 +1,39 @@
 ---
 name: cs-frontend-design
-description: |
-  Use when Codex designs, implements, revises, or reviews a user-facing frontend: web app, dashboard, admin UI, editor, local browser tool, landing page, game UI, visual prototype, or interactive product workflow. Trigger when visual polish, product usability, responsive behavior, control choice, layout density, state design, assets, icons, or browser verification matters. Do not use for backend-only work unless UI behavior or product surface is affected.
+description: "设计、实现、迭代或评审真实前端页面与交互流程，包括 SaaS、仪表盘、编辑器、落地页和可视化工具。关注产品任务、现有设计语言、可达状态与浏览器验证；不用于纯后端工作。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
-# Frontend Design
+# CS Frontend Design
 
-## Purpose
-
-Use this skill to make frontend work feel like a real product, not a decorative mockup.
-
-It helps Codex turn a vague UI request into a usable interface with clear business flow, information hierarchy, interaction states, responsive layout, and visual verification.
-
-For CS Skills, this skill should act as the frontend product taste layer: practical, polished, workflow-first, and careful about verification.
-
-## When To Use
-
-- Build or revise a user-facing page, dashboard, admin panel, tool, editor, landing page, game UI, or prototype.
-- Review a frontend change for layout, usability, visual hierarchy, responsive behavior, or missing states.
-- Turn a PRD, rough idea, screenshot, or existing page into a working product interface.
-- Add UI controls, navigation, charts, tables, upload flows, account tools, or visual workflow surfaces.
-- Verify a local frontend in browser after implementation.
-
-Do not use this skill for backend-only tasks, data migrations, API-only changes, or pure copy edits unless they affect the visible user experience.
+先理解页面给谁用、主要动作是什么、完成后应发生什么。检查现有页面、路由、组件、设计 tokens 与真实数据，再作设计决定。
 
 ## Work Modes
 
-Choose one mode before editing. Do not blend a review into an implementation or turn a narrow iteration into a redesign.
+- Build：交付可运行的页面或完整用户流程。
+- Iterate：解决指定体验问题，保留产品目的与已有视觉语言。
+- Review：交付具体发现、证据和修复优先级，不擅自改代码。
 
-| Mode | Use when | Required outcome |
-| --- | --- | --- |
-| Build | A screen, flow, or visible feature must be created | Page Spec, implementation, state coverage, verification evidence |
-| Iterate | An existing UI must change without changing its product purpose | Change brief, targeted implementation, regression checks |
-| Review | The user needs findings or a design decision, not code changes | Ranked findings, evidence, recommended next action |
+目标明确时直接执行。小改动只需简短说明；新页面或复杂流程可内部整理 Page Spec。多状态流程可用 State Matrix；简单静态改动不用填表。只有需要更详细交接时读 [execution contract](references/execution-contract.md)。
 
-## Delivery Contract (required)
+## 产品与视觉判断
 
-Before implementing, assemble a compact **Page Spec** from the task and repository context. Do not ask for information already available in the project. Ask only when the missing answer changes the primary user, primary action, or acceptance criteria.
+- 用户要求工具时，第一屏就是可工作的工具；不要替换成营销落地页。原型中的示例数据需明确，不能冒充已连接服务。
+- 沿用项目组件、字体、颜色、圆角与间距。新项目默认极简、现代、留白充足，以 Apple、Linear、Vercel、Notion 的清晰度为参考；用户品牌或参考图优先。
+- 布局由信息关系决定。表格服务比较，列表服务扫描，卡片用于独立内容组；不设脱离项目的固定圆角上限或颜色禁令。
+- 按钮标签说明动作和结果。熟悉且重复的工具操作可以用带可访问名称的图标；陌生、核心或破坏性动作保留清晰文字。
+- 只使用能解释真实产品的截图、素材或图形。装饰、动画和依赖必须对理解或操作有帮助。
+- 复用项目栈。无既有栈时可选 React、TypeScript、TailwindCSS 和适用的 shadcn/ui；不要为简单页面引入整套服务架构。
 
-```text
-Mode: Build | Iterate | Review
-Screen / route:
-Primary user and job:
-Primary action and expected result:
-Inputs, data, and permissions:
-Information hierarchy:
-Required states: loading / empty / error / success / disabled / destructive confirmation
-Responsive behavior:
-Existing components, tokens, and assets to reuse:
-Acceptance criteria:
-Non-goals:
-```
+## 实现与验收
 
-For Build and Iterate, turn the Page Spec into a **State Matrix** before final verification. Cover only states that the feature can actually reach; do not manufacture decorative states.
+完成真实可达的 loading、empty、error、success、disabled 状态与恢复动作。检查键盘操作、焦点、表单标签、可读对比度；不要给静态页面制造假的加载或错误状态。
 
-| Surface | Default | Loading | Empty | Error | Success / selected | Disabled / destructive |
-| --- | --- | --- | --- | --- | --- |
-| Primary workflow |  |  |  |  |  |  |
-| Data or content area |  |  |  |  |  |  |
-| Secondary action |  |  |  |  |  |  |
+用项目适用的构建/类型检查验证实现，并在可用浏览器中操作主流程和最容易失败的分支。响应式页面至少检查桌面与窄屏的导航、溢出、点击目标与内容顺序；截图好看不等于按钮可用。
 
-Read [references/execution-contract.md](references/execution-contract.md) when a task needs a fuller Page Spec, review format, or browser-evidence template.
+Verification Evidence 记录实际路由、动作、观察结果和必要的视口。工具不可用时说清未做的检查，不把源码推断当作浏览器通过。通过验收后交付，只有新失败或变更才重复检查。
 
-## Core Workflow
+## 交付
 
-1. Read the project docs, PRD, README, route notes, or task brief before touching UI.
-2. Inspect the existing app: framework, routes, components, CSS system, assets, icons, and design conventions.
-3. Select Build, Iterate, or Review and create the appropriate compact contract.
-4. Map the user goal: input, output, primary action, state transitions, edge cases, and likely failure points.
-5. Identify the product type: operational tool, dashboard, editor, consumer app, landing page, game, portfolio, or content site.
-6. Design the first screen as the real working experience unless the user explicitly asks for a marketing page.
-7. Implement with the repo's existing component library and style system first. Add dependencies only when the stack cannot reasonably handle the job.
-8. Check the State Matrix against the implementation. Add only the missing reachable states that block completion.
-9. Verify visually when a browser or dev server is available: page loads, key controls render, no blank state, no obvious console errors, and desktop/mobile layouts do not overlap.
-
-## Product Fit
-
-- Operational tools, dashboards, CRMs, upload tools, and admin screens should feel quiet, dense, and repeatable: clear hierarchy, compact controls, predictable tables/lists/forms, restrained decoration.
-- Editors and creative tools should prioritize the work surface, toolbars, state visibility, undoable actions, and low-friction navigation.
-- Dashboards should optimize for scanning, comparison, filters, drill-downs, and clearly labeled time or account context.
-- Consumer apps should emphasize the main action, approachable language, lightweight empty states, and fast recovery from errors.
-- Games and immersive experiences can use expressive visuals, motion, custom canvas/SVG/Three.js assets, and playful styling.
-- Landing pages need a first-viewport brand or product signal, strong real imagery or generated bitmap media, and a hint of the next section visible below the hero.
-
-## Controls
-
-- Use icon buttons for common tool actions: save, upload, download, undo, redo, zoom, delete, settings, refresh, and search.
-- Use tabs for views, segmented controls for modes, toggles or checkboxes for booleans, menus/selects for option sets, and sliders/steppers/inputs for numeric values.
-- Use text buttons for clear commands, not as substitutes for familiar icons.
-- Add tooltips for unfamiliar icon-only actions.
-- Keep destructive actions explicit, confirmed, and recoverable when possible.
-
-## Layout Rules
-
-- Use full-width sections or unframed layouts for page structure. Use cards only for repeated items, modals, and genuinely framed tools.
-- Do not nest cards inside cards.
-- Keep cards at 8px radius or less unless the existing design system says otherwise.
-- Set stable dimensions for fixed-format controls, boards, grids, tiles, counters, and toolbars so hover states, labels, and dynamic content do not shift layout.
-- Use responsive grids, min/max constraints, and aspect ratios instead of viewport-scaled font sizes.
-- Match heading scale to the container. Avoid hero-sized text inside compact panels.
-- Ensure text never overlaps or spills out of buttons, cards, nav items, sidebars, tables, or panels. Wrap, shorten, or use smaller local typography when needed.
-
-## Visual System
-
-- Avoid one-note palettes. Do not let the interface become dominated by one hue family, especially purple gradients, dark slate/blue, beige/tan, or brown/orange.
-- Use color to encode state and priority, not as decoration alone.
-- Prefer real or generated bitmap imagery for sites where the subject matters.
-- Avoid decorative gradient blobs, bokeh orbs, and generic SVG hero illustrations.
-- Use lucide icons when available. If the project already uses another icon library, stay with it.
-- Primary images should reveal the actual product, place, object, state, gameplay, or person instead of acting as vague atmosphere.
-
-## Interaction Quality
-
-- Build complete states: empty, loading, success, error, disabled, active/selected, and destructive confirmation where relevant.
-- Keep primary workflows short and visible. Avoid hiding required actions behind unclear menus.
-- For upload/account/network tools, show the current state next to the action: selected account, profile path, proxy status, last opened time, and next recommended step.
-- Do not add visible instructional text that merely explains obvious UI mechanics. Use labels, state, and structure instead.
-- Make repeated workflows efficient: predictable placement, keyboard-friendly controls when useful, and clear return paths.
-
-## Verification Checklist
-
-Before finalizing frontend work:
-
-- Run the available build/typecheck/lint command when practical.
-- Start or reuse the dev server if the app needs one.
-- Verify the page in a browser when browser tooling is available.
-- Check desktop and mobile widths for overlap, clipped text, unusable controls, and broken navigation.
-- Confirm referenced assets load and images are not dark, blurred, overly cropped, or irrelevant.
-- Record **Verification Evidence**: command or browser route, viewport(s), user action, observed result, and any blocker.
-- Report any verification blocker directly, distinguishing environment/tool failure from app failure.
-
-## Output Expectations
-
-For Build or Iterate, report:
-
-```text
-Mode and Page Spec summary:
-User-facing change:
-States covered / intentionally not applicable:
-Files changed:
-Verification Evidence:
-Remaining risk or blocker:
-```
-
-For Review, lead with concrete findings and file/line or screen references. Mark each finding as P0 (blocked), P1 (workflow risk), P2 (quality), or P3 (polish), then give the smallest recommended next action. Prioritize broken flows, unusable controls, responsive failures, missing states, accessibility risks, and visual regressions.
-
-## Boundaries
-
-- Do not redesign unrelated areas.
-- Do not introduce a design system or abstraction unless it removes real duplication or matches the repo's direction.
-- Do not make a landing page when the user asked for an app, tool, dashboard, or game.
-- Do not prioritize visual flourish over the user's core workflow.
-- Do not invent product requirements that conflict with the user's brief or project docs.
+简短说明用户能做什么、修改文件、实际检查与未验证项。Review 按影响排序，区分缺陷与设计建议。不要强制输出完整 Page Spec 或 State Matrix。

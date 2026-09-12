@@ -2,6 +2,19 @@
 
 ## 未发布
 
+### v0.6.0：面向当前强模型的执行优化
+
+- 全面审查并调整 13 个 Skill 入口：按任务复杂度执行，复用授权与有效产物，不再机械填表、重复确认。
+- 将电商视频、蓝图格式、Ralph CLI 与生产并发细节移至按需参考；保留产品身份、样片审批与真实音频时间约束。
+- 修复 Ralph 将 --no-commit 误称 dry-run、默认命令绕过宿主权限以及安装规则冲突。
+- 更新 UI 提示、文档、递归资源检查和 25 个行为验收场景；验证记录区分静态检查、脚本回归和新会话实测。
+
+### v0.5.0：数字人产品视频流水线
+
+- 新增 $cs-digital-human-product-video-pipeline：以产品包为合同，按 plan、sample、batch 编排产品事实、口播、配音、数字人、产品场景、ChatCut 剪辑、Remotion 包装和最终验收。
+- 固化预检状态、样片审批、无 BGM 规格、产品事实追溯和透明通道圆形 PIP 回退，不将通用自动剪辑重新引入库中。
+- 扩展 $cs-chatcut-video-blueprint 的产品包交接；确认蓝图后的项目实操、样片和成片验收交给新流水线。
+
 ### v0.4.0：高频工作流执行合同
 
 - 为 `$cs-frontend-design` 增加 Build / Iterate / Review 模式、Page Spec、State Matrix 与验证证据格式。

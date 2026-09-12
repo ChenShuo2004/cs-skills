@@ -1,6 +1,6 @@
 # Frontend Execution Contract
 
-Use this reference only after selecting the work mode in `SKILL.md`. Keep the delivered contract compact: it is a decision record and acceptance surface, not a PRD rewrite.
+Use this reference only for a complex screen, multi-state workflow, or requested detailed handoff. Small iterations do not need these templates. Keep the delivered contract compact: it is a decision record and acceptance surface, not a PRD rewrite.
 
 ## Build Page Spec
 
@@ -63,7 +63,7 @@ Start from the real actions and data dependencies in the Page Spec.
 - Use **success / selected** where the user needs confirmation of the completed action or current mode.
 - Use **disabled / destructive** where prerequisites are absent or an action is irreversible.
 
-If a state is not applicable, record the reason in the final report instead of silently omitting it.
+Omit inapplicable states. Explain only omissions that affect acceptance or user expectations.
 
 ## Verification Evidence
 

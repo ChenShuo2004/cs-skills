@@ -9,7 +9,7 @@ function run(command, args, extraEnv = {}) {
   console.log(`\n> ${command} ${args.join(" ")}`);
   const result = spawnSync(command, args, {
     cwd: root,
-    env: { ...process.env, ...extraEnv },
+    env: { ...process.env, PYTHONUTF8: "1", ...extraEnv },
     stdio: "inherit",
     windowsHide: true,
   });
@@ -28,13 +28,14 @@ function canRun(command, args) {
 }
 
 function resolvePython() {
+  const supported = ["-c", "import sys; raise SystemExit(0 if sys.version_info >= (3, 12) else 1)"];
   const configured = process.env.CS_SKILLS_PYTHON;
   if (configured) {
     if (path.isAbsolute(configured) && !fs.existsSync(configured)) {
       throw new Error(`CS_SKILLS_PYTHON does not exist: ${configured}`);
     }
-    if (!canRun(configured, ["--version"])) {
-      throw new Error(`CS_SKILLS_PYTHON is not an executable Python runtime: ${configured}`);
+    if (!canRun(configured, supported)) {
+      throw new Error(`CS_SKILLS_PYTHON must be an executable Python 3.12+ runtime: ${configured}`);
     }
     return { command: configured, prefix: [] };
   }
@@ -44,7 +45,7 @@ function resolvePython() {
     { command: "python3", prefix: [] },
     { command: "py", prefix: ["-3"] },
   ]) {
-    if (canRun(candidate.command, [...candidate.prefix, "--version"])) {
+    if (canRun(candidate.command, [...candidate.prefix, ...supported])) {
       return candidate;
     }
   }
@@ -65,6 +66,8 @@ function resolvePowerShell() {
 
 try {
   run(process.execPath, ["scripts/validate-skills.mjs"]);
+  run(process.execPath, ["--test", "tests/skill-resources.test.mjs"]);
+  run(process.execPath, ["cs-digital-human-product-video-pipeline/tests/validate-product-pack.tests.mjs"]);
 
   const python = resolvePython();
   run(

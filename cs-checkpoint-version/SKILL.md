@@ -17,7 +17,7 @@ The default goal is safety: preserve the current branch, HEAD, staged diff, unst
 ## Rules
 
 - Work in one Git repository root. Confirm with `git rev-parse --show-toplevel`.
-- Create checkpoints before risky edits, broad refactors, dependency changes, generated asset changes, or user-requested rollback protection.
+- Create a checkpoint when requested or when this change needs a rollback artifact; do not snapshot every routine edit. Reuse a verified checkpoint only if HEAD, staged/unstaged diffs and untracked inputs have not changed.
 - Default to a safe snapshot under `.codex-checkpoints/`; do not commit unless the user explicitly asks for a Git checkpoint commit.
 - Include staged, unstaged, and untracked non-ignored files. Do not include ignored files such as dependencies, builds, caches, or secrets.
 - Never restore a checkpoint unless the user explicitly asks to roll back or restore.
@@ -63,7 +63,7 @@ Get-ChildItem -Directory "<repo-root>\.codex-checkpoints" | Sort-Object Name -De
 Get-Content "<checkpoint-path>\metadata.json" -Raw
 ```
 
-3. Restore with the bundled script:
+3. Restore with the bundled script. The restore request supplies authorization; do not ask again for the same checkpoint. Still preserve pre-restore state and respect the separate CleanUntracked boundary:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File "<skill-root>\scripts\restore-checkpoint.ps1" -Repo "<repo-root>" -Checkpoint "<checkpoint-path>" -Force
