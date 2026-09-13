@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS 个人 IP 口播"
+  short_description: "陈硕的实战判断口播：用真实项目写出 60–90 秒可直接录制的一稿。"
+  default_prompt: "使用 $cs-personal-ip-script，基于我这次真实项目或经历，写一条 60–90 秒、可直接录制的个人 IP 口播稿；不要编造事实或强加 CTA。"

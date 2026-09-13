@@ -2,7 +2,7 @@
 
 盘点日期：2026-09-12
 
-当前工作树数量：13 个 active skill。
+当前工作树数量：14 个 active skill。
 
 ## 总览
 
@@ -12,6 +12,7 @@
 | `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
 | `cs-search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
 | `cs-auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
+| `cs-personal-ip-script` | 个人 IP 口播 | 将真实项目、经历或现场观察写成 60–90 秒可直接录制的实战判断口播 | `agents/openai.yaml` |
 | `cs-xiaohuang-skill` | 小黄 / 有温度 IP 与正文配图 | 保持同一角色 DNA，生成 2D/3D、动作、联名、风格迁移资产，或将内容认知锚点转成小黄手绘配图 | `references/`, `assets/` |
 | `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
 | `cs-frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
@@ -63,6 +64,11 @@ Recommended skill:
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 - 已确认产品包或蓝图到数字人产品视频、ChatCut 实操、Remotion 包装和最终验收：`$cs-digital-human-product-video-pipeline`
 - 该 Skill 先报告预检状态；sample 样片未获确认时，不批量生成、渲染或发布。
+
+### 个人 IP 实战口播
+
+- 真实项目、经历或现场观察到 60–90 秒可直接录制的个人 IP 口播：`$cs-personal-ip-script`
+- 该 Skill 要求真实锚点，交付口播、演绎标注和自检；不做选题池、分镜、剪辑、配音或真实音频对齐。
 
 ### 口播音频对齐
 

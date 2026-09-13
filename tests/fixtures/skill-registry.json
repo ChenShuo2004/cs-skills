@@ -42,6 +42,11 @@
       "releaseLevel": "contract"
     },
     {
+      "name": "cs-personal-ip-script",
+      "displayName": "CS 个人 IP 口播",
+      "releaseLevel": "contract"
+    },
+    {
       "name": "cs-ralph-runner",
       "displayName": "CS Ralph Runner",
       "releaseLevel": "contract"

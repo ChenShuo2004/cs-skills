@@ -341,6 +341,25 @@
       ]
     },
     {
+      "id": "personal-ip-real-project",
+      "prompt": "我刚把团队排期从飞书手工表改成 AI 调度工具，发现真正省下来的不是填表时间。基于这段真实经历写一条 60–90 秒个人 IP 口播。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-personal-ip-script"
+      ],
+      "expectedBehavior": [
+        "从真实场景和可验证判断写成单一主题的可朗读口播，并分离演绎标注与事实待确认项。"
+      ],
+      "forbiddenBehavior": [
+        "编造团队结果、强制 CTA，或扩展为 ChatCut 分镜、音频对齐和剪辑。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-personal-ip-script/SKILL.md"
+        }
+      ]
+    },
+    {
       "id": "narration-no-audio",
       "prompt": "只有口播稿，给精确 phrase-timeline.json。",
       "mode": "direct",

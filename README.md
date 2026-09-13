@@ -12,11 +12,11 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 模糊/跨域目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 13 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划、数字人产品视频流水线、口播对齐和交付收尾。
+当前包含 14 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、个人 IP 口播、短视频策划、数字人产品视频流水线、口播对齐和交付收尾。
 
 ## v0.6 工作方式调整（本地候选）
 
-这轮按当前强模型的能力重新整理了全部 13 个入口：明确的小任务直接做；长流程只加载当前阶段的资料；“调研后写文章”“整理后提交”沿用会话已有授权连续执行。用户指定的确认点、样片审批、产品事实和真实音频时间约束继续保留。
+这轮按当前强模型的能力重新整理了全部 14 个入口：明确的小任务直接做；长流程只加载当前阶段的资料；“调研后写文章”“整理后提交”沿用会话已有授权连续执行。用户指定的确认点、样片审批、产品事实和真实音频时间约束继续保留。
 
 - 计划卡与状态矩阵按复杂度使用，不再是每次任务的必填表。
 - 电商视频、蓝图、Ralph 与生产并发的细节分阶段读取。
@@ -124,6 +124,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
+| [$cs-personal-ip-script](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-personal-ip-script) | 个人 IP 实战口播 | 60–90 秒口播稿、演绎标注、事实待确认项和自检 |
 | [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
 | [$cs-digital-human-product-video-pipeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-digital-human-product-video-pipeline) | 数字人产品介绍视频全链路 | 产品包预检、样片审批、ChatCut 剪辑、Remotion 包装和最终 QA |
 | [$cs-narration-phrase-timeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-narration-phrase-timeline) | 最终口播的短语级真实音频对齐 | `phrase-timeline.json`、词级边界、字幕与动画时间基准 |
@@ -161,6 +162,14 @@ $cs-chatcut-video-blueprint 我记录了 12 个关于独立开发和 AI 工作�
 ```
 
 它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
+
+### 从真实项目到个人 IP 口播
+
+```text
+$cs-personal-ip-script 我刚用 AI 重做团队排期，发现最值钱的不是少填表，而是终于能看清谁在阻塞整个项目。基于这段真实经历写一条 60–90 秒口播。
+```
+
+它从项目现场提炼一个可验证的判断，交付可直接录制的稿件和独立的演绎标注；不把不足的事实编成故事，也不强加关注或私信 CTA。
 
 ### 从确认产品包到数字人产品成片
 
@@ -218,7 +227,7 @@ $env:CS_SKILLS_PYTHON = "C:\Path\To\python.exe"
 node scripts/run-regression.mjs
 ```
 
-第一条命令检查 13 个 active skill 的 frontmatter、UI 配置、资源引用、路由和核心边界；第二条还会运行 `cs-digital-human-product-video-pipeline`、`cs-auto-videl` 与 `cs-checkpoint-version` 的回归测试。GitHub Actions 在 PR 与 `main` 推送时执行同一套检查。每次发布前，还要按 [docs/evals/v0.5.0.md](docs/evals/v0.5.0.md) 用新会话完成人工验收。
+第一条命令检查 14 个 active skill 的 frontmatter、UI 配置、资源引用、路由和核心边界；第二条还会运行 `cs-digital-human-product-video-pipeline`、`cs-auto-videl` 与 `cs-checkpoint-version` 的回归测试。GitHub Actions 在 PR 与 `main` 推送时执行同一套检查。每次发布前，还要按 [docs/evals/v0.5.0.md](docs/evals/v0.5.0.md) 用新会话完成人工验收。
 
 ## 当前边界
 
@@ -242,6 +251,7 @@ cs-skills/
 ├── cs-writer/
 ├── cs-search-skill/
 ├── cs-auto-videl/
+├── cs-personal-ip-script/
 ├── cs-chatcut-video-blueprint/
 ├── cs-digital-human-product-video-pipeline/
 ├── cs-narration-phrase-timeline/

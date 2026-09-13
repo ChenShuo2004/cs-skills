@@ -24,6 +24,7 @@ Choose one primary route from this table:
 | Verify, commit, push, open a PR, or deploy a completed change | `$cs-ending-time` | Delivery verification and GitHub/Vercel handoff |
 | Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
+| 将真实项目、经历或现场观察写成 60–90 秒个人 IP 实战口播 | `$cs-personal-ip-script` | 可直接录制的口播稿、演绎标注、事实待确认项与自检 |
 | 将单个或一批内容想法收敛为 ChatCut 短视频 | `$cs-chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
 | 用已确认产品包制作数字人产品介绍视频，或需要 ChatCut 实操、Remotion 包装与最终验收 | `$cs-digital-human-product-video-pipeline` | 预检、样片审批、产品证据剪辑、确定性包装和成片 QA |
 | 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
