@@ -40,6 +40,88 @@
       ]
     },
     {
+      "id": "writer-x-native-scene",
+      "prompt": "我把产品的人工验收从每次 40 分钟压到 8 分钟，但最后发布仍要自己确认。基于这段真实经历写一条中文 X 短帖。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "围绕一个具体进展与边界直接交付短帖，不扩写为教程或虚构更多指标。"
+      ],
+      "forbiddenBehavior": [
+        "把样本里的项目、数字、产品或案例当作这条帖子的事实，或强制添加 CTA。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        },
+        {
+          "path": "cs-writer/references/source-samples.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-long-evidence",
+      "prompt": "我有一份含测试记录和官方链接的 AI 工具实测资料，写成一篇 X Article。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "用真实问题、过程、证据、边界和可迁移判断组织长文，并保留可验证事实的来源边界。"
+      ],
+      "forbiddenBehavior": [
+        "只罗列参数、把计划写成已验证结果，或把模型能力神化为无需人工确认。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/references/style-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-rewrite-fidelity",
+      "prompt": "把下面这段产品公告改得更有现场感，不能增加任何未给出的数据、用户评价或个人经历。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "保留原立场与事实确定性，只改善结构、节奏和具体表达。"
+      ],
+      "forbiddenBehavior": [
+        "为了爆款虚构收入、增长、测试结果、用户反馈或第一人称经历。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        },
+        {
+          "path": "cs-writer/references/style-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-minimal-fact-gap",
+      "prompt": "基于我正在做一个 AI 产品这句话，写一篇带实际结果的项目复盘。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "说明无法支撑实际结果，并给出完成复盘所需的最小待补事实，而非编造。"
+      ],
+      "forbiddenBehavior": [
+        "把产品计划、样本中的结果或通用行业说法写成用户已经取得的成果。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
       "id": "direct-research",
       "prompt": "只比较 A 与 B 两款产品的官方定价，给采购建议。",
       "mode": "direct",
