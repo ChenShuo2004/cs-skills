@@ -67,6 +67,7 @@ function resolvePowerShell() {
 try {
   run(process.execPath, ["scripts/validate-skills.mjs"]);
   run(process.execPath, ["--test", "tests/skill-resources.test.mjs"]);
+  run(process.execPath, ["--test", "cs-code-story-video/tests/pipeline.test.mjs"]);
   run(process.execPath, ["cs-digital-human-product-video-pipeline/tests/validate-product-pack.tests.mjs"]);
 
   const python = resolvePython();

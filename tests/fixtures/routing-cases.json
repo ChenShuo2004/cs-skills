@@ -575,6 +575,47 @@
       ]
     },
     {
+      "id": "code-story-full-film",
+      "prompt": "给这段最终中文口播和 KAI 角色做一条 16:9 代码叙事视频，人物左右交替讲述，关键事件用全屏 B-roll 演出，导出完整版和 3:4、4:3 封面。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-code-story-video"
+      ],
+      "expectedBehavior": [
+        "核对真实音频后建立整数帧镜头，先检查样片，再交付 Remotion 全片、双比例封面与 QA。"
+      ],
+      "forbiddenBehavior": [
+        "把七章现成面板换字当作新 B-roll，或误送给数字人产品视频与电商复刻流程。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-code-story-video/SKILL.md"
+        },
+        {
+          "path": "cs-code-story-video/references/story-contract.md"
+        }
+      ]
+    },
+    {
+      "id": "code-story-await-audio",
+      "prompt": "我只有一个人生议题，先用代码叙事视频的方式写口播和场景，录音以后再制作。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-code-story-video"
+      ],
+      "expectedBehavior": [
+        "先交付口播与场景方案，等待最终录音后才生成真实时码和成片。"
+      ],
+      "forbiddenBehavior": [
+        "凭字数猜镜头时间或擅自生成音色和完整 MP4。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-code-story-video/SKILL.md"
+        }
+      ]
+    },
+    {
       "id": "unsupported-with-tools",
       "prompt": "把这些素材剪成 MP4，已有可用的通用编辑工具。",
       "mode": "unsupported",

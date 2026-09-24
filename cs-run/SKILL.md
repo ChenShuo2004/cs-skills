@@ -26,13 +26,14 @@ Choose one primary route from this table:
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
 | 将真实项目、经历或现场观察写成 60–90 秒个人 IP 实战口播 | `$cs-personal-ip-script` | 可直接录制的口播稿、演绎标注、事实待确认项与自检 |
 | 将单个或一批内容想法收敛为 ChatCut 短视频 | `$cs-chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
+| 将口播与角色制作成代码叙事视频，包含独立 A/B-roll 场景、样片、成片和双比例封面 | `$cs-code-story-video` | Remotion 工程、真实音频时间轴、16:9 视频、3:4/4:3 封面与 QA |
 | 用已确认产品包制作数字人产品介绍视频，或需要 ChatCut 实操、Remotion 包装与最终验收 | `$cs-digital-human-product-video-pipeline` | 预检、样片审批、产品证据剪辑、确定性包装和成片 QA |
 | 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
 
 ## Retired Routes
 
-本库没有通用自动剪辑/MP4 导出、理想汽车信息图或 Open Design 的专用入口。不要把这些请求误送到电商或数字人产品视频流程。缺少库内路由不等于无法工作：已有其他可用工具/Skill 且范围匹配时直接使用，缺能力时准确说明缺口。不要要求用户先创建新 Skill。
+本库没有对任意素材做通用自动剪辑的入口；`$cs-code-story-video` 只处理有口播、角色和代码场景的叙事视频。理想汽车信息图与 Open Design 也没有专用入口。不要把这些请求误送到电商或数字人产品视频流程。缺少库内路由不等于无法工作：已有其他可用工具/Skill 且范围匹配时直接使用，缺能力时准确说明缺口。不要要求用户先创建新 Skill。
 
 ## 执行尺度
 

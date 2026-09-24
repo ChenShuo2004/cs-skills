@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 14 个 active skill，并采用单入口架构：
+CS Skills 当前包含 15 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 按阶段选择所需 skill → 验证结果
@@ -37,10 +37,11 @@ CS Skills 当前包含 14 个 active skill，并采用单入口架构：
 - `cs-auto-videl`
 - `cs-personal-ip-script`
 - `cs-chatcut-video-blueprint`
+- `cs-code-story-video`
 - `cs-digital-human-product-video-pipeline`
 - `cs-narration-phrase-timeline`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、真实项目到个人 IP 实战口播、从内容想法到 ChatCut 制作蓝图的收敛流程、数字人产品视频的预检到最终验收，以及最终口播的真实短语时间对齐。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、真实项目到个人 IP 实战口播、从内容想法到 ChatCut 制作蓝图的收敛流程、口播驱动的代码叙事视频、数字人产品视频的预检到最终验收，以及最终口播的真实短语时间对齐。
 
 ### 调研与决策
 
@@ -62,6 +63,8 @@ CS Skills 当前包含 14 个 active skill，并采用单入口架构：
 
 `cs-chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
 
+`cs-code-story-video` 使用真实录音、角色 A-roll 和独立的全屏场景 B-roll 建 Remotion 工程，先做样片并检查后自动导出 16:9 完整片及 3:4/4:3 视频封面；缺音频时停在稿件与场景方案，不伪造精确时码，也不做任意素材自动剪辑。
+
 `cs-personal-ip-script` 将真实项目、经历或现场观察收敛为 60–90 秒的实战判断型个人 IP 口播，分离可朗读台词与演绎标注，要求可回链的事实锚点；不负责选题池、分镜、配音、真实音频对齐或剪辑。
 
 `cs-digital-human-product-video-pipeline` 接收确认后的产品包或蓝图交接，按 plan、sample、batch 预检与编排数字人、产品证据、ChatCut 剪辑、Remotion 包装和成片 QA；用户确认样片前不允许批量或发布。
@@ -72,7 +75,7 @@ CS Skills 当前包含 14 个 active skill，并采用单入口架构：
 
 以下方向已经移出 active library：
 
-- 自动剪辑、通用时间线编排、MP4 渲染；真实音频的短语时间对齐与有产品包、样片审批和最终 QA 的数字人产品视频流水线除外。
+- 任意素材的自动剪辑与通用时间线编排；数字人产品视频和口播驱动的代码叙事视频有明确的窄范围例外。
 - 理想车主信息图。
 - Open Design 设计产物。
 
@@ -138,6 +141,7 @@ CS Skills 当前包含 14 个 active skill，并采用单入口架构：
 - `cs-personal-ip-script`：用真实 AI 创业项目写一条 60–90 秒口播，验证场景、判断、证据、动作和收束齐全，且无编造与强制 CTA。
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
 - `cs-chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
+- `cs-code-story-video`：用真实口播与角色制作至少两章代码叙事样片，检查镜头连续、A/B-roll 差异、原声、两种封面与完整解码；缺音频时只保留 draft。
 - `cs-digital-human-product-video-pipeline`：用确认产品包完成真实预检与一条样片；检查事实追溯、无 BGM、PIP 回退、样片审批和导出 QA，缺少本地生成配置时准确停止。
 - `cs-narration-phrase-timeline`：用最终音频与逐字稿生成短语时间表，验证顺序、真实时间边界、覆盖率与无估算回退。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。

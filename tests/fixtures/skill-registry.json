@@ -12,6 +12,11 @@
       "releaseLevel": "core"
     },
     {
+      "name": "cs-code-story-video",
+      "displayName": "CS 代码叙事视频",
+      "releaseLevel": "script-regression"
+    },
+    {
       "name": "cs-checkpoint-version",
       "displayName": "CS Checkpoint Version",
       "releaseLevel": "script-regression"

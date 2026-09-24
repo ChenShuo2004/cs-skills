@@ -2,7 +2,7 @@
 
 盘点日期：2026-09-12
 
-当前工作树数量：14 个 active skill。
+当前工作树数量：15 个 active skill。
 
 ## 总览
 
@@ -20,6 +20,7 @@
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 与 overview / no-commit 构建 | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 | `cs-chatcut-video-blueprint` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `cs-code-story-video` | 代码叙事视频 | 口播驱动的角色 A-roll、全屏 B-roll、Remotion 成片与双比例封面 | `references/`, `assets/`, `scripts/`, `tests/` |
 | `cs-digital-human-product-video-pipeline` | 数字人产品视频流水线 | 以产品包预检、样片审批和最终 QA 编排数字人、产品证据、ChatCut 与 Remotion | `references/`, `scripts/`, `tests/` |
 | `cs-narration-phrase-timeline` | 口播音频对齐 | 使用最终旁白和实际朗读稿生成逐短语毫秒/帧号时间表 | `references/schema.md` |
 
@@ -65,6 +66,11 @@ Recommended skill:
 - 已确认产品包或蓝图到数字人产品视频、ChatCut 实操、Remotion 包装和最终验收：`$cs-digital-human-product-video-pipeline`
 - 该 Skill 先报告预检状态；sample 样片未获确认时，不批量生成、渲染或发布。
 
+### 代码叙事视频
+
+- 中文口播、角色与参考素材到 16:9 代码叙事样片、完整 MP4、3:4/4:3 封面：`$cs-code-story-video`。
+- A-roll 角色讲述与全屏事件 B-roll 分离；无最终音频时先交付脚本和场景方案，真实时间轴只在录音后建立。它不接管任意素材的通用剪辑。
+
 ### 个人 IP 实战口播
 
 - 真实项目、经历或现场观察到 60–90 秒可直接录制的个人 IP 口播：`$cs-personal-ip-script`
@@ -87,7 +93,7 @@ Recommended skill:
 
 当前库不再提供：
 
-- 自动剪辑和通用 MP4 渲染；有产品包、样片审批和最终 QA 的数字人产品视频流水线除外。
+- 任意素材的通用自动剪辑；数字人产品视频与有角色、口播、代码场景的叙事视频有各自窄范围入口。
 - 理想车主信息图。
 - Open Design 设计产物。
 

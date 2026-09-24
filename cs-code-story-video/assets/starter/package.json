@@ -1,0 +1,23 @@
+{
+  "name": "code-story-video-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "validate": "node scripts/validate-story.mjs story.json",
+    "render:sample": "node scripts/validate-story.mjs story.json --require-ready && remotion render src/index.ts StoryOpening out/opening.mp4 --codec h264 --concurrency 2",
+    "render:full": "node scripts/validate-story.mjs story.json --require-ready && remotion render src/index.ts StoryVideo out/full.mp4 --codec h264 --concurrency 2",
+    "cover:3x4": "node scripts/validate-story.mjs story.json --require-ready && remotion still src/index.ts StoryCover3x4 out/cover-3x4.png",
+    "cover:4x3": "node scripts/validate-story.mjs story.json --require-ready && remotion still src/index.ts StoryCover4x3 out/cover-4x3.png"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.527",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.527"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.1",
+    "typescript": "^5.9.2"
+  }
+}

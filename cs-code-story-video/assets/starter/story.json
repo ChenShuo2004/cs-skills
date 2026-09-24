@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "title": "未命名作品",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "audio": null,
+  "character": {
+    "file": "kai-pixel.png",
+    "sha256": ""
+  },
+  "theme": {
+    "paper": "#E8E5DD",
+    "ink": "#171615",
+    "accent": "#FFB94D",
+    "coverAccent": "#A62222",
+    "stage": "#132942"
+  },
+  "cover": {
+    "brand": "KAI",
+    "series": "PIXEL ESSAY",
+    "headline": "故事标题",
+    "highlight": "标题",
+    "question": "你会怎么选择？",
+    "eyebrow": "KAI 的实验记录"
+  },
+  "chapters": [],
+  "shots": []
+}
