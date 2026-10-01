@@ -1,236 +1,125 @@
 # CS Skills
 
-[更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md)
+陈硕的 AI 工作流仓库：把真实项目里的方法做成可安装、可复用、可验证的 Agent Skills。面向 Codex，也可用于支持 `SKILL.md` 的其他 Agent。
 
-> 一句话说目标，让 Codex 自动选择工作流，把事情推进到可验证的结果。
+**一句话说目标 → `$cs-run` 选工作流 → 专项 skill 执行 → 验证交付。**
 
-CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
+目前收录 **14 个任务 skill**，覆盖产品与工程、内容与视频、调研和 GitHub 发布。每个 skill 都能单独使用；`$cs-run` 适合不知道从哪里开始时调用。
 
-它不是 Prompt 收藏夹，也不是一堆互相抢触发的 skill，而是一套精简的任务系统：
+## 快速开始
 
-```text
-用户目标 → $cs-run → 对应 skill → 验证结果
-```
-
-当前包含 13 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、网页产品演示片、知识解说片和交付收尾。
-
-## 适合谁
-
-- 用 Codex 做真实产品和 SaaS 的独立开发者。
-- 想把个人工作方法沉淀成可复用 AI 工作流的人。
-- 需要同时处理产品、代码、内容、调研和交付的 AI 创业者。
-- 不想每次都先研究“应该调用哪个 Prompt / skill”的用户。
-
-## 30 秒开始
-
-### 1. 安装主入口
+在 Codex 中直接说：
 
 ```text
-帮我安装这个 skill：https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run
+请从 https://github.com/ChenShuo2004/cs-skills 安装 cs-run 和我需要的下游 skills。
 ```
 
-`$cs-run` 是任务入口。它负责理解目标、整理输入和输出、识别约束、选择下游 skill，并在你要求执行时继续推进。
-
-> 注意：`cs-run` 负责路由，不会自动下载尚未安装的下游 skill。建议把你常用的下游 skill 一起安装。
-
-### 跨 Agent 使用与归属
-
-这是陈硕维护的 `CS Skills`。每个 skill 的核心入口都是标准 `SKILL.md`，因此只要其他 Agent 支持读取 `SKILL.md`，就可以直接复用同一套触发条件、输入输出、边界和验证规则；Codex 额外读取 `agents/openai.yaml` 来显示名称、功能描述和默认 Prompt。
-
-为了避免与其他 skill 混淆，Codex 主入口显示为 `cs-skills`，下游 skill 保留具体功能名，右侧功能描述统一标注“陈硕的……”。每个 `SKILL.md` 的元数据也包含作者、源码地址和兼容性说明。推荐把整个仓库作为一个 skill 集合安装，而不是只安装 `$cs-run`。
-
-### 2. 直接说结果
+安装后试一句：
 
 ```text
-$cs-run 我想把这个想法做成一个可以上线的产品，帮我拆解并开始执行。
+$cs-run 我想把这个产品想法做成可用原型，帮我选择工作流并开始执行。
 ```
 
-### 3. 有很多内容想法时，先收敛成一条值得拍的视频
+也可以克隆仓库，按需将某个 skill 目录链接到 Agent 的技能目录：
 
-```text
-$cs-chatcut 我有一批关于 AI 创业的内容想法。请先合并重复项，按受众相关性、观点张力、事实支撑和制作可行性排序，推荐最值得先拍的一条；我确认后再写口播稿和制作蓝图。
+```bash
+git clone https://github.com/ChenShuo2004/cs-skills.git
+cd cs-skills
+mkdir -p "$HOME/.codex/skills"
+ln -s "$PWD/cs-run" "$HOME/.codex/skills/cs-run"
 ```
 
-它不会直接开剪。它先帮你从想法里挑出一个有明确对象和证据的内容切口，确认口播稿后才生成素材、Motion Graphics、声音和逐镜头表。
+Claude Code 使用同样的 `SKILL.md`，把最后两行中的 `.codex/skills` 换成 `.claude/skills` 即可。目标目录已有同名 skill 时，先检查其来源和本地修改，再决定如何更新；不要直接覆盖。
 
-### 4. 也可以直接调用具体能力
+> 只安装 `$cs-run` 不会自动安装下游 skill。要执行表中的专项工作流，请同时安装对应目录。
 
-```text
-$cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
-$cs-search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
-$cs-web-promo-film 把这个网页做成 40 秒产品演示宣传片。
-$cs-knowledge-film 把“信息论”做成 3 分钟暗夜星空风知识解说片。
-$cs-frontend-design 设计并实现这个页面，最后做浏览器验证。
-$cs-clean-code 检查这次实现，整理代码、文档和测试。
-$cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
-```
+## Skill 地图
 
-## 它解决什么问题
+### 入口
 
-| 传统问题 | CS Skills 的做法 |
-| --- | --- |
-| 不知道该从哪个 skill 开始 | 统一进入 `$cs-run`，由目标驱动路由 |
-| AI 只给建议，不负责推进 | 每个 skill 都定义输入、输出、流程和验证 |
-| 每次都要重复解释自己的工作方法 | 把真实项目经验沉淀成可复用工作流 |
-| skill 越装越多，触发互相冲突 | 只保留稳定目标，明确入口和边界 |
-| 完成后不知道是否真的交付 | 通过 `$cs-clean-code` 和 `$cs-ending-time` 做质量与发布收尾 |
-
-## Active Skills
-
-### 主入口
-
-| Skill | 功能 | 典型输出 |
+| Skill | 什么时候用 | 主要交付 |
 | --- | --- | --- |
-| [$cs-run](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-run) | 目标澄清、任务卡和自动路由 | Goal Card、推荐路径、执行结果 |
+| [`$cs-run`](cs-run/) | 目标还粗糙，或不知道该调用哪个 skill | Goal Card、明确路由、继续执行 |
 
 ### 产品与工程
 
-| Skill | 功能 | 典型输出 |
+| Skill | 什么时候用 | 主要交付 |
 | --- | --- | --- |
-| [$cs-frontend-design](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-frontend-design) | 前端页面、工具、仪表盘设计与评审 | UI 方案、实现约束、浏览器验证 |
-| [$cs-clean-code](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-clean-code) | 代码清理、重构、文档同步和质量检查 | 有边界的修改、测试和交付说明 |
-| [$cs-ralph-runner](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ralph-runner) | Markdown PRD 转 Ralph 执行 | Ralph PRD、overview、dry-run 日志 |
-| [$cs-checkpoint-version](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-checkpoint-version) | 大改前保存版本和回退 | 可恢复的本地 checkpoint |
-| [$cs-ending-time](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-ending-time) | 验证、提交、推送、PR 和部署收尾 | 交付报告、GitHub/Vercel 结果 |
+| [`$cs-frontend-design`](cs-frontend-design/) | 设计、实现或评审网页与工具界面 | 页面、交互与浏览器验证 |
+| [`$cs-clean-code`](cs-clean-code/) | 清理代码、核对需求、整理维护交接 | 小范围修改、文档与验证 |
+| [`$cs-ralph-runner`](cs-ralph-runner/) | 用 Markdown 需求文档启动 Ralph 工作流 | Ralph PRD、预演与日志 |
 
-### 内容、调研、视觉与视频
+### 内容、调研与视频
 
-| Skill | 功能 | 典型输出 |
+| Skill | 什么时候用 | 主要交付 |
 | --- | --- | --- |
-| [$cs-writer](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-writer) | 文章、改稿、项目复盘和内容提纲 | 角度、提纲、文章或审稿意见 |
-| [$cs-search-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-search-skill) | 产品、公司、技术、市场和竞品深度调研 | 来源、对比、风险和决策建议 |
-| [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
-| [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
-| [$cs-chatcut](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut) | ChatCut 视频策划与操作上手 | 选题排序、口播稿、素材清单、Motion Graphics、逐镜头表和零到一操作指南 |
-| [$cs-web-promo-film](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-web-promo-film) | 真实网页产品演示宣传片 | Remotion 工程、无音轨 mp4、可选口播稿 |
-| [$cs-knowledge-film](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-knowledge-film) | 暗夜星空风知识解说片（Vibe知识大赏风格） | 口播稿、spec.json、配音、双语字幕、1080p mp4 |
+| [`$cs-writer`](cs-writer/) | 把真实材料写成文章、项目故事或改稿 | 提纲、文章、审稿意见 |
+| [`$cs-search-skill`](cs-search-skill/) | 对产品、市场、技术或竞品做深度研究 | 带来源的决策简报 |
+| [`$cs-xiaohuang-skill`](cs-xiaohuang-skill/) | 延展“小黄”角色，或把中文内容画成正文配图 | 角色资产、shot list、插画；[查看示例](cs-xiaohuang-skill/README.md) |
+| [`$cs-auto-videl`](cs-auto-videl/) | 做电商短视频复刻与生成方案 | 九宫格、首帧、Seedance／Flow／Veo 提示词 |
+| [`$cs-chatcut`](cs-chatcut/) | 从想法筛选主题并规划 ChatCut 短视频 | 口播稿、素材清单、逐镜头蓝图 |
+| [`$cs-web-promo-film`](cs-web-promo-film/) | 把真实网页做成产品演示片 | Remotion 工程、可交付 MP4 |
+| [`$cs-knowledge-film`](cs-knowledge-film/) | 明确需要暗夜星空风的知识解说片 | 口播稿、场景 spec、配音与 MP4 |
 
-## 小黄 IP 与正文配图 Skill
+### 版本与发布
 
-`$cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：既能稳定生成、编辑和延展 2D/3D、联名与风格迁移资产，也能把中文内容中的认知锚点画成小黄参与行动、带中文手写标注的白底手绘正文配图。
+| Skill | 什么时候用 | 主要交付 |
+| --- | --- | --- |
+| [`$cs-checkpoint-version`](cs-checkpoint-version/) | 大改前保存或恢复本地版本 | 可验证的回退点 |
+| [`$cs-github-push`](cs-github-push/) | 将已完成的修改提交并推送到 GitHub | 精确提交、远端核验、PR（按需） |
+| [`$cs-ending-time`](cs-ending-time/) | Web／App 功能需要连同部署一起收尾 | 验证、GitHub 与部署结果 |
 
-[查看完整介绍、示例和调用方式 →](cs-xiaohuang-skill/README.md)
+## 三个典型用法
 
-## 真实使用场景
-
-### 从想法到产品
-
-```text
-$cs-run 我想做一个帮助独立开发者管理 AI 工作流的 SaaS。
-```
-
-先由 `$cs-run` 整理目标，再根据任务进入 `$cs-frontend-design`、`$cs-clean-code`、`$cs-ralph-runner` 或 `$cs-ending-time`。
-
-### 从项目记录到文章
+**从想法到原型**
 
 ```text
-$cs-writer 把这次产品开发过程写成一篇适合公众号发布的文章。
+$cs-run 我想做一个帮助创作者管理 AI 工作流的工具。先做最小可用原型。
 ```
 
-它会提炼真实场景、选择文章角度、补齐结构，并避免编造经历、数据和结果。
-
-### 从文章到正文配图
+**从素材到内容**
 
 ```text
-$cs-xiaohuang-skill 先不要生图。请分析这篇文章最值得配图的 4 个位置，输出 shot list：每张图的核心意思、小黄动作、构图和中文标注词。
+$cs-writer 把这次产品开发记录写成一篇有真实细节、可复制步骤的文章。
+$cs-xiaohuang-skill 为这篇文章找出 4 个认知锚点，先给我正文配图 shot list。
 ```
 
-它把文章中的判断、关系和转折画成白底轻手绘正文配图。每张图只讲一个核心意思，适合公众号、博客、Notion 和方法论文档。
-
-### 从很多想法到一条可拍视频
+**从本地成果到 GitHub**
 
 ```text
-$cs-chatcut 我记录了 12 个关于独立开发和 AI 工作流的想法。请先筛选最适合抖音的 3 个，说明选择理由；我确认一个后，再完成 60 秒口播稿和 ChatCut 制作蓝图。
+$cs-github-push 检查本次 skill 改动，更新必要的目录说明，验证后提交并推送到 GitHub。
 ```
 
-它先让内容方向变得可判断：观众是谁、为什么会停留、靠什么事实支撑、要用什么素材讲清。主题确认后才进入脚本与制作筹备，避免一开始就把多个观点塞进一条视频。
+`$cs-github-push` 负责 GitHub 交付；如果还要把 Web／App 功能部署上线，使用 `$cs-ending-time`。
 
-### 从竞品到决策
+## 使用条件
 
-```text
-$cs-search-skill 调研这个方向的主要竞品，给出带来源的进入建议。
-```
+| 场景 | 需要准备 |
+| --- | --- |
+| 阅读和调用 skill | 支持读取 `SKILL.md` 的 Agent；Codex 可读取 `agents/openai.yaml` 展示信息 |
+| 推送到 GitHub | 本机 Git、目标仓库写权限；创建 PR 时还需要可用的 GitHub 入口 |
+| 视频生成 | 依所选 skill 的 `SKILL.md` 准备渲染环境、素材和所需服务 |
 
-它会建立研究地图、搜索当前来源、对比竞品，并区分事实、推断、风险和行动建议。
+## 仓库约定
 
-### 从产品图到电商视频
-
-```text
-$cs-auto-videl 我有一个对标视频和产品图，帮我生成九宫格分镜和 Google Flow 提示词。
-```
-
-它适合电商短视频创意和生成包，不等同于通用时间线剪辑或 MP4 渲染。
-
-### 从网页到产品演示片
-
-```text
-$cs-web-promo-film 把这个产品页做成 40 秒宣传片，先讲核心内容，再讲知识地图和工具两个入口。
-```
-
-它用 Playwright 采集真实页面长截图，再用 Remotion 做推进、滚动和点击，不重绘产品界面。默认无音轨，需要口播时单独出稿。
-
-### 从一个概念到知识解说片
-
-```text
-$cs-knowledge-film 把“为什么意外的消息才有信息量”做成 3 分钟知识解说片，先给我口播稿和场景拆解。
-```
-
-它把每个概念落到一个看得见的动作上（数轴对半砍、烽火被点亮、噪声遮住字），用暗夜星空、衬线双语字幕和金色光点讲完一个知识点；edge-tts 配音，Canvas 引擎逐帧渲染成 1080p mp4。
-
-## 设计原则
-
-每个 skill 都应该清楚回答：
-
-1. 目标是什么？
-2. 输入是什么？
-3. 输出是什么？
-4. 核心流程是什么？
-5. 边界在哪里？
-6. 怎么验证完成？
-
-新增 skill 前先确认它解决的是稳定目标，而不是一次性 Prompt；如果可以并入已有 skill，就不新增入口。
-
-## 当前边界
-
-以下方向已经从 active library 中移除：
-
-- 自动剪辑、时间线编排和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`，不是通用渲染能力的回归。
-- 理想车主信息图生产。
-- Open Design 设计产物。
-
-退休目录保存在工作区外的归档中，不参与 skill 发现。
-
-## 仓库结构
+每个 skill 一个目录，最少包含 `SKILL.md`；按实际需要放入其余资源：
 
 ```text
 cs-skills/
-├── README.md
-├── LICENSE
-├── assets/
-├── docs/
 ├── cs-run/
-├── cs-writer/
-├── cs-search-skill/
-├── cs-auto-videl/
-├── cs-chatcut/
-├── cs-web-promo-film/
-├── cs-knowledge-film/
-├── cs-xiaohuang-skill/
-├── cs-frontend-design/
-├── cs-clean-code/
-├── cs-ralph-runner/
-├── cs-checkpoint-version/
-└── cs-ending-time/
+│   ├── SKILL.md             Agent 读取的触发条件与工作流
+│   └── agents/openai.yaml   Codex 中的展示名称与默认提示词
+├── cs-github-push/
+│   ├── SKILL.md
+│   └── agents/openai.yaml
+├── 其他 skill/
+│   ├── references/          按需读取的规则
+│   ├── scripts/             可重复执行的工具
+│   ├── tests/               关键逻辑的测试
+│   └── assets/              输出素材
+└── docs/                    仓库级清单与规划
 ```
 
-每个 skill 尽量保持自包含：
+新增 skill 时，同时检查触发边界、`$cs-run` 路由、[技能清单](docs/skill-inventory.md)和安装说明。具体依赖与验收方式以各目录的 `SKILL.md` 为准。`cs-recover-skill` 是模型执行校准辅助项，不计入上述 14 个任务 skill。
 
-- `SKILL.md`：触发说明和核心工作流。
-- `agents/openai.yaml`：UI 展示文案和默认 Prompt。
-- `references/`：需要时再读取的详细规则。
-- `scripts/`：可重复执行的确定性脚本。
-- `tests/`：关键脚本或契约的回归测试。
-
-## License
-
-[MIT](LICENSE)
+[更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md) · [MIT License](LICENSE)

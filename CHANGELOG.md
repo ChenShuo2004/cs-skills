@@ -2,6 +2,8 @@
 
 ## 未发布
 
+- 重写仓库 README：用一句话定位、快速开始、技能地图、典型用法和仓库约定组织首页内容。
+- 新增 `$cs-github-push`：专门处理 GitHub 提交、推送、PR 与远端核验；将 GitHub-only 路由从 `$cs-ending-time` 拆出，任务 skill 数量由 13 更新为 14。
 - 新增 `$cs-knowledge-film`：把知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的知识解说片（spec.json → edge-tts 配音 → Canvas 逐帧渲染 mp4），含 14 种场景类型与示例 spec。
 - 将 `$cs-knowledge-film` 接入 `$cs-run` 路由、README、技能清单和仓库规划；active skill 数量由 12 更新为 13。
 - 新增 `$cs-web-promo-film`：把真实网页做成 30–60 秒产品演示宣传片（Playwright 长截图 + Remotion 运镜 + 可交付 mp4）。

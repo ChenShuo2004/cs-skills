@@ -1,7 +1,7 @@
 ---
 name: cs-ending-time
 description: |
-  Use when the user asks to finish, ship, publish, commit, push, or deploy a completed implementation in one bounded delivery scope.
+  Use when the user asks to finish and deploy a completed web or app implementation in one bounded delivery scope. For GitHub-only commit, push, PR, or remote verification, use cs-github-push.
 metadata:
   author: "陈硕"
   collection: "CS Skills"
@@ -47,11 +47,11 @@ Before running any command that can change production, including `vercel --prod`
 ## When To Use
 
 - The user asks to implement a page or function and publish it.
-- The user asks to commit, push, submit to GitHub, deploy to Vercel, or make a change live.
+- The user asks to complete a web or app delivery that includes deployment to Vercel or another live target.
 - The work is already implemented but needs a reliable finish: validation, commit, push, deploy, and handoff.
-- The user says "收尾", "上线", "发布", "部署", "提交 GitHub", "Vercel", "对应页面和功能实现", or "一键使用".
+- The user says "收尾", "上线", "部署", "Vercel", "对应页面和功能实现", or "一键使用" and wants a live web or app result.
 
-Do not use this skill for pure planning, pure code review, or non-Git/non-Vercel delivery unless the user explicitly asks for this finish-line workflow.
+Do not use this skill for pure planning, pure code review, or GitHub-only delivery; use `$cs-github-push` for the latter.
 
 ## Core Rules
 

@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 13 个 active skill，并采用单入口架构：
+CS Skills 当前包含 14 个任务 skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -53,9 +53,10 @@ CS Skills 当前包含 13 个 active skill，并采用单入口架构：
 - `cs-clean-code`
 - `cs-ralph-runner`
 - `cs-checkpoint-version`
+- `cs-github-push`
 - `cs-ending-time`
 
-覆盖界面设计、工程质量、PRD 执行、版本回退和最后一公里交付。
+覆盖界面设计、工程质量、PRD 执行、版本回退、GitHub 推送与部署交付。
 
 `cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：它能稳定生成、编辑和延展 2D/3D、动作、联名、风格迁移和身份修复资产，也能将中文文章、帖子或方法论中的认知锚点转为小黄轻手绘正文配图；不做 ChatCut 策划、PPT 信息图或复杂架构图。
 
@@ -108,6 +109,7 @@ CS Skills 当前包含 13 个 active skill，并采用单入口架构：
 - `cs-web-promo-film`：用一个公开产品页走采集、运镜、渲染和抽帧验收，确认转场不接黑、无音轨、指针落在真实链接上。
 - `cs-knowledge-film`：用 example-spec 走 timeline → preview → 全量渲染，确认字幕不压画面、事件与口播同步、有音轨。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
+- `cs-github-push`：完成精确暂存、提交、推送、远端 SHA 核验和按需创建 PR。
 
 ### P2：持续收束
 

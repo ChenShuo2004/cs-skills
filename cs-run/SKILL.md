@@ -31,7 +31,8 @@ Choose one primary route from this table:
 | Clean up code, reconcile implementation with requirements, or prepare a maintainable handoff | `$cs-clean-code` | Scoped edits, documentation sync, tests, and verification |
 | Save a rollback point before risky repository changes | `$cs-checkpoint-version` | Restorable local checkpoint and verification |
 | Turn a Markdown PRD into a Ralph workflow or dry-run | `$cs-ralph-runner` | Ralph PRD, overview, dry-run output, and logs |
-| Verify, commit, push, open a PR, or deploy a completed change | `$cs-ending-time` | Delivery verification and GitHub/Vercel handoff |
+| Commit and push a completed change to GitHub, create a PR, or verify a remote commit | `$cs-github-push` | Scoped commit, remote verification, and PR when requested |
+| Finish a web or app change including deployment | `$cs-ending-time` | Delivery verification and GitHub/Vercel handoff |
 | Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
 | 将单个或一批内容想法收敛为 ChatCut 短视频，或了解从策划到成片的上手流程 | `$cs-chatcut` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向、逐镜头表和操作指南 |
@@ -74,9 +75,10 @@ If a request belongs to a retired route, say that the route is no longer active 
 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
-- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut`, `$cs-web-promo-film`, and `$cs-knowledge-film` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-github-push`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut`, `$cs-web-promo-film`, and `$cs-knowledge-film` take precedence over generic routing.
 - Route requests about “小黄”、“有温度 IP”、“温度种子”、空心爱心天线、固定角色延展、2D/3D 转换、联名、风格迁移或身份修复 to `$cs-xiaohuang-skill`. Do not use it for unrelated general image generation.
 - Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$cs-search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
+- 将“提交到 GitHub”“推送仓库”“开 PR”“检查是否推上去”等 GitHub-only 交付请求路由到 `$cs-github-push`；需要连同网站或应用部署上线时路由到 `$cs-ending-time`。
 - 将中文文章、观点或方法论转成正文配图的请求也路由到 `$cs-xiaohuang-skill`；将内容想法、短视频主题或 ChatCut 上手请求路由到 `$cs-chatcut`；将网页宣传片、产品演示片、把网页做成视频的请求路由到 `$cs-web-promo-film`；仅当用户明确选择暗夜星空知识片风格或显式调用时路由到 `$cs-knowledge-film`。普通科普视频先按目标与视觉方向选工作流，不因“知识”或“视频”两个词套用这个模板。
 - Do not ask the user to choose a skill when the route is unambiguous.
 - Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.

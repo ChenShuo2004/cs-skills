@@ -1,8 +1,8 @@
 # Skill Inventory
 
-盘点日期：2026-09-03
+盘点日期：2026-10-01
 
-当前发布数量：13 个 active skill。
+当前发布数量：14 个任务 skill。
 
 ## 总览
 
@@ -14,10 +14,11 @@
 | `cs-auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
 | `cs-xiaohuang-skill` | 小黄 / 有温度 IP 与正文配图 | 保持同一角色 DNA，生成 2D/3D、动作、联名、风格迁移资产，或将内容认知锚点转成小黄手绘配图 | `references/`, `assets/` |
 | `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
+| `cs-github-push` | GitHub 发布 | 精确提交、推送、按需创建 PR 并核验远端 | `agents/openai.yaml` |
 | `cs-frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
 | `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
-| `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
+| `cs-ending-time` | Web/App 交付收尾 | 验证、GitHub 与部署 | `agents/openai.yaml` |
 | `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
 | `cs-web-promo-film` | 网页产品演示片 | 把真实网页做成 30–60 秒产品演示宣传片：采集长截图、Remotion 运镜、渲染无音轨 mp4，并可附口播稿 | `references/`, `scripts/`, `assets/promo-starter/` |
 | `cs-knowledge-film` | 知识解说片 | 把一个知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的 2–6 分钟解说片：口播稿、spec、edge-tts 配音、Canvas 逐帧渲染 mp4 | `references/`, `scripts/`, `assets/example-spec.json` |
@@ -78,7 +79,8 @@ Recommended skill:
 - 代码清理、重构、文档同步：`$cs-clean-code`
 - Markdown PRD 到 Ralph：`$cs-ralph-runner`
 - 大改前保存或恢复：`$cs-checkpoint-version`
-- 提交、推送、PR、部署：`$cs-ending-time`
+- 仅提交、推送、PR 或核验 GitHub 远端：`$cs-github-push`
+- Web/App 功能需要连同部署一起收尾：`$cs-ending-time`
 
 ## 已退休能力
 

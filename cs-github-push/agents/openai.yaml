@@ -1,0 +1,7 @@
+interface:
+  display_name: "CS GitHub Push"
+  short_description: "陈硕的 GitHub 交付：精确提交、推送与远端核验。"
+  default_prompt: "使用 $cs-github-push 检查本次改动，完成必要验证后提交并推送到 GitHub，核对远端结果。"
+
+policy:
+  allow_implicit_invocation: true
