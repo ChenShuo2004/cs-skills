@@ -1,0 +1,152 @@
+{
+  "title": "信息论 · 意外才值钱",
+  "voice": "zh-CN-YunjianNeural",
+  "rate": "-6%",
+  "ambient": true,
+  "scenes": [
+    {
+      "type": "typewriter",
+      "chapter": { "no": "00", "zh": "序", "en": "PROLOGUE" },
+      "props": {
+        "y": 0.4,
+        "beats": [
+          { "text": "白日依山", "at": 0.3, "slot": { "options": ["海", "天", "日", "尽"], "pick": "尽", "spin": 0.9, "color": "cyan" }, "meter": { "bits": 0.1, "label": "≈ 0 bit" } },
+          { "text": "今天下班路上，我遇见了一只", "at": "L3", "slot": { "options": ["猫", "狗", "鸟", "鲸", "龙", "象", "狐"], "pick": "鲸", "spin": 1.8 }, "meter": { "bits": 8, "label": "8 bits" } }
+        ]
+      },
+      "lines": [
+        { "text": "这一句，你大概不用听完。", "en": "You probably don't need to hear the end of this one." },
+        { "text": "最后那个字，你早就知道了。", "en": "You already knew the last character." },
+        { "text": "可这一句，你猜不到结尾。", "en": "But this one, you can't guess." },
+        { "text": "猜不到的那部分，[g]才是信息[/g]。", "en": "The part you can't guess — that is information." }
+      ]
+    },
+    {
+      "type": "title",
+      "chapter": false,
+      "stars": 0.9,
+      "props": { "title": "信息论", "sub": "意外才值钱", "kicker": "INFORMATION THEORY  ·  THE PRICE OF SURPRISE", "hitAt": 1.4 },
+      "lines": [],
+      "minDur": 5.5
+    },
+    {
+      "type": "numberline",
+      "chapter": { "no": "01", "zh": "猜", "en": "THE GUESS" },
+      "props": { "min": 1, "max": 1024, "target": 693, "formula": "log₂ 1024 = 10 bits" },
+      "events": [
+        { "at": "L2", "do": "ask" },
+        { "at": "L3", "do": "search", "until": "L4e" },
+        { "at": "L5", "do": "reveal" },
+        { "at": "L6", "do": "caption", "text": "1948  ·  CLAUDE E. SHANNON  ·  BELL LABS", "y": 170 }
+      ],
+      "lines": [
+        { "text": "我心里想了一个数，在 1 到 1024 之间。", "en": "I'm thinking of a number between 1 and 1,024." },
+        { "text": "你只能问是或否，最少要问几次？", "en": "Yes-or-no questions only. How few will it take?" },
+        { "text": "每问一次，可能性就少掉一半。", "en": "Every question cuts the possibilities in half." },
+        { "text": "512、256、128……一路砍下去。", "en": "512, 256, 128 … all the way down." },
+        { "text": "十次回答，正好十个比特。", "en": "Ten answers. Exactly ten bits." },
+        { "text": "1948 年，香农给信息找到了单位：[g]比特[/g]。", "en": "In 1948, Shannon gave information its unit: the bit." }
+      ]
+    },
+    {
+      "type": "landscape",
+      "chapter": { "no": "02", "zh": "惊", "en": "SURPRISE" },
+      "props": { "beacons": [{ "x": 0.8, "y": 0.52, "s": 1.2 }, { "x": 0.2, "y": 0.6 }], "timeline": { "label": "一年 · 365 天", "y": 0.72 } },
+      "events": [
+        { "at": 0.4, "do": "stat", "text": "平安无事   p = 364/365  →  0.004 bit" },
+        { "at": 0.6, "do": "travel", "from": 0, "to": 0.62, "dur": 3.5 },
+        { "at": "L2", "do": "light", "beacon": 0 },
+        { "at": "L2", "do": "stat", "text": "[g]敌军来了   p = 1/365  →  8.5 bits[/g]" },
+        { "at": "L2+0.6", "do": "light", "beacon": 1 }
+      ],
+      "lines": [
+        { "text": "烽火为什么值得点？", "en": "Why is a beacon worth lighting?" },
+        { "text": "因为敌人一年也来不了几次。", "en": "Because the enemy almost never comes." },
+        { "text": "越罕见的消息，越让人意外，带来的信息就越多。", "en": "The rarer the message, the bigger the surprise — and the more it tells you." }
+      ]
+    },
+    {
+      "type": "city",
+      "props": { "windows": 0.1 },
+      "events": [
+        { "at": 0.4, "do": "stat", "text": "深圳 · 明天   不下雪   p ≈ 0.999  →  0.0014 bit" },
+        { "at": "L2", "do": "snow" },
+        { "at": "L2", "do": "stat", "text": "[g]下雪   p ≈ 0.001  →  ≈ 10 bits[/g]" },
+        { "at": "L2+0.8", "do": "headline", "text": "头条  深圳下雪了！", "y": 0.2 }
+      ],
+      "lines": [
+        { "text": "“深圳明天不下雪”，几乎等于什么都没说。", "en": "\"No snow in Shenzhen tomorrow\" — that says almost nothing." },
+        { "text": "“深圳明天下雪”，足够上新闻头条。", "en": "\"Snow in Shenzhen tomorrow\" — that's front-page news." }
+      ]
+    },
+    {
+      "type": "formula",
+      "stars": 0.85,
+      "props": {
+        "y": 0.28,
+        "rows": [
+          { "text": "惊奇 = −log₂ p", "at": 0.3, "size": 54 },
+          { "text": "熵 H = Σ p · ( −log₂ p )", "at": "L2", "size": 44, "color": "ink", "sub": "平均的惊奇  ·  AVERAGE SURPRISE" },
+          { "text": "信息的单位  =  惊奇", "at": "L3", "size": 40, "color": "gold" }
+        ]
+      },
+      "lines": [
+        { "text": "香农把惊奇写成了一个公式。", "en": "Shannon wrote surprise down as a formula." },
+        { "text": "平均的惊奇，他叫它“熵”。", "en": "Average surprise — he called it entropy." },
+        { "text": "所以，信息的单位，其实就是[g]惊奇[/g]。", "en": "So the true unit of information is surprise." }
+      ]
+    },
+    {
+      "type": "textplay",
+      "chapter": { "no": "03", "zh": "余", "en": "REDUNDANCY" },
+      "props": { "text": "研究表明，汉字的顺序并不一定能影响阅读", "y": 0.36 },
+      "events": [
+        { "at": "L1", "do": "scramble", "to": "研表究明，汉字的序顺并不定一能影阅响读" },
+        { "at": "L2", "do": "dim", "keep": "研 究,汉字,顺序,影 响,读" },
+        { "at": "L2+0.8", "do": "note", "text": "猜得到的 = 冗余          猜不到的 = [g]信息[/g]", "dy": 80 }
+      ],
+      "lines": [
+        { "text": "研表究明，汉字的序顺并不定一能影阅响读。", "en": "Rscheearch syas the oredr of lettres hadrly mttaers." },
+        { "text": "你读懂了，因为你猜得到。猜得到的部分，叫作[i]冗余[/i]。", "en": "You read it because you could guess. What can be guessed is redundancy." }
+      ]
+    },
+    {
+      "type": "textplay",
+      "props": { "text": "下一站是终点站，请带好您的随身物品。", "box": true, "y": 0.4 },
+      "events": [
+        { "at": 0.2, "do": "wave", "noise": 0 },
+        { "at": "L1+0.5", "do": "wave", "noise": 0.8, "label": "噪声  NOISE" },
+        { "at": "L1+0.6", "do": "mask", "chars": "终点,请带,随身" },
+        { "at": "L2", "do": "ring" },
+        { "at": "L2", "do": "note", "text": "冗余 = 铠甲    REDUNDANCY IS ARMOUR", "color": "ice", "dy": 180 }
+      ],
+      "lines": [
+        { "text": "可在嘈杂的地铁里，正是冗余让你听清了广播。", "en": "On a noisy subway, redundancy is what lets you catch the announcement." },
+        { "text": "冗余不是浪费，它是意义穿过噪声时的[i]铠甲[/i]。", "en": "Redundancy isn't waste. It's the armour meaning wears through noise." }
+      ]
+    },
+    {
+      "type": "landscape",
+      "chapter": { "no": "04", "zh": "问", "en": "THE QUESTION" },
+      "props": { "ridges": 4, "top": 0.58, "arc": { "left": "早已知道", "right": "早已知道", "top": "你最不确定的地方", "topAt": "L2", "y": 0.66 } },
+      "events": [
+        { "at": 0.4, "do": "orb", "from": 0.05, "to": 0.5, "dur": 3.2 },
+        { "at": "L2+0.4", "do": "lamp", "x": 0.4, "y": 0.44, "label": "一本书", "sub": "A BOOK" },
+        { "at": "L2+1.2", "do": "lamp", "x": 0.6, "y": 0.4, "label": "一个人", "sub": "A PERSON" },
+        { "at": "L2+2.0", "do": "lamp", "x": 0.72, "y": 0.58, "label": "一条路", "sub": "A ROAD", "s": 1.3 }
+      ],
+      "lines": [
+        { "text": "一件事最值得听的时候，是你真的不知道答案的时候。", "en": "A message is worth the most when you truly don't know the answer." },
+        { "text": "所以，去找那些你猜不到的——", "en": "So go looking for what you can't guess —" },
+        { "text": "一本读不懂的书，一个想法不同的人，一条没走过的路。", "en": "a book beyond you, a person who thinks otherwise, a road never taken." }
+      ]
+    },
+    {
+      "type": "typewriter",
+      "chapter": false,
+      "props": { "y": 0.45, "beats": [{ "text": "明天早上醒来，你会", "at": 0.4, "blank": true, "cps": 4.5 }] },
+      "lines": [{ "text": "这一次，结尾由你来写。", "en": "This time, the ending is yours." }],
+      "hold": 1.5
+    }
+  ]
+}

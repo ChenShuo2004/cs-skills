@@ -12,7 +12,7 @@ CS Skills 是陈硕在真实项目中沉淀的一组 Codex AI Agent 工作流。
 用户目标 → $cs-run → 对应 skill → 验证结果
 ```
 
-当前包含 12 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、网页产品演示片和交付收尾。
+当前包含 13 个 active skill，覆盖产品设计、工程开发、内容创作、文章配图、深度调研、短视频策划/制作、网页产品演示片、知识解说片和交付收尾。
 
 ## 适合谁
 
@@ -59,6 +59,7 @@ $cs-chatcut 我有一批关于 AI 创业的内容想法。请先合并重复项�
 $cs-writer 把这份项目记录写成一篇有观点、有细节的文章。
 $cs-search-skill 调研这个产品和主要竞品，给我一份有来源的决策简报。
 $cs-web-promo-film 把这个网页做成 40 秒产品演示宣传片。
+$cs-knowledge-film 把“信息论”做成 3 分钟暗夜星空风知识解说片。
 $cs-frontend-design 设计并实现这个页面，最后做浏览器验证。
 $cs-clean-code 检查这次实现，整理代码、文档和测试。
 $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部署。
@@ -102,6 +103,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-chatcut](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut) | ChatCut 视频策划与操作上手 | 选题排序、口播稿、素材清单、Motion Graphics、逐镜头表和零到一操作指南 |
 | [$cs-web-promo-film](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-web-promo-film) | 真实网页产品演示宣传片 | Remotion 工程、无音轨 mp4、可选口播稿 |
+| [$cs-knowledge-film](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-knowledge-film) | 暗夜星空风知识解说片（Vibe知识大赏风格） | 口播稿、spec.json、配音、双语字幕、1080p mp4 |
 
 ## 小黄 IP 与正文配图 Skill
 
@@ -167,6 +169,14 @@ $cs-web-promo-film 把这个产品页做成 40 秒宣传片，先讲核心内容
 
 它用 Playwright 采集真实页面长截图，再用 Remotion 做推进、滚动和点击，不重绘产品界面。默认无音轨，需要口播时单独出稿。
 
+### 从一个概念到知识解说片
+
+```text
+$cs-knowledge-film 把“为什么意外的消息才有信息量”做成 3 分钟知识解说片，先给我口播稿和场景拆解。
+```
+
+它把每个概念落到一个看得见的动作上（数轴对半砍、烽火被点亮、噪声遮住字），用暗夜星空、衬线双语字幕和金色光点讲完一个知识点；edge-tts 配音，Canvas 引擎逐帧渲染成 1080p mp4。
+
 ## 设计原则
 
 每个 skill 都应该清楚回答：
@@ -204,6 +214,7 @@ cs-skills/
 ├── cs-auto-videl/
 ├── cs-chatcut/
 ├── cs-web-promo-film/
+├── cs-knowledge-film/
 ├── cs-xiaohuang-skill/
 ├── cs-frontend-design/
 ├── cs-clean-code/

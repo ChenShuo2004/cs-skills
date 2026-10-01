@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 12 个 active skill，并采用单入口架构：
+CS Skills 当前包含 13 个 active skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -37,8 +37,9 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 - `cs-auto-videl`
 - `cs-chatcut`
 - `cs-web-promo-film`
+- `cs-knowledge-film`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，以及把真实网页做成产品演示宣传片。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，把真实网页做成产品演示宣传片，以及把知识点做成暗夜星空风解说片。
 
 ### 调研与决策
 
@@ -61,6 +62,8 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 `cs-chatcut` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表，并提供从策划到 ChatCut 工作台的上手指引；不直接修改 ChatCut 项目。
 
 `cs-web-promo-film` 用 Playwright 采集真实页面长截图，再用 Remotion 做推进、滚动和点击，渲染 30–60 秒无音轨 mp4；不重绘产品界面，也不承接电商对标复刻或 ChatCut 时间线剪辑。
+
+`cs-knowledge-film` 从口播稿出发，用 spec.json 描述场景与事件，edge-tts 逐句配音后按真实音频排时间轴，由 Canvas 引擎逐帧渲染出带双语字幕的 1080p mp4；专注“讲清一个知识点”，不做产品演示和真人口播。
 
 ## 已退休范围
 
@@ -103,6 +106,7 @@ CS Skills 当前包含 12 个 active skill，并采用单入口架构：
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
 - `cs-chatcut`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构、上手指引与路由边界。
 - `cs-web-promo-film`：用一个公开产品页走采集、运镜、渲染和抽帧验收，确认转场不接黑、无音轨、指针落在真实链接上。
+- `cs-knowledge-film`：用 example-spec 走 timeline → preview → 全量渲染，确认字幕不压画面、事件与口播同步、有音轨。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 
 ### P2：持续收束

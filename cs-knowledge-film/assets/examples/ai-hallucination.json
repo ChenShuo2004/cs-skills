@@ -1,0 +1,107 @@
+{
+  "title": "幻觉：AI 为什么一本正经地胡说",
+  "readSpeed": 0.2,
+  "lineGap": 0.3,
+  "sceneTail": 0.6,
+  "progression": ["Am9", "Am9", "Fmaj7", "Dm9", "Em7", "Cmaj7", "Fmaj7", "Am9"],
+  "scenes": [
+    {
+      "type": "typewriter",
+      "chapter": { "no": "00", "zh": "序", "en": "PROLOGUE" },
+      "props": { "y": 0.4, "size": 60, "beats": [
+        { "text": "鲁迅曾经说过：AI 终将", "at": 0.5, "cps": 3.2, "slot": { "options": ["取代", "改变", "毁灭", "拯救", "超越", "取代"], "pick": "…", "spin": 1.6 } }
+      ] },
+      "lines": [
+        { "text": "你脑子里，是不是已经自动补完了下半句？", "en": "Did your brain already finish the sentence?" },
+        { "text": "鲁迅当然没说过。", "en": "Of course, Lu Xun never said it." },
+        { "text": "但这句话，[g]听起来很像[/g]他会说的。", "en": "But it sounds a lot like something he would say." },
+        { "text": "AI 的“胡说八道”，就是从这里开始的。", "en": "That's exactly where AI's nonsense begins." }
+      ]
+    },
+    {
+      "type": "title", "chapter": false, "stars": 0.9,
+      "props": { "title": "幻 觉", "sub": "AI 为什么一本正经地胡说", "kicker": "HALLUCINATION  ·  WHEN LIKELY BEATS TRUE", "hitAt": 1.3 },
+      "lines": [], "minDur": 5.2
+    },
+    {
+      "type": "probs",
+      "chapter": { "no": "01", "zh": "知", "en": "WHEN IT KNOWS" },
+      "props": { "context": "《静夜思》的作者是", "y": 0.44, "items": [
+        { "t": "李白", "p": 0.94 }, { "t": "杜甫", "p": 0.02 }, { "t": "王维", "p": 0.015 }, { "t": "白居易", "p": 0.015 }, { "t": "孟浩然", "p": 0.01 }
+      ] },
+      "events": [ { "at": "L1", "do": "show" }, { "at": "L2", "do": "pick", "index": 0 } ],
+      "lines": [
+        { "text": "问它一个它见过无数次的问题，", "en": "Ask it something it has seen countless times," },
+        { "text": "正确答案一枝独秀，它答得又快又准。", "en": "and the right answer towers over the rest." }
+      ]
+    },
+    {
+      "type": "probs",
+      "chapter": { "no": "02", "zh": "编", "en": "WHEN IT DOESN'T" },
+      "props": { "context": "《春江夜雨》的作者是", "y": 0.44, "items": [
+        { "t": "张若虚", "p": 0.24 }, { "t": "李白", "p": 0.22 }, { "t": "杜甫", "p": 0.2 }, { "t": "白居易", "p": 0.18 }, { "t": "王维", "p": 0.16 }
+      ] },
+      "events": [
+        { "at": "L1", "do": "show" },
+        { "at": "L2", "do": "pick", "index": 0, "flagAt": "L3" },
+        { "at": "L3", "do": "caption", "text": "诗题与概率均为本片虚构示意  ·  ILLUSTRATIVE EXAMPLE", "color": "red", "y": 330 }
+      ],
+      "lines": [
+        { "text": "换成一个虚构的诗题，答案就失去了可靠出处。", "en": "Try an invented title, and there is no reliable source to cite." },
+        { "text": "如果只让它续写，它仍可能给出一个名字。", "en": "If asked to keep completing, it may still supply a name." },
+        { "text": "这里的诗题和概率，都是我为演示编的。", "en": "The title and probabilities here are illustrative." }
+      ]
+    },
+    {
+      "type": "textplay",
+      "chapter": { "no": "03", "zh": "像", "en": "LIKELY, NOT TRUE" },
+      "props": { "text": "据《唐诗拾遗》记载，此诗作于天宝三年春。", "y": 0.38, "box": true, "size": 46 },
+      "events": [
+        { "at": "L2", "do": "dim", "keep": "《唐诗拾遗》,天宝三年", "color": "red" },
+        { "at": "L2+0.6", "do": "note", "text": "细节越具体  ≠  越真实", "dy": 90, "size": 22, "color": "dim" }
+      ],
+      "lines": [
+        { "text": "更麻烦的是，它还会顺手补上“出处”和“年份”。", "en": "Worse, it adds a \"source\" and a \"year\" for good measure." },
+        { "text": "细节越具体，越像真的，也越难被发现。", "en": "The more specific the detail, the more real it looks — and the harder to catch." }
+      ]
+    },
+    {
+      "type": "formula",
+      "chapter": { "no": "04", "zh": "因", "en": "WHY" },
+      "stars": 0.8,
+      "props": { "y": 0.28, "gap": 104, "rows": [
+        { "text": "训练目标  =  下一个词更像人写的", "at": "L1", "size": 42, "color": "ink" },
+        { "text": "不是  =  每句话都是真的", "at": "L2", "size": 42, "color": "dim" },
+        { "text": "它不知道自己不知道", "at": "L3", "size": 50, "color": "gold" }
+      ] },
+      "lines": [
+        { "text": "因为它被训练的目标，是写得“像人”。", "en": "Because it was trained to sound human," },
+        { "text": "而不是保证每一句都是真的。", "en": "not to guarantee every sentence is true." },
+        { "text": "它没有一个“我不确定”的开关。", "en": "It has no built-in switch for \"I'm not sure\"." }
+      ]
+    },
+    {
+      "type": "landscape",
+      "chapter": { "no": "05", "zh": "防", "en": "WHAT TO DO" },
+      "props": { "ridges": 4, "top": 0.6, "arc": { "left": "盲信", "right": "放心用", "top": "四个习惯", "topAt": "L1", "y": 0.68 } },
+      "events": [
+        { "at": 0.3, "do": "orb", "from": 0.02, "to": 0.98, "dur": 9 },
+        { "at": "L1+0.3", "do": "lamp", "x": 0.37, "y": 0.47, "label": "让它给出处", "sub": "SOURCE" },
+        { "at": "L1+1.1", "do": "lamp", "x": 0.5, "y": 0.38, "label": "开联网搜索", "sub": "SEARCH" },
+        { "at": "L2", "do": "lamp", "x": 0.63, "y": 0.47, "label": "允许它说不知道", "sub": "ALLOW \"I DON'T KNOW\"" },
+        { "at": "L2+0.8", "do": "lamp", "x": 0.76, "y": 0.6, "label": "关键事实自己查", "sub": "VERIFY", "s": 1.2 }
+      ],
+      "lines": [
+        { "text": "所以用 AI 时，让它给出处，打开联网搜索；", "en": "So ask for sources, and turn on web search;" },
+        { "text": "告诉它“不确定就说不知道”，关键事实自己再查一遍。", "en": "tell it \"say you don't know if unsure\", and check key facts yourself." }
+      ]
+    },
+    {
+      "type": "typewriter",
+      "chapter": false,
+      "props": { "y": 0.44, "beats": [{ "text": "它负责说得像，你负责查得对", "at": 0.3, "cps": 4.5 }] },
+      "lines": [{ "text": "下次它说得特别笃定的时候，多问一句：出处呢？", "en": "Next time it sounds very sure, ask one more question: source?" }],
+      "hold": 1.6
+    }
+  ]
+}

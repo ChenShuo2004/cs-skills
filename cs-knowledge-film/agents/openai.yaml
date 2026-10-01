@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 暗夜知识片"
+  short_description: "陈硕的知识解说片：暗夜星空 + 衬线双语字幕 + 金色光点隐喻，配音并渲染 1080p mp4。"
+  default_prompt: "使用 $cs-knowledge-film，把这个知识点做成 2–3 分钟的暗夜星空风解说片；先给口播稿和场景拆解让我确认，再配音、预览并渲染成片。"
+policy:
+  allow_implicit_invocation: true

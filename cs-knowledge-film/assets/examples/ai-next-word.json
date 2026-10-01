@@ -1,0 +1,383 @@
+{
+  "title": "大模型只会猜下一个词",
+  "ambient": true,
+  "readSpeed": 0.2,
+  "lineGap": 0.3,
+  "scenes": [
+    {
+      "type": "typewriter",
+      "chapter": {
+        "no": "00",
+        "zh": "序",
+        "en": "PROLOGUE"
+      },
+      "props": {
+        "y": 0.4,
+        "beats": [
+          {
+            "text": "今天天气真",
+            "at": 0.5,
+            "cps": 3,
+            "slot": {
+              "options": [
+                "冷",
+                "热",
+                "差",
+                "不错",
+                "好"
+              ],
+              "pick": "好",
+              "spin": 1.4
+            }
+          }
+        ]
+      },
+      "lines": [
+        {
+          "text": "你每天都在用一个“小号 AI”。",
+          "en": "You use a tiny AI every single day."
+        },
+        {
+          "text": "打下“今天天气真”，",
+          "en": "Type \"The weather today is so…\""
+        },
+        {
+          "text": "输入法已经替你想好了下一个字。",
+          "en": "and your keyboard already knows the next word."
+        },
+        {
+          "text": "豆包、DeepSeek、ChatGPT，做的其实是同一件事。",
+          "en": "Doubao, DeepSeek, ChatGPT — they all do the same thing."
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "chapter": false,
+      "stars": 0.9,
+      "props": {
+        "title": "大模型",
+        "sub": "只会猜下一个词",
+        "kicker": "HOW AI WRITES  ·  ONE TOKEN AT A TIME",
+        "hitAt": 1.3
+      },
+      "lines": [],
+      "minDur": 5.2
+    },
+    {
+      "type": "probs",
+      "chapter": {
+        "no": "01",
+        "zh": "猜",
+        "en": "THE GUESS"
+      },
+      "props": {
+        "context": "我今天中午想吃",
+        "y": 0.42,
+        "items": [
+          {
+            "t": "火锅",
+            "p": 0.41
+          },
+          {
+            "t": "面",
+            "p": 0.22
+          },
+          {
+            "t": "米饭",
+            "p": 0.15
+          },
+          {
+            "t": "麦当劳",
+            "p": 0.09
+          },
+          {
+            "t": "沙拉",
+            "p": 0.05
+          }
+        ]
+      },
+      "events": [
+        {
+          "at": "L2",
+          "do": "show"
+        },
+        {
+          "at": "L3",
+          "do": "pick",
+          "index": 0
+        }
+      ],
+      "lines": [
+        {
+          "text": "它先读完你前面写的每一个字，",
+          "en": "First, it reads everything you've written so far,"
+        },
+        {
+          "text": "再给每个可能的下一个词，打一个概率分。",
+          "en": "then scores every possible next word with a probability."
+        },
+        {
+          "text": "挑一个，接上，再猜下一个。",
+          "en": "Pick one, append it, guess again."
+        },
+        {
+          "text": "一整段回答，就是这样[g]一个词一个词[/g]猜出来的。",
+          "en": "A whole answer is guessed out, one word at a time."
+        }
+      ]
+    },
+    {
+      "type": "signal",
+      "chapter": {
+        "no": "02",
+        "zh": "读",
+        "en": "THE READING"
+      },
+      "stars": 0.7,
+      "props": {
+        "y": 0.56,
+        "bits": "床前明月光疑是地上霜今天天气真好我想吃火锅人工智能会改变世界吗春眠不觉晓处处闻啼鸟学而时习之不亦说乎",
+        "size": 30,
+        "spacing": 64
+      },
+      "events": [
+        {
+          "at": 0.4,
+          "do": "stat",
+          "text": "Llama 3 训练数据   ≈ 15 万亿 token"
+        },
+        {
+          "at": "L2",
+          "do": "stat",
+          "text": "[d]一个人读一辈子   ≈ 10 亿字（粗略估计）[/d]"
+        },
+        {
+          "at": "L3",
+          "do": "formula",
+          "text": "猜得准  =  读得多",
+          "sub": "PREDICTION  ·  FROM PATTERNS"
+        }
+      ],
+      "lines": [
+        {
+          "text": "它为什么猜得准？因为读得多。",
+          "en": "Why does it guess so well? It has read a lot."
+        },
+        {
+          "text": "一个人读一辈子，可能不到它的万分之一。",
+          "en": "A lifetime of human reading is barely a ten-thousandth of it."
+        },
+        {
+          "text": "它记住的不是答案，而是[g]文字之间的规律[/g]。",
+          "en": "It doesn't memorise answers — it learns patterns between words."
+        }
+      ]
+    },
+    {
+      "type": "probs",
+      "chapter": {
+        "no": "03",
+        "zh": "温",
+        "en": "TEMPERATURE"
+      },
+      "props": {
+        "context": "我今天中午想吃",
+        "y": 0.42,
+        "items": [
+          {
+            "t": "火锅",
+            "p": 0.41
+          },
+          {
+            "t": "面",
+            "p": 0.22
+          },
+          {
+            "t": "米饭",
+            "p": 0.15
+          },
+          {
+            "t": "麦当劳",
+            "p": 0.09
+          },
+          {
+            "t": "沙拉",
+            "p": 0.05
+          }
+        ]
+      },
+      "events": [
+        {
+          "at": 0.1,
+          "do": "show"
+        },
+        {
+          "at": "L2",
+          "do": "temp",
+          "value": 0.3,
+          "label": "温度  T = 0.3"
+        },
+        {
+          "at": "L3",
+          "do": "temp",
+          "value": 1.8,
+          "label": "温度  T = 1.8"
+        }
+      ],
+      "lines": [
+        {
+          "text": "大模型里有个旋钮，叫“温度”。",
+          "en": "There's a dial inside, called temperature."
+        },
+        {
+          "text": "调低，它总挑最稳的那个：靠谱，但无聊。",
+          "en": "Turn it down: it always picks the safest word. Reliable, but dull."
+        },
+        {
+          "text": "调高，冷门的词也有机会：更有创意，也更容易跑偏。",
+          "en": "Turn it up: long shots get a chance. More creative — and more likely to drift."
+        }
+      ]
+    },
+    {
+      "type": "textplay",
+      "chapter": {
+        "no": "04",
+        "zh": "幻",
+        "en": "HALLUCINATION"
+      },
+      "props": {
+        "text": "李白曾在上海外滩写下《将进酒》。",
+        "y": 0.38,
+        "box": true
+      },
+      "events": [
+        {
+          "at": "L2",
+          "do": "note",
+          "text": "通顺  [g]100%[/g]          真实  [r]0%[/r]",
+          "dy": 90,
+          "size": 22
+        },
+        {
+          "at": "L3",
+          "do": "mask",
+          "chars": "上海外滩"
+        }
+      ],
+      "lines": [
+        {
+          "text": "但它的目标是“像”，不是“对”。",
+          "en": "But its goal is to sound right, not to be right."
+        },
+        {
+          "text": "问它一件不存在的事，它也能一本正经地编完。",
+          "en": "Ask about something that never happened, and it will still answer with a straight face."
+        },
+        {
+          "text": "这就是大模型的[r]“幻觉”[/r]。",
+          "en": "That's what we call hallucination."
+        }
+      ]
+    },
+    {
+      "type": "landscape",
+      "chapter": {
+        "no": "05",
+        "zh": "问",
+        "en": "HOW TO ASK"
+      },
+      "props": {
+        "ridges": 4,
+        "top": 0.6,
+        "arc": {
+          "left": "模糊的问题",
+          "right": "好答案",
+          "top": "给它更多“前面的字”",
+          "topAt": "L1",
+          "y": 0.68
+        }
+      },
+      "events": [
+        {
+          "at": 0.3,
+          "do": "orb",
+          "from": 0.02,
+          "to": 0.98,
+          "dur": 9
+        },
+        {
+          "at": "L2",
+          "do": "lamp",
+          "x": 0.37,
+          "y": 0.47,
+          "label": "说清你是谁",
+          "sub": "CONTEXT"
+        },
+        {
+          "at": "L2+0.7",
+          "do": "lamp",
+          "x": 0.5,
+          "y": 0.38,
+          "label": "要什么结果",
+          "sub": "GOAL"
+        },
+        {
+          "at": "L2+1.4",
+          "do": "lamp",
+          "x": 0.63,
+          "y": 0.47,
+          "label": "给个例子",
+          "sub": "EXAMPLE"
+        },
+        {
+          "at": "L3",
+          "do": "lamp",
+          "x": 0.76,
+          "y": 0.6,
+          "label": "自己再核对",
+          "sub": "CHECK",
+          "s": 1.2
+        }
+      ],
+      "lines": [
+        {
+          "text": "所以，想让它答得好，就多给它一些“前面的字”：",
+          "en": "So to get better answers, give it more of what comes before:"
+        },
+        {
+          "text": "说清你是谁、要什么结果，再给它一个例子。",
+          "en": "who you are, what you want, and an example."
+        },
+        {
+          "text": "重要的事实，自己再核对一遍。",
+          "en": "And double-check the facts that matter."
+        }
+      ]
+    },
+    {
+      "type": "typewriter",
+      "chapter": false,
+      "props": {
+        "y": 0.44,
+        "beats": [
+          {
+            "text": "它负责猜，你负责问",
+            "at": 0.3,
+            "cps": 4.5,
+            "blank": false
+          }
+        ]
+      },
+      "lines": [
+        {
+          "text": "问得越清楚，它就猜得越准。",
+          "en": "The clearer you ask, the better it guesses."
+        }
+      ],
+      "hold": 1.6
+    }
+  ],
+  "sceneTail": 0.6
+}

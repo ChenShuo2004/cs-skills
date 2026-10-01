@@ -2,7 +2,7 @@
 
 盘点日期：2026-09-03
 
-当前发布数量：12 个 active skill。
+当前发布数量：13 个 active skill。
 
 ## 总览
 
@@ -20,6 +20,7 @@
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
 | `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
 | `cs-web-promo-film` | 网页产品演示片 | 把真实网页做成 30–60 秒产品演示宣传片：采集长截图、Remotion 运镜、渲染无音轨 mp4，并可附口播稿 | `references/`, `scripts/`, `assets/promo-starter/` |
+| `cs-knowledge-film` | 知识解说片 | 把一个知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的 2–6 分钟解说片：口播稿、spec、edge-tts 配音、Canvas 逐帧渲染 mp4 | `references/`, `scripts/`, `assets/example-spec.json` |
 
 ## 主入口
 
@@ -65,6 +66,11 @@ Recommended skill:
 
 - 把真实网页做成 30–60 秒产品演示宣传片：`$cs-web-promo-film`
 - 只拍匿名访客能打开的公开页，不重绘产品界面；电商对标复刻仍走 `$cs-auto-videl`，ChatCut 策划仍走 `$cs-chatcut`。
+
+### 知识解说片
+
+- 把概念、原理、科普主题做成暗夜星空风（Vibe知识大赏风格）解说片：`$cs-knowledge-film`
+- 自带配音、双语字幕和渲染；网页演示走 `$cs-web-promo-film`，ChatCut 策划走 `$cs-chatcut`。
 
 ### 产品与工程
 

@@ -1,0 +1,735 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- CS Skills · 陈硕 | cs-knowledge-film 渲染引擎：render(t) 是纯函数，同一个 t 永远画出同一帧 -->
+<style>html,body{margin:0;background:#04060b;overflow:hidden}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const W = 1920, H = 1080, cv = document.getElementById('c'), g = cv.getContext('2d');
+const ZH = '"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif';
+const EN = '"Lora","EB Garamond","Cormorant Garamond",Georgia,"Times New Roman",serif';
+const MONO = '"JetBrains Mono","SF Mono",Menlo,Consolas,monospace';
+const PAL = {
+  bg: '#03050a', ink: '#ece7dc', dim: '#8d939e', faint: '#454d5a', line: '#6f8fae',
+  gold: '#f2c77c', amber: '#e89a4a', ice: '#a9dcff', cyan: '#5cc9ee', red: '#e2415d',
+  green: '#52c28a', violet: '#8a6ae0', white: '#ffffff'
+};
+let S, T, IMG = {};
+
+// ---------- 工具 ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const eo = k => 1 - Math.pow(1 - clamp(k), 3);
+const eio = k => { k = clamp(k); return k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; };
+function rng(seed) { let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return (s >>> 0) / 4294967296; }; }
+function hash(str) { let h = 2166136261; for (const c of String(str)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+const col = c => PAL[c] || c || PAL.ink;
+function rgba(c, a) {
+  c = col(c); if (c[0] !== '#') return c;
+  const n = parseInt(c.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${clamp(a)})`;
+}
+const isCJK = ch => { const c = ch.codePointAt(0); return (c >= 0x2E80 && c <= 0x9FFF) || (c >= 0xF900 && c <= 0xFAFF) || (c >= 0xFF00 && c <= 0xFFEF) || (c >= 0x3000 && c <= 0x303F); };
+
+// [g]金[/g] [c]青[/c] [i]冰蓝[/i] [r]红[/r] [d]暗[/d] [w]白[/w]
+const TAG = { g: 'gold', c: 'cyan', i: 'ice', r: 'red', d: 'dim', w: 'white' };
+function parse(s) {
+  const out = []; let cur = null; const re = /\[(\/?)([gcirdw])\]/g; let last = 0, m;
+  s = String(s ?? '');
+  while ((m = re.exec(s))) { if (m.index > last) out.push({ t: s.slice(last, m.index), c: cur }); cur = m[1] ? null : TAG[m[2]]; last = re.lastIndex; }
+  if (last < s.length) out.push({ t: s.slice(last), c: cur });
+  const chars = []; out.forEach(r => [...r.t].forEach(ch => chars.push({ ch, c: r.c }))); return chars;
+}
+const plain = s => String(s ?? '').replace(/\[\/?[gcirdw]\]/g, '');
+
+// 逐字绘制：支持字距、打字机可见字数、数学模式（拉丁字母斜体）
+function fontFor(ch, size, o) {
+  if (o.math && !isCJK(ch)) return `italic ${size}px ${EN}`;
+  if (o.font === 'en') return `${o.italic ? 'italic ' : ''}${size}px ${EN}`;
+  if (o.font === 'mono') return `${size}px ${MONO}`;
+  return `${o.weight || 400} ${size}px ${ZH}`;
+}
+function measure(chars, size, o = {}) {
+  let w = 0; const ls = o.ls || 0;
+  chars.forEach(c => { g.font = fontFor(c.ch, size, o); w += g.measureText(c.ch).width + ls; });
+  return Math.max(0, w - ls);
+}
+function text(str, x, y, o = {}) {
+  const chars = typeof str === 'string' ? parse(str) : str, size = o.size || 40, ls = o.ls || 0;
+  const w = measure(chars, size, o);
+  let cx = o.align === 'left' ? x : o.align === 'right' ? x - w : x - w / 2;
+  const vis = o.chars ?? Infinity, a0 = o.alpha ?? 1, pos = [];
+  g.save(); g.textBaseline = 'middle';
+  chars.forEach((c, i) => {
+    g.font = fontFor(c.ch, size, o);
+    const cw = g.measureText(c.ch).width;
+    let a = a0 * clamp(vis - i);
+    if (o.charAlpha) a *= o.charAlpha(i, c);
+    const color = (o.charColor && o.charColor(i, c)) || c.c || o.color || 'ink';
+    if (a > 0.003) {
+      if (o.glow) { g.shadowColor = rgba(color, a * o.glow); g.shadowBlur = size * .6; }
+      g.fillStyle = rgba(color, a);
+      const dy = o.charDy ? o.charDy(i, c) : 0;
+      g.fillText(c.ch, cx, y + dy);
+    }
+    pos.push({ x: cx, w: cw, ch: c.ch }); cx += cw + ls;
+  });
+  g.restore();
+  return { w, x0: pos[0]?.x ?? x, x1: cx - ls, pos };
+}
+function glow(x, y, r, c, a) {
+  if (a <= 0.003) return;
+  g.save(); g.globalCompositeOperation = 'lighter';
+  const gr = g.createRadialGradient(x, y, 0, x, y, r);
+  gr.addColorStop(0, rgba(c, a)); gr.addColorStop(.22, rgba(c, a * .42)); gr.addColorStop(.55, rgba(c, a * .1)); gr.addColorStop(1, rgba(c, 0));
+  g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); g.restore();
+}
+function spark(x, y, r, c, a = 1) { glow(x, y, r * 9, c, .55 * a); glow(x, y, r * 3, c, .8 * a); g.save(); g.fillStyle = rgba('white', a); g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.restore(); }
+function line(x1, y1, x2, y2, c, a = 1, w = 1.5) { g.save(); g.strokeStyle = rgba(c, a); g.lineWidth = w; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke(); g.restore(); }
+function hline(y, c, a, x1 = 0, x2 = W, w = 1.2) {
+  g.save(); const gr = g.createLinearGradient(x1, 0, x2, 0);
+  gr.addColorStop(0, rgba(c, 0)); gr.addColorStop(.2, rgba(c, a)); gr.addColorStop(.8, rgba(c, a)); gr.addColorStop(1, rgba(c, 0));
+  g.strokeStyle = gr; g.lineWidth = w; g.beginPath(); g.moveTo(x1, y); g.lineTo(x2, y); g.stroke(); g.restore();
+}
+function rrect(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function comet(x, y, dir, len, c, a) {
+  g.save(); g.globalCompositeOperation = 'lighter';
+  const gr = g.createLinearGradient(x, y, x - dir * len, y);
+  gr.addColorStop(0, rgba(c, a)); gr.addColorStop(1, rgba(c, 0));
+  g.strokeStyle = gr; g.lineWidth = 3; g.beginPath(); g.moveTo(x, y); g.lineTo(x - dir * len, y); g.stroke(); g.restore();
+  spark(x, y, 4, c, a);
+}
+
+// ---------- 背景：星空 + 暗角 + 颗粒 ----------
+let STARS = [], GRAIN;
+function prep() {
+  const r = rng(hash(S.title || 'stars'));
+  STARS = Array.from({ length: 520 }, () => ({ x: r() * W, y: r() * H, s: r() < .06 ? 1.6 : r() * .9 + .35, b: r() * .7 + .15, f: r() * 6, v: r() * .8 + .2 }));
+  GRAIN = document.createElement('canvas'); GRAIN.width = GRAIN.height = 256;
+  const gc = GRAIN.getContext('2d'), id = gc.createImageData(256, 256);
+  for (let i = 0; i < id.data.length; i += 4) { const v = r() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+  gc.putImageData(id, 0, 0);
+}
+function background(t, density) {
+  g.fillStyle = PAL.bg; g.fillRect(0, 0, W, H);
+  const gr = g.createRadialGradient(W / 2, H * .45, 0, W / 2, H * .45, W * .7);
+  gr.addColorStop(0, 'rgba(14,22,40,.42)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  const n = Math.floor(STARS.length * density);
+  g.save();
+  for (let i = 0; i < n; i++) {
+    const s = STARS[i], a = s.b * (.65 + .35 * Math.sin(t * s.v * 1.3 + s.f));
+    const x = (s.x + t * 2.2 * s.v) % W;
+    g.fillStyle = `rgba(215,228,255,${Math.min(1, a * 1.1)})`; g.fillRect(x, s.y, s.s, s.s);
+  }
+  g.restore();
+}
+function finish(t) {
+  const v = g.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, W * .72);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.72)');
+  g.fillStyle = v; g.fillRect(0, 0, W, H);
+  g.save(); g.globalAlpha = .045; g.globalCompositeOperation = 'overlay';
+  const f = Math.floor(t * 24), ox = (f * 97) % 256, oy = (f * 57) % 256;
+  g.translate(-ox, -oy); g.fillStyle = g.createPattern(GRAIN, 'repeat'); g.fillRect(0, 0, W + 256, H + 256); g.restore();
+}
+
+// ---------- 场景上下文 ----------
+function ctx(si, t) {
+  const sc = S.scenes[si], ts = T.scenes[si], lt = t - ts.start, dur = ts.end - ts.start;
+  const lines = T.lines.filter(l => l.scene === si);
+  const at = v => {
+    if (v == null) return 0; if (typeof v === 'number') return v;
+    const m = /^(?:L(\d+)(e?)|(end))\s*([+-]\s*[\d.]+)?$/.exec(String(v).trim());
+    if (!m) return +v || 0;
+    let b = m[3] ? dur : (() => { const l = lines[+m[1] - 1]; return l ? (m[2] ? l.end : l.start) - ts.start : 0; })();
+    return b + (m[4] ? +m[4].replace(/\s/g, '') : 0);
+  };
+  const evs = (name) => (sc.events || []).filter(e => e.do === name).map(e => ({ ...e, t: at(e.at) })).sort((a, b) => a.t - b.t);
+  const since = (v, d = 1) => clamp((lt - at(v)) / d);
+  return { sc, si, lt, dur, t, p: sc.props || {}, at, evs, since, lines, abs: t };
+}
+
+// ---------- 通用事件：stat（左上数据行）、caption（顶部小字）、flash ----------
+function common(X) {
+  const st = X.evs('stat').filter(e => X.lt >= e.t);
+  st.forEach((e, i) => {
+    const a = eo((X.lt - e.t) / .6), y = 156 + i * 38 + (X.p.statY || 0);
+    text(e.text, 110 + (1 - a) * -14, y, { size: e.size || 24, align: 'left', alpha: a * (e.dim ? .55 : 1), color: e.color || 'dim', math: true });
+  });
+  X.evs('caption').filter(e => X.lt >= e.t).slice(-1).forEach(e => {
+    const a = eo((X.lt - e.t) / .8) * (e.until != null ? 1 - clamp((X.lt - X.at(e.until)) / .6) : 1);
+    text(e.text, W / 2, e.y ?? 150, { size: e.size || 22, ls: 7, font: 'en', alpha: a * .75, color: e.color || 'dim' });
+  });
+  X.evs('flash').forEach(e => { const k = X.lt - e.t; if (k >= 0 && k < .7) { g.fillStyle = rgba(e.color || 'white', (1 - k / .7) * (e.amount || .18)); g.fillRect(0, 0, W, H); } });
+}
+
+// ---------- 场景类型 ----------
+const SCENES = {};
+
+// 打字机：一句话逐字出现，可接“老虎机”候选字、空白待填、惊奇度量条
+SCENES.typewriter = X => {
+  const p = X.p, beats = (p.beats || []).map(b => ({ ...b, t: X.at(b.at) }));
+  const y = H * (p.y ?? .4), size = p.size || 68;
+  beats.forEach((b, bi) => {
+    if (X.lt < b.t) return;
+    const next = beats[bi + 1], out = next ? clamp((X.lt - next.t) / .4) : 0;
+    if (out >= 1) return;
+    const chars = parse(b.text), cps = b.cps || 5.5, lk = X.lt - b.t - .15;
+    const vis = lk * cps, done = b.t + .15 + chars.length / cps;
+    const slot = b.slot, blank = b.blank;
+    g.font = `400 ${size}px ${ZH}`; const cw = Math.max(g.measureText('字').width, ...(slot ? (slot.options || []).concat(slot.pick || '').map(o => measure(parse(o), size)) : [0])) + (p.ls ?? 10);
+    const extra = slot || blank ? cw : 0, tw = measure(chars, size, { ls: p.ls ?? 10 }) + extra;
+    const x0 = W / 2 - tw / 2, A = 1 - out;
+    const r = text(chars, x0, y, { size, ls: p.ls ?? 10, align: 'left', chars: vis, alpha: A, glow: .25 });
+    const cx = r.x1 + (p.ls ?? 10) + cw / 2;
+    // 光标
+    if (!slot && !blank && X.lt < done + 1.2) {
+      const k = Math.min(vis, chars.length), ci = r.pos[Math.max(0, Math.ceil(k) - 1)];
+      const xx = k <= 0 ? x0 : ci.x + ci.w + 6;
+      if (Math.floor(X.lt * 2.4) % 2 === 0) line(xx, y - size * .45, xx, y + size * .45, 'gold', .8 * A, 2);
+    }
+    if (slot && X.lt > done) {
+      const opts = slot.options || [], spin = slot.spin ?? 1.6, k = X.lt - done;
+      const pick = slot.pick ?? opts[opts.length - 1];
+      if (k < spin) {
+        const pos = eo(k / spin) * (opts.length - 1), i0 = Math.floor(pos), fr = pos - i0;
+        for (let j = -1; j <= 1; j++) {
+          const ch = opts[i0 + j], dy = (j - fr) * size * 1.05;
+          if (ch) text(ch, cx, y + dy, { size, alpha: A * (1 - Math.abs(j - fr) * .72), color: 'gold' });
+        }
+      } else {
+        const kk = k - spin;
+        glow(cx, y, 150, slot.color || 'gold', .45 * Math.exp(-kk * 1.2) * A + .12 * A);
+        text(pick, cx, y, { size, color: slot.color || 'gold', alpha: A, glow: .8 });
+      }
+    }
+    if (blank && X.lt > done) {
+      const k = X.lt - done, bl = .55 + .45 * Math.sin(k * 4);
+      line(cx - cw * .42, y + size * .52, cx + cw * .42, y + size * .52, 'gold', A * bl, 3);
+      glow(cx, y + size * .1, 110, 'gold', .22 * A * bl);
+    }
+    if (b.meter) {
+      const m = b.meter, mt = m.at != null ? X.at(m.at) : done + (slot ? (slot.spin ?? 1.6) + .2 : .2);
+      const ma = eo((X.lt - (b.t + .2)) / .6) * A, fill = eo((X.lt - mt) / .9) * clamp((m.bits || 0) / (m.max || 10));
+      const my = y + size + 36, mx0 = W / 2 - 150, mw = 300;
+      text('惊奇  [d]SURPRISE[/d]', mx0, my - 18, { size: 15, ls: 3, align: 'left', alpha: ma * .8, color: 'gold' });
+      line(mx0, my, mx0 + mw, my, 'line', ma * .45, 1.2);
+      if (fill > 0.001) { line(mx0, my, mx0 + mw * fill, my, 'gold', ma, 3.2); glow(mx0 + mw * fill / 2, my, mw * fill * .7, 'gold', .12 * ma); }
+      spark(mx0 + mw * fill, my, 3.4, fill > .02 ? 'gold' : 'cyan', ma);
+      if (X.lt > mt) text(m.label || `${m.bits} bits`, mx0 + mw - 4, my - 18, { size: 17, font: 'en', italic: true, align: 'right', alpha: ma * eo((X.lt - mt) / .5), color: 'gold' });
+    }
+  });
+};
+
+// 标题：两颗彗星对撞，标题亮起
+SCENES.title = X => {
+  const p = X.p, y = H * (p.y ?? .45), ly = y + 70, k = X.lt;
+  const hit = X.at(p.hitAt ?? 1.5);
+  hline(ly, 'line', .35 * eo(k / 1.2), 0, W, 1.2);
+  if (k < hit) {
+    const q = eio(k / hit);
+    comet(lerp(-80, W / 2 - 8, q), ly, 1, 260 + 300 * q, 'ice', 1);
+    comet(lerp(W + 80, W / 2 + 8, q), ly, -1, 260 + 300 * q, 'ice', 1);
+  } else {
+    const kk = k - hit;
+    glow(W / 2, ly, 420, 'gold', .38 * Math.exp(-kk * 1.4));
+    const d = 240 + 440 * (1 - Math.exp(-kk * .7)), a = .45 + .55 * Math.exp(-kk * .8);
+    comet(W / 2 - d, ly, -1, 220, 'ice', a); comet(W / 2 + d, ly, 1, 220, 'ice', a);
+    spark(W / 2 + Math.sin(kk * .7) * 40, ly, 3, 'ice', .8);
+    const ta = eo(kk / 1.1), ls = lerp(90, p.ls ?? 46, eo(kk / 2));
+    text(p.title, W / 2, y - 20, { size: p.size || 120, ls, alpha: ta, weight: 300, glow: .45 });
+    if (p.sub) text(p.sub, W / 2, ly + 58, { size: 32, ls: 18, color: 'gold', alpha: eo((kk - .7) / 1) });
+    if (p.kicker) text(p.kicker, W / 2, ly + 104, { size: 15, ls: 7, font: 'en', color: 'dim', alpha: .7 * eo((kk - 1.2) / 1) });
+  }
+};
+
+// 数轴二分查找：把“比特”可视化成一次次对半砍
+SCENES.numberline = X => {
+  const p = X.p, min = p.min ?? 1, max = p.max ?? 1024, target = p.target ?? 693;
+  const y = H * (p.y ?? .55), L = 170, R = W - 170;
+  const s = X.evs('search')[0], ask = X.evs('ask')[0], rev = X.evs('reveal')[0];
+  // 预先算好每一步
+  const steps = []; let lo = min, hi = max;
+  while (lo < hi) { const mid = Math.floor((lo + hi) / 2), yes = target > mid; steps.push({ lo, hi, mid, yes }); if (yes) lo = mid + 1; else hi = mid; }
+  const st0 = s ? s.t : Infinity, st1 = s ? X.at(s.until ?? (s.t + steps.length * 1.2)) : Infinity, sd = (st1 - st0) / steps.length;
+  const idx = X.lt < st0 ? -1 : Math.min(steps.length, Math.floor((X.lt - st0) / sd));
+  const stateAt = j => j < 0 ? { lo: min, hi: max } : j >= steps.length ? { lo: target, hi: target } : (() => { const q = steps[j]; return q.yes ? { lo: q.mid + 1, hi: q.hi } : { lo: q.lo, hi: q.mid }; })();
+  const dom = st => { const n = st.hi - st.lo + 1, pad = Math.max(6, n * .22); return [st.lo - pad, st.hi + pad]; };
+  const full = [min - (max - min) * .04, max + (max - min) * .04];
+  let D = full;
+  if (idx >= 0) {
+    const j = Math.min(idx, steps.length - 1), local = (X.lt - st0 - j * sd) / sd;
+    const A = j === 0 ? full : dom(stateAt(j - 1)), B = dom(stateAt(j));
+    const z = eio((local - .55) / .4); D = [lerp(A[0], B[0], z), lerp(A[1], B[1], z)];
+    if (idx >= steps.length) D = dom(stateAt(steps.length));
+    if (D[0] < full[0]) D[0] = full[0];
+  }
+  const sx = v => L + (v - D[0]) / (D[1] - D[0]) * (R - L), ppu = (R - L) / (D[1] - D[0]);
+  const A0 = eo(X.lt / .8);
+  // 轴线与刻度
+  hline(y, 'ice', .55 * A0, L - 60, R + 60, 1.4);
+  const cands = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000];
+  const maj = cands.find(c => c * ppu >= 170) || 5000, mi = cands[Math.max(0, cands.indexOf(maj) - 1)];
+  const lab = (v, a) => { if (v < min || v > max) return; const x = sx(v); line(x, y - 11, x, y + 11, 'ice', a * .8 * A0, 1.4); text(String(v), x, y + 42, { size: 26, font: 'en', color: 'ice', alpha: a * .8 * A0 }); };
+  for (let v = Math.ceil(D[0] / maj) * maj; v <= D[1]; v += maj) lab(v, 1);
+  const ma = clamp((mi * ppu - 110) / 60);
+  if (ma > 0) for (let v = Math.ceil(D[0] / mi) * mi; v <= D[1]; v += mi) if (v % maj) lab(v, ma);
+  const tiny = cands[Math.max(0, cands.indexOf(maj) - 2)], ta = clamp((tiny * ppu - 12) / 20) * .5;
+  if (ta > 0) for (let v = Math.ceil(D[0] / tiny) * tiny; v <= D[1]; v += tiny) if (v % mi && v >= min && v <= max) line(sx(v), y - 5, sx(v), y + 5, 'ice', ta * A0, 1);
+  // 当前可能区间
+  let cur = stateAt(Math.min(idx, steps.length) - (idx >= 0 && idx < steps.length ? 1 : 0));
+  if (idx < 0) cur = { lo: min, hi: max };
+  const x1 = Math.max(L - 40, sx(cur.lo - .5)), x2 = Math.min(R + 40, sx(cur.hi + .5));
+  line(x1, y - 22, x2, y - 22, 'gold', .95 * A0, 5); glow((x1 + x2) / 2, y - 22, Math.min(500, (x2 - x1) * .6 + 60), 'gold', .16 * A0);
+  line(x1, y - 36, x1, y + 8, 'gold', .8 * A0, 2); line(x2, y - 36, x2, y + 8, 'gold', .8 * A0, 2);
+  // 问题/回答/被砍掉的一半
+  if (idx >= 0 && idx < steps.length) {
+    const q = steps[idx], local = (X.lt - st0 - idx * sd) / sd;
+    const qa = eo(local / .15) * (1 - clamp((local - .9) / .1));
+    text(`比 ${q.mid} 大吗？`, W / 2 - 60, y - 190, { size: 46, alpha: qa, align: 'right' });
+    if (local > .38) text(q.yes ? '是' : '否', W / 2 + 40, y - 190, { size: 46, color: q.yes ? 'gold' : 'cyan', alpha: qa * eo((local - .38) / .12) });
+    const mx = sx(q.mid + .5); line(mx, y - 60, mx, y + 20, 'white', qa * .7, 1.5);
+    if (local > .45) {
+      const ra = (1 - clamp((local - .5) / .5)) * .45, rx1 = q.yes ? sx(q.lo - .5) : mx, rx2 = q.yes ? mx : sx(q.hi + .5);
+      g.fillStyle = rgba('red', ra); g.fillRect(Math.max(L - 40, rx1), y - 34, Math.min(R + 40, rx2) - Math.max(L - 40, rx1), 34);
+    }
+    text(`第 ${idx} 问`, L, y - 290, { size: 22, align: 'left', color: 'dim', alpha: A0 });
+  }
+  if (idx >= 0) {
+    const shown = idx >= steps.length ? stateAt(steps.length) : stateAt(idx - 1);
+    const n = shown.hi - shown.lo + 1;
+    text(`剩余 ${n} 种可能`, R, y - 290, { size: 22, align: 'right', color: n === 1 ? 'gold' : 'dim', alpha: A0 });
+    if (idx >= steps.length) text(`第 ${steps.length} 问`, L, y - 290, { size: 22, align: 'left', color: 'dim', alpha: A0 });
+    // 比特串
+    const bits = steps.slice(0, idx).map((q, j) => (X.lt - st0 - j * sd) / sd > .38 || j < idx ? (q.yes ? '1' : '0') : '').join('');
+    const cur2 = idx < steps.length && (X.lt - st0 - idx * sd) / sd > .38 ? (steps[idx].yes ? '1' : '0') : '';
+    const all = bits + cur2, slots = steps.length;
+    const bx = W / 2 - (slots - 1) * 16;
+    for (let j = 0; j < slots; j++) {
+      if (j < all.length) text(all[j], bx + j * 32, y + 145, { size: 30, font: 'mono', color: 'ink', alpha: A0 });
+      else g.fillStyle = rgba('dim', .35 * A0), g.fillRect(bx + j * 32 - 2, y + 144, 3, 3);
+    }
+  }
+  if (ask && (!s || X.lt < st0 + .6)) {
+    const a = eo((X.lt - ask.t) / .8) * (s ? 1 - clamp((X.lt - st0) / .6) : 1), br = 1 + .06 * Math.sin(X.lt * 2.5);
+    glow(W / 2, y - 190, 210 * br, 'gold', .5 * a); text('?', W / 2, y - 190, { size: 96, font: 'en', color: 'gold', alpha: a, glow: .8 });
+  }
+  if (rev && X.lt > rev.t) {
+    const a = eo((X.lt - rev.t) / .9);
+    glow(W / 2, y - 200, 300, 'gold', .25 * a * Math.exp(-(X.lt - rev.t) * .8) + .08 * a);
+    text(String(target), W / 2, y - 200, { size: 150, font: 'en', alpha: a, glow: .35 });
+    if (p.formula) text(p.formula, W / 2, y + 90, { size: 30, math: true, color: 'ice', alpha: a });
+  }
+};
+
+// 山脉 + 烽火台 + 时间条 + 弧线灯火
+function ridges(X, n = 4, top = .5) {
+  const r = rng(hash('ridge' + X.si));
+  for (let k = 0; k < n; k++) {
+    const base = H * (top + k * .09), amp = 60 + k * 20, ph = r() * 10, fr = .002 + r() * .002;
+    const yAt = x => base - amp * (Math.sin(x * fr + ph) * .6 + Math.sin(x * fr * 2.7 + ph * 2) * .3 + Math.sin(x * fr * 6.1 + ph) * .1);
+    g.save(); g.beginPath(); g.moveTo(0, H);
+    for (let x = 0; x <= W; x += 12) g.lineTo(x, yAt(x + X.lt * (3 + k * 2)));
+    g.lineTo(W, H); g.closePath(); g.fillStyle = `rgba(5,8,14,${.75 + k * .06})`; g.fill();
+    g.strokeStyle = rgba('line', .16 + k * .06); g.lineWidth = 1.3; g.stroke(); g.restore();
+  }
+}
+function tower(x, y, s, lit, t) {
+  g.save(); g.strokeStyle = rgba('line', .7); g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(x - 16 * s, y); g.lineTo(x - 10 * s, y - 56 * s); g.lineTo(x + 10 * s, y - 56 * s); g.lineTo(x + 16 * s, y); g.stroke();
+  g.beginPath(); g.moveTo(x - 13 * s, y - 28 * s); g.lineTo(x + 13 * s, y - 28 * s); g.stroke();
+  g.beginPath(); g.moveTo(x - 14 * s, y - 56 * s); g.lineTo(x + 14 * s, y - 56 * s); g.lineTo(x + 10 * s, y - 66 * s); g.lineTo(x - 10 * s, y - 66 * s); g.closePath(); g.stroke();
+  g.restore();
+  if (lit > 0) { const f = .85 + .15 * Math.sin(t * 13) * Math.sin(t * 7.3); glow(x, y - 72 * s, 260 * s, 'amber', .5 * lit * f); spark(x, y - 72 * s, 7 * s, 'gold', lit); }
+}
+SCENES.landscape = X => {
+  const p = X.p; ridges(X, p.ridges ?? 4, p.top ?? .52);
+  (p.beacons || []).forEach((b, i) => {
+    const e = X.evs('light').find(e => (e.beacon ?? 0) === i), lit = e ? eo((X.lt - e.t) / .5) : 0;
+    tower(W * b.x, H * b.y, b.s || 1, lit, X.lt + i);
+  });
+  if (p.timeline) {
+    const ty = H * (p.timeline.y ?? .72), tx0 = W * .08, tx1 = W * .92, a = eo(X.lt / 1);
+    text(p.timeline.label || '', tx0, ty - 26, { size: 18, align: 'left', color: 'dim', alpha: a });
+    line(tx0, ty, tx1, ty, 'line', .5 * a, 1.4); line(tx0, ty - 8, tx0, ty + 8, 'line', .6 * a); line(tx1, ty - 8, tx1, ty + 8, 'line', .6 * a);
+    X.evs('travel').forEach(e => {
+      if (X.lt < e.t) return; const q = eio((X.lt - e.t) / (e.dur || 3)), x = lerp(tx0, tx1, lerp(e.from ?? 0, e.to ?? 1, q));
+      line(tx0, ty, x, ty, e.color || 'ice', .7, 2); spark(x, ty, 4, e.color || 'ice', 1);
+    });
+  }
+  if (p.arc) {
+    const cx = W / 2, cy = H * (p.arc.y ?? .7), rx = W * (p.arc.rx ?? .26), ry = H * (p.arc.ry ?? .36), a = eo(X.lt / 1.2);
+    g.save(); g.strokeStyle = rgba('cyan', .7 * a); g.lineWidth = 2.2; g.shadowColor = rgba('cyan', .8); g.shadowBlur = 14;
+    g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, Math.PI, 2 * Math.PI); g.stroke(); g.restore();
+    if (p.arc.left) text(p.arc.left, cx - rx, cy + 34, { size: 17, color: 'dim', alpha: a });
+    if (p.arc.right) text(p.arc.right, cx + rx, cy + 34, { size: 17, color: 'dim', alpha: a });
+    if (p.arc.top) text(p.arc.top, cx, cy - ry - 44, { size: 20, color: 'dim', alpha: a * eo((X.lt - X.at(p.arc.topAt ?? 0)) / .8) });
+    X.evs('orb').forEach(e => {
+      if (X.lt < e.t) return; const q = lerp(e.from ?? 0, e.to ?? .5, eio((X.lt - e.t) / (e.dur || 2.5))), ang = Math.PI + q * Math.PI;
+      spark(cx + rx * Math.cos(ang), cy + ry * Math.sin(ang), 6, 'gold', 1);
+    });
+  }
+  X.evs('lamp').forEach(e => {
+    if (X.lt < e.t) return; const a = eo((X.lt - e.t) / .7), x = W * e.x, y = H * e.y, f = .9 + .1 * Math.sin(X.lt * 9 + e.x * 20);
+    glow(x, y, 170 * (e.s || 1), 'amber', .5 * a * f); spark(x, y, 6 * (e.s || 1), 'gold', a);
+    if (e.label) text(e.label, x + (e.dx ?? 0), y - 40, { size: 20, alpha: a });
+    if (e.sub) text(e.sub, x + (e.dx ?? 0), y - 18, { size: 11, ls: 4, font: 'en', color: 'dim', alpha: a });
+  });
+};
+
+// 城市夜景 + 下雪 + 头条
+SCENES.city = X => {
+  const p = X.p, r = rng(hash('city' + X.si)), a = eo(X.lt / 1.2);
+  const snow = X.evs('snow')[0];
+  if (snow && X.lt > snow.t) {
+    const sa = eo((X.lt - snow.t) / 1.5), rr = rng(99);
+    for (let i = 0; i < 260; i++) {
+      const x0 = rr() * W, y0 = rr() * H, sp = 40 + rr() * 70, sz = rr() * 2.2 + .8;
+      const k = X.lt - snow.t, yy = (y0 + k * sp) % (H + 20), xx = x0 + Math.sin(k * .8 + i) * 18;
+      g.fillStyle = `rgba(235,242,255,${sa * (.35 + rr() * .5)})`; g.beginPath(); g.arc(xx, yy, sz, 0, 7); g.fill();
+    }
+  }
+  let x = -20; const bs = [];
+  while (x < W + 20) { const w = 60 + r() * 120, h = H * (.12 + r() * .3) * (r() < .08 ? 1.7 : 1); bs.push({ x, w, h }); x += w + r() * 6; }
+  bs.forEach(b => {
+    const top = H - b.h * a;
+    g.fillStyle = '#060a13'; g.fillRect(b.x, top, b.w, H - top);
+    g.strokeStyle = rgba('line', .25); g.lineWidth = 1; g.strokeRect(b.x + .5, top + .5, b.w, H);
+    for (let wy = top + 14; wy < H - 10; wy += 16) for (let wx = b.x + 8; wx < b.x + b.w - 8; wx += 14) {
+      const q = r(); if (q < (p.windows ?? .1)) { const f = .55 + .45 * Math.sin(X.lt * .6 + q * 400); g.fillStyle = `rgba(255,214,150,${.55 * f * a})`; g.fillRect(wx, wy, 4, 6); }
+    }
+  });
+  const tall = bs.reduce((m, b) => b.h > m.h ? b : m, bs[0]);
+  if (Math.sin(X.lt * 3) > .2) spark(tall.x + tall.w / 2, H - tall.h * a - 10, 3, 'red', .9);
+  X.evs('headline').forEach(e => {
+    if (X.lt < e.t) return; const k = eo((X.lt - e.t) / .5), w = 380, x0 = W * (e.x ?? .5) - w / 2, y0 = H * (e.y ?? .09);
+    g.save(); g.globalAlpha = k; g.fillStyle = rgba('red', .9); g.shadowColor = rgba('red', .8); g.shadowBlur = 30; rrect(x0, y0 + (1 - k) * 20, w, 56, 6); g.fill(); g.restore();
+    text(e.text, x0 + w / 2, y0 + 28 + (1 - k) * 20, { size: 28, ls: 4, color: 'white', alpha: k });
+  });
+};
+
+// 公式：一行一行亮起
+SCENES.formula = X => {
+  const p = X.p, y0 = H * (p.y ?? .28), gap = p.gap ?? 96;
+  (p.rows || []).forEach((r, i) => {
+    const t0 = X.at(r.at ?? i * 1.2); if (X.lt < t0) return;
+    const a = eo((X.lt - t0) / .9), y = y0 + i * gap + (1 - a) * 16;
+    text(r.text, W / 2, y, { size: r.size || 50, math: true, color: r.color || 'gold', alpha: a, ls: r.ls ?? 4, glow: .3 });
+    if (r.sub) text(r.sub, W / 2, y + (r.size || 50) * .72, { size: 14, ls: 5, font: 'en', color: 'dim', alpha: a * .8 });
+  });
+};
+
+// 文字实验：打乱、遮罩、调暗、字符柱状图、波形、光环
+SCENES.textplay = X => {
+  const p = X.p, y = H * (p.y ?? .36), size = p.size || 50, ls = p.ls ?? 8;
+  let base = p.text || '', prev = null, sw = 1;
+  const reps = X.evs('replace').concat(X.evs('scramble')).sort((a, b) => a.t - b.t);
+  reps.forEach(e => { if (X.lt >= e.t) { prev = base; base = e.to; sw = (X.lt - e.t) / (e.dur || .9); } });
+  const cur = parse(base), old = prev ? parse(prev) : null;
+  const dim = X.evs('dim').filter(e => X.lt >= e.t).pop();
+  const keep = new Set(); if (dim) { const s = plain(base); String(dim.keep || '').split(/[,，\s]+/).filter(Boolean).forEach(k => { let i = s.indexOf(k); while (i >= 0) { for (let j = 0; j < k.length; j++) keep.add(i + j); i = s.indexOf(k, i + 1); } }); }
+  const dk = dim ? eo((X.lt - dim.t) / .8) : 0;
+  const masks = X.evs('mask').filter(e => X.lt >= e.t);
+  const w = measure(cur, size, { ls });
+  if (p.box) {
+    const bw = w + 90, bh = size + 50, bx = W / 2 - bw / 2, by = y - bh / 2, a = eo(X.lt / .8);
+    g.save(); g.fillStyle = `rgba(18,34,58,${.55 * a})`; rrect(bx, by, bw, bh, 6); g.fill(); g.strokeStyle = rgba('ice', .35 * a); g.lineWidth = 1.2; g.stroke(); g.restore();
+  }
+  const A = eo(X.lt / .7), R = rng(hash(base));
+  const flips = cur.map(() => R());
+  const r = text(cur, W / 2, y, {
+    size, ls, glow: .15,
+    charAlpha: (i) => {
+      let a = A; if (old && sw < 1) { const d = clamp((sw - flips[i] * .6) / .4); a *= d; }
+      if (dim && !keep.has(i)) a *= 1 - .72 * dk; return a;
+    },
+    charColor: (i, c) => dim && keep.has(i) && dk > .5 ? (dim.color || 'gold') : (c.c || p.color || null)
+  });
+  if (old && sw < 1) text(old, W / 2, y, { size, ls, charAlpha: i => A * (1 - clamp((sw - (flips[i] ?? .5) * .6) / .4)) });
+  // 遮罩（噪声）
+  const hit = new Set(); masks.forEach(e => {
+    const s = plain(base); let ids = e.idx || [];
+    if (e.chars) String(e.chars).split(/[,，\s]+/).filter(Boolean).forEach(k => { const i = s.indexOf(k); if (i >= 0) for (let j = 0; j < k.length; j++) ids.push(i + j); });
+    ids.forEach((id, n) => { const k = eo((X.lt - e.t - n * .07) / .25); const pz = r.pos[id]; if (!pz || k <= 0) return; hit.add(id);
+      g.save(); g.fillStyle = rgba('red', .92 * k); g.shadowColor = rgba('red', .8); g.shadowBlur = 16; g.fillRect(pz.x - 2, y - size * .52, pz.w + 4, size * 1.04); g.restore(); });
+  });
+  // 每字惊奇柱状图
+  X.evs('bars').forEach(e => {
+    if (X.lt < e.t) return; const k = eo((X.lt - e.t) / 1), s = plain(base), rv = rng(hash(s + 'bars'));
+    const vals = e.values || [...s].map(() => rv() < .18 ? .6 + rv() * .4 : rv() * .12);
+    const by = y + size + 70;
+    r.pos.forEach((pz, i) => { const v = (vals[i] ?? 0) * k, h = 6 + v * 90, hot = v > .35;
+      g.fillStyle = rgba(hot ? 'gold' : 'line', hot ? .95 : .6); g.fillRect(pz.x + pz.w * .25, by - h, pz.w * .5, h); if (hot) glow(pz.x + pz.w / 2, by - h, 60, 'gold', .25 * k); });
+    hline(by + 2, 'line', .4 * k, r.x0 - 40, r.x1 + 40);
+    text(e.label || '每个字的惊奇  [d]SURPRISE PER CHARACTER[/d]', W / 2, by + 28, { size: 15, ls: 3, color: 'dim', alpha: k });
+  });
+  // 波形
+  const waves = X.evs('wave').filter(e => X.lt >= e.t);
+  if (waves.length) {
+    const e = waves[waves.length - 1], pe = waves[waves.length - 2];
+    const k = eo((X.lt - e.t) / .8), nz = lerp(pe ? pe.noise ?? 0 : 0, e.noise ?? 0, k), a = pe ? 1 : k;
+    const wy = y + size + 70, x0 = W / 2 - Math.max(360, w / 2 + 40), x1 = W / 2 + Math.max(360, w / 2 + 40), rr = rng(Math.floor(X.lt * 20));
+    g.save(); g.strokeStyle = nz > .35 ? rgba('red', .9 * a) : rgba('cyan', .8 * a); g.lineWidth = 2; g.shadowColor = g.strokeStyle; g.shadowBlur = 8;
+    g.beginPath(); for (let x = x0; x <= x1; x += 3) { const q = (x - x0) / (x1 - x0), env = Math.sin(q * Math.PI);
+      const v = Math.sin(x * .03 + X.lt * 3) * 12 * (1 - nz * .5) + (rr() - .5) * 90 * nz * env; x === x0 ? g.moveTo(x, wy + v) : g.lineTo(x, wy + v); }
+    g.stroke(); g.restore();
+    if (e.label) text(e.label, W / 2, wy + 70, { size: 15, ls: 4, color: nz > .35 ? 'red' : 'dim', alpha: a * .85 });
+  }
+  X.evs('ring').forEach(e => {
+    if (X.lt < e.t) return; const k = eo((X.lt - e.t) / 1), rx = w / 2 + 120, ry = size + 30;
+    g.save(); g.strokeStyle = rgba('ice', .6 * k); g.lineWidth = 1.8; g.shadowColor = rgba('ice', .9); g.shadowBlur = 16;
+    g.beginPath(); g.ellipse(W / 2, y, rx, ry, 0, -Math.PI / 2, -Math.PI / 2 + k * Math.PI * 2); g.stroke(); g.restore();
+    const ang = -Math.PI / 2 + k * Math.PI * 2 + X.lt * .6; spark(W / 2 + rx * Math.cos(ang), y + ry * Math.sin(ang), 3, 'ice', k);
+    if (e.label) text(e.label, W / 2, y + ry + 190, { size: 16, ls: 4, color: 'ice', alpha: k * .85 });
+  });
+  X.evs('note').filter(e => X.lt >= e.t).forEach((e, i) => text(e.text, W / 2 + (e.dx || 0), y + (e.dy ?? size + 34 + i * 30), { size: e.size || 18, ls: 3, color: e.color || 'dim', alpha: eo((X.lt - e.t) / .6) }));
+};
+
+// 信号：比特沿线流动，可加噪声、纠错码
+SCENES.signal = X => {
+  const p = X.p, y = H * (p.y ?? .52), bits = p.bits || '10110010011101001011', a = eo(X.lt / .8);
+  hline(y, 'line', .5 * a, 0, W, 1.2);
+  const nz = X.evs('noise').filter(e => X.lt >= e.t).pop(), ecc = X.evs('ecc').filter(e => X.lt >= e.t).pop();
+  const n = nz ? eo((X.lt - nz.t) / 1) * (nz.amount ?? .25) : 0, rows = ecc ? [-26, 26] : [0];
+  rows.forEach((dy, ri) => {
+    const sp = p.spacing || 72, off = (X.lt * 90) % sp, ea = ri === 0 || !ecc ? 1 : eo((X.lt - ecc.t) / .8);
+    for (let x = -sp + off, i = 0; x < W + sp; x += sp, i++) {
+      const id = Math.floor((x - off) / sp) + Math.floor(X.lt * 90 / sp) + ri * 7, b = bits[((id % bits.length) + bits.length) % bits.length];
+      const flip = rng(id * 31 + 7)() < n, jit = flip ? Math.sin(X.lt * 40 + id) * 5 : 0;
+      text(flip ? (b === '1' ? '0' : '1') : b, x, y - 22 + dy * (ecc ? 1 : 0) + jit, { size: p.size || 22, font: 'mono', color: flip ? 'red' : 'ink', alpha: a * ea * .8 });
+    }
+  });
+  for (let k = 0; k < 3; k++) { const x = ((X.lt * 260 + k * W / 3) % (W + 400)) - 200; comet(x, y, 1, 180, 'ice', a); }
+  if (ecc) text(ecc.label || '+ 冗余编码  [d]ERROR-CORRECTING CODE[/d]', W / 2, y - 110, { size: 15, ls: 3, color: 'gold', alpha: eo((X.lt - ecc.t) / .8) });
+  X.evs('formula').filter(e => X.lt >= e.t).slice(-1).forEach(e => {
+    const k = eo((X.lt - e.t) / .9); text(e.text, W / 2, H * .3, { size: e.size || 50, math: true, alpha: k, glow: .3 });
+    if (e.sub) text(e.sub, W / 2, H * .3 + 46, { size: 14, ls: 5, font: 'en', color: 'dim', alpha: k });
+  });
+};
+
+// 探测器：远方微弱信号穿越噪声抵达地球
+SCENES.probe = X => {
+  const p = X.p, y = H * (p.y ?? .5), ex = W * .16, px = W * .8, a = eo(X.lt / 1);
+  const dec = X.evs('decode').filter(e => X.lt >= e.t).pop(), dk = dec ? eo((X.lt - dec.t) / 1) : 0;
+  glow(ex, y, 180 + dk * 120, 'ice', (.35 + dk * .4) * a); spark(ex, y, 10 + dk * 4, 'ice', a);
+  text(p.earth || '地球  [d]EARTH[/d]', ex, y + 62, { size: 16, ls: 3, color: 'ice', alpha: a * .8 });
+  if (dec) text(dec.text || '解码成功', ex, y - 70, { size: 18, color: 'gold', alpha: dk });
+  g.save(); g.globalAlpha = a; g.strokeStyle = rgba('ice', .85); g.lineWidth = 1.8; g.shadowColor = rgba('ice', .6); g.shadowBlur = 8;
+  g.beginPath(); g.ellipse(px, y, 24, 90, 0, Math.PI / 2, Math.PI * 1.5); g.stroke();
+  g.strokeRect(px + 8, y - 22, 44, 44);
+  g.beginPath(); g.moveTo(px + 52, y - 10); g.lineTo(px + 190, y - 90); g.moveTo(px + 52, y + 10); g.lineTo(px + 190, y + 60); g.stroke();
+  g.strokeRect(px + 150, y + 60, 34, 34); g.beginPath(); g.moveTo(px - 24, y); g.lineTo(ex + 40, y); g.setLineDash([2, 14]); g.strokeStyle = rgba('line', .3); g.stroke(); g.restore();
+  text(p.label || '旅行者1号  [d]VOYAGER 1[/d]', px + 20, y - 130, { size: 16, ls: 3, alpha: a * .85 });
+  if (p.sub) text(p.sub, px + 20, y - 106, { size: 14, font: 'en', italic: true, color: 'gold', alpha: a * .8 });
+  for (let k = 0; k < 7; k++) { const q = ((X.lt * .12 + k / 7) % 1), x = lerp(px - 30, ex + 30, q); spark(x, y, 2.4, 'gold', a * (.3 + .7 * Math.sin(q * Math.PI))); }
+  const rr = rng(Math.floor(X.lt * 12)); for (let i = 0; i < 40; i++) { g.fillStyle = rgba('red', .25 * rr() * a); g.fillRect(rr() * W, y - 160 + rr() * 320, 2, 2); }
+};
+
+// 图片（可选）：椭圆柔边 + 缓慢推近
+SCENES.image = X => {
+  const p = X.p, im = IMG[p.src], a = eo(X.lt / 1.2);
+  if (!im) { text('[缺少图片] ' + (p.src || ''), W / 2, H / 2, { size: 28, color: 'red' }); return; }
+  const w = W * (p.w ?? .5), h = w * im.height / im.width, z = 1 + (p.zoom ?? .06) * X.lt / X.dur;
+  const cx = W / 2, cy = H * (p.y ?? .4);
+  g.save(); g.globalAlpha = a;
+  if (p.ellipse !== false) { g.beginPath(); g.ellipse(cx, cy, w / 2, h / 2, 0, 0, 7); g.clip(); }
+  g.drawImage(im, cx - w * z / 2, cy - h * z / 2, w * z, h * z); g.restore();
+  if (p.caption) text(p.caption, cx, cy + h / 2 + 40, { size: 18, color: 'dim', alpha: a });
+};
+
+// 引言
+SCENES.quote = X => {
+  const p = X.p, y = H * (p.y ?? .36), a = eo(X.lt / 1.2), lines = String(p.text || '').split('\n');
+  hline(y - 80, 'line', .5 * a, W / 2 - 160, W / 2 + 160);
+  lines.forEach((l, i) => text(l, W / 2, y + i * 50, { size: p.size || 36, font: [...l].some(isCJK) ? 'zh' : 'en', italic: true, alpha: a * eo((X.lt - .3 - i * .4) / 1) }));
+  if (p.by) text(p.by, W / 2, y + lines.length * 50 + 30, { size: 14, ls: 5, font: 'en', color: 'dim', alpha: a * eo((X.lt - 1.2) / 1) });
+};
+
+// 左右对比：同样的比特，不一样的意义
+SCENES.compare = X => {
+  const p = X.p, y = H * (p.y ?? .36), a = eo(X.lt / 1);
+  line(W / 2, y - 110, W / 2, y + 110, 'line', .4 * a, 1.2);
+  ['left', 'right'].forEach((side, si) => {
+    const s = p[side] || {}, cx = W * (si ? .66 : .34), swaps = X.evs('swap').filter(e => e.side === side && X.lt >= e.t);
+    const last = swaps.pop(), prev = swaps.pop();
+    const k = last ? eo((X.lt - last.t) / .8) : 1, curT = last ? last.text : s.text, oldT = last ? (prev ? prev.text : s.text) : null;
+    // 点阵
+    const rr = rng(hash(side + (curT || ''))), cols = 16, rows = 4;
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { const on = rr() > .45; g.fillStyle = rgba(on ? 'gold' : 'faint', a * (on ? .8 : .5)); g.fillRect(cx - cols * 7 + c * 14, y - 110 + r * 12, 7, 7); }
+    if (s.bits) text(s.bits, cx, y - 44, { size: 13, ls: 3, font: 'en', color: 'dim', alpha: a * .8 });
+    if (oldT && k < 1) text(oldT, cx, y + 20, { size: 46, ls: 8, color: s.color, alpha: a * (1 - k) });
+    text(curT, cx, y + 20, { size: 46, ls: 8, color: s.color, alpha: a * k, glow: .15 });
+    const note = (last && last.note) || s.note; if (note) text(note, cx, y + 84, { size: 16, ls: 2, color: 'dim', alpha: a * k });
+  });
+};
+
+// 推荐流卡片：多样 → 同质，惊奇度量归零
+SCENES.cards = X => {
+  const p = X.p, same = X.evs('same').filter(e => X.lt >= e.t).pop(), k = same ? eo((X.lt - same.t) / 1.2) : 0;
+  const colors = p.colors || ['red', 'green', 'violet', 'gold'], n = colors.length, cw = 300, ch = 68, gap = 22;
+  const x0 = W / 2 - cw / 2, y0 = H * (p.y ?? .3) - (n * (ch + gap)) / 2 + ch, a = eo(X.lt / .8);
+  colors.forEach((c, i) => {
+    const cc = k > .5 ? (same.color || 'gold') : c, y = y0 + i * (ch + gap) + Math.sin(X.lt * .8 + i) * 3;
+    g.save(); g.globalAlpha = a; g.strokeStyle = rgba(cc, .8); g.lineWidth = 1.5; g.fillStyle = 'rgba(12,18,30,.8)'; rrect(x0, y, cw, ch, 6); g.fill(); g.stroke();
+    g.fillStyle = rgba(cc, .7); g.fillRect(x0 + 12, y + 12, 44, 44);
+    g.fillStyle = rgba('dim', .7); g.fillRect(x0 + 72, y + 18, 160, 5); g.fillRect(x0 + 72, y + 32, 120, 5); g.fillRect(x0 + 72, y + 46, 140, 5); g.restore();
+  });
+  const mx = x0 + cw + 110, mh = n * (ch + gap), my = y0 + mh - gap, lv = lerp(p.level ?? .95, same ? (same.level ?? .03) : .95, k);
+  line(mx, my, mx, my - mh, 'line', .4 * a, 6);
+  line(mx, my, mx, my - mh * lv, k > .5 ? 'faint' : 'cyan', a, 6); if (lv > .1) glow(mx, my - mh * lv / 2, 120, 'cyan', .25 * a * (1 - k));
+  text('惊奇', mx + 22, y0 - 6, { size: 15, align: 'left', color: 'dim', alpha: a });
+  text(k > .5 ? (same.value || '0.02 bits') : (p.value || '2.60 bits'), mx + 22, y0 + 16, { size: 14, font: 'en', italic: true, align: 'left', color: 'cyan', alpha: a });
+  if (same && same.label) text(same.label, x0 - 120, H * (p.y ?? .3), { size: 15, ls: 2, color: 'gold', align: 'right', alpha: k });
+};
+
+// 概率条：模型给每个候选词打分，温度改变分布，选中后接到句尾
+SCENES.probs = X => {
+  const p = X.p, items = p.items || [], y0 = H * (p.y ?? .42), rowH = p.rowH || 64, A = eo(X.lt / .8);
+  const show = X.evs('show')[0], st = show ? show.t : .3;
+  const temps = X.evs('temp').filter(e => X.lt >= e.t);
+  const dist = T => { const w = items.map(it => Math.pow(Math.max(it.p, 1e-6), 1 / T)), s = w.reduce((a, b) => a + b, 0); return w.map(v => v / s); };
+  let P = dist(1), label = null;
+  if (temps.length) {
+    const e = temps[temps.length - 1], pe = temps[temps.length - 2], k = eio((X.lt - e.t) / 1.2);
+    const A0 = dist(pe ? pe.value : 1), B0 = dist(e.value); P = A0.map((v, i) => lerp(v, B0[i], k)); label = e;
+  }
+  const pick = X.evs('pick').filter(e => X.lt >= e.t).pop(), pk = pick ? eo((X.lt - pick.t) / .9) : 0;
+  const flagged = pick && pick.flagAt != null && X.lt >= X.at(pick.flagAt), PC = flagged ? 'red' : (pick && pick.color) || 'gold';
+  // 上下文句子 + 待填的位置
+  const cy = H * (p.contextY ?? .2), ctx = parse(p.context || ''), cs = p.contextSize || 58;
+  g.font = `400 ${cs}px ${ZH}`;
+  const pickT = pick ? (items[pick.index ?? 0] || {}).t || '' : '';
+  const slotW = Math.max(g.measureText('字字').width, measure(parse(pickT), cs, { ls: 8 })) + 10;
+  const cw = measure(ctx, cs, { ls: 8 }), x0 = W / 2 - (cw + slotW) / 2;
+  const r = text(ctx, x0, cy, { size: cs, ls: 8, align: 'left', alpha: A, glow: .2 });
+  const sx0 = r.x1 + 14;
+  if (!pick || pk < 1) { const bl = .5 + .5 * Math.sin(X.lt * 4); line(sx0, cy + cs * .55, sx0 + slotW - 14, cy + cs * .55, 'gold', A * bl * (1 - pk), 3); }
+  const maxW = W * (p.barW ?? .36), lx = W / 2 - maxW / 2 - 40, bx = W / 2 - maxW / 2 + 30;
+  items.forEach((it, i) => {
+    const y = y0 + i * rowH, k = eo((X.lt - st - i * .12) / .7), v = P[i] * k;
+    const hot = pick && (pick.index ?? 0) === i, dimo = pick && !hot ? 1 - .6 * pk : 1;
+    text(it.t, lx, y, { size: 34, align: 'right', alpha: A * k * dimo, color: hot && pk > .3 ? PC : 'ink' });
+    line(bx, y, bx + maxW, y, 'line', .18 * A * k, 10);
+    const c = hot ? PC : i === 0 && !pick ? 'gold' : 'ice';
+    line(bx, y, bx + maxW * v, y, c, (hot ? 1 : .75) * A * dimo, 10);
+    if (hot || (i === 0 && !pick)) glow(bx + maxW * v, y, 70, hot ? PC : 'gold', .3 * A * k);
+    text(`${(v * 100).toFixed(v < .1 ? 1 : 0)}%`, bx + maxW + 24, y, { size: 24, font: 'en', align: 'left', color: 'dim', alpha: A * k * dimo });
+  });
+  if (pick) {
+    const i = pick.index ?? 0, fx = lx - measure(parse(pickT), 34) / 2, fy = y0 + i * rowH;
+    const tx = sx0 + measure(parse(pickT), cs, { ls: 8 }) / 2, q = eio((X.lt - pick.t - .25) / .8);
+    if (q > 0) { const xx = lerp(fx, tx, q), yy = lerp(fy, cy, q) - Math.sin(q * Math.PI) * 60, sz = lerp(34, cs, q);
+      glow(xx, yy, 120, PC, .35 * (1 - q) + .1); text(pickT, xx, yy, { size: sz, color: PC, glow: .8, ls: lerp(0, 8, q) }); }
+  }
+  if (label) {
+    const k = eo((X.lt - label.t) / .6), tx = W * .8, ty = y0 - 70, v = clamp(label.value / 2);
+    text(label.label || `温度  T = ${label.value}`, tx, ty - 34, { size: 28, color: 'gold', alpha: k, math: true });
+    line(tx - 120, ty, tx + 120, ty, 'line', .5 * k, 2);
+    const dv = lerp(clamp((temps[temps.length - 2]?.value ?? 1) / 2), v, eio((X.lt - label.t) / 1.2));
+    spark(tx - 120 + 240 * dv, ty, 5, dv > .5 ? 'red' : 'cyan', k);
+    text('稳', tx - 140, ty, { size: 16, color: 'dim', align: 'right', alpha: k }); text('野', tx + 140, ty, { size: 16, color: 'dim', align: 'left', alpha: k });
+  }
+};
+
+// 出处连线：每句话向上连回一个出处；连不上的那句就是幻觉（讲 RAG / 事实核查）
+SCENES.sources = X => {
+  const p = X.p, claims = p.claims || [], n = claims.length, A = eo(X.lt / .8);
+  const cy = H * (p.y ?? .6), sy = H * (p.sourcesY ?? .27), size = p.size || 28;
+  const links = X.evs('link'), misses = X.evs('miss');
+  claims.forEach((c, i) => {
+    const cx = W * (i + .5) / n, ca = eo((X.lt - .2 - i * .25) / .7) * A;
+    const lk = links.find(e => (e.index ?? 0) === i), ms = misses.find(e => (e.index ?? 0) === i);
+    const lq = lk ? eio((X.lt - lk.t) / 1) : 0, mq = ms ? eio((X.lt - ms.t) / 1.3) : 0;
+    const bad = ms && mq >= 1, bk = ms ? eo((X.lt - ms.t - 1.3) / .6) : 0;
+    // 句子胶囊
+    const tw = measure(parse(c.t), size, { ls: 2 }) + 56, bh = size + 34;
+    g.save(); g.globalAlpha = ca; g.fillStyle = 'rgba(14,24,42,.7)'; rrect(cx - tw / 2, cy - bh / 2, tw, bh, bh / 2); g.fill();
+    g.strokeStyle = rgba(bad ? 'red' : lq >= 1 ? 'gold' : 'ice', bad ? .5 + .4 * bk : lq >= 1 ? .7 : .35); g.lineWidth = 1.4; g.stroke(); g.restore();
+    text(c.t, cx, cy, { size, ls: 2, alpha: ca, color: bad && bk > .5 ? 'red' : null });
+    // 出处卡片（有出处的才有）
+    if (c.src) {
+      const cw = 150, chh = 96, sa = ca * (.35 + .65 * (lq >= 1 ? 1 : 0));
+      g.save(); g.globalAlpha = sa; g.strokeStyle = rgba(lq >= 1 ? 'gold' : 'line', .8); g.lineWidth = 1.4; g.fillStyle = 'rgba(10,16,28,.8)';
+      rrect(cx - cw / 2, sy - chh / 2, cw, chh, 4); g.fill(); g.stroke();
+      g.fillStyle = rgba('dim', .7); [0, 1, 2].forEach(k => g.fillRect(cx - cw / 2 + 18, sy - 24 + k * 16, cw - 36 - k * 18, 4)); g.restore();
+      text(c.src, cx, sy + chh / 2 + 28, { size: 18, ls: 3, color: lq >= 1 ? 'gold' : 'dim', alpha: sa });
+      if (lq >= 1) glow(cx, sy, 150, 'gold', .25 * ca * (.6 + .4 * Math.exp(-(X.lt - lk.t - 1) * 1.5)));
+    }
+    // 连线：从句子往上长
+    const y0 = cy - bh / 2 - 6, y1 = sy + 48 + 44;
+    if (lk && lq > 0) {
+      const yy = lerp(y0, y1, lq); line(cx, y0, cx, yy, 'ice', .8 * ca, 1.8); spark(cx, yy, 3.4, lq >= 1 ? 'gold' : 'ice', ca);
+    }
+    if (ms && mq > 0) {
+      const yy = lerp(y0, y1 + 40, mq), c2 = mq >= 1 ? 'red' : 'ice';
+      g.save(); g.strokeStyle = rgba(c2, .8 * ca); g.lineWidth = 1.8; g.beginPath();
+      for (let y = y0; y >= yy; y -= 4) { const wob = Math.sin(y * .05 + X.lt * 3) * 10 * clamp((y0 - y) / (y0 - y1)); y === y0 ? g.moveTo(cx + wob, y) : g.lineTo(cx + wob, y); }
+      g.stroke(); g.restore();
+      spark(cx + Math.sin(yy * .05 + X.lt * 3) * 10, yy, 3.4, c2, ca * (mq >= 1 ? .5 + .5 * Math.sin(X.lt * 5) : 1));
+      if (bk > 0) text('？', cx, sy, { size: 64, color: 'red', alpha: ca * bk, glow: .5 });
+      if (bk > 0 && ms.label) text(ms.label, cx, cy + bh / 2 + 36, { size: 18, ls: 3, color: 'red', alpha: ca * bk });
+    }
+  });
+};
+
+// 光团：留白式的思考停顿
+SCENES.orb = X => {
+  const p = X.p, a = eo(X.lt / 1.5), br = 1 + .08 * Math.sin(X.lt * 1.6);
+  glow(W / 2, H * (p.y ?? .45), 260 * br * (p.size || 1), p.color || 'amber', .38 * a);
+  glow(W / 2, H * (p.y ?? .45), 90 * br * (p.size || 1), p.color || 'gold', .3 * a);
+  if (p.text) text(p.text, W / 2, H * (p.y ?? .45), { size: p.textSize || 56, ls: 12, alpha: a * eo((X.lt - X.at(p.textAt ?? 1)) / 1.2), glow: .4 });
+};
+
+// 空场景：只有背景和字幕
+SCENES.blank = X => { if (X.p.ridges) ridges(X, X.p.ridges, X.p.top ?? .7); };
+
+// ---------- 章节标签 + 双语字幕 ----------
+function chapter(t, si, fadeA) {
+  let c = null, from = 0;
+  for (let i = 0; i <= si; i++) { const ch = S.scenes[i].chapter; if (ch === false) { c = null; } else if (ch) { if (!c || ch.no !== c.no || ch.zh !== c.zh) from = T.scenes[i].start; c = ch; } }
+  if (!c) return;
+  const a = eo((t - from - .4) / 1) * fadeA;
+  text(c.no || '', 104, 88, { size: 20, font: 'mono', color: 'gold', alpha: a * .85, align: 'left' });
+  text(c.zh || '', 150, 88, { size: 28, alpha: a * .9, align: 'left' });
+  text(c.en || '', 150 + measure(parse(c.zh || ''), 28) + 18, 90, { size: 13, ls: 5, font: 'en', color: 'dim', alpha: a * .8, align: 'left' });
+  hline(112, 'line', .35 * a, 96, 380, 1);
+}
+function subtitles(t) {
+  const L = T.lines; let cur = null;
+  for (let i = 0; i < L.length; i++) { const l = L[i], nx = L[i + 1], hold = Math.min(nx ? nx.start : Infinity, T.scenes[l.scene].end - .15, l.end + 1.2); if (t >= l.start - .05 && t < hold && l.text) { cur = { ...l, hold }; } }
+  if (!cur) return;
+  const a = eo((t - cur.start + .05) / .3) * (1 - eo((t - cur.hold + .25) / .25));
+  const zh = S.subSize || 38;
+  g.save(); g.shadowColor = 'rgba(0,0,0,.9)'; g.shadowBlur = 18;
+  text(cur.text, W / 2, H * .865, { size: zh, ls: 2, alpha: a });
+  if (cur.en) text(cur.en, W / 2, H * .865 + zh * .95, { size: zh * .62, font: 'en', italic: true, color: 'dim', alpha: a * .9 });
+  g.restore();
+}
+
+// ---------- 主入口 ----------
+window.boot = async (spec, tl, base) => {
+  S = spec; T = tl; Object.assign(PAL, spec.palette || {}); prep();
+  const srcs = new Set(); spec.scenes.forEach(s => s.props && s.props.src && srcs.add(s.props.src));
+  await Promise.all([...srcs].map(src => new Promise(res => { const im = new Image(); im.onload = () => { IMG[src] = im; res(); }; im.onerror = res; im.src = /^(https?|file|data):/.test(src) ? src : (base || '') + '/' + src; })));
+  if (document.fonts) await document.fonts.ready;
+};
+window.render = t => {
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  let si = T.scenes.findIndex(s => t >= s.start && t < s.end); if (si < 0) si = T.scenes.length - 1;
+  const X = ctx(si, t), sc = X.sc;
+  const fin = si === 0 ? eo(X.lt / .9) : eo(X.lt / .6), fout = 1 - eio((X.lt - (X.dur - .5)) / .5);
+  const A = fin * fout;
+  background(t, sc.stars ?? X.p.stars ?? .55);
+  g.save(); g.globalAlpha = A;
+  const fn = SCENES[sc.type]; if (fn) fn(X); else text('未知场景类型: ' + sc.type, W / 2, H / 2, { color: 'red' });
+  common(X);
+  g.restore();
+  chapter(t, si, 1);
+  finish(t);
+  subtitles(t);
+};
+</script>
+</body>
+</html>
