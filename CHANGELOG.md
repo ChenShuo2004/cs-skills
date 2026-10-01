@@ -2,6 +2,9 @@
 
 ## 未发布
 
+- 增加可重复运行的 Codex／Claude Code 软链接安装脚本：支持按需安装、预览、卸载，并保护已有 Skill；加入临时目录自测。
+- 优化仓库 README 的上手路径：可执行安装命令、技能地图、真实任务示例和仓库约定保持一致。
+- 增加根目录 `AGENTS.md`，固化 Skill 与路由、清单、安装脚本和 GitHub 交付的同步规则。
 - 重写仓库 README：用一句话定位、快速开始、技能地图、典型用法和仓库约定组织首页内容。
 - 新增 `$cs-github-push`：专门处理 GitHub 提交、推送、PR 与远端核验；将 GitHub-only 路由从 `$cs-ending-time` 拆出，任务 skill 数量由 13 更新为 14。
 - 新增 `$cs-knowledge-film`：把知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的知识解说片（spec.json → edge-tts 配音 → Canvas 逐帧渲染 mp4），含 14 种场景类型与示例 spec。

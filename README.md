@@ -1,45 +1,55 @@
 # CS Skills
 
-陈硕的 AI 工作流仓库：把真实项目里的方法做成可安装、可复用、可验证的 Agent Skills。面向 Codex，也可用于支持 `SKILL.md` 的其他 Agent。
+把真实项目中跑通的方法，做成**可安装、可复用、可验证**的 Agent Skills。面向 Codex 和 Claude Code；其他能读取 `SKILL.md` 的 Agent 也可以按需使用。
 
-**一句话说目标 → `$cs-run` 选工作流 → 专项 skill 执行 → 验证交付。**
+**说清目标 → `$cs-run` 选择一个主 Skill → 专项执行 → 验证结果。**
 
-目前收录 **14 个任务 skill**，覆盖产品与工程、内容与视频、调研和 GitHub 发布。每个 skill 都能单独使用；`$cs-run` 适合不知道从哪里开始时调用。
+仓库现有 **14 个任务 Skill**，覆盖产品开发、内容生产、调研、视频和交付。每个 Skill 都能独立安装；不知道从哪里开始时，先用 [`$cs-run`](cs-run/)。
 
-## 快速开始
+[快速安装](#快速安装) · [选择-skill](#选择-skill) · [使用示例](#使用示例) · [仓库约定](#仓库约定)
 
-在 Codex 中直接说：
+## 快速安装
 
-```text
-请从 https://github.com/ChenShuo2004/cs-skills 安装 cs-run 和我需要的下游 skills。
+克隆仓库后，选择要用的 Agent 和 Skill：
+
+```bash
+git clone https://github.com/ChenShuo2004/cs-skills.git
+cd cs-skills
+./scripts/install.sh --codex cs-run cs-frontend-design cs-github-push
 ```
 
-安装后试一句：
+安装到 Claude Code 时用 `--claude`；两个 Agent 都用时选 `--both`。省略 Skill 名称会安装全部 **14 个任务 Skill**：
+
+```bash
+./scripts/install.sh --claude cs-run cs-writer
+./scripts/install.sh --both
+```
+
+安装脚本创建软链接。仓库更新后，在原目录执行 `git pull`，链接会读取新内容；重新开始 Agent 会话即可使用更新后的 Skill。脚本不会覆盖已有目录或来自其他位置的链接，遇到冲突会报告具体路径。
+
+```bash
+./scripts/install.sh --codex --dry-run              # 先预览
+./scripts/install.sh --codex --uninstall cs-run     # 只移除指向当前仓库的链接
+./scripts/install.sh --help                         # 查看全部参数
+```
+
+> 克隆目录需要保留在原位置，软链接才能持续有效。已有同名 Skill 时，先检查来源和本地修改，再决定是否替换。`cs-recover-skill` 是模型执行校准辅助项，默认安装不包含它。
+
+安装后，在新会话中试一句：
 
 ```text
 $cs-run 我想把这个产品想法做成可用原型，帮我选择工作流并开始执行。
 ```
 
-也可以克隆仓库，按需将某个 skill 目录链接到 Agent 的技能目录：
+不使用终端时，也可以请支持 GitHub Skill 安装的 Agent 从本仓库安装 `cs-run` 和当前任务需要的专项 Skill；**只安装 `cs-run` 不会自动安装下游 Skill**。
 
-```bash
-git clone https://github.com/ChenShuo2004/cs-skills.git
-cd cs-skills
-mkdir -p "$HOME/.codex/skills"
-ln -s "$PWD/cs-run" "$HOME/.codex/skills/cs-run"
-```
-
-Claude Code 使用同样的 `SKILL.md`，把最后两行中的 `.codex/skills` 换成 `.claude/skills` 即可。目标目录已有同名 skill 时，先检查其来源和本地修改，再决定如何更新；不要直接覆盖。
-
-> 只安装 `$cs-run` 不会自动安装下游 skill。要执行表中的专项工作流，请同时安装对应目录。
-
-## Skill 地图
+## 选择 Skill
 
 ### 入口
 
 | Skill | 什么时候用 | 主要交付 |
 | --- | --- | --- |
-| [`$cs-run`](cs-run/) | 目标还粗糙，或不知道该调用哪个 skill | Goal Card、明确路由、继续执行 |
+| [`$cs-run`](cs-run/) | 目标还粗糙，或不知道该调用哪个 Skill | Goal Card、明确路由、继续执行 |
 
 ### 产品与工程
 
@@ -69,57 +79,46 @@ Claude Code 使用同样的 `SKILL.md`，把最后两行中的 `.codex/skills` �
 | [`$cs-github-push`](cs-github-push/) | 将已完成的修改提交并推送到 GitHub | 精确提交、远端核验、PR（按需） |
 | [`$cs-ending-time`](cs-ending-time/) | Web／App 功能需要连同部署一起收尾 | 验证、GitHub 与部署结果 |
 
-## 三个典型用法
+## 使用示例
 
-**从想法到原型**
+**从想法到产品原型**
 
 ```text
-$cs-run 我想做一个帮助创作者管理 AI 工作流的工具。先做最小可用原型。
+$cs-run 我想做一个帮助创作者管理 AI 工作流的工具。先做最小可用原型，并告诉我如何验收。
 ```
 
-**从素材到内容**
+**从项目素材到文章和配图**
 
 ```text
 $cs-writer 把这次产品开发记录写成一篇有真实细节、可复制步骤的文章。
-$cs-xiaohuang-skill 为这篇文章找出 4 个认知锚点，先给我正文配图 shot list。
+$cs-xiaohuang-skill 为文章找出 4 个认知锚点，先给我正文配图 shot list。
 ```
 
-**从本地成果到 GitHub**
+**把完成的成果交付到 GitHub**
 
 ```text
-$cs-github-push 检查本次 skill 改动，更新必要的目录说明，验证后提交并推送到 GitHub。
+$cs-github-push 检查本次 Skill 改动，更新必要的目录说明，验证后提交并推送到 GitHub。
 ```
 
-`$cs-github-push` 负责 GitHub 交付；如果还要把 Web／App 功能部署上线，使用 `$cs-ending-time`。
-
-## 使用条件
-
-| 场景 | 需要准备 |
-| --- | --- |
-| 阅读和调用 skill | 支持读取 `SKILL.md` 的 Agent；Codex 可读取 `agents/openai.yaml` 展示信息 |
-| 推送到 GitHub | 本机 Git、目标仓库写权限；创建 PR 时还需要可用的 GitHub 入口 |
-| 视频生成 | 依所选 skill 的 `SKILL.md` 准备渲染环境、素材和所需服务 |
+仅需 GitHub 提交、推送或 PR 时用 `$cs-github-push`；Web／App 功能还要部署上线时用 `$cs-ending-time`。视频类 Skill 的渲染环境和服务要求，请以各目录的 `SKILL.md` 为准。
 
 ## 仓库约定
 
-每个 skill 一个目录，最少包含 `SKILL.md`；按实际需要放入其余资源：
+每个 Skill 一个目录，入口文件是 `SKILL.md`；`agents/openai.yaml` 提供 Codex 展示信息，其余资源按实际需要放入：
 
 ```text
 cs-skills/
-├── cs-run/
-│   ├── SKILL.md             Agent 读取的触发条件与工作流
-│   └── agents/openai.yaml   Codex 中的展示名称与默认提示词
-├── cs-github-push/
-│   ├── SKILL.md
-│   └── agents/openai.yaml
-├── 其他 skill/
-│   ├── references/          按需读取的规则
-│   ├── scripts/             可重复执行的工具
-│   ├── tests/               关键逻辑的测试
-│   └── assets/              输出素材
-└── docs/                    仓库级清单与规划
+├── cs-run/                 总入口
+├── cs-writer/              独立的任务 Skill
+│   ├── SKILL.md            Agent 读取的工作流
+│   ├── agents/openai.yaml  Codex 展示信息
+│   └── references/         按需读取的详细规则
+├── scripts/
+│   ├── install.sh          Codex／Claude Code 软链接安装
+│   └── test-install.sh     安装脚本自测
+└── docs/                   技能清单与仓库规划
 ```
 
-新增 skill 时，同时检查触发边界、`$cs-run` 路由、[技能清单](docs/skill-inventory.md)和安装说明。具体依赖与验收方式以各目录的 `SKILL.md` 为准。`cs-recover-skill` 是模型执行校准辅助项，不计入上述 14 个任务 skill。
+新增或调整 Skill 时，请同步检查触发边界、[`$cs-run` 路由](cs-run/SKILL.md)、[技能清单](docs/skill-inventory.md)和安装说明。维护规则见 [AGENTS.md](AGENTS.md)。安装脚本可用 `./scripts/test-install.sh` 在临时目录自测，不会改动真实 Skill 目录。
 
 [更新日志](CHANGELOG.md) · [贡献者说明](CONTRIBUTORS.md) · [MIT License](LICENSE)
