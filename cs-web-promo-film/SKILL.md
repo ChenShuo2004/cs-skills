@@ -30,6 +30,7 @@ metadata:
 
 - 采集页面、量元素坐标：[references/capture.md](references/capture.md)
 - 设计运镜、写分镜、搭工程：[references/camera.md](references/camera.md)
+- 需要提升动效质感时，把参考、节拍和视觉事件写成导演 brief：[references/motion-direction.md](references/motion-direction.md)
 - 渲染、抽帧验收、修接黑、去音轨：[references/render-qa.md](references/render-qa.md)
 - 写口播稿：[references/voiceover.md](references/voiceover.md)
 - 交付前自检：[references/quality-checklist.md](references/quality-checklist.md)
@@ -74,7 +75,7 @@ metadata:
 
 ### 5. 写分镜，再搭片子
 
-分镜先落成一张表：时间、画面、镜头动作、屏幕文案。一段只做一件事，一次只推进一个信息。
+分镜先落成一张表：时间、画面、镜头动作、屏幕文案。一段只做一件事，一次只推进一个信息。若用户要求高级动效或提供参考片，先按 motion-direction.md 明确观看主次、关键事件、层间错相和可检验的禁止项，再实现镜头。
 
 节奏基准（40 秒片）：开场题字 3–4 秒，每个内容段 6–8 秒，转场 0.85 秒，收尾 3 秒。段落少于 6 秒观众来不及读完屏幕文案。
 
