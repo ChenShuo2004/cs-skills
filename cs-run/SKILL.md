@@ -25,7 +25,7 @@ Choose one primary route from this table:
 | Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
 | Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
 | 将真实项目、经历或现场观察写成 60–90 秒个人 IP 实战口播 | `$cs-personal-ip-script` | 可直接录制的口播稿、演绎标注、事实待确认项与自检 |
-| 将单个或一批内容想法收敛为 ChatCut 短视频 | `$cs-chatcut-video-blueprint` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表 |
+| 将自媒体素材、内容想法或已有口播做成剧本包、分镜分图提示词或制作蓝图 | `$cs-chatcut-video-blueprint` | 中文剧本、视觉约定、逐镜分镜、逐图图片提示词、动作提示词与素材清单 |
 | 将口播与角色制作成代码叙事视频，包含独立 A/B-roll 场景、样片、成片和双比例封面 | `$cs-code-story-video` | Remotion 工程、真实音频时间轴、16:9 视频、3:4/4:3 封面与 QA |
 | 用已确认产品包制作数字人产品介绍视频，或需要 ChatCut 实操、Remotion 包装与最终验收 | `$cs-digital-human-product-video-pipeline` | 预检、样片审批、产品证据剪辑、确定性包装和成片 QA |
 | 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
@@ -50,6 +50,8 @@ Choose one primary route from this table:
 | 请求 | 执行规则 |
 | --- | --- |
 | 调研后写文章 | $cs-search-skill 完成证据后，直接用 $cs-writer 完成文章。 |
+| 真实项目个人 IP 口播附分镜分图提示词 | $cs-personal-ip-script 完成口播后，直接用 $cs-chatcut-video-blueprint 完成分镜、逐图提示词与按需的动作提示词；保留已定稿件。 |
+| 已有自媒体稿件补分镜或提示词 | 直接用 $cs-chatcut-video-blueprint，只补点名内容，不重写稿件、不生成媒体。 |
 | 设计并实现页面 | $cs-frontend-design 完成设计、实现和浏览器检查。 |
 | 整理代码后提交 | $cs-clean-code 本地验证后，由 $cs-ending-time 使用已有提交授权。 |
 | 先保存再大改 | $cs-checkpoint-version 验证快照后，继续约定的实现。 |

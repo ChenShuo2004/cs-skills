@@ -61,11 +61,11 @@ CS Skills 当前包含 15 个 active skill，并采用单入口架构：
 
 `cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：它能稳定生成、编辑和延展 2D/3D、动作、联名、风格迁移和身份修复资产，也能将中文文章、帖子或方法论中的认知锚点转为小黄轻手绘正文配图；不做 ChatCut 策划、PPT 信息图或复杂架构图。
 
-`cs-chatcut-video-blueprint` 先把单个或一批内容想法收敛为一个可拍主题，再从主题和原始内容生成口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头表；不直接修改 ChatCut 项目。
+`cs-chatcut-video-blueprint` 是自媒体剧本与制作蓝图入口：从素材写稿或保留已有稿件，交付视觉约定、逐镜分镜、逐图图片提示词、按需的视频动作提示词及素材清单；保留 ChatCut 蓝图和产品包交接，不依赖项目操作或媒体生成才能完成文本交付。
 
 `cs-code-story-video` 使用真实录音、角色 A-roll 和独立的全屏场景 B-roll 建 Remotion 工程，先做样片并检查后自动导出 16:9 完整片及 3:4/4:3 视频封面；缺音频时停在稿件与场景方案，不伪造精确时码，也不做任意素材自动剪辑。
 
-`cs-personal-ip-script` 将真实项目、经历或现场观察收敛为 60–90 秒的实战判断型个人 IP 口播，分离可朗读台词与演绎标注，要求可回链的事实锚点；不负责选题池、分镜、配音、真实音频对齐或剪辑。
+`cs-personal-ip-script` 将真实项目、经历或现场观察收敛为实战判断型个人 IP 口播，默认 60–90 秒，分离台词与演绎标注，要求可回链的事实锚点；用户要分镜分图提示词时在同一请求内继续交给 `cs-chatcut-video-blueprint`。只要口播不扩展，实际配音、音频对齐与剪辑仍由下游能力负责。
 
 `cs-digital-human-product-video-pipeline` 接收确认后的产品包或蓝图交接，按 plan、sample、batch 预检与编排数字人、产品证据、ChatCut 剪辑、Remotion 包装和成片 QA；用户确认样片前不允许批量或发布。
 
@@ -140,7 +140,7 @@ CS Skills 当前包含 15 个 active skill，并采用单入口架构：
 - `cs-auto-videl`：走一条不消耗 API 额度的提示词或 Google Flow 链路。
 - `cs-personal-ip-script`：用真实 AI 创业项目写一条 60–90 秒口播，验证场景、判断、证据、动作和收束齐全，且无编造与强制 CTA。
 - `cs-xiaohuang-skill`：用身份参考图生成 2D、3D 和多形态示例并检查角色 DNA；再用真实文章生成 shot list 和至少一张正文配图，验证小黄参与、留白和非 PPT 感。
-- `cs-chatcut-video-blueprint`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构与路由边界。
+- `cs-chatcut-video-blueprint`：检查完整自媒体剧本包、已有稿件只补提示词、真实录屏缺口、首尾帧连续性和无音频预计时长边界；完整请求不断在口播，点名只要口播时不增加分镜。行为验收用 `tests/fixtures/routing-cases.json` 的 self-media 与个人 IP 交接场景。
 - `cs-code-story-video`：用真实口播与角色制作至少两章代码叙事样片，检查镜头连续、A/B-roll 差异、原声、两种封面与完整解码；缺音频时只保留 draft。
 - `cs-digital-human-product-video-pipeline`：用确认产品包完成真实预检与一条样片；检查事实追溯、无 BGM、PIP 回退、样片审批和导出 QA，缺少本地生成配置时准确停止。
 - `cs-narration-phrase-timeline`：用最终音频与逐字稿生成短语时间表，验证顺序、真实时间边界、覆盖率与无估算回退。

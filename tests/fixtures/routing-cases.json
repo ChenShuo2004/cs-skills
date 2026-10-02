@@ -354,7 +354,7 @@
         "cs-chatcut-video-blueprint"
       ],
       "expectedBehavior": [
-        "完整口播、素材、MG、镜头表，时码标为计划。"
+        "完整口播、素材、按需 MG、镜头表及每个 AI 配图镜头的完整图片提示词，动态镜头附动作提示词，时码标为计划。"
       ],
       "forbiddenBehavior": [
         "在选题或口播后默认停下，增加 BGM，操作 ChatCut。"
@@ -420,6 +420,90 @@
         {
           "path": "cs-digital-human-product-video-pipeline/SKILL.md"
         }
+      ]
+    },
+    {
+      "id": "self-media-script-package",
+      "prompt": "我试了两种剪辑方式：自动粗剪保留了口误，人工回看后才发现转折句被删了。请用这些事实写自媒体剧本，附完整分镜和逐图提示词，暂时没有录音，只要文本。",
+      "mode": "direct",
+      "expectedSkills": ["cs-chatcut-video-blueprint"],
+      "expectedBehavior": [
+        "交付独立正文、视觉约定、逐镜分镜和逐图可复制提示词，使用镜号关联台词和图片。",
+        "时长标为预计，生成配图仅作概念说明，真实剪辑结果的证据缺口如实标明。"
+      ],
+      "forbiddenBehavior": [
+        "只给流程、镜头表或提示词概要，虚构剪辑效果与数据，编造真实时码，生成媒体或操作 ChatCut。"
+      ],
+      "evidence": [
+        {"path": "cs-chatcut-video-blueprint/SKILL.md"},
+        {"path": "cs-chatcut-video-blueprint/references/self-media-script.md"},
+        {"path": "cs-chatcut-video-blueprint/references/shot-prompts.md"},
+        {"path": "cs-chatcut-video-blueprint/assets/self-media-package.md"}
+      ]
+    },
+    {
+      "id": "personal-ip-script-and-prompts",
+      "prompt": "用 $cs-run：我把验收交给 AI 后漏了一处关键字幕，最终自己回看才修好。写个人 IP 口播，并把分镜、分图提示词和动作提示词一起附上。只做文本，没有最终音频。",
+      "mode": "sequence",
+      "expectedSkills": ["cs-personal-ip-script", "cs-chatcut-video-blueprint"],
+      "expectedBehavior": [
+        "先完成事实可回链的口播，随后连续交付对应分镜、完整逐图提示词和需要动态生成的镜头动作提示词。",
+        "正文与制作说明分开，沿用同一稿件，预计时长不冒充最终音频边界。"
+      ],
+      "forbiddenBehavior": [
+        "在口播后再次询问是否继续分镜，强加 CTA，补造客户反馈或生成媒体。"
+      ],
+      "evidence": [
+        {"path": "cs-run/SKILL.md"},
+        {"path": "cs-personal-ip-script/SKILL.md"},
+        {"path": "cs-chatcut-video-blueprint/SKILL.md"}
+      ]
+    },
+    {
+      "id": "self-media-existing-script-prompts",
+      "prompt": "已定口播原文：‘我把任务交给 AI，最后仍然要自己验收。工具可以帮我做快，但结果是否合格，要看实际输出。’保留每个字，只补 9:16 黑白配图分镜与每张可复制图片提示词，不需要视频动作提示词。",
+      "mode": "direct",
+      "expectedSkills": ["cs-chatcut-video-blueprint"],
+      "expectedBehavior": [
+        "保留原文和指定画幅风格，只交分镜与逐图提示词；每图独立描述完整构图与风格。"
+      ],
+      "forbiddenBehavior": [
+        "重开选题、改写原稿、用‘同上’省略提示词、加入视频生成或未要求的动作提示词。"
+      ],
+      "evidence": [
+        {"path": "cs-chatcut-video-blueprint/SKILL.md"},
+        {"path": "cs-chatcut-video-blueprint/references/shot-prompts.md"}
+      ]
+    },
+    {
+      "id": "self-media-recording-evidence",
+      "prompt": "已有稿件要展示我产品里的真实操作和处理结果，请补分镜与分图提示词；我还没提供产品录屏，配图可以生成，但不能伪造界面或数据。",
+      "mode": "direct",
+      "expectedSkills": ["cs-chatcut-video-blueprint"],
+      "expectedBehavior": [
+        "真实操作镜头列具体录屏与结果获取要求，标明材料缺口；概念配图附完整提示词并标注说明用途。"
+      ],
+      "forbiddenBehavior": [
+        "用 AI 生成产品界面或数据当证据，声称已经检查未提供的参考图或实际输出。"
+      ],
+      "evidence": [
+        {"path": "cs-chatcut-video-blueprint/references/shot-prompts.md"}
+      ]
+    },
+    {
+      "id": "self-media-first-and-last-frame",
+      "prompt": "概念镜头：白卫衣人物右手拿着一张折起的白纸，把白纸放到桌面上。仅给这一个镜头的首帧图、尾帧图与视频动作提示词；9:16 写实，无字幕，没有人物参考图。",
+      "mode": "direct",
+      "expectedSkills": ["cs-chatcut-video-blueprint"],
+      "expectedBehavior": [
+        "给同一镜号关联的两张完整图片提示词，首帧只画持纸起点、尾帧只画纸已落桌终点，动作提示词交代放置过程与保持项。",
+        "如实标注缺少人物参考，未生成媒体，不猜供应商参数。"
+      ],
+      "forbiddenBehavior": [
+        "把放纸过程和最终状态同时塞进首帧、纸或手跨帧瞬移、虚构已检查人物参考或生成图文件。"
+      ],
+      "evidence": [
+        {"path": "cs-chatcut-video-blueprint/references/shot-prompts.md"}
       ]
     },
     {

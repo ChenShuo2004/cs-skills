@@ -19,7 +19,7 @@
 | `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
 | `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 与 overview / no-commit 构建 | `references/` |
 | `cs-ending-time` | 交付收尾 | 验证、提交、推送、PR 和部署 | `agents/openai.yaml` |
-| `cs-chatcut-video-blueprint` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向和逐镜头蓝图 | `agents/openai.yaml` |
+| `cs-chatcut-video-blueprint` | 自媒体剧本与制作蓝图 | 从真实素材或已有口播交付剧本、逐镜分镜、逐图图片提示词、动作提示词和素材交接 | `references/`, `assets/self-media-package.md`, `agents/openai.yaml` |
 | `cs-code-story-video` | 代码叙事视频 | 口播驱动的角色 A-roll、全屏 B-roll、Remotion 成片与双比例封面 | `references/`, `assets/`, `scripts/`, `tests/` |
 | `cs-digital-human-product-video-pipeline` | 数字人产品视频流水线 | 以产品包预检、样片审批和最终 QA 编排数字人、产品证据、ChatCut 与 Remotion | `references/`, `scripts/`, `tests/` |
 | `cs-narration-phrase-timeline` | 口播音频对齐 | 使用最终旁白和实际朗读稿生成逐短语毫秒/帧号时间表 | `references/schema.md` |
@@ -59,9 +59,10 @@ Recommended skill:
 
 - 对标复刻、九宫格分镜、Seedance、Gemini Omni、Google Flow/Veo：`$cs-auto-videl`
 
-### ChatCut 视频筹备
+### 自媒体剧本与视频筹备
 
-- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics 和声音规划：`$cs-chatcut-video-blueprint`
+- 选题、剧本、已有稿件补分镜、逐图图片提示词与按需动作提示词：`$cs-chatcut-video-blueprint`
+- 完整剧本包包含独立正文、视觉约定、逐镜分镜、每图完整提示词和素材缺口；不依赖 ChatCut 才能交付。
 - 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
 - 已确认产品包或蓝图到数字人产品视频、ChatCut 实操、Remotion 包装和最终验收：`$cs-digital-human-product-video-pipeline`
 - 该 Skill 先报告预检状态；sample 样片未获确认时，不批量生成、渲染或发布。
@@ -74,7 +75,7 @@ Recommended skill:
 ### 个人 IP 实战口播
 
 - 真实项目、经历或现场观察到 60–90 秒可直接录制的个人 IP 口播：`$cs-personal-ip-script`
-- 该 Skill 要求真实锚点，交付口播、演绎标注和自检；不做选题池、分镜、剪辑、配音或真实音频对齐。
+- 该 Skill 要求真实锚点，交付口播、演绎标注和自检；需要分镜分图提示词时连续交接 `$cs-chatcut-video-blueprint`，只要口播时不扩展。实际剪辑、配音与真实音频对齐使用匹配下游能力。
 
 ### 口播音频对齐
 

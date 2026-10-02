@@ -1,4 +1,4 @@
 interface:
-  display_name: "CS ChatCut 视频制作蓝图"
-  short_description: "陈硕的短视频策划：按所需深度交付选题、口播与完整制作蓝图。"
-  default_prompt: "使用 $cs-chatcut-video-blueprint，基于我的事实素材直接完成所需口播或制作蓝图，保留我明确指定的确认节点。"
+  display_name: "CS 自媒体剧本与制作蓝图"
+  short_description: "从真实素材交付自媒体剧本、逐镜分镜、逐图图片提示词与动作提示词。"
+  default_prompt: "使用 $cs-chatcut-video-blueprint，基于我的真实素材交付自媒体剧本、分镜和完整逐图提示词，保留我明确指定的确认节点。"

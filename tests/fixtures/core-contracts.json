@@ -39,6 +39,15 @@
           "path": "cs-chatcut-video-blueprint/references/blueprint-format.md"
         },
         {
+          "path": "cs-chatcut-video-blueprint/references/self-media-script.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/assets/self-media-package.md"
+        },
+        {
           "path": "cs-chatcut-video-blueprint/references/product-handoff.md"
         }
       ]

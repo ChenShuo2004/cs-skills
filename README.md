@@ -125,7 +125,7 @@ $cs-ending-time 这个功能已经完成，帮我验证、提交、推送和部�
 | [$cs-xiaohuang-skill](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-xiaohuang-skill) | 小黄 中文正文配图 | 2D/3D 角色资产、联名、风格迁移、shot list 和正文配图 |
 | [$cs-auto-videl](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-auto-videl) | 电商短视频复刻、分镜和生成包 | 分镜图、首帧图、Seedance/Flow/Veo 提示词 |
 | [$cs-personal-ip-script](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-personal-ip-script) | 个人 IP 实战口播 | 60–90 秒口播稿、演绎标注、事实待确认项和自检 |
-| [$cs-chatcut-video-blueprint](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-chatcut-video-blueprint) | ChatCut 视频制作前的内容策划 | 选题排序、口播稿、素材清单、Motion Graphics 和逐镜头表 |
+| [$cs-chatcut-video-blueprint](cs-chatcut-video-blueprint/) | 自媒体剧本与制作前策划 | 剧本、视觉约定、逐镜分镜、逐图图片提示词、动作提示词和素材清单 |
 | `$cs-code-story-video` | 代码叙事视频制作 | A-roll 角色、全屏 B-roll、Remotion 样片与成片、3:4/4:3 封面和 QA；当前为本地待发布能力 |
 | [$cs-digital-human-product-video-pipeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-digital-human-product-video-pipeline) | 数字人产品介绍视频全链路 | 产品包预检、样片审批、ChatCut 剪辑、Remotion 包装和最终 QA |
 | [$cs-narration-phrase-timeline](https://github.com/ChenShuo2004/cs-skills/tree/main/cs-narration-phrase-timeline) | 最终口播的短语级真实音频对齐 | `phrase-timeline.json`、词级边界、字幕与动画时间基准 |
@@ -171,6 +171,14 @@ $cs-personal-ip-script 我刚用 AI 重做团队排期，发现最值钱的不�
 ```
 
 它从项目现场提炼一个可验证的判断，交付可直接录制的稿件和独立的演绎标注；不把不足的事实编成故事，也不强加关注或私信 CTA。
+
+### 自媒体剧本附分镜与逐图提示词
+
+```text
+$cs-run 基于我提供的真实项目素材写个人 IP 口播，并附逐镜分镜、每张图可直接复制的图片提示词和需要动态镜头的动作提示词。正文与制作说明分开，暂时没有录音，只做文本。
+```
+
+真实项目口播由 `$cs-personal-ip-script` 成稿，随后连续交给 `$cs-chatcut-video-blueprint` 完成制作文本包。已有稿件补镜头或图片提示词时直接调用后者；只要口播时不展开分镜。镜号关联台词、图号与动作提示词，生成图不冒充真实产品证据，实际时码等最终音频后确定。交付格式见 [文本包模板](cs-chatcut-video-blueprint/assets/self-media-package.md)。
 
 ### 从口播到代码叙事成片
 
