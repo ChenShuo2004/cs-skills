@@ -37,6 +37,22 @@
 
 `cs-recover-skill` 是模型执行校准辅助项，不计入上述 16 个任务 Skill，也不参与默认安装。
 
+## 新增演示：把改动真正推到 GitHub
+
+[`cs-github-push`](cs-github-push/SKILL.md) 负责一次明确的仓库交付：确认要发布的文件，完成相关检查，精确提交，检查远端变化后推送，最后比对本地与远端的提交 SHA。**本地 commit 不等于已经推送；推送也不等于网站上线。**
+
+[![观看 cs-github-push 录屏讲解](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
+
+**[观看 45 秒录屏讲解（MP4）](assets/demos/cs-github-push-demo.mp4)** · [查看口播与分镜](assets/demos/cs-github-push-script.md) · [阅读完整 Skill](cs-github-push/SKILL.md)
+
+在 Codex 或 Claude Code 中，可以直接说：
+
+```text
+$cs-github-push 把这次已完成的改动推送到 cs-skills 的 GitHub 仓库。先检查改动范围并运行相关验证，只提交本次文件；推送后比对本地和远端 SHA，告诉我分支、提交号与核验结果。
+```
+
+工作流会依次核对 `git status` 与远端、检查文件和验证结果、暂存指定路径、确认远端没有新的冲突提交，再推送并核验。需要 PR 时在请求里写明；需要部署网站或应用时使用 [`cs-ending-time`](cs-ending-time/)。视频录的是公开仓库与首次加入该 Skill 的提交详情；步骤讲解配有中文口播与字幕。
+
 ## 看一个实际产物
 
 例如，把一篇中文文章变成“小黄”轻手绘正文配图：先用 [`cs-writer`](cs-writer/) 整理文章，再让 [`cs-xiaohuang-skill`](cs-xiaohuang-skill/) 找出认知锚点、生成 shot list 和插画。

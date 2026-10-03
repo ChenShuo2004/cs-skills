@@ -37,6 +37,22 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 
 `cs-recover-skill` is a model execution calibration helper. It is not counted among the 16 task Skills and is excluded from the default install.
 
+## Demo: push a completed change to GitHub
+
+[`cs-github-push`](cs-github-push/SKILL.md) handles a defined repository delivery: identify the files, run relevant checks, stage and commit precisely, check for remote changes, push, and compare local and remote commit SHAs. A local commit alone is not a remote delivery; a push alone is not a website deployment.
+
+[![Watch the cs-github-push screen recording](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
+
+**[Watch the 45-second screen recording (MP4)](assets/demos/cs-github-push-demo.mp4)** · [Narration and shot list](assets/demos/cs-github-push-script.md) · [Read the full Skill](cs-github-push/SKILL.md)
+
+Example prompt for Codex or Claude Code:
+
+```text
+$cs-github-push Push the completed changes in cs-skills to GitHub. Inspect the scope, run relevant checks, commit only these files, then compare the local and remote SHAs. Report the branch, commit, and verification result.
+```
+
+Ask for a PR explicitly when you need one. Use [`cs-ending-time`](cs-ending-time/) when delivery also includes deploying a website or app. The recording shows the public repository and the commit that first added this Skill, with Chinese narration and captions.
+
 ## See a real output
 
 For example, take a Chinese article through [`cs-writer`](cs-writer/) and then use [`cs-xiaohuang-skill`](cs-xiaohuang-skill/) to identify visual anchors, plan illustrations, and generate them:
