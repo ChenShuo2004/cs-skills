@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>CS Skills README 优化 · 代码渲染版</title>
+<style>html,body{margin:0;overflow:hidden;background:#0b1220}canvas{display:block}</style></head>
+<body><canvas id="film"></canvas><script src="kai-cat.js"></script><script>
+// A deterministic KAI tutorial: every frame is a pure function of t.
+// Source evidence is pinned to the two real README revisions named in VO.md.
+const canvas=document.getElementById('film'),g=canvas.getContext('2d',{alpha:false});
+const W=1920,H=1080,S=Math.min(innerWidth/W,innerHeight/H);
+canvas.width=innerWidth;canvas.height=innerHeight;
+const C={navy:'#0b1220',navy2:'#111d30',paper:'#f8f5ef',white:'#ffffff',ink:'#172338',muted:'#64748b',line:'#d8dfeb',blue:'#0059c0',sky:'#8ac7f5',orange:'#ff8a1f',green:'#48d2b0',red:'#ec7064'};
+const FONT='"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif';
+const mono='"SFMono-Regular",Menlo,Monaco,monospace';
+const files={};for(const [k,p] of Object.entries({before:'source/before.jpg',after:'source/after.jpg',rules:'source/rules.jpg',commit:'source/commit.jpg',kai:'source/kai_build.png'})){const i=new Image();i.src=p;files[k]=i;}
+const scenes=[
+ {start:0,end:8.191,tag:'01 / 问题',caption:'README 内容很多，第一次来的人却找不到入口。'},
+ {start:8.191,end:16.43,tag:'02 / 调用',caption:'给 cs-clean-code 一个目标：让新人看懂、能用、会验证。'},
+ {start:16.43,end:25.297,tag:'03 / 核对',caption:'先看仓库事实，再写功能介绍。'},
+ {start:25.297,end:34.947,tag:'04 / 重排',caption:'按照读者的路径，把信息排成一条线。'},
+ {start:34.947,end:43.526,tag:'05 / 优化前',caption:'旧版信息齐全，但入口分散在多张表和说明里。'},
+ {start:43.526,end:51.74,tag:'06 / 优化后',caption:'新版先说清价值，再给工作流、案例和安装命令。'},
+ {start:51.74,end:61.442,tag:'07 / 验收',caption:'检查链接和命令；推送后核对远端提交。'},
+ {start:61.442,end:73.24,tag:'08 / 复制使用',caption:'复制这句，把同样的方法用在你的仓库。'},
+];
+window.DURATION=73.24;
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease=v=>{v=clamp(v);return 1-Math.pow(1-v,3)};
+const enter=(t,delay=0)=>ease((t-delay)/.55);
+function rect(x,y,w,h,r,fill,stroke=null,lw=1){g.beginPath();g.roundRect(x,y,w,h,r);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.stroke()}}
+function line(x,y,x2,y2,color=C.line,lw=2){g.strokeStyle=color;g.lineWidth=lw;g.beginPath();g.moveTo(x,y);g.lineTo(x2,y2);g.stroke()}
+function text(s,x,y,size=48,color=C.ink,weight=700,align='left',family=FONT){g.fillStyle=color;g.font=`${weight} ${size}px ${family}`;g.textAlign=align;g.textBaseline='alphabetic';g.fillText(s,x,y)}
+function wrap(s,x,y,max,width=38,size=42,leading=1.35,color=C.ink,weight=600){let l='',yy=y;for(const ch of s){if(l.length>=width){text(l,x,yy,size,color,weight);yy+=size*leading;l='';}l+=ch;}if(l)text(l,x,yy,size,color,weight);return yy}
+function label(s,x,y,color=C.blue){rect(x,y-28,g.measureText(s).width+33,43,16,color);text(s,x+17,y+3,22,C.white,800)}
+function chip(s,x,y,w=196,accent=C.blue){rect(x,y,w,62,17,C.paper,C.line);rect(x+12,y+13,8,36,4,accent);text(s,x+34,y+42,30,C.ink,700)}
+function imageFit(im,x,y,w,h,crop=null){if(!im.complete||!im.naturalWidth)return;g.save();g.beginPath();g.roundRect(x,y,w,h,18);g.clip();if(crop){g.drawImage(im,...crop,x,y,w,h)}else{const iw=im.naturalWidth,ih=im.naturalHeight,r=Math.max(w/iw,h/ih),sw=w/r,sh=h/r;g.drawImage(im,(iw-sw)/2,(ih-sh)/2,sw,sh,x,y,w,h)}g.restore()}
+function evidence(key,x,y,w,h,heading,revision){g.save();g.shadowColor='rgba(0,0,0,.14)';g.shadowBlur=28;g.shadowOffsetY=16;rect(x,y,w,h+68,20,C.white);g.restore();rect(x,y,w,68,[20,20,0,0],C.navy2);text(heading,x+28,y+44,28,C.white,700);text(revision,x+w-27,y+44,22,C.sky,600,'right',mono);imageFit(files[key],x+10,y+78,w-20,h-20)}
+function progress(t){const n=clamp(t/window.DURATION);rect(0,1061,W,19,0,'#1c2c43');rect(0,1061,W*n,19,0,C.orange)}
+function frame(t,s,idx){g.fillStyle=C.navy;g.fillRect(0,0,W,H);for(let x=0;x<W;x+=72){g.fillStyle='rgba(255,255,255,.023)';g.fillRect(x,0,1,H)}for(let y=0;y<H;y+=72){g.fillStyle='rgba(255,255,255,.023)';g.fillRect(0,y,W,1)}
+ rect(60,38,66,66,18,C.blue);text('CS',93,82,35,C.white,900,'center',mono);text('SKILLS  /  README LAB',150,80,32,C.paper,800);
+ text(s.tag,1848,80,30,C.sky,800,'right');line(60,126,1860,126,'#2c3d56',2);
+ rect(68,915,1784,108,22,'#14243a');rect(88,935,8,68,4,C.orange);text(s.caption,118,984,43,C.white,700);progress(t)
+}
+function scene0(q,t){
+ const p=enter(q,.15);text('读者打开 README，第一眼看到什么？',100,242,70,C.white,900);
+ const dy=40*(1-p);g.save();g.globalAlpha=p;
+ evidence('before',108,330+dy,808,435,'优化前 · 页面片段','caacd86');
+ evidence('after',1004,330+dy,808,435,'优化后 · 页面片段','制作时');g.restore();
+ rect(704,748,496,80,22,C.orange);text(q<3.8?'信息完整  ≠  容易开始':'先给入口  →  再给细节',952,801,40,C.navy,900,'center');
+}
+function scene1(q,t){
+ text('把“优化 README”说成可验收的任务',98,248,70,C.white,900);
+ rect(108,322,1400,510,28,C.paper);rect(108,322,1400,72,[28,28,0,0],C.blue);text('Codex  /  Claude Code',147,372,33,C.white,800,undefined,mono);
+ const lines=['$cs-clean-code 优化这个仓库的 README。','先核对 AGENTS.md、Skill 目录与安装脚本；','让新人知道它是什么、怎么用、怎么验证。'];
+ lines.forEach((l,i)=>{const k=enter(q,1+i*1.65);g.save();g.globalAlpha=k;text(l,154,480+i*102,42,i===0?C.blue:C.ink,i===0?800:650,undefined,i===0?mono:FONT);g.restore()});
+ if(q>4.8){rect(133,737,730,54,16,'#e9f1ff');text('目标清楚，输出才有验收标准',158,775,30,C.blue,800)}
+ drawKaiCat(g,{x:1714,y:838,size:294,t,pose:q>4.8?'build':'point',expr:'focus',style:'flat'});
+}
+function scene2(q,t){
+ text('先核对事实，再动首页',102,242,76,C.white,900);
+ const facts=[['01','AGENTS.md','仓库协作规则','rules'],['02','Skill 目录','真实功能与数量','before'],['03','安装脚本','可复制的命令','after']];
+ facts.forEach(([num,title,sub,key],i)=>{const k=enter(q,.5+i*1.9),y=325+i*160;g.save();g.globalAlpha=k;g.translate((1-k)*70,0);rect(110,y,1090,128,23,C.paper);rect(130,y+22,80,80,19,i===2?C.orange:C.blue);text(num,170,y+77,43,C.white,900,'center',mono);text(title,240,y+58,42,C.ink,850);text(sub,240,y+103,28,C.muted,600);text('✓',1153,y+83,55,C.blue,900,'right');g.restore()});
+ if(q>5.1){evidence('rules',1275,336,528,427,'证据 · AGENTS.md','main')}
+ drawKaiCat(g,{x:1640,y:844,size:188,t,pose:'build',expr:'focus',style:'flat'});
+}
+function scene3(q,t){
+ text('把目录改成阅读路径',104,245,78,C.white,900);
+ const nodes=[['一句话定位','它是什么'],['工作流图','怎么运行'],['Skill 地图','做什么'],['真实案例','长什么样'],['安装说明','如何开始']];
+ nodes.forEach(([a,b],i)=>{const k=enter(q,.4+i*1.35),x=98+i*360;g.save();g.globalAlpha=k;g.translate(0,(1-k)*70);rect(x,382,325,350,24,C.paper);rect(x+26,408,273,12,6,i===4?C.orange:C.blue);text(String(i+1).padStart(2,'0'),x+31,505,75,C.blue,900,undefined,mono);text(a,x+31,593,42,C.ink,850);text(b,x+31,655,29,C.muted,600);g.restore();if(i<4&&q>2+i*.9){text('→',x+336,590,40,C.orange,900)}});
+ rect(315,788,1290,69,18,'#1d3452');text('README 是给新读者走的路，不是功能清单的堆叠。',960,836,37,C.white,700,'center');
+}
+function scene4(q,t){
+ text('优化前：重点需要读者自己找',102,245,75,C.white,900);
+ evidence('before',94,332,1000,478,'历史版本 · README','caacd86');
+ const cards=[['表格很多','入口分布在不同段落'],['先读后找','第一次访问负担更重'],['顺序不稳','价值与使用路径未先出现']];
+ cards.forEach(([a,b],i)=>{const k=enter(q,.6+i*1.65),y=344+i*156;g.save();g.globalAlpha=k;rect(1160,y,655,126,19,'#1d2e46');rect(1182,y+25,7,76,4,C.orange);text(a,1214,y+59,39,C.white,800);text(b,1214,y+99,28,C.sky,500);g.restore()});
+ rect(111,834,610,44,13,C.navy2);text('历史版本截图 · 比较的是阅读路径',128,866,27,C.sky,650);
+}
+function scene5(q,t){
+ text('优化后：先回答“我能用它做什么”',102,245,73,C.white,900);
+ evidence('after',852,332,961,478,'改版后的 README','制作时');
+ const items=[['1','定位','一句话讲清'],['2','路线','工作流说明'],['3','行动','案例 + 安装']];
+ items.forEach(([n,a,b],i)=>{const k=enter(q,.3+i*1.7),y=350+i*150;g.save();g.globalAlpha=k;rect(105,y,675,128,21,C.paper);rect(124,y+20,85,85,20,i===2?C.orange:C.blue);text(n,166,y+79,47,C.white,900,'center',mono);text(a,235,y+61,41,C.ink,850);text(b,235,y+105,28,C.muted,600);g.restore()});
+ rect(121,818,650,61,17,'#173b69');text('先给入口，再展示完整清单。',152,860,34,C.white,800);
+}
+function scene6(q,t){
+ text('最后把“完成”验收到远端',102,245,75,C.white,900);
+ const checks=[['相对链接','打开后有目标'],['安装命令','和脚本一致'],['中英文首页','结构同步'],['远端提交','SHA 核验']];
+ checks.forEach(([a,b],i)=>{const k=enter(q,.3+i*1.45),x=103+(i%2)*540,y=335+Math.floor(i/2)*190;g.save();g.globalAlpha=k;rect(x,y,490,154,20,C.paper);rect(x+23,y+27,92,92,20,i===3?C.orange:C.blue);text('✓',x+69,y+93,58,C.white,900,'center');text(a,x+137,y+72,38,C.ink,850);text(b,x+137,y+116,27,C.muted,600);g.restore()});
+ if(q>4.7)evidence('commit',1220,338,585,400,'真实改版提交','0b27495');
+ drawKaiCat(g,{x:1629,y:835,size:166,t,pose:'build',expr:'focus',style:'flat'});
+}
+function scene7(q,t){
+ text('把这句话复制到你的仓库',103,240,77,C.white,900);
+ rect(90,315,1740,412,27,C.paper);rect(90,315,1740,70,[27,27,0,0],C.blue);text('可复制提示词',128,362,32,C.white,800);
+ const lines=['$cs-clean-code 优化这个仓库的 README。','先核对仓库事实，再调整结构、案例和安装说明，','最后检查链接与示例。'];
+ lines.forEach((l,i)=>{const k=enter(q,.6+i*1.7);g.save();g.globalAlpha=k;text(l,142,492+i*90,i===0?47:43,i===0?C.blue:C.ink,i===0?850:700,undefined,i===0?mono:FONT);g.restore()});
+ if(q>6.8){rect(90,760,1140,117,24,'#1b3f6d');text('核对事实  →  重排阅读路径  →  验证发布',122,830,43,C.white,800)}
+ if(files.kai.complete)imageFit(files.kai,1398,727,380,220,[90,270,780,570]);
+}
+const draws=[scene0,scene1,scene2,scene3,scene4,scene5,scene6,scene7];
+window.render=t=>{g.setTransform(S,0,0,S,(innerWidth-W*S)/2,(innerHeight-H*S)/2);let idx=scenes.findIndex(s=>t>=s.start&&t<s.end);if(idx<0)idx=scenes.length-1;const s=scenes[idx];frame(t,s,idx);g.save();draws[idx](t-s.start,t);g.restore()};
+window.ready=false;Promise.all([document.fonts.ready,...Object.values(files).map(i=>i.decode().catch(()=>{}))]).then(()=>{window.render(0);window.ready=true});
+</script></body></html>

@@ -2,15 +2,31 @@
 [![English](https://img.shields.io/badge/English-e7f3ef?style=for-the-badge&labelColor=e7f3ef&color=3b8279)](README.en.md)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-3b8279?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-🚀 **[从一个目标开始使用 CS Skills](#安装)**
-
-[![CS Skills 工作流封面](assets/chenshuo-skills-cover.png)](#安装)
-
 # CS Skills
 
 **把真实项目里的方法做成 Agent Skills**：一句话说目标，选对工作流，完成任务，再检查交付结果。面向 Codex 和 Claude Code，也能按需用于支持 `SKILL.md` 的 Agent。
 
 仓库现有 **16 个任务 Skill**。它们可以独立安装；不知道用哪个时，先从 [`cs-run`](cs-run/) 进入。
+
+**快速导航：** [30 秒开始](#30-秒开始) · [选择 Skill](#选择-skill) · [README 优化视频](#实际演示用-cs-skills-优化-readme) · [完整安装说明](#安装)
+
+## 30 秒开始
+
+```bash
+git clone https://github.com/ChenShuo2004/cs-skills.git
+cd cs-skills
+./scripts/install.sh --codex  # Claude Code 用 --claude
+```
+
+安装后，在新会话里直接说：
+
+```text
+$cs-run 我想优化这个项目的 README，让新人看懂它是什么、如何开始，并检查结果。
+```
+
+`cs-run` 会选一个主 Skill。只想装某几个 Skill、预览安装或卸载，请看[完整安装说明](#安装)。
+
+## 选择 Skill
 
 整套工作流长这样——**`cs-run` 只选一个主 Skill，交付步骤按任务需要追加**：
 
@@ -41,9 +57,9 @@
 
 README 是读者进入仓库的第一条路径。这里用真实的 [CS Skills 首页改版提交](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31) 做案例：`$cs-clean-code` 先核对 `AGENTS.md`、Skill 目录和安装脚本，再按“定位 → 工作流 → 技能地图 → 案例 → 安装”的顺序整理中英文 README，最后检查链接和示例。需要发布时，再交给 `$cs-github-push`。
 
-[![观看 CS Skills README 优化录屏教程](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo.mp4)
+<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="观看 CS Skills README 优化代码动画教程" width="680"></a>
 
-**[观看 73 秒录屏教程（Fish Audio 中文配音）](assets/demos/readme-optimization/demo.mp4)** · [口播、分镜与复现说明](assets/demos/readme-optimization/VO.md)
+**[观看 73 秒代码渲染教程（Fish Audio 中文配音）](assets/demos/readme-optimization/demo-v2.mp4)** · [口播、分镜与复现说明](assets/demos/readme-optimization/VO.md)
 
 可以直接复制这句：
 
@@ -51,11 +67,11 @@ README 是读者进入仓库的第一条路径。这里用真实的 [CS Skills �
 $cs-clean-code 优化这个仓库的 README。先核对 AGENTS.md、各 Skill 的实际功能与安装脚本；按新读者的阅读路径重排结构，加入真实案例和可复制命令，同步英文版，最后检查相对链接和示例。
 ```
 
-## 新增演示：把改动真正推到 GitHub
+## 实际演示：把改动真正推到 GitHub
 
 [`cs-github-push`](cs-github-push/SKILL.md) 负责一次明确的仓库交付：确认要发布的文件，完成相关检查，精确提交，检查远端变化后推送，最后比对本地与远端的提交 SHA。**本地 commit 不等于已经推送；推送也不等于网站上线。**
 
-[![观看 cs-github-push 录屏讲解](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
+<a href="assets/demos/cs-github-push-demo.mp4"><img src="assets/demos/cs-github-push-poster.jpg" alt="观看 cs-github-push 录屏讲解" width="680"></a>
 
 **[观看 45 秒录屏讲解（MP4）](assets/demos/cs-github-push-demo.mp4)** · [查看口播与分镜](assets/demos/cs-github-push-script.md) · [阅读完整 Skill](cs-github-push/SKILL.md)
 

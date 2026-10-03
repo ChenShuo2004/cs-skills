@@ -2,15 +2,31 @@
 [![English](https://img.shields.io/badge/English-0d5d57?style=for-the-badge)](README.en.md)
 [![Follow on X](https://img.shields.io/badge/Follow-%40ChenshuoAI-3b8279?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-🚀 **[Start with one goal](#installation)**
-
-[![CS Skills workflow cover](assets/chenshuo-skills-cover.png)](#installation)
-
 # CS Skills
 
 **Agent Skills distilled from real projects**: describe a goal, choose the right workflow, execute it, and verify the result. Built for Codex and Claude Code; other agents that support `SKILL.md` can use individual Skills too.
 
 The repository currently contains **16 task Skills**. Each can be installed separately. If you are unsure where to start, use [`cs-run`](cs-run/).
+
+**Quick links:** [Start in 30 seconds](#start-in-30-seconds) · [Choose a Skill](#choose-a-skill) · [README video](#demo-improve-a-repository-readme-with-cs-skills) · [Installation details](#installation)
+
+## Start in 30 seconds
+
+```bash
+git clone https://github.com/ChenShuo2004/cs-skills.git
+cd cs-skills
+./scripts/install.sh --codex  # Use --claude for Claude Code
+```
+
+Then start a new session and say:
+
+```text
+$cs-run Improve this project's README so a new reader understands what it does, how to start, and how to verify the result.
+```
+
+`cs-run` selects one primary Skill. See the [full installation guide](#installation) to install only selected Skills, preview, or uninstall.
+
+## Choose a Skill
 
 The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are added only when needed.**
 
@@ -41,9 +57,9 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 
 A README is the reader's entry point. This video uses an [actual CS Skills homepage redesign commit](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31): `$cs-clean-code` checks `AGENTS.md`, the Skill directories, and the installer, then organizes the Chinese and English READMEs around positioning, workflow, Skill map, examples, and installation. It checks links and examples before `$cs-github-push` publishes the result.
 
-[![Watch the CS Skills README optimization recording](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo.mp4)
+<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="Watch the CS Skills README optimization code animation" width="680"></a>
 
-**[Watch the 73-second screen recording with Fish Audio narration](assets/demos/readme-optimization/demo.mp4)** · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
+**[Watch the 73-second code-rendered tutorial with Fish Audio narration](assets/demos/readme-optimization/demo-v2.mp4)** · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
 
 Copy this prompt:
 
@@ -55,7 +71,7 @@ $cs-clean-code Improve this repository's README. Check AGENTS.md, each Skill's a
 
 [`cs-github-push`](cs-github-push/SKILL.md) handles a defined repository delivery: identify the files, run relevant checks, stage and commit precisely, check for remote changes, push, and compare local and remote commit SHAs. A local commit alone is not a remote delivery; a push alone is not a website deployment.
 
-[![Watch the cs-github-push screen recording](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
+<a href="assets/demos/cs-github-push-demo.mp4"><img src="assets/demos/cs-github-push-poster.jpg" alt="Watch the cs-github-push screen recording" width="680"></a>
 
 **[Watch the 45-second screen recording (MP4)](assets/demos/cs-github-push-demo.mp4)** · [Narration and shot list](assets/demos/cs-github-push-script.md) · [Read the full Skill](cs-github-push/SKILL.md)
 
