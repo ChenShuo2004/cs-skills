@@ -1,0 +1,64 @@
+{
+  "format": "1600x900 screen capture; 1920x1080 delivery",
+  "voice_model": "s2.1-pro-free",
+  "voice_id": "80c0495688fb4b749527a039c74eb2dd",
+  "total_seconds": 73.292,
+  "scenes": [
+    {
+      "title": "问题",
+      "text": "打开一个 Skill 仓库，README 写了很多，却还是找不到从哪开始。问题往往是阅读顺序。",
+      "start": 2.0,
+      "duration": 6.191,
+      "end": 8.191
+    },
+    {
+      "title": "调用",
+      "text": "这里用 CS Skills 的真实仓库举例。把目标交给 CS Clean Code：让新人知道它是什么、怎么用、怎么验证。",
+      "start": 9.691,
+      "duration": 6.739,
+      "end": 16.43
+    },
+    {
+      "title": "核对事实",
+      "text": "它会先读 AGENTS 文档、Skill 目录和安装脚本，核对功能、数量和命令，避免把不存在的能力写进首页。",
+      "start": 17.93,
+      "duration": 7.366,
+      "end": 25.297
+    },
+    {
+      "title": "重排结构",
+      "text": "接着按读者路径重排：一句话定位、工作流图、Skill 地图、真实案例、安装和前置条件。中文英文一起同步。",
+      "start": 26.797,
+      "duration": 8.15,
+      "end": 34.947
+    },
+    {
+      "title": "优化前",
+      "text": "这是优化前的 README。信息齐，但入口分散，第一次来的人要在好几段说明和多张表之间找重点。",
+      "start": 36.447,
+      "duration": 7.079,
+      "end": 43.526
+    },
+    {
+      "title": "优化后",
+      "text": "优化后，首页先交代能解决什么，再给工作流和可复制的安装命令。案例直接链接仓库里的真实产物。",
+      "start": 45.026,
+      "duration": 6.713,
+      "end": 51.74
+    },
+    {
+      "title": "验收与交付",
+      "text": "最后检查相对链接和安装示例，再用 CS GitHub Push 推送，并核对远端提交。这样读者看到的才是已经交付的版本。",
+      "start": 53.24,
+      "duration": 8.202,
+      "end": 61.442
+    },
+    {
+      "title": "复制这句",
+      "text": "你可以直接说：用 CS Clean Code 优化 README。先核对仓库事实，再调整结构、案例和安装说明，最后检查链接。",
+      "start": 62.942,
+      "duration": 8.15,
+      "end": 71.092
+    }
+  ]
+}

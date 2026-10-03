@@ -37,6 +37,20 @@
 
 `cs-recover-skill` 是模型执行校准辅助项，不计入上述 16 个任务 Skill，也不参与默认安装。
 
+## 实际演示：用 CS Skills 优化 README
+
+README 是读者进入仓库的第一条路径。这里用真实的 [CS Skills 首页改版提交](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31) 做案例：`$cs-clean-code` 先核对 `AGENTS.md`、Skill 目录和安装脚本，再按“定位 → 工作流 → 技能地图 → 案例 → 安装”的顺序整理中英文 README，最后检查链接和示例。需要发布时，再交给 `$cs-github-push`。
+
+[![观看 CS Skills README 优化录屏教程](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo.mp4)
+
+**[观看 73 秒录屏教程（Fish Audio 中文配音）](assets/demos/readme-optimization/demo.mp4)** · [口播、分镜与复现说明](assets/demos/readme-optimization/VO.md)
+
+可以直接复制这句：
+
+```text
+$cs-clean-code 优化这个仓库的 README。先核对 AGENTS.md、各 Skill 的实际功能与安装脚本；按新读者的阅读路径重排结构，加入真实案例和可复制命令，同步英文版，最后检查相对链接和示例。
+```
+
 ## 新增演示：把改动真正推到 GitHub
 
 [`cs-github-push`](cs-github-push/SKILL.md) 负责一次明确的仓库交付：确认要发布的文件，完成相关检查，精确提交，检查远端变化后推送，最后比对本地与远端的提交 SHA。**本地 commit 不等于已经推送；推送也不等于网站上线。**

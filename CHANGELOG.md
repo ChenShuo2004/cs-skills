@@ -2,6 +2,7 @@
 
 ## 未发布
 
+- 新增 CS Skills README 优化录屏教程：真实仓库改版前后对比、`$cs-clean-code` 调用示例、Fish Audio S2.1 中文音色配音，以及可复现的脚本和分镜。
 - 为 `$cs-github-push` 增加中英文 README 使用示例、公开 GitHub 页面录屏讲解（中文配音与字幕）、封面和可复用口播分镜。
 - 新增 `$cs-code-video`：用代码做动画视频（render(t) 逐帧 + FFmpeg + numpy 配乐），含导演层、KAI 签名层、KAI 教程片系列、GPT 出图 × 代码动画、3D/2D KAI 角色组件、CRT 后期层；开工先问 5 项输入，经分镜表与 3 张关键帧确认后再渲整片。
 - 新增 `$cs-pixel-explainer`：像素风 + 坐标系隐喻 + 打字机字幕的解说片引擎（spec.json → edge-tts → Canvas 逐帧渲染 1080p mp4 + SRT），附 10 场景示例 spec 和像素纯度参考实现（施法巫师，128×96 调色板索引缓冲、固定步长重放的 render(t)）。

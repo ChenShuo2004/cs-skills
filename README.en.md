@@ -37,6 +37,20 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 
 `cs-recover-skill` is a model execution calibration helper. It is not counted among the 16 task Skills and is excluded from the default install.
 
+## Demo: improve a repository README with CS Skills
+
+A README is the reader's entry point. This video uses an [actual CS Skills homepage redesign commit](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31): `$cs-clean-code` checks `AGENTS.md`, the Skill directories, and the installer, then organizes the Chinese and English READMEs around positioning, workflow, Skill map, examples, and installation. It checks links and examples before `$cs-github-push` publishes the result.
+
+[![Watch the CS Skills README optimization recording](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo.mp4)
+
+**[Watch the 73-second screen recording with Fish Audio narration](assets/demos/readme-optimization/demo.mp4)** · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
+
+Copy this prompt:
+
+```text
+$cs-clean-code Improve this repository's README. Check AGENTS.md, each Skill's actual behavior, and the installer first. Reorganize the page for a new reader, add real examples and copyable commands, update the English version, then validate relative links and examples.
+```
+
 ## Demo: push a completed change to GitHub
 
 [`cs-github-push`](cs-github-push/SKILL.md) handles a defined repository delivery: identify the files, run relevant checks, stage and commit precisely, check for remote changes, push, and compare local and remote commit SHAs. A local commit alone is not a remote delivery; a push alone is not a website deployment.
