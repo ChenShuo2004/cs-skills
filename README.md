@@ -57,9 +57,9 @@ $cs-run 我想优化这个项目的 README，让新人看懂它是什么、如�
 
 README 是读者进入仓库的第一条路径。这里用真实的 [CS Skills 首页改版提交](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31) 做案例：`$cs-clean-code` 先核对 `AGENTS.md`、Skill 目录和安装脚本，再按“定位 → 工作流 → 技能地图 → 案例 → 安装”的顺序整理中英文 README，最后检查链接和示例。需要发布时，再交给 `$cs-github-push`。
 
-<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="观看 CS Skills README 优化代码动画教程" width="680"></a>
+<a href="https://cdn.jsdelivr.net/gh/ChenShuo2004/cs-skills@4627972/assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="观看 CS Skills README 优化代码动画教程" width="680"></a>
 
-**[观看 73 秒代码渲染教程（Fish Audio 中文配音）](assets/demos/readme-optimization/demo-v2.mp4)** · [口播、分镜与复现说明](assets/demos/readme-optimization/VO.md)
+**[观看 73 秒代码渲染教程（Fish Audio 中文配音）](https://cdn.jsdelivr.net/gh/ChenShuo2004/cs-skills@4627972/assets/demos/readme-optimization/demo-v2.mp4)** · [下载仓库中的 MP4](https://github.com/ChenShuo2004/cs-skills/raw/refs/heads/main/assets/demos/readme-optimization/demo-v2.mp4) · [口播、分镜与复现说明](assets/demos/readme-optimization/VO.md)
 
 可以直接复制这句：
 

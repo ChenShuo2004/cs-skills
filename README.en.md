@@ -57,9 +57,9 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 
 A README is the reader's entry point. This video uses an [actual CS Skills homepage redesign commit](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31): `$cs-clean-code` checks `AGENTS.md`, the Skill directories, and the installer, then organizes the Chinese and English READMEs around positioning, workflow, Skill map, examples, and installation. It checks links and examples before `$cs-github-push` publishes the result.
 
-<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="Watch the CS Skills README optimization code animation" width="680"></a>
+<a href="https://cdn.jsdelivr.net/gh/ChenShuo2004/cs-skills@4627972/assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="Watch the CS Skills README optimization code animation" width="680"></a>
 
-**[Watch the 73-second code-rendered tutorial with Fish Audio narration](assets/demos/readme-optimization/demo-v2.mp4)** · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
+**[Watch the 73-second code-rendered tutorial with Fish Audio narration](https://cdn.jsdelivr.net/gh/ChenShuo2004/cs-skills@4627972/assets/demos/readme-optimization/demo-v2.mp4)** · [Download the MP4 from the repository](https://github.com/ChenShuo2004/cs-skills/raw/refs/heads/main/assets/demos/readme-optimization/demo-v2.mp4) · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
 
 Copy this prompt:
 
