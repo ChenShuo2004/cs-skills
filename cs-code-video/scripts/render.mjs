@@ -31,7 +31,14 @@ const draft = flag('draft');
 const url = 'file://' + path.resolve(input);
 fs.mkdirSync(path.dirname(path.resolve(output)), { recursive: true });
 
-const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const launchOptions = { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] };
+let browser;
+try {
+  browser = await chromium.launch(launchOptions);
+} catch (error) {
+  if (!/Executable doesn't exist/.test(error.message)) throw error;
+  browser = await chromium.launch({ ...launchOptions, channel: 'chrome' });
+}
 let pageErrors = 0;
 async function openPage() {
   const page = await browser.newPage({ viewport: { width: W, height: H } });

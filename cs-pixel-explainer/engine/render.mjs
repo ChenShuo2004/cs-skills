@@ -24,7 +24,14 @@ const tl = JSON.parse(fs.readFileSync(path.join(dir, 'timeline.json'), 'utf8'));
 const engine = 'file://' + path.join(path.dirname(new URL(import.meta.url).pathname), 'engine.html');
 const from = +(opt('from') || 0), to = Math.min(+(opt('to') || tl.total), tl.total);
 
-const browser = await chromium.launch({ args: ['--font-render-hinting=none'] });
+const launchOptions = { args: ['--font-render-hinting=none'] };
+let browser;
+try {
+  browser = await chromium.launch(launchOptions);
+} catch (error) {
+  if (!/Executable doesn't exist/.test(error.message)) throw error;
+  browser = await chromium.launch({ ...launchOptions, channel: 'chrome' });
+}
 async function newPage() {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   page.on('pageerror', e => console.error('页面错误:', e.message));

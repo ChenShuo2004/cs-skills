@@ -28,7 +28,7 @@ metadata:
 
 像素纯度参考实现：[`assets/reference-wizard.html`](assets/reference-wizard.html)（施法巫师，128×96 调色板索引缓冲、整数倍放大、10 张/秒姿势量化、预分配粒子池、固定步长重放的 render(t)、无缝循环）。新场景、新角色从它的写法起步。
 
-云端依赖：node + playwright（预装）、ffmpeg、Noto CJK 字体。不需要装任何包。
+运行依赖：node + playwright、ffmpeg、Noto CJK 字体；Playwright 需有 Chromium 浏览器，若未安装其自带浏览器，渲染脚本会尝试使用本机 Chrome。Claude Cowork 环境若已预装这些依赖，无需重复安装。配音需要 Python、`edge-tts` 和可访问语音服务的网络；`tts.py` 缺少 `edge-tts` 时会自动安装。
 `配音.bat` 缺了就按下面内容重建（必须 CRLF 换行，UTF-8）：
 
 ```bat
@@ -98,15 +98,15 @@ pause
    有音乐时先测节拍（`cs-code-video` 的 `audio.py beats`），场景切换和关键动作落在拍点上。发出前对照第 2 节自查。
 4. **写 `spec.json`**（第 7 节），放在 `~/pxe/<slug>/spec.json`。
 5. **3 张关键帧，等用户确认风格**：开场第一眼、最关键的隐喻瞬间、结尾金句。`node engine/timeline.mjs <dir> && node engine/render.mjs <dir> --preview` 后挑 3 帧拼图给用户；自己先 Read 检查重叠、出框、文字太小、主体太小，修好再给。
-6. **配音（在用户电脑上跑）**：
-   - 把 `spec.json` `tts.py` `配音.bat` 放到 `/mnt/user-data/outputs/…`，再 `device_commit_files` 写到 `C:\Users\Administrator\Videos\pixel-explainer\<slug>\`
-   - 请用户双击 `配音.bat`（云端和本地 VM 都访问不了语音服务；终端/资源管理器只允许点击，Claude 无法代跑）。生成 `audio\line_000.mp3…` 和 `audio\DONE`
-   - 用户说好了之后，`device_list_dir` 确认 `DONE` 存在，`device_stage_files` 把所有 mp3 拉回云端 `<dir>/audio/`
+6. **配音（在能访问语音服务的电脑上跑）**：
+   - 把 `engine/tts.py`、`engine/配音.bat` 复制到 `<项目目录>/`，与 `spec.json` 放在一起。本机可联网时运行 `python3 tts.py`；Windows 也可双击 `配音.bat`。
+   - 脚本生成 `audio/line_000.mp3…` 和 `audio/DONE`。确认 `DONE` 与句子数一致后，再运行 `timeline.mjs`，让真实配音时长驱动画面。
+   - 如果使用 Claude Cowork 且它无法访问语音服务，可用 `device_commit_files` 将上述文件写到用户已连接的电脑，请用户运行配音，再用 `device_stage_files` 取回 `audio/`；不要假定每台电脑的盘符或目录相同。
    - 配音整段驱动时间轴，不要一句一句拼画面。
 7. **逐场景自检**：每做完（或改完）一个场景，渲开头/中间/结尾 3 张静帧：文字有没有溢出、元素有没有重叠、画面够不够满，修好了再做下一个。
 8. **声音**：音效放在画面动作发生的那一帧（时间点从 events 的 at 换算）；配乐和音效可用 `cs-code-video` 的 `audio.py sfx / music` 用 numpy 从零合成（像素风优先方波/三角波芯片音色）。听不到声音，就把混音波形画成图检查，确认没有削顶爆音、意外静音。
 9. **正式渲染**：`node engine/timeline.mjs <dir> && node engine/render.mjs <dir>` → `video.mp4`（自带配音）+ `subtitles.srt`。2 核约 0.5–1× 实时，3 分钟视频约 6–10 分钟，用 `timeout 600000`，必要时 `--from/--to` 分段。
-10. **交付**：抽 3–4 帧检查，然后 `SendUserFile` + `device_commit_files` 到用户的 `Videos\pixel-explainer\<slug>\`。
+10. **交付**：抽 3–4 帧检查，提供 `video.mp4`、`subtitles.srt` 和项目目录的真实路径；在 Claude Cowork 中可再用 `SendUserFile` 或 `device_commit_files` 交付给用户。
 
 没有配音也能出片：跳过第 6 步，timeline 按每字 0.235s 估算，输出无声版 + SRT。
 
