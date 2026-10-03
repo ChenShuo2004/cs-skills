@@ -1,0 +1,149 @@
+{
+  "title": "学了100个AI工具，为什么还是做不出产品",
+  "voice": "zh-CN-YunxiNeural",
+  "rate": "+4%",
+  "hud": { "label": "产出坐标", "x": "时间", "y": "产出", "top": "作品", "bottom": "焦虑" },
+  "scenes": [
+    {
+      "type": "street",
+      "showHud": true, "hudFadeIn": 3.2,
+      "props": {
+        "title": { "line1": "学了一百个 AI 工具，", "line2": "还是做不出产品", "until": 3.0 },
+        "npc": { "x": 340, "enterAt": 3.5 }
+      },
+      "lines": [
+        { "text": "学了一百个AI工具，为什么还是做不出产品？", "sub": false },
+        "新手 [y](0, 0)[/y]：没投入时间，也没有产出",
+        "看到新工具发布，他决定：[y]全部学会[/y]",
+        "收藏教程、订阅课程、每天刷发布会——",
+        "但工具更新的速度，永远比你学得快",
+        "时间拉满，产出却是 [r]零[/r]"
+      ],
+      "events": [
+        { "at": 1.9, "do": "emote", "text": "!", "color": "yellow" },
+        { "at": 2.3, "do": "run" },
+        { "at": 3.05, "do": "throw", "item": "heart" },
+        { "at": 3.35, "do": "throw", "item": "heart" },
+        { "at": 3.65, "do": "throw", "item": "gift" },
+        { "at": 3.9, "do": "throw", "item": "heart" },
+        { "at": 4.05, "do": "shield", "label": "学不完" },
+        { "at": 5.0, "do": "reject", "label": "又更新了" },
+        { "at": 5.75, "do": "collapse" }
+      ],
+      "hud": [[1, 0, 0], [2.3, 5, 0], [3, 30, -5], [4, 65, -20], [5, 100, -40], [5.99, 100, -60]]
+    },
+    {
+      "type": "abyss", "showHud": true,
+      "props": { "tone": "red", "label": "工具焦虑", "sub": "(+100, -100)", "landAt": 1.8 },
+      "lines": ["收藏夹越来越长，焦虑越来越重", "他不是不努力，只是[r]方向错了[/r]"],
+      "hud": [[0, 100, -70], [1, 100, -100]]
+    },
+    {
+      "type": "axes",
+      "props": {
+        "xLabel": "投入时间 X →", "yLabel": "真实产出 Y",
+        "points": [
+          { "x": 0, "y": 0, "kind": "people", "label": "新手 (0, 0)", "at": 1.2 },
+          { "x": 100, "y": 100, "kind": "tower", "label": "[y]作品[/y] (+100, +100)", "at": 1.5 },
+          { "x": 100, "y": -100, "kind": "hero", "color": "#6a5aa0", "label": "[r]焦虑[/r] (+100, -100)", "at": 2 }
+        ]
+      },
+      "lines": [
+        "把所有学习状态，放进一个坐标系：",
+        "X 是[y]投入时间[/y]，Y 是[y]真实产出[/y]",
+        "做出作品的人和陷入焦虑的人，花的时间一样多",
+        "唯一的区别是方向——一个向上，一个向下",
+        "所以学习的反面不是偷懒，是[y]只收藏不动手[/y]"
+      ],
+      "events": [
+        { "at": 2.3, "do": "link", "from": 1, "to": 2, "label": "高时间投入" },
+        { "at": 3.2, "do": "polarity", "up": "产出", "down": "消耗" },
+        { "at": 4.3, "do": "ring", "point": 0, "label": "零成本的起点" }
+      ]
+    },
+    {
+      "type": "slot",
+      "props": {
+        "title": "产出赌博机", "reels": ["需求", "交付", "反馈", "迭代"],
+        "captions": ["真需求", "能交付", "有反馈", "快迭代"], "bet": "投入时间"
+      },
+      "lines": [
+        "你能控制的，只有 X：投入多少时间",
+        "但 Y 由四个变量决定——",
+        "好消息是：这四个变量，你[g]全都能练[/g]"
+      ],
+      "events": [
+        { "at": 1.1, "do": "spin", "result": ["✓", "✗", "?", "✗"], "value": "Y = -20", "color": "red" },
+        { "at": 2.2, "do": "spin", "result": ["✓", "✓", "✓", "✓"], "value": "Y = +95", "color": "green" }
+      ]
+    },
+    {
+      "type": "card",
+      "props": {
+        "mark": "✓", "title": "真需求", "tag": "先找人", "index": "1 / 4",
+        "body": { "type": "waves", "rows": [
+          { "a": "真的很痛", "b": "你的产品", "match": true, "label": "有人痛 → [g]才有人用[/g]", "at": 0.2 },
+          { "a": "自己觉得酷", "b": "你的产品", "match": false, "label": "自嗨 → [r]没人用[/r]", "at": 1 }
+        ] }
+      },
+      "lines": ["① 真需求：先找到一个真的很痛的人", "你觉得酷的功能，用户可能根本[r]不需要[/r]"]
+    },
+    {
+      "type": "card",
+      "props": {
+        "mark": "✓", "title": "快迭代", "tag": "越快越好", "index": "4 / 4",
+        "body": { "type": "beats", "rows": [
+          { "label": "一天一版 · 边做边改", "count": 12, "color": "cyan", "at": 0.2 },
+          { "label": "一月一版 · 闭门造车", "count": 3, "color": "yellow", "at": 0.6 }
+        ], "verdict": "慢一拍", "verdictAt": 1.3 }
+      },
+      "lines": ["④ 快迭代：一天上线，比一个月做到完美更有用", "你打磨的时候，市场早就[r]换了方向[/r]"]
+    },
+    {
+      "type": "network",
+      "lines": [
+        "那怎么让 Y 向上？把作品放进关系网络里",
+        "身边的朋友是强纽带，给你鼓励",
+        "陌生的用户是弱纽带，带来你想不到的[y]真实反馈[/y]"
+      ],
+      "events": [
+        { "at": 1.1, "do": "strong", "label": "强纽带" },
+        { "at": 2.1, "do": "weak", "label": "弱纽带", "pulse": "反馈 +3" },
+        { "at": 2.6, "do": "info", "title": "弱纽带 (+20, +20)", "rows": [["投入", "低"], ["风险", "极低"], ["回报", "高"], ["性价比", "极高"]] }
+      ]
+    },
+    {
+      "type": "triangle",
+      "props": { "a": "A（你）", "b": "用户" },
+      "lines": [
+        "单打独斗：你 — 用户，很脆弱",
+        "用户一走，连接就断了",
+        "加入一个社群：你 — 社群 — 用户，形成[y]三元闭包[/y]",
+        "社群给你背书、给你反馈，还降低了试错成本"
+      ],
+      "events": [
+        { "at": 0.2, "do": "link" },
+        { "at": 1.3, "do": "break" },
+        { "at": 2.2, "do": "addC", "label": "C（社群）", "inner": "三元闭包" },
+        { "at": 3.0, "do": "note", "side": "left", "text": "① 信用背书" },
+        { "at": 3.3, "do": "note", "side": "right", "text": "② 持续反馈" },
+        { "at": 3.6, "do": "note", "side": "bottom", "text": "③ 降低[y]试错成本[/y]" }
+      ]
+    },
+    {
+      "type": "street",
+      "props": { "friends": 3, "crowd": 6, "heroWalk": false, "heroX": 180 },
+      "lines": ["所以，别再收藏下一个工具了", "先做一个最小的作品，[y]发出去[/y]"],
+      "events": [
+        { "at": 0.4, "do": "bubble", "who": 1, "text": "今天上线！" },
+        { "at": 1.2, "do": "bubble", "who": "hero", "text": "发了！" }
+      ]
+    },
+    {
+      "type": "bigtext",
+      "props": { "line1": "在这个人人都有AI的时代", "line2": "做出来就是赢" },
+      "lines": [{ "text": "在这个人人都有AI的时代，做出来就是赢。", "sub": false }],
+      "hold": 1.5
+    }
+  ]
+}

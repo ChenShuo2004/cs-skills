@@ -10,7 +10,7 @@
 
 **把真实项目里的方法做成 Agent Skills**：一句话说目标，选对工作流，完成任务，再检查交付结果。面向 Codex 和 Claude Code，也能按需用于支持 `SKILL.md` 的 Agent。
 
-仓库现有 **14 个任务 Skill**。它们可以独立安装；不知道用哪个时，先从 [`cs-run`](cs-run/) 进入。
+仓库现有 **16 个任务 Skill**。它们可以独立安装；不知道用哪个时，先从 [`cs-run`](cs-run/) 进入。
 
 整套工作流长这样——**`cs-run` 只选一个主 Skill，交付步骤按任务需要追加**：
 
@@ -26,6 +26,8 @@
 | [**cs-chatcut**](cs-chatcut/) | 从内容想法选出一个可拍主题，交付中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表。 |
 | [**cs-web-promo-film**](cs-web-promo-film/) | 采集真实网页，用 Remotion 做推进、滚动和点击，渲染 30–60 秒产品演示 MP4。 |
 | [**cs-knowledge-film**](cs-knowledge-film/) | 把知识点做成暗夜星空风解说片：口播稿、场景 spec、配音、双语字幕和 MP4。 |
+| [**cs-code-video**](cs-code-video/) | 用代码做动画视频：先问 5 项输入、出风格卡和分镜表，确认 3 张关键帧后逐帧渲染 MP4；配乐音效代码合成，可接 GPT 出图和配音。 |
+| [**cs-pixel-explainer**](cs-pixel-explainer/) | 把中文文案做成像素风 + 坐标系隐喻 + 打字机字幕的解说视频，edge-tts 配音，渲染 1080p MP4。 |
 | [**cs-frontend-design**](cs-frontend-design/) | 设计、实现或评审网页与工具界面，处理布局、交互状态、响应式和浏览器验证。 |
 | [**cs-clean-code**](cs-clean-code/) | 对照需求整理实现，收束业务逻辑、代码、文档和验证，留下可维护的交接状态。 |
 | [**cs-ralph-runner**](cs-ralph-runner/) | 把 Markdown 需求文档转成 Ralph PRD，在本地仓库安全预演 Ralph／Codex 构建流程。 |
@@ -33,7 +35,7 @@
 | [**cs-github-push**](cs-github-push/) | 精确提交并推送完成的改动，按需创建 PR，核对远端 SHA，区分本地提交与真正发布。 |
 | [**cs-ending-time**](cs-ending-time/) | 收尾需要部署的 Web／App 功能：完成验证、GitHub 交付和上线检查。 |
 
-`cs-recover-skill` 是模型执行校准辅助项，不计入上述 14 个任务 Skill，也不参与默认安装。
+`cs-recover-skill` 是模型执行校准辅助项，不计入上述 16 个任务 Skill，也不参与默认安装。
 
 ## 看一个实际产物
 
@@ -64,7 +66,7 @@ cd cs-skills
 ./scripts/install.sh --codex
 ```
 
-不指定 Skill 名称时安装全部 14 个任务 Skill；也可以只装需要的：
+不指定 Skill 名称时安装全部 16 个任务 Skill；也可以只装需要的：
 
 ```bash
 ./scripts/install.sh --claude cs-run cs-writer  # 只装到 Claude Code

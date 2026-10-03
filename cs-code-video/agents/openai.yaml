@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 代码视频"
+  short_description: "陈硕的代码动画视频：页面暴露 render(t)，逐帧截图 + FFmpeg 合成 mp4，配乐音效代码合成，可接 GPT 出图和 edge-tts 配音。"
+  default_prompt: "使用 $cs-code-video，把这个主题做成一支代码动画视频；先问 5 项输入，给风格卡和分镜表让我确认，再渲 3 张关键帧看风格，确认后渲整片。"
+policy:
+  allow_implicit_invocation: true

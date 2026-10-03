@@ -1,0 +1,2 @@
+# Windows 批处理必须是 CRLF，否则双击运行会出错
+*.bat text eol=crlf

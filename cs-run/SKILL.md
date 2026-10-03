@@ -38,13 +38,15 @@ Choose one primary route from this table:
 | 将单个或一批内容想法收敛为 ChatCut 短视频，或了解从策划到成片的上手流程 | `$cs-chatcut` | 选题排序、中文口播稿、素材清单、Motion Graphics、声音方向、逐镜头表和操作指南 |
 | 把真实网页做成 30–60 秒产品演示宣传片 | `$cs-web-promo-film` | Remotion 工程、无音轨 mp4、可选口播稿 |
 | 明确要求暗夜星空、衬线字幕和金色光点风格的知识解说片，或显式调用 `$cs-knowledge-film` | `$cs-knowledge-film` | 口播稿、spec.json、配音、双语字幕、1080p mp4 |
+| 用代码做动画视频、动态图形、片头、教程片（KAI 教程片）或按选题重新设计画面的解说单片 | `$cs-code-video` | 5 项输入、风格卡、分镜表、3 张关键帧、brief.md、render(t) 工程、mp4 |
+| 中文文案做成像素风 + 坐标系隐喻 + 打字机字幕的解说视频，或像素解说系列续集 | `$cs-pixel-explainer` | 分镜表、spec.json、配音、SRT、1080p mp4 |
 | The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
 
 ## Retired Routes
 
 Do not route to removed skills:
 
-- Automatic editing, timeline rendering, and automatic-editing Ralph workflows are retired from this library. Do not revive them as generic MP4 export. Webpage product demo films use `$cs-web-promo-film`.
+- Automatic editing, timeline rendering, and automatic-editing Ralph workflows are retired from this library. Do not revive them as generic MP4 export. Webpage product demo films use `$cs-web-promo-film`; animations generated from code (`render(t)` frame by frame, no editing of existing footage) use `$cs-code-video`.
 - Li Auto infographic workflows are retired from this library.
 - Open Design artifact workflows are retired from this library.
 
@@ -75,11 +77,11 @@ If a request belongs to a retired route, say that the route is no longer active 
 
 - Prefer the narrowest active skill that matches the requested outcome.
 - Do not route by a single keyword when the user's actual output is clear.
-- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-github-push`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut`, `$cs-web-promo-film`, and `$cs-knowledge-film` take precedence over generic routing.
+- Respect explicit skill names. `$cs-writer`, `$cs-search-skill`, `$cs-frontend-design`, `$cs-clean-code`, `$cs-checkpoint-version`, `$cs-ralph-runner`, `$cs-github-push`, `$cs-ending-time`, `$cs-auto-videl`, `$cs-xiaohuang-skill`, `$cs-chatcut`, `$cs-web-promo-film`, `$cs-knowledge-film`, `$cs-code-video`, and `$cs-pixel-explainer` take precedence over generic routing.
 - Route requests about “小黄”、“有温度 IP”、“温度种子”、空心爱心天线、固定角色延展、2D/3D 转换、联名、风格迁移或身份修复 to `$cs-xiaohuang-skill`. Do not use it for unrelated general image generation.
 - Route requests containing 调研、竞品分析、深度研究、市场判断 or similar intent to `$cs-search-skill` when the user needs evidence for a decision. Do not use it for a simple definition or one-fact lookup.
 - 将“提交到 GitHub”“推送仓库”“开 PR”“检查是否推上去”等 GitHub-only 交付请求路由到 `$cs-github-push`；需要连同网站或应用部署上线时路由到 `$cs-ending-time`。
-- 将中文文章、观点或方法论转成正文配图的请求也路由到 `$cs-xiaohuang-skill`；将内容想法、短视频主题或 ChatCut 上手请求路由到 `$cs-chatcut`；将网页宣传片、产品演示片、把网页做成视频的请求路由到 `$cs-web-promo-film`；仅当用户明确选择暗夜星空知识片风格或显式调用时路由到 `$cs-knowledge-film`。普通科普视频先按目标与视觉方向选工作流，不因“知识”或“视频”两个词套用这个模板。
+- 将中文文章、观点或方法论转成正文配图的请求也路由到 `$cs-xiaohuang-skill`；将内容想法、短视频主题或 ChatCut 上手请求路由到 `$cs-chatcut`；将网页宣传片、产品演示片、把网页做成视频的请求路由到 `$cs-web-promo-film`；仅当用户明确选择暗夜星空知识片风格或显式调用时路由到 `$cs-knowledge-film`；像素风解说或像素解说系列续集路由到 `$cs-pixel-explainer`；其余用代码做动画视频、教程片和需要重新设计画面的解说单片路由到 `$cs-code-video`。普通科普视频先按目标与视觉方向选工作流，不因“知识”或“视频”两个词套用这个模板。
 - Do not ask the user to choose a skill when the route is unambiguous.
 - Do not invent a missing domain skill. Report the retired or unsupported route and propose the smallest next decision.
 - Keep the Goal Card short. It is an execution aid, not a long questionnaire.

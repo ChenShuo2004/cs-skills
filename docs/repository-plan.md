@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 14 个任务 skill，并采用单入口架构：
+CS Skills 当前包含 16 个任务 skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 一个下游 skill → 验证结果
@@ -38,8 +38,10 @@ CS Skills 当前包含 14 个任务 skill，并采用单入口架构：
 - `cs-chatcut`
 - `cs-web-promo-film`
 - `cs-knowledge-film`
+- `cs-code-video`
+- `cs-pixel-explainer`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，把真实网页做成产品演示宣传片，以及把知识点做成暗夜星空风解说片。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，把真实网页做成产品演示宣传片，把知识点做成暗夜星空风解说片，用代码逐帧做动画视频，以及把中文文案做成像素风解说片。
 
 ### 调研与决策
 
@@ -66,11 +68,15 @@ CS Skills 当前包含 14 个任务 skill，并采用单入口架构：
 
 `cs-knowledge-film` 从口播稿出发，用 spec.json 描述场景与事件，edge-tts 逐句配音后按真实音频排时间轴，由 Canvas 引擎逐帧渲染出带双语字幕的 1080p mp4；专注“讲清一个知识点”，不做产品演示和真人口播。
 
+`cs-code-video` 让页面暴露 `window.render(t)`，由 Playwright 逐帧截图、FFmpeg 合成 mp4，配乐与音效用 numpy 合成；开工先问 5 项输入，经风格卡、分镜表和 3 张关键帧确认后才渲整片，教程类视频默认走 KAI 教程片系列。
+
+`cs-pixel-explainer` 是像素解说系列的引擎：spec.json 描述场景与事件，edge-tts 配音驱动时间轴，Canvas 逐帧渲染 1080p mp4 和 SRT；新场景按像素纯度标准（整数倍放大、固定调色板、动作按 8–12 张/秒量化）编写。
+
 ## 已退休范围
 
 以下方向已经移出 active library：
 
-- 自动剪辑、时间线编排、MP4 渲染。网页产品演示片走 `$cs-web-promo-film`，不是通用渲染能力的回归。
+- 自动剪辑、时间线编排、MP4 渲染。网页产品演示片走 `$cs-web-promo-film`，代码动画视频走 `$cs-code-video`，都不是剪辑已有素材的通用渲染能力的回归。
 - 理想车主信息图。
 - Open Design 设计产物。
 
@@ -108,6 +114,8 @@ CS Skills 当前包含 14 个任务 skill，并采用单入口架构：
 - `cs-chatcut`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构、上手指引与路由边界。
 - `cs-web-promo-film`：用一个公开产品页走采集、运镜、渲染和抽帧验收，确认转场不接黑、无音轨、指针落在真实链接上。
 - `cs-knowledge-film`：用 example-spec 走 timeline → preview → 全量渲染，确认字幕不压画面、事件与口播同步、有音轨。
+- `cs-code-video`：用 template.html 渲一张静帧和一段 3 秒小样，再跑 qa.py，确认 render(t) 无帧间状态、字幕不溢出、波形无削顶。
+- `cs-pixel-explainer`：用 example-spec 走 timeline → preview，确认每个场景无重叠出框；用 reference-wizard.html 验证循环首尾帧一致。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 - `cs-github-push`：完成精确暂存、提交、推送、远端 SHA 核验和按需创建 PR。
 

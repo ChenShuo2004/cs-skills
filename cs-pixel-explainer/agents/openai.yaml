@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 像素解说"
+  short_description: "陈硕的像素解说系列：夜晚像素街道 + 坐标系隐喻 + 打字机字幕，edge-tts 配音并渲染 1080p mp4。"
+  default_prompt: "使用 $cs-pixel-explainer，把这段文案做成像素风解说视频；先问 5 项输入，给分镜表和 3 张关键帧让我确认，再配音、渲染成片。"
+policy:
+  allow_implicit_invocation: true

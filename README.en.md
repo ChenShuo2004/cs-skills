@@ -10,7 +10,7 @@
 
 **Agent Skills distilled from real projects**: describe a goal, choose the right workflow, execute it, and verify the result. Built for Codex and Claude Code; other agents that support `SKILL.md` can use individual Skills too.
 
-The repository currently contains **14 task Skills**. Each can be installed separately. If you are unsure where to start, use [`cs-run`](cs-run/).
+The repository currently contains **16 task Skills**. Each can be installed separately. If you are unsure where to start, use [`cs-run`](cs-run/).
 
 The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are added only when needed.**
 
@@ -26,6 +26,8 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 | [**cs-chatcut**](cs-chatcut/) | Selects a filmable topic and prepares a Chinese voiceover script, assets, motion graphics, audio direction, and a shot-by-shot plan. |
 | [**cs-web-promo-film**](cs-web-promo-film/) | Captures a real web page and uses Remotion moves, scrolling, and clicks to render a 30–60 second product demo MP4. |
 | [**cs-knowledge-film**](cs-knowledge-film/) | Turns one concept into a night-sky style explainer with a script, scene spec, narration, bilingual subtitles, and MP4. |
+| [**cs-code-video**](cs-code-video/) | Makes animated videos in code: asks five intake questions, proposes style cards and a storyboard, confirms three keyframes, then renders an MP4 frame by frame with synthesized music and optional GPT images and narration. |
+| [**cs-pixel-explainer**](cs-pixel-explainer/) | Turns a Chinese script into a pixel-art explainer with coordinate-system metaphors, typewriter subtitles, edge-tts narration, and a 1080p MP4. |
 | [**cs-frontend-design**](cs-frontend-design/) | Designs, builds, or reviews user-facing interfaces, including layout, interaction states, responsiveness, and browser checks. |
 | [**cs-clean-code**](cs-clean-code/) | Reconciles requirements with code, documentation, business flow, and verification for a maintainable handoff. |
 | [**cs-ralph-runner**](cs-ralph-runner/) | Converts a Markdown requirements document into a Ralph PRD and safely rehearses a Ralph／Codex build workflow in a local repository. |
@@ -33,7 +35,7 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 | [**cs-github-push**](cs-github-push/) | Stages and pushes completed changes precisely, creates a PR when requested, and checks the remote commit SHA. |
 | [**cs-ending-time**](cs-ending-time/) | Finishes web or app work that also requires deployment: verifies the change, delivers it through GitHub, and checks the live result. |
 
-`cs-recover-skill` is a model execution calibration helper. It is not counted among the 14 task Skills and is excluded from the default install.
+`cs-recover-skill` is a model execution calibration helper. It is not counted among the 16 task Skills and is excluded from the default install.
 
 ## See a real output
 
@@ -64,7 +66,7 @@ cd cs-skills
 ./scripts/install.sh --codex
 ```
 
-With no Skill names, the script installs all 14 task Skills. You can select individual Skills instead:
+With no Skill names, the script installs all 16 task Skills. You can select individual Skills instead:
 
 ```bash
 ./scripts/install.sh --claude cs-run cs-writer  # Claude Code only

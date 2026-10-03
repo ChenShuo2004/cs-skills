@@ -1,0 +1,110 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;overflow:hidden}
+  canvas{display:block}
+</style>
+<!-- 有配音时由 `audio.py vo spec.json` 生成；没有就忽略 -->
+<script src="timeline.js"></script>
+<!-- 要老电视质感：把 crt.js 复制到同目录，并把下面的 USE_CRT 改成 true -->
+<script src="crt.js"></script>
+</head>
+<body><canvas id="c"></canvas>
+<script>
+// ================= 骨架：画面只由 t 决定 =================
+// 约定：window.render(t) 画第 t 秒；window.ready=true 表示可以截图；window.DURATION 总时长
+// 这个文件只提供骨架。STYLE 和下面的 SHOTS 每支片都按风格卡重写，不要沿用这里的示例值。
+
+// ---------- 风格：每支片必须改 ----------
+const STYLE = {
+  bg: '#f4f1ea',            // 底色（示例：米白纸）
+  ink: '#111111',           // 主色（线条、正文）
+  signal: '#ff5a1f',        // 信号色：全片只用在关键变化上
+  font: '"PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Noto Sans SC",sans-serif',
+  subtitle: {
+    on: true,               // false = 不画字幕（字就是画面本身的风格，如大字排版、终端）
+    typewriter: true,       // false = 整句直接出现
+    y: 970,                 // 1920×1080 下的纵坐标
+    size: 46,
+    weight: 600,
+    align: 'center',        // center / left
+  },
+};
+const USE_CRT = false;                           // true = 内容画在离屏画布，再经 crt.js 着色器输出
+
+const FONT = STYLE.font;
+const W = innerWidth, H = innerHeight, c = document.getElementById('c');
+c.width = W; c.height = H;
+const src = USE_CRT ? Object.assign(document.createElement('canvas'), { width: W, height: H }) : c;
+const g = src.getContext('2d');
+const crt = USE_CRT ? createCRT(src, c) : null;
+const S = Math.min(W / 1920, H / 1080);          // 版式缩放：所有尺寸写成 1920×1080 下的数值 × S
+
+// ---------- 工具 ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => (x = clamp(x), x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+function spring(x, w = 16, z = .72) {             // 闭式弹簧，x=距目标改变的秒数
+  if (x <= 0) return 0; const wd = w * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w * x) * (Math.cos(wd * x) + (z * w / wd) * Math.sin(wd * x));
+}
+// 值多次改变目标：keys=[[t0,v0],[t1,v1],...]，任意帧都能单独算
+const springTo = (t, keys, w, z) => keys.reduce((v, [ti, vi], i) => i ? v + (vi - keys[i - 1][1]) * spring(t - ti, w, z) : vi, 0);
+const rnd = s => { s = Math.sin(s * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };  // 带种子随机
+
+// 字幕标记：[s]信号色[/s]；需要更多语义色就在这里加，颜色从风格卡来
+const MARKS = { s: STYLE.signal };
+
+// 字幕：按 STYLE.subtitle 画，支持 [s]…[/s] 高亮；typewriter=true 时前 45% 时间逐字打完
+function subtitle(text, k) {
+  const o = STYLE.subtitle; if (!o.on) return;
+  const parts = []; text.replace(/\[([a-z])\](.*?)\[\/\1\]|([^\[]+)/g, (_, m, a, b) => parts.push([a ?? b, m && MARKS[m] ? MARKS[m] : STYLE.ink]));
+  const total = parts.reduce((n, [s]) => n + s.length, 0);
+  const shown = o.typewriter ? Math.floor(total * clamp(k * 2.2)) : total;
+  g.font = `${o.weight} ${o.size * S}px ${FONT}`; g.textBaseline = 'middle'; g.textAlign = 'left';
+  const width = parts.reduce((w, [s]) => w + g.measureText(s).width, 0);
+  let x = o.align === 'center' ? W / 2 - width / 2 : 120 * S, n = 0;
+  for (const [s, col] of parts) { const vis = s.slice(0, Math.max(0, shown - n)); n += s.length;
+    g.fillStyle = col; g.fillText(vis, x, o.y * S); x += g.measureText(s).width; }
+}
+
+// ================= 镜头（示例，每支片全部重写） =================
+// 每个镜头：id（与 spec.json scenes[].id 对应）、dur（无配音时的时长）、draw(lt, p, shot)
+const SHOTS = [
+  { id: 'hook', dur: 3, draw(lt) {
+    const s = spring(lt - .2, 11, .9);
+    g.fillStyle = STYLE.ink; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = `800 ${120 * S * s}px ${FONT}`; g.globalAlpha = clamp(s);
+    g.fillText('代码做视频', W / 2, H / 2); g.globalAlpha = 1; g.textAlign = 'left';
+  }},
+  { id: 'end', dur: 3, draw(lt) {
+    const x = springTo(lt, [[0, W * .25], [.6, W * .5], [1.6, W * .75]], 22, .8);
+    g.strokeStyle = STYLE.ink; g.lineWidth = 3 * S;
+    g.beginPath(); g.moveTo(W * .2, H / 2); g.lineTo(W * .8, H / 2); g.stroke();
+    g.fillStyle = STYLE.signal; g.beginPath(); g.arc(x, H / 2, 40 * S, 0, Math.PI * 2); g.fill();
+  }},
+];
+
+// 时间表：有 TIMELINE（配音驱动）就用它，否则按 dur 顺排
+const TL = window.TIMELINE;
+let acc = 0;
+for (const sh of SHOTS) {
+  const m = TL?.shots.find(x => x.id === sh.id);
+  sh.start = m ? m.start : acc; sh.end = m ? m.end : acc + sh.dur; sh.lines = m?.lines || []; acc = sh.end;
+}
+window.DURATION = TL?.duration ?? acc;
+
+window.render = function (t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  g.fillStyle = STYLE.bg; g.fillRect(0, 0, W, H);
+  for (const sh of SHOTS) if (t >= sh.start && t < sh.end) {
+    g.save(); sh.draw(t - sh.start, (t - sh.start) / (sh.end - sh.start), sh); g.restore();
+    const ln = sh.lines.find(l => l.sub !== false && t >= l.start && t < l.end + .25);
+    if (ln) subtitle(ln.text, (t - ln.start) / (ln.end - ln.start));
+  }
+  if (crt) crt.draw(t);
+};
+window.ready = false;
+document.fonts.ready.then(() => { window.render(0); window.ready = true; });
+</script></body></html>

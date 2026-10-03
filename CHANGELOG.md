@@ -2,6 +2,9 @@
 
 ## 未发布
 
+- 新增 `$cs-code-video`：用代码做动画视频（render(t) 逐帧 + FFmpeg + numpy 配乐），含导演层、KAI 签名层、KAI 教程片系列、GPT 出图 × 代码动画、3D/2D KAI 角色组件、CRT 后期层；开工先问 5 项输入，经分镜表与 3 张关键帧确认后再渲整片。
+- 新增 `$cs-pixel-explainer`：像素风 + 坐标系隐喻 + 打字机字幕的解说片引擎（spec.json → edge-tts → Canvas 逐帧渲染 1080p mp4 + SRT），附 10 场景示例 spec 和像素纯度参考实现（施法巫师，128×96 调色板索引缓冲、固定步长重放的 render(t)）。
+- 将两个新 Skill 接入 `$cs-run` 路由、README、技能清单和仓库规划；任务 skill 数量由 14 更新为 16。
 - 参照 shuohao-skills 的阅读顺序重排首页：语言与作者入口、封面、工作流图、两列 Skill 总表、真实示例、安装、前置条件和仓库约定；新增英文版 README 与中英双语流程图。
 - 增加可重复运行的 Codex／Claude Code 软链接安装脚本：支持按需安装、预览、卸载，并保护已有 Skill；加入临时目录自测。
 - 优化仓库 README 的上手路径：可执行安装命令、技能地图、真实任务示例和仓库约定保持一致。

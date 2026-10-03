@@ -2,7 +2,7 @@
 
 盘点日期：2026-10-01
 
-当前发布数量：14 个任务 skill。
+当前发布数量：16 个任务 skill。
 
 ## 总览
 
@@ -22,6 +22,8 @@
 | `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
 | `cs-web-promo-film` | 网页产品演示片 | 把真实网页做成 30–60 秒产品演示宣传片：采集长截图、Remotion 运镜、渲染无音轨 mp4，并可附口播稿 | `references/`, `scripts/`, `assets/promo-starter/` |
 | `cs-knowledge-film` | 知识解说片 | 把一个知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的 2–6 分钟解说片：口播稿、spec、edge-tts 配音、Canvas 逐帧渲染 mp4 | `references/`, `scripts/`, `assets/example-spec.json` |
+| `cs-code-video` | 代码动画视频 | 页面暴露 render(t)，Playwright 逐帧截图 + FFmpeg 合成 mp4；5 项输入 → 风格卡 → 分镜表 → 3 张关键帧 → 逐镜头制作 → 自评；配乐音效代码合成，可接 GPT 出图与 edge-tts 配音；含 KAI 教程片系列 | `references/`, `scripts/`, `assets/` |
+| `cs-pixel-explainer` | 像素解说视频 | 中文文案 → 像素风 + 坐标系隐喻 + 打字机字幕解说片：spec.json、edge-tts 配音、Canvas 逐帧渲染 1080p mp4 + SRT；含像素纯度参考实现 | `engine/`, `assets/` |
 
 ## 主入口
 
@@ -73,6 +75,12 @@ Recommended skill:
 - 把概念、原理、科普主题做成暗夜星空风（Vibe知识大赏风格）解说片：`$cs-knowledge-film`
 - 自带配音、双语字幕和渲染；网页演示走 `$cs-web-promo-film`，ChatCut 策划走 `$cs-chatcut`。
 
+### 代码动画视频
+
+- 用代码做动画视频、动态图形、片头、教程片（KAI 教程片）、按选题重新设计画面的解说单片：`$cs-code-video`
+- 中文文案做成像素风 + 坐标系隐喻 + 打字机字幕的解说片，或像素解说系列续集：`$cs-pixel-explainer`
+- 两者都只用代码生成画面，不剪辑已有素材；网页演示走 `$cs-web-promo-film`，暗夜星空知识片走 `$cs-knowledge-film`。
+
 ### 产品与工程
 
 - 页面、工具、仪表盘：`$cs-frontend-design`
@@ -86,7 +94,7 @@ Recommended skill:
 
 当前库不再提供：
 
-- 自动剪辑和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`。
+- 自动剪辑和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`；代码生成的动画视频走 `$cs-code-video`，不剪辑已有素材。
 - 理想车主信息图。
 - Open Design 设计产物。
 
