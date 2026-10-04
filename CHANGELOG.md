@@ -2,6 +2,7 @@
 
 ## 未发布
 
+- 将 Vibe 知识大赏的搜集、编排、找图、定样式与分镜、检查、先 10 秒再整片流程并入 `$cs-code-video` 的专用模式；更新路由与中英文目录，保持 16 个任务 Skill。
 - 新增 CS Skills README 优化录屏教程：真实仓库改版前后对比、`$cs-clean-code` 调用示例、Fish Audio S2.1 中文音色配音，以及可复现的脚本和分镜。
 - 为 `$cs-github-push` 增加中英文 README 使用示例、公开 GitHub 页面录屏讲解（中文配音与字幕）、封面和可复用口播分镜。
 - 新增 `$cs-code-video`：用代码做动画视频（render(t) 逐帧 + FFmpeg + numpy 配乐），含导演层、KAI 签名层、KAI 教程片系列、GPT 出图 × 代码动画、3D/2D KAI 角色组件、CRT 后期层；开工先问 5 项输入，经分镜表与 3 张关键帧确认后再渲整片。

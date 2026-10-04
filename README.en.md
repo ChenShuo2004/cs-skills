@@ -42,7 +42,7 @@ The workflow is simple: **`cs-run` selects one primary Skill; delivery steps are
 | [**cs-chatcut**](cs-chatcut/) | Selects a filmable topic and prepares a Chinese voiceover script, assets, motion graphics, audio direction, and a shot-by-shot plan. |
 | [**cs-web-promo-film**](cs-web-promo-film/) | Captures a real web page and uses Remotion moves, scrolling, and clicks to render a 30–60 second product demo MP4. |
 | [**cs-knowledge-film**](cs-knowledge-film/) | Turns one concept into a night-sky style explainer with a script, scene spec, narration, bilingual subtitles, and MP4. |
-| [**cs-code-video**](cs-code-video/) | Makes animated videos in code: asks five intake questions, proposes style cards and a storyboard, confirms three keyframes, then renders an MP4 frame by frame with synthesized music and optional GPT images and narration. |
+| [**cs-code-video**](cs-code-video/) | Makes animated videos in code. Its Vibe knowledge mode adds source checking, traceable evidence images, and a 10-second sample before full rendering. |
 | [**cs-pixel-explainer**](cs-pixel-explainer/) | Turns a Chinese script into a pixel-art explainer with coordinate-system metaphors, typewriter subtitles, edge-tts narration, and a 1080p MP4. |
 | [**cs-frontend-design**](cs-frontend-design/) | Designs, builds, or reviews user-facing interfaces, including layout, interaction states, responsiveness, and browser checks. |
 | [**cs-clean-code**](cs-clean-code/) | Reconciles requirements with code, documentation, business flow, and verification for a maintainable handoff. |

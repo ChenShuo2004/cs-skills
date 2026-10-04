@@ -42,7 +42,7 @@ $cs-run 我想优化这个项目的 README，让新人看懂它是什么、如�
 | [**cs-chatcut**](cs-chatcut/) | 从内容想法选出一个可拍主题，交付中文口播稿、素材清单、Motion Graphics、声音方向和逐镜头表。 |
 | [**cs-web-promo-film**](cs-web-promo-film/) | 采集真实网页，用 Remotion 做推进、滚动和点击，渲染 30–60 秒产品演示 MP4。 |
 | [**cs-knowledge-film**](cs-knowledge-film/) | 把知识点做成暗夜星空风解说片：口播稿、场景 spec、配音、双语字幕和 MP4。 |
-| [**cs-code-video**](cs-code-video/) | 用代码做动画视频：先问 5 项输入、出风格卡和分镜表，确认 3 张关键帧后逐帧渲染 MP4；配乐音效代码合成，可接 GPT 出图和配音。 |
+| [**cs-code-video**](cs-code-video/) | 用代码做动画视频；Vibe 知识大赏模式增加来源核查、真实素材和 10 秒样片，通用模式按风格卡与分镜逐帧渲染 MP4。 |
 | [**cs-pixel-explainer**](cs-pixel-explainer/) | 把中文文案做成像素风 + 坐标系隐喻 + 打字机字幕的解说视频，edge-tts 配音，渲染 1080p MP4。 |
 | [**cs-frontend-design**](cs-frontend-design/) | 设计、实现或评审网页与工具界面，处理布局、交互状态、响应式和浏览器验证。 |
 | [**cs-clean-code**](cs-clean-code/) | 对照需求整理实现，收束业务逻辑、代码、文档和验证，留下可维护的交接状态。 |

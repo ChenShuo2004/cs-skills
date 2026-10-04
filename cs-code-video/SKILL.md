@@ -1,6 +1,6 @@
 ---
 name: cs-code-video
-description: "用代码做动画视频：页面暴露 render(t)，Playwright 逐帧截图 + FFmpeg 合成 mp4，配乐音效代码合成、可接 edge-tts 配音。可接 GPT 出图（插画、角色、素材卡）由代码做运镜和界面动画。开工先问 5 项输入（主题与一句话、时长画幅帧率、风格、配色字体、声音），没给的不编；再走导演层：按选题想隐喻、配风格、套 KAI 签名层，出三张风格卡，选定后写分镜表等确认，再渲 3 张关键帧看风格，确认后逐镜头制作，抽帧自评到每项 ≥8 分再交付。触发词包括 $cs-code-video、用代码做视频、代码动画、做个动效、动态图形、知识解说动画、像素动画、复古 CRT、片头、复刻这个视频的风格、GPT 出图做动画、插画解说视频、KAI 教程片、$kai-tutorial、做教程视频。不用于真实网页演示片（改用 $cs-web-promo-film）、电商对标复刻和视频模型生成包（改用 $cs-auto-videl）、ChatCut 策划或剪辑已有素材（改用 $cs-chatcut）。"
+description: "用代码做动画视频：页面暴露 render(t)，Playwright 逐帧截图 + FFmpeg 合成 mp4，可接合成配乐、出图和配音。通用模式先明确主题、规格、风格和声音，出风格卡、分镜与关键帧后逐镜制作；Vibe知识大赏模式额外查证来源、记录真实素材许可、先渲 10 秒样片。触发词包括 $cs-code-video、用代码做视频、知识解说动画、Vibe知识大赏、来源可核查的代码科普片、KAI 教程片、像素动画、片头。固定暗夜星空系列用 cs-knowledge-film，固定像素解说系列用 cs-pixel-explainer；真实网页演示、电商视频和 ChatCut 策划各用对应 skill。"
 metadata:
   author: "陈硕"
   collection: "CS Skills"
@@ -17,14 +17,16 @@ metadata:
 
 一句话提示词做视频是抽卡，效果不可控，也复现不了。本 skill 的做法：**先把规划摆到用户面前，确认了再动手**。5 项输入 → 导演层 → 三张风格卡 → **分镜表（等确认）** → **3 张关键帧（等确认）** → `brief.md` → 逐镜头制作 → 自评 ≥8 分 → 交付。
 
+用户明确要 **Vibe 知识大赏或来源可核查的代码科普片**时，按 [references/vibe-knowledge.md](references/vibe-knowledge.md) 的六步模式执行。它在研究、真实素材、输入默认值、KAI 角色和 10 秒样片上的规则优先于下文通用模式；渲染和 QA 仍用本 skill 的工具。
+
 **管线固定，画面不固定。** 渲染、配音、混音、QA 每次一样；画面语言每次从选题里长出来，再套上陈硕的签名层。不要先拿模板再塞内容。
 
 ## 交付边界
 
 - 默认值（只在用户明确说「你定」或无人值守时才用，并写进风格卡让用户改）：单个 HTML 工程 + 一支 mp4，1920×1080、30fps、30 秒、代码合成配乐、不配音。
-- 画面由代码生成，或由 GPT 按资产清单出图后代码做动画（见 hybrid.md）；不从网上下载图片或视频素材；用户自己提供的素材（Logo、音乐、绿幕人物）可以用。
+- 通用模式的画面由代码生成，或由 GPT 按资产清单出图后代码做动画（见 hybrid.md）；不从网上下载图片或视频素材。Vibe 知识模式可使用来源和许可可追溯的真实证据图，按对应参考文件记录。
 - GPT 出图要花钱：真正出图前先 `gen_image.py --dry-run` 把张数和模型给用户看，确认后再出。
-- 事实只能来自用户给的原材料，不确定的不写，单独列出来让用户核对。
+- 通用模式的事实来自用户给的原材料，不确定的不写；Vibe 知识模式必须主动联网核对，建立逐条来源表。
 - 参考视频只学结构、节奏和手法，不照搬别人的素材、外观和文案；学到的手法记进 `signature.md` 的吸收清单。
 - 不上传、不发布。
 - 路由：真实网页演示片 → `$cs-web-promo-film`；电商对标复刻、Seedance/Flow 生成包 → `$cs-auto-videl`；剪辑已有素材、ChatCut 策划 → `$cs-chatcut`。**教程类视频默认做成 KAI 教程片**（见 tutorial.md）。像素解说（`cs-pixel-explainer`）和暗夜知识片（`cs-knowledge-film`）是**系列皮肤**，只在用户确认是该系列续集时使用，见 director.md ⑥。
@@ -43,6 +45,7 @@ metadata:
 按阶段读最少的资料：
 
 - 想画面、配风格、出风格卡：[references/director.md](references/director.md)，开工前同时看 [style-log.md](style-log.md)
+- Vibe 知识大赏、来源可核查的代码科普片：[references/vibe-knowledge.md](references/vibe-knowledge.md)
 - 陈硕的个人风格（不变层）：[references/signature.md](references/signature.md)
 - 选代码路线、绿幕人物：[references/code-stack.md](references/code-stack.md)
 - **教程类视频 → KAI 教程片**：[references/tutorial.md](references/tutorial.md)（系列皮肤，结构和画风已锁定，跳过风格卡）
@@ -81,7 +84,7 @@ python3 scripts/gen_image.py assets.json --dry-run | --draft | --final | --pick 
 
 ## 工作方式
 
-### 1. 开工先问 5 项输入（一条消息问完，没给的不编）
+### 1. 通用模式先明确 5 项输入（Vibe 知识模式按专用参考文件）
 
 接受三种原材料，可以混着给：想法、原内容（文章、口播稿、产品网址、代码库）、参考视频。先用一条消息问清下面 5 项，**用户没给的不要自己编**；原材料里已经能确定的项直接写出来请用户确认，不重复问：
 

@@ -41,7 +41,7 @@ CS Skills 当前包含 16 个任务 skill，并采用单入口架构：
 - `cs-code-video`
 - `cs-pixel-explainer`
 
-分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，把真实网页做成产品演示宣传片，把知识点做成暗夜星空风解说片，用代码逐帧做动画视频，以及把中文文案做成像素风解说片。
+分别覆盖陈硕风格写作、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、从内容想法到 ChatCut 制作与上手指引的收敛流程，把真实网页做成产品演示宣传片，把指定系列的知识点做成暗夜星空风解说片，用代码逐帧做动画视频及来源可核查的 Vibe 知识短片，以及把中文文案做成像素风解说片。
 
 ### 调研与决策
 
@@ -68,7 +68,7 @@ CS Skills 当前包含 16 个任务 skill，并采用单入口架构：
 
 `cs-knowledge-film` 从口播稿出发，用 spec.json 描述场景与事件，edge-tts 逐句配音后按真实音频排时间轴，由 Canvas 引擎逐帧渲染出带双语字幕的 1080p mp4；专注“讲清一个知识点”，不做产品演示和真人口播。
 
-`cs-code-video` 让页面暴露 `window.render(t)`，由 Playwright 逐帧截图、FFmpeg 合成 mp4，配乐与音效用 numpy 合成；开工先问 5 项输入，经风格卡、分镜表和 3 张关键帧确认后才渲整片，教程类视频默认走 KAI 教程片系列。
+`cs-code-video` 让页面暴露 `window.render(t)`，由 Playwright 逐帧截图、FFmpeg 合成 mp4，配乐与音效用 numpy 合成。通用模式先明确 5 项输入，经风格卡、分镜表和 3 张关键帧后渲整片，教程类视频可走 KAI 系列；Vibe 知识模式从可核查的问题出发，整理来源、分幕文案和有许可记录的真实素材，先做三种风格样图、分镜和开头 10 秒样片，再交付完整 MP4 与可重渲工程。
 
 `cs-pixel-explainer` 是像素解说系列的引擎：spec.json 描述场景与事件，edge-tts 配音驱动时间轴，Canvas 逐帧渲染 1080p mp4 和 SRT；新场景按像素纯度标准（整数倍放大、固定调色板、动作按 8–12 张/秒量化）编写。
 
@@ -114,7 +114,7 @@ CS Skills 当前包含 16 个任务 skill，并采用单入口架构：
 - `cs-chatcut`：用一批真实内容想法完成选题排序，再用确认后的 brief 生成 ChatCut 素材筹备蓝图，并验证输出结构、上手指引与路由边界。
 - `cs-web-promo-film`：用一个公开产品页走采集、运镜、渲染和抽帧验收，确认转场不接黑、无音轨、指针落在真实链接上。
 - `cs-knowledge-film`：用 example-spec 走 timeline → preview → 全量渲染，确认字幕不压画面、事件与口播同步、有音轨。
-- `cs-code-video`：用 template.html 渲一张静帧和一段 3 秒小样，再跑 qa.py，确认 render(t) 无帧间状态、字幕不溢出、波形无削顶。
+- `cs-code-video`：通用模式用 template.html 渲一张静帧和一段 3 秒小样，再跑 qa.py；Vibe 知识模式用一个知识问题检查来源表、逐幕脚本、三张不同风格样图、10 秒样片和完整视频的逐级交付，并人工看抽帧。
 - `cs-pixel-explainer`：用 example-spec 走 timeline → preview，确认每个场景无重叠出框；用 reference-wizard.html 验证循环首尾帧一致。
 - `cs-ending-time`：完成验证、提交、推送和部署收尾。
 - `cs-github-push`：完成精确暂存、提交、推送、远端 SHA 核验和按需创建 PR。
