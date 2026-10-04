@@ -2,6 +2,7 @@
 
 ## 未发布
 
+- 重排中英文 README：首页先给安装命令和可复制调用，再按目标列出 16 个 Skill；突出 `$cs-code-video` 的 Vibe 知识模式，保留真实演示并删除重复说明。
 - 将 Vibe 知识大赏的搜集、编排、找图、定样式与分镜、检查、先 10 秒再整片流程并入 `$cs-code-video` 的专用模式；更新路由与中英文目录，保持 16 个任务 Skill。
 - 新增 CS Skills README 优化录屏教程：真实仓库改版前后对比、`$cs-clean-code` 调用示例、Fish Audio S2.1 中文音色配音，以及可复现的脚本和分镜。
 - 为 `$cs-github-push` 增加中英文 README 使用示例、公开 GitHub 页面录屏讲解（中文配音与字幕）、封面和可复用口播分镜。
