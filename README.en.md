@@ -105,3 +105,7 @@ node cs-codex-image/scripts/install.mjs --target both --check
 ```
 
 Use `$cs-codex-image` in a new Claude session. The bridge uses the existing ChatGPT/Codex login, without an API key. Desktop configuration currently supports macOS. Installation, MCP connectivity, actual generation and Claude model invocation are separate checks. See [setup and recovery](cs-codex-image/references/setup.md).
+
+## Star History
+
+[![CS Skills Star History](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
