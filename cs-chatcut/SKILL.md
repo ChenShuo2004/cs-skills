@@ -1,11 +1,6 @@
 ---
 name: cs-chatcut
 description: "当用户要规划一条 ChatCut 短视频，或需要从内容想法到首个 ChatCut 项目的零到一操作指引时使用：先选择最值得做的主题和唯一核心观点，再完成可确认的中文口播稿、素材清单、Motion Graphics 方案、声音方向和逐镜头总表，并说明在 ChatCut 中的交接步骤。用于短视频策划、人工组装前的准备和操作上手；不要用于直接修改时间线、导入导出素材、电商视频复刻、长文写作或外部事实调研。除非用户指定其他语言，默认使用中文输出。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

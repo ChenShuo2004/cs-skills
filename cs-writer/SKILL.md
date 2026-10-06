@@ -1,104 +1,35 @@
 ---
 name: cs-writer
-description: |
-  Use when the user wants ChenShuo-style writing or content work: long-form articles, public account drafts, project stories, product/build logs, tool experience posts, outlines, angle selection, rewrites, polishing, or turning scattered material into readable and useful content. Trigger for "$cs-writer", "cs writer", "写文章", "写稿子", "帮我写", "续写", "扩写", "公众号", "用我的风格", "写成一篇", "内容创作", or when real source material should become warm, curious, practical writing. Do not use for pure code documentation unless the user wants a narrative article.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
+description: "按陈硕的真实项目与判断写 X 短帖、长帖/X Article、项目复盘、文章提纲或改稿；不用于纯代码文档，也不编造经历或结果。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
 # CS Writer
 
-## Purpose
+把真实产品、项目经历、工具实验和个人观察写成具体、诚实、有判断的内容。目标不是模仿口头禅，而是让读者看到一个正在做事的人，如何从现场得出结论。
 
-`cs-writer` is ChenShuo's integrated writing skill. It turns real project material, tool experiments, product decisions, and rough ideas into writing that is specific, honest, warm, and useful.
+## 先判断交付场景
 
-The voice is a practical builder talking honestly about something that was interesting enough to test, build, or rethink.
+根据用户的素材、平台和交付要求直接进入对应模式。用户要成稿就交付成稿；要角度、提纲、改写或审稿，就只交付所要的内容，不强制多轮确认。
 
-## Input Contract
+- **X 短帖**：只保留一个刃口。用具体现场、动作、结果或反常识判断开场；接上最少量过程/证据；以一个收束判断结束。不要把短帖写成缩水教程。
+- **X 长帖 / X Article / 长文**：用真实问题推动文章；展开实测、案例或过程；写清反转、代价或尚未解决处；最后给可迁移的方法或判断。需要完整节奏时，读取 [风格蓝图](references/style-guide.md)。
+- **项目复盘**：交代项目节点、做过的行动、实际结果、未完成处和下一步。结果不足时如实写边界，不把计划写成已经完成。
+- **改写、润色与审稿**：保留用户主旨、立场、事实确定性和篇幅要求；删除泛句、重复与宣传腔，但不为“更像爆款”补造经历、数字、评价或承诺。
 
-Before drafting, identify what is available:
+## 表达准则
 
-- Source material: notes, transcripts, links, screenshots, documents, product records, or rough ideas.
-- Audience: who should read this and what they already know.
-- Outcome: article, outline, angle options, rewrite, polish, public account draft, or short content.
-- Constraints: length, platform, language, tone, evidence, links, and publishing format.
+- 从真实场景、具体动作、产品问题或可识别的损失切入，再给自己的判断；技术说明要回到读者真正要解决的问题。
+- 让每段推进新信息。用短段、独立句和自然转折保留思考感，但不把“说实话”“不是……而是……”或 emoji 写成固定模板。
+- 可以公开构建、谈产品、内容系统、业务、成长和反共识判断；不要把题材或写法硬套到与素材无关的内容。
+- 不神化 AI 或任何工具：说明它做了什么、验证到什么、还受什么输入、权限、成本或人工判断限制。
+- 默认不加 Markdown 加粗、强制 emoji 或套路 CTA；只有用户要求或语境自然时才使用。严格平台限长时，使用相应平台计数规则或工具校验，不把普通字符估算说成已通过。
 
-Do not ask for information that can be inferred from the material. Ask only for facts that affect truth, audience fit, or the requested output. If the material is thin, identify the missing real details: what happened, what was tried, what failed, what changed, and what the reader should be able to do afterward.
+## 事实与素材边界
 
-## Mode Selection
+素材里已确定的信息不重复询问。外部最新事实需要查证；事实、推断与未知必须分开。关键经历、结果或数字不足时，保留不确定性，或在稿件后列出最小待补项。
 
-Choose one mode before writing:
+[精选原文样本](references/source-samples.md) 仅用于学习结构、节奏和表达信号。不得把其中的人名、数字、产品、案例、结论、链接或互动快照迁移为新稿事实；互动快照也不证明某种写法必然有效。
 
-- **Angle**: propose 2-3 concrete angles and recommend one.
-- **Outline**: create the article spine, section purpose, and evidence needed.
-- **Draft**: write the complete piece from the supplied material.
-- **Rewrite**: preserve the user's meaning while improving structure, rhythm, clarity, and usefulness.
-- **Polish**: make a near-final draft more natural without changing its claims or personality.
-- **Review**: diagnose truth, usefulness, specificity, rhythm, and voice, then give targeted edits.
-
-## Angle Check
-
-Use HVC before drafting:
-
-- **Happy**: Is there a real curiosity, surprise, tension, or enjoyable discovery?
-- **Value**: Will the reader learn something, save time, or make a better decision?
-- **Concrete**: Do we have scenes, tools, numbers, screenshots, prompts, code, or before/after results?
-
-Prefer topics that hit all three. If only one is present, improve the angle or ask for the smallest missing piece.
-
-## Writing Workflow
-
-1. Digest the material into facts, scenes, claims, emotional moments, and open questions.
-2. Choose the mode, article type, audience, and central angle.
-3. Separate verified facts, reasonable inference, and missing personal details.
-4. Build a spine: concrete scene or problem → why it mattered → attempts and friction → what worked → reusable method → reader's next action.
-5. Draft in a warm, practical voice with short paragraphs, direct judgment, real tool names, and concrete details.
-6. End with a useful takeaway, checklist, example, or next step rather than a generic summary.
-7. Run the self-check before delivery and call out facts that still need confirmation.
-
-## ChenShuo Voice
-
-- Builder first: write from real products, workflows, experiments, and delivery pressure.
-- Requirements brain: when the topic is a system, make goal, input, output, edge cases, and verification visible.
-- Warm and curious: keep the feeling of “this is interesting, let's see what it can do”.
-- Useful by the end: give the reader a method, decision rule, checklist, or concrete example.
-- Human, not corporate: show uncertainty and messy parts; avoid empty slogans.
-- Prefer a specific scene over an abstract opening.
-- Let technical explanations return quickly to the user's real goal.
-
-## Hard Rules
-
-- Never invent first-hand experience, numbers, screenshots, user reactions, product results, or external facts.
-- Mark the difference between fact, inference, and pending confirmation.
-- Do not hide weak evidence behind confident wording.
-- Avoid openings such as “in the age of AI” and avoid decorative corporate language.
-- Do not over-structure a narrative article with excessive headings and bullet lists.
-- Preserve the user's core meaning when rewriting.
-- Do not turn a writing task into an image, frontend, or engineering implementation task unless the user explicitly asks for that deliverable.
-
-## Self Check
-
-Before final output, ask:
-
-- Where is the real scene?
-- Where is the surprise or tension?
-- Where is the reusable method?
-- What can the reader do next?
-- Which sentence still sounds generic?
-- Which claim needs evidence or user confirmation?
-- Does this sound like a practical AI workflow builder rather than a generic content machine?
-
-For detailed rhythm, opening, and article-spine guidance, read [references/style-guide.md](references/style-guide.md).
-
-## Output Expectations
-
-- For angle work, give 2-3 options and recommend one.
-- For outlines, include the purpose and evidence for each major section.
-- For drafts, deliver the article directly, followed by only the missing-fact notes that affect truth.
-- For rewrites and polish, preserve intent and explain only the changes that materially improve the piece.
-- For reviews, lead with the highest-impact issues and give targeted replacement suggestions.
+发布、对外发消息或代为传播需要用户另行授权，写稿本身不包含发布。

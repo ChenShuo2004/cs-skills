@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Git Bash 默认可能把 ln -s 变成复制；只接受真实软链接，权限不足时用 Node 安装器。
+case "$(uname -s)" in
+  MINGW*|MSYS*) export MSYS="${MSYS:-} winsymlinks:nativestrict" ;;
+esac
+
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 target_mode=""
 action="install"
@@ -88,7 +93,10 @@ for destination in "${destinations[@]}"; do
         echo "Would link: $link -> $source"
       else
         mkdir -p "$destination"
-        ln -s "$source" "$link"
+        if ! ln -s "$source" "$link"; then
+          echo "Cannot create a native symlink. Use node scripts/install-skills.mjs instead." >&2
+          exit 1
+        fi
         echo "Linked: $link -> $source"
       fi
     elif [[ -L "$link" && "$(readlink "$link")" == "$source" ]]; then

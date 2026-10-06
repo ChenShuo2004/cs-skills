@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS 代码叙事视频"
+  short_description: "陈硕的口播到成片流程：代码场景、A/B-roll、真实音频时码与双比例封面。"
+  default_prompt: "使用 $cs-code-story-video，把我的口播和角色制作成有独立 B-roll 场景的 16:9 代码叙事视频；先检查原声，再交付样片、完整版和 3:4/4:3 封面。"

@@ -1,12 +1,6 @@
 ---
 name: cs-code-video
 description: "用代码做动画视频：页面暴露 render(t)，Playwright 逐帧截图 + FFmpeg 合成 mp4，可接合成配乐、出图和配音。通用模式先明确主题、规格、风格和声音，出风格卡、分镜与关键帧后逐镜制作；Vibe知识大赏模式额外查证来源、记录真实素材许可、先渲 10 秒样片。触发词包括 $cs-code-video、用代码做视频、知识解说动画、Vibe知识大赏、来源可核查的代码科普片、KAI 教程片、像素动画、片头。固定暗夜星空系列用 cs-knowledge-film，固定像素解说系列用 cs-pixel-explainer；真实网页演示、电商视频和 ChatCut 策划各用对应 skill。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex, Claude and any agent that supports SKILL.md; needs node + playwright, ffmpeg, python3 + numpy"
-  credits: "Workflow distilled from xilo's article on making videos with Opus and Kianzzz/xilo-opus-video (MIT)"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
@@ -78,7 +72,7 @@ python3 scripts/gen_image.py assets.json --dry-run | --draft | --final | --pick 
 - `assets/kai-cat.js`：KAI 猫代码版角色组件，`drawKaiCat(g, {x, y, size, t, pose, expr, style})`，4 种姿势、5 种表情、4 种画风。每支片都要出场，规则见 signature.md 第五节。
 - `assets/crt.js`：WebGL2 老电视后期层，`template.html` 里 `USE_CRT = true` 即开。只在风格卡选了复古质感时用。
 - `assets/voice/`：`tts.py` + `配音.bat`（Windows 双击即可），读同目录 `spec.json` 逐句生成 `audio/line_XXX.mp3`。
-- 像素风参考实现：[`../cs-pixel-explainer/assets/reference-wizard.html`](../cs-pixel-explainer/assets/reference-wizard.html)（调色板索引缓冲、整数倍放大、10 张/秒姿势量化、固定步长重放的 render(t)），像素复古风格从它起步。
+- 像素风参考实现：[`assets/reference-wizard.html`](assets/reference-wizard.html)（调色板索引缓冲、整数倍放大、10 张/秒姿势量化、固定步长重放的 render(t)），像素复古风格从它起步。
 
 依赖：node + playwright、ffmpeg、python3 + numpy、中文字体（Noto Sans CJK 等）；出图另需 `pip install openai pillow` 和 `OPENAI_API_KEY`。
 

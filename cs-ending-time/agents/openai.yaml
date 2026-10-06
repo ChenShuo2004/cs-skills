@@ -1,7 +1,7 @@
 interface:
   display_name: "CS Ending Time"
-  short_description: "陈硕的 Web 与 App 交付收尾：验证、GitHub 与部署。"
-  default_prompt: "使用 $cs-ending-time 收尾并部署这个页面或功能，先验证结果，再完成 GitHub 与线上交付。"
+  short_description: "陈硕的交付收尾：沿用已有授权，验证提交与实际部署结果。"
+  default_prompt: "使用 $cs-ending-time，完成会话中已授权的交付动作，核对目标和实际结果。"
 
 policy:
   allow_implicit_invocation: true

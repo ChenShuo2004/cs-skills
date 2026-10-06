@@ -1,0 +1,81 @@
+{
+  "description": "Static packaging and executable policy invariants. These checks do not evaluate model decisions.",
+  "contracts": [
+    {
+      "name": "routing",
+      "checks": [
+        {
+          "path": "cs-run/SKILL.md"
+        },
+        {
+          "path": "cs-frontend-design/references/execution-contract.md"
+        },
+        {
+          "path": "cs-clean-code/references/review-checklist.md"
+        }
+      ]
+    },
+    {
+      "name": "engineering-delivery",
+      "checks": [
+        {
+          "path": "cs-ending-time/references/production-concurrency.md"
+        },
+        {
+          "path": "cs-ralph-runner/references/run-policy.json",
+          "jsonEquals": {
+            "defaultMode": "no-commit",
+            "defaultIterations": 1,
+            "autoInstallMissingTools": false,
+            "stopOnDirtyWorktree": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "chatcut-blueprint",
+      "checks": [
+        {
+          "path": "cs-chatcut-video-blueprint/references/blueprint-format.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/self-media-script.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/assets/self-media-package.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/product-handoff.md"
+        }
+      ]
+    },
+    {
+      "name": "digital-human-product-video-pipeline",
+      "checks": [
+        {
+          "path": "cs-digital-human-product-video-pipeline/references/product-pack-contract.md"
+        },
+        {
+          "path": "cs-digital-human-product-video-pipeline/references/stage-contracts.md"
+        },
+        {
+          "path": "cs-digital-human-product-video-pipeline/scripts/validate-product-pack.mjs"
+        }
+      ]
+    },
+    {
+      "name": "xiaohuang",
+      "checks": [
+        {
+          "path": "cs-xiaohuang-skill/references/character-dna.md"
+        },
+        {
+          "path": "cs-xiaohuang-skill/references/qa-checklist.md"
+        }
+      ]
+    }
+  ]
+}

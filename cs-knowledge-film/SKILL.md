@@ -1,11 +1,6 @@
 ---
 name: cs-knowledge-film
 description: "制作明确要求暗夜星空、衬线双语字幕与金色光点风格的知识解说片，或用户显式调用 $cs-knowledge-film：从概念与画面隐喻设计，到口播、场景 spec、配音和 1080p 渲染。普通科普视频不默认套用这一视觉模板；网页产品演示、ChatCut 策划和电商视频复刻各用对应 skill。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

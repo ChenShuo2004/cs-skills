@@ -1,11 +1,6 @@
 ---
 name: cs-pixel-explainer
 description: "把中文口播文案做成像素风 + 坐标系隐喻 + 打字机字幕的动画解说视频（含 edge-tts 配音）：先问 5 项输入、写分镜表与 3 张关键帧等确认，再写 spec.json、配音、逐帧渲染 1080p mp4。用户给文案并要像素风 / 注意力赌博那种风格、或确认是像素解说系列续集时使用；独立单片和其他风格走 $cs-code-video，暗夜星空知识片走 $cs-knowledge-film。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex, Claude and any agent that supports SKILL.md; needs node + playwright, ffmpeg, Noto CJK fonts; edge-tts runs on a machine that can reach Microsoft speech services"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
@@ -23,7 +18,7 @@ metadata:
 按顺序找，找到一处即可，复制到工作目录 `~/pxe/engine/`：
 
 1. 本 skill 目录：[`engine/`](engine/)（从 GitHub 安装时就在这里；没有就 `git clone https://github.com/ChenShuo2004/cs-skills`，目录 `cs-pixel-explainer/engine/`）
-2. 用户电脑（已关联时）：`C:\Users\Administrator\Videos\pixel-explainer\engine\` → `device_stage_files` 拉到云端
+2. 用户电脑（已关联时）：读取用户提供的 engine 目录，通过当前可用文件工具获取；不假设固定电脑路径。
 3. Project「陈硕 video」文档：`claude/pixel-explainer/engine.html` 等 → `project_read` 后写入文件
 
 像素纯度参考实现：[`assets/reference-wizard.html`](assets/reference-wizard.html)（施法巫师，128×96 调色板索引缓冲、整数倍放大、10 张/秒姿势量化、预分配粒子池、固定步长重放的 render(t)、无缝循环）。新场景、新角色从它的写法起步。

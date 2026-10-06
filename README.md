@@ -1,101 +1,173 @@
-[![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-0d5d57?style=for-the-badge)](README.md)
-[![English](https://img.shields.io/badge/English-e7f3ef?style=for-the-badge&labelColor=e7f3ef&color=3b8279)](README.en.md)
-[![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-3b8279?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
-
 # CS Skills
 
-**把真实项目中反复使用的方法，做成可安装、可执行、可验收的 Agent 工作流。** 面向 Codex 和 Claude Code；其他支持 `SKILL.md` 的 Agent 也可以按需使用。
+**把做过的事留成方法，让 AI 接着把事情做完。**
 
-<img src="assets/chenshuo-skills-cover.png" alt="CS Skills：从输入与创作到检查交付的工作流" width="900">
+做产品、写内容、做视频，真正需要交给 AI 的，往往还有项目里的判断：先看哪些资料，什么时候继续，什么结果算完成。CS Skills 把陈硕（KAI）在真实项目中整理的方法，做成可以安装、反复使用的 Agent 工作流。你带着目标、仓库或素材来，交付可以是一页能用的界面、一篇文章、一套分镜，也可以是一支有可编辑工程的视频。
 
-现有 **16 个任务 Skill**。知道要做什么但不知道选哪个，就从 [`cs-run`](cs-run/) 开始；它会整理目标并路由到一个主 Skill。每个 Skill 都能单独安装。
+![CS Skills 工作流](assets/chenshuo-skills-cover.png)
 
-[立即开始](#立即开始) · [按目标选择](#按目标选择) · [真实演示](#真实演示) · [安装与维护](#安装与维护)
+当前版本 **v0.7.0**，包含 **22 个任务技能 + 1 个执行辅助技能**。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
 
-## 立即开始
+[安装与更新](#安装与更新) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [模型与依赖](#模型与依赖) · [真实演示](#真实演示)
 
-```bash
+## 安装与更新
+
+### 已有本地仓库
+
+在仓库目录运行（Node.js 22+，Windows / macOS / Linux 通用）：
+
+```powershell
+node scripts/install-skills.mjs --update
+node scripts/install-skills.mjs --check
+```
+
+默认将 22 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
+
+### 第一次安装
+
+```powershell
 git clone https://github.com/ChenShuo2004/cs-skills.git
 cd cs-skills
-./scripts/install.sh --codex   # Claude Code 改用 --claude；两者都用 --both
+node scripts/install-skills.mjs
 ```
 
-打开新的 Agent 会话，直接说目标：
+已有仓库只需在该目录 `git pull --ff-only`，然后重新运行更新命令，避免重复克隆。已有同名目录时，普通安装会保留它并报告冲突；明确更新时使用 `--update`。
 
-```text
-$cs-run 帮我把这次项目经历写成一篇有真实细节、可复制步骤的文章。
+也可下载 [v0.7.0 完整安装包](https://github.com/ChenShuo2004/cs-skills/releases/download/v0.7.0/cs-skills-v0.7.0.zip)，解压后运行同样的安装命令。[Release 页面](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)附包文件 SHA-256，包内的 `INSTALL-MANIFEST.json` 记录全部文件哈希。
+
+### 只安装需要的技能
+
+```powershell
+node scripts/install-skills.mjs --update cs-run cs-writer cs-search-skill
+node scripts/install-skills.mjs --dry-run
 ```
 
-已有明确任务，也可以直接调用对应 Skill。例如，制作来源可核查的知识短片：
+Claude Code 使用 `--target` 指定其技能目录；同一命令也可指定其他宿主目录：
 
-```text
-$cs-code-video 用 Vibe 知识模式，把「为什么天空是蓝的」做成科普视频。先查证来源、做三张风格样图和前 10 秒样片，再制作整片。
+```powershell
+node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update
 ```
 
-这套视频流程已并入 [`cs-code-video` 的 Vibe 模式](cs-code-video/references/vibe-knowledge.md)，无需安装另一个同名知识视频 Skill。
+已有 Bash 的用户可继续使用 `./scripts/install.sh --codex`、`--claude` 或 `--both`。它创建指向本仓库的链接，保留克隆目录后即可随 `git pull` 更新；已有目录或其他来源的链接会保留。需要更新目录副本时使用上面的 Node 安装器。
 
-## 按目标选择
+Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器会明确失败，请使用 Node 安装器。
 
-<img src="assets/cs-skills-pipeline.svg" alt="目标与素材 → cs-run → 专项执行 → 验证结果 → 按需发布" width="900">
+**安装完成后打开新会话，检查技能是否出现在列表中。** Codex 的总入口显示名为 `cs-skills`，调用名为 `$cs-run`。只装 `cs-run` 不会自动安装下游技能。安装文件一致与新会话已加载是两项检查。
 
-`cs-run` 只选择一个主 Skill；需要提交、推送或部署时，再追加交付步骤。
+## 按目标选技能
 
-| 目标 | Skill | 主要交付物 |
+知道要什么就直接调用对应技能；跨领域或还不清楚入口时用 `$cs-run`。它按阶段连接工作流，小任务直接执行。
+
+| 你想完成什么 | 使用哪个 Skill | 交付什么 |
 | --- | --- | --- |
-| 不知道从哪里开始 | [`cs-run`](cs-run/) | Goal Card、合适的主 Skill 与执行结果 |
-| 写文章、提纲、项目故事 | [`cs-writer`](cs-writer/) | 有事实细节的内容草稿或改稿 |
-| 调研产品、技术、市场或竞品 | [`cs-search-skill`](cs-search-skill/) | 带来源的决策简报 |
-| 延展“小黄”角色或为文章配图 | [`cs-xiaohuang-skill`](cs-xiaohuang-skill/) | 角色资产、配图 shot list 与插画 |
-| 策划一条 ChatCut 视频 | [`cs-chatcut`](cs-chatcut/) | 选题、口播、素材和逐镜头蓝图 |
-| 做电商视频对标和生成包 | [`cs-auto-videl`](cs-auto-videl/) | Hook、九宫格、首帧及视频模型提示词 |
-| 把真实网页拍成产品演示片 | [`cs-web-promo-film`](cs-web-promo-film/) | Remotion 工程与 MP4 |
-| 做代码动画或 Vibe 知识科普片 | [`cs-code-video`](cs-code-video/) | 分镜、样片、可重渲工程与 MP4；Vibe 模式附来源表 |
-| 做固定暗夜星空系列解说片 | [`cs-knowledge-film`](cs-knowledge-film/) | 场景 spec、配音、双语字幕与 MP4 |
-| 做固定像素风解说系列 | [`cs-pixel-explainer`](cs-pixel-explainer/) | 像素动画、配音、SRT 与 MP4 |
-| 设计或实现产品界面 | [`cs-frontend-design`](cs-frontend-design/) | 可用界面与浏览器检查 |
-| 清理代码、核对文档与实现 | [`cs-clean-code`](cs-clean-code/) | 小范围修订与验证记录 |
-| 把 Markdown 需求转成 Ralph 工作流 | [`cs-ralph-runner`](cs-ralph-runner/) | Ralph PRD 与安全预演 |
-| 大改前保存回退点 | [`cs-checkpoint-version`](cs-checkpoint-version/) | 可恢复的本地 checkpoint |
-| 提交、推送或开 PR | [`cs-github-push`](cs-github-push/) | 精确提交与远端 SHA 核验 |
-| 完成 Web／App 部署收尾 | [`cs-ending-time`](cs-ending-time/) | 验证、GitHub 交付与上线检查 |
+| 从目标选择路径、串联多个阶段 | [$cs-run](cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
+| 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
+| 调研产品、技术、市场与竞品 | [$cs-search-skill](cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
+| 做 KAI 固定角色的文章封面 | [$cs-kai-cover](cs-kai-cover/SKILL.md) | 标题清晰的 5:2 PNG 与无字背景 |
+| 延展小黄 IP、给中文文章配图 | [$cs-xiaohuang-skill](cs-xiaohuang-skill/SKILL.md) | 角色资产、配图规划与正文插画 |
+| 把真实项目写成个人 IP 口播 | [$cs-personal-ip-script](cs-personal-ip-script/SKILL.md) | 可录稿、独立演绎标注与事实待补项 |
+| 写自媒体剧本、分镜和逐图提示词 | [$cs-chatcut-video-blueprint](cs-chatcut-video-blueprint/SKILL.md) | 完整制作文本包或点名补充项 |
+| 了解 ChatCut 安装与制作操作 | [$cs-chatcut](cs-chatcut/SKILL.md) | 策划、上手指南与编辑工作台交接 |
+| 做电商视频对标、九宫格和生成包 | [$cs-auto-videl](cs-auto-videl/SKILL.md) | 分镜图、首帧与平台生成提示词 |
+| 用最终口播做角色 A/B-roll 叙事片 | [$cs-code-story-video](cs-code-story-video/SKILL.md) | Remotion 工程、样片、全片与双比例封面 |
+| 制作代码动画、KAI 教程或 Vibe 科普 | [$cs-code-video](cs-code-video/SKILL.md) | 风格卡、分镜、样片与可重渲视频 |
+| 把真实网页拍成产品演示宣传片 | [$cs-web-promo-film](cs-web-promo-film/SKILL.md) | 页面采集、Remotion 工程与 MP4 |
+| 制作固定暗夜星空知识解说系列 | [$cs-knowledge-film](cs-knowledge-film/SKILL.md) | 场景 spec、配音、双语字幕与 MP4 |
+| 制作固定像素解说系列 | [$cs-pixel-explainer](cs-pixel-explainer/SKILL.md) | 像素动画、实际配音、SRT 与 MP4 |
+| 做数字人产品介绍视频 | [$cs-digital-human-product-video-pipeline](cs-digital-human-product-video-pipeline/SKILL.md) | 环境预检、可审批样片与成片 QA |
+| 将最终录音与实际朗读稿对齐 | [$cs-narration-phrase-timeline](cs-narration-phrase-timeline/SKILL.md) | 词级边界、短语时间表与覆盖率 |
+| 设计、实现或迭代产品页面 | [$cs-frontend-design](cs-frontend-design/SKILL.md) | 页面实现、交互与浏览器检查 |
+| 定位问题、整理代码与同步文档 | [$cs-clean-code](cs-clean-code/SKILL.md) | 范围明确的修改与必要验证 |
+| 把 Markdown 需求交给 Ralph 执行 | [$cs-ralph-runner](cs-ralph-runner/SKILL.md) | PRD、overview、构建结果与日志 |
+| 大改前保存可恢复版本 | [$cs-checkpoint-version](cs-checkpoint-version/SKILL.md) | 本地 checkpoint 与恢复核对 |
+| 提交、推送、开 PR 或核验 GitHub | [$cs-github-push](cs-github-push/SKILL.md) | 精确提交、远端 SHA 与按需 PR |
+| 完成验证、发布或应用部署收尾 | [$cs-ending-time](cs-ending-time/SKILL.md) | 验证记录与已授权的实际交付 |
 
-视频 Skill 按**素材和成片方式**选：真实网页用 `cs-web-promo-film`；电商对标与视频模型提示词用 `cs-auto-videl`；ChatCut 策划用 `cs-chatcut`；代码生成画面用 `cs-code-video`。暗夜星空与像素解说是各自固定系列。详细边界见 [技能清单](docs/skill-inventory.md)。`cs-recover-skill` 是执行校准辅助项，不计入 16 个任务 Skill，也不参与默认安装。
+[$cs-recover-skill](cs-recover-skill/SKILL.md) 是辅助入口：陷入反复验证、无效追问或范围失控时校准执行。它保留在安装包中，默认不安装；需要时显式指定名称。名称与数量以 [注册表](tests/fixtures/skill-registry.json) 为准。
+
+视频入口按素材和交付选：网页录制、代码动画、原声角色叙事、电商生成包各有自己的路径；暗夜星空与像素解说用于明确选定的系列。纯文本分镜可先完成，精确音频对齐需要最终录音。详细边界见 [技能清单](docs/skill-inventory.md)。
+
+## 直接复制使用
+
+**做产品：**
+
+```text
+$cs-run 基于这个仓库做一个能本地使用的最小产品。先完成核心流程，再检查桌面和手机上的交互，交付代码和验证结果。
+```
+
+**写内容，附封面与配图：**
+
+```text
+$cs-run 把下面的真实项目记录写成一篇文章，保留失败、过程和判断。完成后用 KAI 做 5:2 封面，用小黄规划正文配图；不要补造数据。
+```
+
+**做自媒体文本包：**
+
+```text
+$cs-run 用这段真实经历写一条 60–90 秒个人 IP 口播，并附逐镜分镜、每张图完整可复制的图片提示词和必要动作提示词。台词与制作备注分开，还没有录音，先交文本包。
+```
+
+**做原声叙事视频：**
+
+```text
+$cs-code-story-video 这里是最终口播音频、实际朗读稿和角色图。请制作 16:9 叙事视频，交付两章样片、完整版、可编辑工程和双比例封面。
+```
+
+**更新 README 并发布：**
+
+```text
+$cs-run 检查实际技能、路由和安装器，用 cs-writer 优化 README 的产品介绍，用 cs-clean-code 核对安装命令。先更新我的本地技能并校验一致，再更新 GitHub 默认分支和完整安装包。
+```
+
+## 模型与依赖
+
+**安装技能不会自动下载模型。** 写作、调研、代码和文本蓝图沿用宿主 Agent 的模型，没有统一绑定的聊天模型型号。
+
+| 阶段 | 需要什么 |
+| --- | --- |
+| 写作、规划、开发与 Git 交付 | 宿主 Agent 和当前任务需要的搜索、浏览器或 CLI |
+| KAI / 小黄图片与电商视频生成 | 已配置的图像工具或任务选择的云端服务 |
+| 中文音频对齐，已选择 WhisperX | 可选 Whisper large-v3 + 中文 wav2vec2，共约 4.37 GB |
+| 代码视频渲染 | 对应 Node / Python、浏览器、Remotion 或 FFmpeg；渲染本身不需要生成模型 |
+| 数字人与 TTS | 实际 ComfyUI 工作流、Fish/TTS 配置或用户原声，按版本确认模型 |
+
+[模型注册表](models/registry.json)包含每个技能的依赖、参考模型的固定版本、官方文件大小和哈希。[依赖说明](docs/model-dependencies.md)提供缓存位置与运行时复用方法。需要检查模型时，在完整仓库或安装包根目录运行（Python 3.12+）：
+
+```powershell
+python scripts/models.py check --profile whisperx-zh
+
+# 已选该后端且确有缺失时再运行
+python -m pip install -r models/requirements.txt
+python scripts/models.py download --profile whisperx-zh
+```
+
+检查只读、不联网；有效缓存直接复用，只补缺失文件。损坏文件须显式 `--repair`；进程锁避免同一模型并发重复下载。已有独立模型目录可以用 `--model-dir` 指定。模型权重留在本地共用缓存，GitHub 发布清单和脚本。
+
+模型文件齐全仍需验证 Python/GPU、VAD、真实音频对齐器和服务配置。技术检查、实际运行、最终画面与人工听审分别报告；数字人样片确认、付费生成与发布遵循用户已有授权。
 
 ## 真实演示
 
-### 优化 README
+这些是仓库已有的演示素材，展示对应制作过程；当前安装方式以上文为准。
 
-[这次首页改版的原始案例](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31)展示了如何核对 `AGENTS.md`、Skill 目录和安装脚本，再整理中英文入口并检查链接。
+[![README 优化讲解](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo-v2.mp4)
 
-<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="观看 CS Skills README 优化代码动画教程" width="680"></a>
+[观看 README 优化讲解](assets/demos/readme-optimization/demo-v2.mp4) · [口播与复现说明](assets/demos/readme-optimization/VO.md)
 
-[观看 73 秒教程](assets/demos/readme-optimization/demo-v2.mp4) · [口播、分镜和复现说明](assets/demos/readme-optimization/VO.md)
+[![GitHub 推送讲解](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
 
-### 推送到 GitHub
+[观看 GitHub 推送录屏](assets/demos/cs-github-push-demo.mp4) · [口播与分镜](assets/demos/cs-github-push-script.md) · [小黄 IP 与正文配图展示](cs-xiaohuang-skill/README.md)
 
-[`cs-github-push`](cs-github-push/)会核对范围、精确提交并比对远端 SHA。本地 commit、远端推送与网站上线是三个不同状态。
+## 维护与验证
 
-<a href="assets/demos/cs-github-push-demo.mp4"><img src="assets/demos/cs-github-push-poster.jpg" alt="观看 cs-github-push 录屏讲解" width="680"></a>
+每个技能以 `SKILL.md` 为入口，Codex 展示配置在 `agents/openai.yaml`；参考资料、资产、脚本按阶段读取。新增入口时同步路由、注册表、模型依赖、两份 README 与相关行为案例。
 
-[观看 45 秒录屏](assets/demos/cs-github-push-demo.mp4) · [口播与分镜](assets/demos/cs-github-push-script.md)
-
-更多实际视觉产物见 [小黄 Skill 展示页](cs-xiaohuang-skill/README.md)。
-
-## 安装与维护
-
-不指定名称时，安装全部 16 个任务 Skill；也可以只装需要的：
-
-```bash
-./scripts/install.sh --claude cs-run cs-code-video  # 只装到 Claude Code
-./scripts/install.sh --both cs-run                    # 同时装到 Codex 和 Claude Code
-./scripts/install.sh --codex --dry-run                # 预览，不修改文件
-./scripts/install.sh --codex --uninstall cs-run       # 移除指向本仓库的链接
+```powershell
+node scripts/validate-skills.mjs
+node scripts/run-regression.mjs
+node scripts/install-skills.mjs --check
+python scripts/package-release.py
 ```
 
-脚本不会覆盖已有目录或其他来源的链接。软链接依赖克隆目录的位置；保留该目录，日后 `git pull` 后重开 Agent 会话即可读取更新。只安装 `cs-run` 不会自动安装下游 Skill。目标目录分别是 `$HOME/.codex/skills` 和 `$HOME/.claude/skills`；全部参数见 `./scripts/install.sh --help`。
+回归需要 Python 3.12+ 与 PowerShell；多版本 Python 可通过 `CS_SKILLS_PYTHON` 指定。Bash 安装器的检查为 `./scripts/test-install.sh`。结构、脚本与文件一致性通过，不等于模型在新会话中的行为已经通过；[行为验收](docs/evals/README.md)单独记录。
 
-Agent 是使用 Skill 的基本条件。克隆与安装需要 Git 和 Bash；视频、图像及部署 Skill 的额外依赖写在各自的 `SKILL.md`，GitHub 推送还需要目标仓库写权限。
-
-每个 Skill 以 `SKILL.md` 为入口，Codex 展示信息放在 `agents/openai.yaml`，详细规则和工具按需放入 `references/`、`scripts/`、`assets/`。调整任务 Skill 时同步 [`cs-run` 路由](cs-run/SKILL.md)、[技能清单](docs/skill-inventory.md)和中英文 README；协作规则见 [AGENTS.md](AGENTS.md)。安装脚本可用 `./scripts/test-install.sh` 在临时目录自测。
-
-[MIT 许可](LICENSE) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [Star 趋势](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+[English](README.en.md) · [协作规则](AGENTS.md) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [MIT License](LICENSE) · [陈硕 KAI](https://everlightai.top)

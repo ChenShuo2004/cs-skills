@@ -1,0 +1,121 @@
+{
+  "version": "0.7.0",
+  "skills": [
+    {
+      "name": "cs-auto-videl",
+      "displayName": "CS Auto Videl",
+      "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-chatcut-video-blueprint",
+      "displayName": "CS 自媒体剧本与制作蓝图",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-code-story-video",
+      "displayName": "CS 代码叙事视频",
+      "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-checkpoint-version",
+      "displayName": "CS Checkpoint Version",
+      "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-clean-code",
+      "displayName": "CS Clean Code",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-digital-human-product-video-pipeline",
+      "displayName": "CS 数字人产品视频流水线",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-ending-time",
+      "displayName": "CS Ending Time",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-frontend-design",
+      "displayName": "CS Frontend Design",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-kai-cover",
+      "displayName": "CS KAI 文章封面",
+      "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-narration-phrase-timeline",
+      "displayName": "CS 口播短语时间表",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-personal-ip-script",
+      "displayName": "CS 个人 IP 口播",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-ralph-runner",
+      "displayName": "CS Ralph Runner",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-run",
+      "displayName": "cs-skills",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-search-skill",
+      "displayName": "CS Search Skill",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-writer",
+      "displayName": "CS Writer",
+      "releaseLevel": "contract"
+    },
+    {
+      "name": "cs-xiaohuang-skill",
+      "displayName": "CS 小黄 IP 与正文配图",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-chatcut",
+      "displayName": "CS ChatCut 视频策划",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-code-video",
+      "displayName": "CS 代码视频",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-github-push",
+      "displayName": "CS GitHub Push",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-knowledge-film",
+      "displayName": "CS 暗夜知识片",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-pixel-explainer",
+      "displayName": "CS 像素解说",
+      "releaseLevel": "core"
+    },
+    {
+      "name": "cs-recover-skill",
+      "displayName": "GPT-5.6 复位",
+      "releaseLevel": "core",
+      "auxiliary": true
+    },
+    {
+      "name": "cs-web-promo-film",
+      "displayName": "CS 网页宣传片",
+      "releaseLevel": "core"
+    }
+  ]
+}

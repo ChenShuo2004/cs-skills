@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS 数字人产品视频流水线"
+  short_description: "用预检、样片审批与最终验收编排数字人产品介绍视频。"
+  default_prompt: "使用 $cs-digital-human-product-video-pipeline，根据我的 product-pack.json 先完成预检和样片方案；我确认样片后再制作全片并做 ChatCut、Remotion 与 FFmpeg 验收。"

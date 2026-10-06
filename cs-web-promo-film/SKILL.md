@@ -1,11 +1,6 @@
 ---
 name: cs-web-promo-film
 description: "把真实网页做成 30–60 秒产品演示宣传片：Playwright 采集页面长截图，Remotion 用虚拟浏览器窗口做推进、平移、滚动和点击，渲染可交付 mp4，并可附口播稿。触发词包括 $cs-web-promo-film、网页宣传片、产品演示片、把这个网页做成视频、产品功能演示。不用于网页幻灯片、静态海报、真人出镜、电商对标复刻（改用 $cs-auto-videl）、ChatCut 策划或时间线剪辑（改用 $cs-chatcut）。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

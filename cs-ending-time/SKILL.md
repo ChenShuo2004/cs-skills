@@ -1,201 +1,47 @@
 ---
 name: cs-ending-time
-description: |
-  Use when the user asks to finish and deploy a completed web or app implementation in one bounded delivery scope. For GitHub-only commit, push, PR, or remote verification, use cs-github-push.
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
+description: "完成已实现功能的验证、Git 提交/推送、PR 或部署交付。按用户在会话中已授权的动作执行，核对仓库、提交与真实部署结果；单纯本地收尾不自动公开发布。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
-# Ending Time
+# CS Ending Time
 
-## Purpose
+将本次功能交付到用户指定的目标，并提供可追溯证据。适用于 Git 和实际项目部署流程；不强制项目使用 GitHub 或 Vercel。
 
-Use this skill as the final-mile delivery workflow for web and app projects.
+## 范围与授权
 
-## Task Isolation (required)
+先核对仓库根目录、分支、相关 diff、目标服务/环境及用户已有授权。同一请求可授权多个步骤，“提交并推送”不用逐项再问。沿用项目指令中的提交约定。
 
-This workflow closes only one bounded delivery at a time. Before any staging, commit, push, or deploy action:
+| 用户请求 | 可执行范围 |
+| --- | --- |
+| 检查、优化、收尾 | 必要实现与本地验证，不自动推送或发布。 |
+| 提交 / commit | 检查、限定范围暂存和提交。 |
+| 提交并推送 / 推送这些修改到已知仓库 | 必要的本地提交及指定分支推送；检查自动部署影响。 |
+| 创建 PR | 准备必要分支、提交、推送并创建 PR；不包含合并。 |
+| 部署 / 上线到明确项目与环境 | 使用对应部署流程及必要准备；不扩展到其他项目或环境。 |
+| 确认后再提交/发布 | 完成可审查结果后，在指定边界等待。 |
 
-- Bind one delivery target explicitly: feature/ticket name, route(s), data, and expected output.
-- Run in a single repository target (do not mix parent and nested repos).
-- Confirm branch and target files are scoped to that single delivery.
-- Ignore unrelated worktree changes and never stage them in this workflow.
-- Do not reuse deployment URLs, commit SHAs, or validation artifacts from another delivery.
+授权的环境和目标可来自完整会话与当前项目配置。只有部署环境仍不明确且会改变目标时才询问 preview 或 production，不因用户未重复写专有名词而停止。提交不自动包含推送；预览不包含生产晋升。对未授权的额外外部动作保留边界。
 
-If multiple tasks are detected in the same conversation or worktree, ask to split and finish one task before moving to the next.
+## 本地交付
 
-The goal is to turn a requested page or feature into a verified delivery: requirements understood, implementation scoped, checks run, Git history clean, GitHub updated, Vercel deployment verified, and the user left with exact links and remaining risks.
+1. 绑定本次目标、相关文件和验收依据。多项无关改动时隔离本次内容，不要求用户先清空工作区。
+2. 完成实现和适用检查，复用当前修改已经通过的验证；代码又变化才补跑相关检查。环境失败与产品失败分开报告。
+3. 提交前检查 staged diff。使用明确路径或 hunks，不能把混合文件里的无关修改一起提交。不回退用户工作、不擅自重写历史。
+4. 有提交授权时写 Conventional Commit。若需要分支且用户未指定名称，使用 codex/ 前缀。
+5. 有推送授权时核实远端与分支，检查是否触发生产部署，推送后核对远端 SHA。PR 描述包含问题、改变的行为和实际验证。
 
-## Production Deployment Concurrency (required)
+## 部署
 
-A production URL, Vercel production alias, or production branch is a shared mutable target. Preview deployments can run in parallel, but anything that can change production must be serialized.
+优先项目现有 CI/CD、官方 CLI 或连接器。查看实际项目绑定与环境配置，缺凭据/项目时不猜；也不把秘密写进日志或仓库。
 
-Before running any command that can change production, including `vercel --prod`, `vercel promote`, `vercel alias set`, or pushing to a branch that auto-deploys production:
+涉及生产分支、域名或 alias 的共享写入前，读取 [生产并发](references/production-concurrency.md)。复用已有并发机制，重查最新远端与目标部署，避免旧预览覆盖较新发布。
 
-- Derive a lock key from the repository remote, Vercel project name, and production domain or alias.
-- Acquire an exclusive local lock before the production-mutating command. Prefer an atomic directory lock under `$env:TEMP\cs-ending-time-locks\<lock-key>.lock`; record repo root, branch, base commit, target commit, deployment URL, Vercel project, alias/domain, timestamp, and delivery target in the lock metadata.
-- If the lock already exists, do not deploy over it. Inspect the metadata, report the active delivery, and wait or ask the user which delivery owns production.
-- Build and verify a unique preview deployment first. Only promote that exact deployment after holding the lock.
-- After acquiring the lock, re-check the current production state with `git fetch`, the target branch HEAD, and `vercel inspect` or the Vercel dashboard. If production advanced after the preview was built, stop and rebuild/rebase instead of promoting stale output.
-- Release the lock only after production verification and closeout. Treat stale locks as unsafe unless the user confirms they are abandoned.
+部署完成后同时核对：提供方完成状态、预期 commit/deployment ID、实际域名或 URL 指向，以及本次功能的关键路由。成功推送不等于部署成功，HTTP 200 也不证明业务动作正常。
 
-## When To Use
+遇到网络超时，先查远端提交、部署列表或 PR 是否已经创建，再决定重试，避免重复发布。需要额外授权时先完成可审查的文件、diff 与检查，让用户决定具体动作。
 
-- The user asks to implement a page or function and publish it.
-- The user asks to complete a web or app delivery that includes deployment to Vercel or another live target.
-- The work is already implemented but needs a reliable finish: validation, commit, push, deploy, and handoff.
-- The user says "收尾", "上线", "部署", "Vercel", "对应页面和功能实现", or "一键使用" and wants a live web or app result.
+## 交付报告
 
-Do not use this skill for pure planning, pure code review, or GitHub-only delivery; use `$cs-github-push` for the latter.
-
-## Core Rules
-
-- Requirements first: read `README`, `AGENTS.md`, product docs, page docs, issue notes, or deployment docs before changing code.
-- Scope before staging: inspect `git status` and relevant diffs. Never stage unrelated user changes silently.
-- Small edits: implement only the requested page/function/deploy support. Avoid unrelated refactors.
-- Verify before publishing: do not commit or deploy a broken build unless the user explicitly accepts that state.
-- GitHub and Vercel are output surfaces, not substitutes for local validation.
-- Serialize production updates: preview deployments may run concurrently, but production alias/branch changes require the production lock.
-- Keep secrets out of Git. Never commit `.env`, `.env.local`, tokens, project auth files, or local cache/output directories.
-
-## Workflow
-
-1. Orient in the repo.
-   - Confirm the current working directory and Git remote.
-   - Lock the delivery scope first: record feature target, route/files, branch, and commit boundary before edits.
-   - Confirm the exact repo root with `git rev-parse --show-toplevel` and proceed only in that repo for this invocation.
-   - Read the nearest project instructions: `AGENTS.md`, `README.md`, `docs/`, PRD files, page docs, and deploy notes.
-   - Identify the framework, package manager, build command, test command, and Vercel config.
-
-2. Restate the delivery target.
-   - User goal.
-   - Inputs and expected output.
-   - Pages, routes, APIs, data files, or deployment config affected.
-   - Assumptions and unclear requirements.
-
-3. Plan briefly before editing.
-   - List the smallest useful implementation steps.
-   - Note public contracts that could be affected: routes, schemas, environment variables, permissions, data shape, or state flow.
-
-4. Implement the requested work.
-   - Follow existing project patterns, components, names, and styling.
-   - Update docs when behavior, commands, env vars, routes, or deployment steps changed.
-   - For frontend work, verify the real page when a browser/dev server is available.
-
-5. Verify locally.
-   - Prefer project scripts such as `npm.cmd run build`, `npm.cmd test`, `npm.cmd run lint`, `pnpm build`, `yarn build`, or repo-specific checks.
-   - If scripts are missing, inspect package files and run the nearest meaningful check.
-   - If verification is blocked by auth, missing env vars, external services, or local tooling, say exactly what is blocked.
-
-6. Prepare Git.
-   - Run `git status --short --branch`.
-   - Inspect diffs for changed files that will be staged.
-   - If the worktree is mixed, stage explicit files only.
-   - If on `main`, `master`, or a protected/default branch and the user did not ask for direct commit, create a branch named `codex/<short-purpose>`.
-   - Commit with a concise message that describes the delivered behavior.
-
-7. Push to GitHub.
-   - Push the current branch with tracking.
-   - If the user asks for a PR, create one after push and include validation in the PR body.
-   - If the user asks for direct production delivery and the repo normally deploys from the pushed branch, confirm the branch/deploy relationship.
-   - If this push can update production, acquire the production lock before pushing.
-
-8. Deploy with Vercel.
-   - Prefer the repo's existing GitHub-to-Vercel integration when it is configured and the pushed branch is expected to deploy.
-   - Use a unique preview deployment for parallel work, then promote the exact verified deployment while holding the production lock.
-   - Use Vercel CLI as fallback or when the user asks for immediate production deployment: `vercel --prod`; this still requires the production lock.
-   - If `.vercel/project.json` exists, confirm the linked project name before deployment.
-   - If Vercel auth or project linking is missing, stop before guessing and report the exact command or dashboard action needed.
-
-9. Verify the live result.
-   - Capture the deployment URL.
-   - Inspect Vercel output or deployment status.
-   - When production changed, confirm the live alias/domain points to the expected deployment id or commit.
-   - Open or request-check the relevant route when possible.
-   - Confirm SPA rewrites, asset loading, API routes, and key page flows for the changed surface.
-
-10. Report in the user's preferred closeout format.
-
-11. Closeout binding check.
-   - Before finalizing, verify the report includes:
-     - delivery target name
-     - repository root
-     - branch
-     - commit hash (or explicit "not committed")
-     - staged file list
-     - deployment target/project + URL
-     - production lock key/path and live alias before/after, when production was changed
-
-## Git Safety
-
-- Do not run `git add -A` when unrelated files exist.
-- Do not rewrite history, reset, force-push, or delete branches unless the user explicitly asks.
-- Do not commit generated dependency folders, build output, logs, local browser caches, or secrets unless the repo intentionally tracks them.
-- If pre-existing changes are present, work with them. Do not revert them.
-- If a deploy requires environment variable changes, explain the required variables and where they must be configured.
-
-## Vercel Checks
-
-Look for these signals before deploying:
-
-- `vercel.json`
-- `.vercel/project.json`
-- `.vercelignore`
-- framework config such as Vite, Next.js, Remix, Astro, or SvelteKit
-- build output expectations such as `dist`, `.next`, `out`, or `build`
-- required environment variables from `.env.example`, docs, or runtime errors
-
-For Vite SPA projects, ensure route refreshes are covered by rewrites, usually through `vercel.json`.
-
-## Output Format
-
-Use this format after completing work:
-
-```markdown
-### 需求理解
-...
-
-### 实现方案
-...
-
-### 关键逻辑
-...
-
-### 修改文件
-...
-
-### 验证方式
-...
-
-### GitHub / Vercel
-...
-
-### 风险与待确认
-...
-```
-
-Include exact commands run, commit hash, branch name, remote URL or PR URL, Vercel deployment URL, and any verification blockers.
-
-The closeout must also include these task-bound fields:
-- Delivery target name
-- Repository root (absolute path)
-- Branch
-- Commit hash or `not committed`
-- Staged files
-- Deployment target/project and deployment URL
-- Production lock key/path and live alias before/after, when production was changed
-
-## Common Mistakes
-
-- Shipping before reading the page or product docs.
-- Treating a successful push as a verified deployment.
-- Staging the user's unrelated work because it happened to be in the same checkout.
-- Deploying from the wrong Vercel project or team.
-- Forgetting that preview and production deployments can use different environment variables.
-- Promoting a stale preview or direct `--prod` deployment while another window is already changing the same production alias.
-- Reporting "done" without a route, deployment URL, or repeatable verification step.
+只报告实际发生的动作：改动与验证、仓库/分支/commit、PR 或部署链接，以及还缺什么。未部署不输出虚构部署字段；部署失败不能标为上线成功。较复杂交付补充目标项目与验证命令即可，不强制七段模板。

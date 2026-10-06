@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS 个人 IP 口播"
+  short_description: "用真实项目写可录制口播，需要分镜分图提示词时连续交接制作蓝图。"
+  default_prompt: "使用 $cs-personal-ip-script，基于我的真实项目写可直接录制的口播；若我要求分镜分图提示词，继续交接蓝图完成，不编造事实或强加 CTA。"

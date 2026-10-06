@@ -1,79 +1,42 @@
-# Happy Writer Style Guide
+# 陈硕写作风格蓝图
 
-Use this reference when writing or polishing a complete article.
+在写完整长文、X 长帖、项目复盘或需要重构开头时读取本参考。短帖和小段润色不必加载全文。
 
-## Core Feeling
+## 核心感觉
 
-The voice should feel like a builder sharing something that genuinely caught his attention.
+像一个正在公开做产品、做内容、做业务的人，记录一件真遇到的事，再给出经过思考的判断。读者应能看见：发生了什么、为什么重要、过程里哪里不顺、最后能带走什么。
 
-The reader should feel three things:
+不是“AI 改变一切”的概念宣讲，也不是把项目日志逐条复述。
 
-- This person actually tried or built something.
-- This is understandable even if I am not deep in the toolchain.
-- I can take one concrete idea away and use it.
+## 常见推进方式
 
-## Preferred Openings
+根据素材选择自然形状，而非强制套模板：
 
-Start from a specific scene:
+- **产品 / 工具实测**：问题或目标 → 做了什么 → 结果与验证 → 能力边界 → 对工作流的判断。
+- **公开构建 / 项目节点**：当下进展 → 起点或意外 → 具体动作与数据 → 还在打磨什么 → 下一步。
+- **案例拆解 / 方法论**：反常识结论 → 现象或案例 → 拆开真实机制 → 能复用的步骤与条件。
+- **个人复盘**：一段具体经历 → 以前的误判或代价 → 后来的变化 → 不夸大的结论。
 
-- a tool behaved unexpectedly
-- a workflow finally ran through
-- a content result surprised the user
-- a small failure revealed a bigger method
-- a user/account/project detail made the problem real
+长文可以用小标题承接读者的阅读节奏；叙事稿不要为了形式塞满标题。观点、案例、证据与判断交替推进，每段都要承担新的信息。
 
-Avoid abstract openings. The first paragraph should create a small question in the reader's mind.
+## 语言与节奏
 
-## Paragraph Rhythm
+- 优先第一人称的现场感：我看到了什么、试了什么、为什么改主意；但没有真实经历时，不要伪造“我”。
+- 开头优先具体进展、异常、损失、反差或问题，而不是抽象定义和万能金句。
+- 句子可以直接，重要判断可独立成段。解释技术时尽快回到用户、交付、成本、验证或流程。
+- “不是……而是……”“真正重要的”“最后发现”等转折只有在逻辑成立时用；避免堆叠成腔调。
+- 结尾应留下判断、下一步或读者可执行的动作，不重复总结全文，也不默认索取关注。
 
-- Use short paragraphs.
-- Let important sentences stand alone.
-- Mix explanation with moments of reaction.
-- Use transitions that sound like thinking, not reporting.
-- When the topic becomes technical, return to the user's concrete goal quickly.
+## 必须保留的边界
 
-## Useful Article Spine
+- 区分已经验证的事实、个人推断、计划与未知。案例、评测、收益和时效性信息没有来源时，不补全。
+- AI 能生成不等于能交付。涉及工具能力时，写清输入、验收、权限和人工确认的边界。
+- 改写只提升表达与结构，不改变用户的事实强度；审稿应指出缺少的关键事实，而非用漂亮话掩盖。
 
-Most Happy Writer articles can follow this spine:
+## 完稿前检查
 
-1. A concrete moment or problem.
-2. Why it mattered.
-3. What was tried.
-4. What failed or felt awkward.
-5. What finally worked.
-6. The method hiding inside the experience.
-7. What the reader can do next.
-
-Do not force this structure if the user's material has a better natural shape.
-
-## ChenShuo-Specific Signals
-
-Use these naturally when relevant:
-
-- requirements, input, output, verification
-- small-step implementation
-- AI as a practical workflow partner
-- product surface and user experience
-- content production as a system, not a one-off trick
-- visual artifacts, information cards, videos, dashboards, PRDs
-- honest notes about what is still rough
-
-## Avoid
-
-- fake first-person experience
-- vague "AI changed everything" claims
-- stacked buzzwords
-- tutorial voice that talks down to the reader
-- summary endings that merely repeat the article
-- too many headings in a narrative draft
-- examples that could be from any person or any project
-
-## Final Pass
-
-Ask:
-
-- Where is the real scene?
-- Where is the surprise?
-- Where is the method?
-- Where is the reader's next action?
-- Which sentence sounds generic and should be replaced with a concrete detail?
+- 第一段是否有真实锚点，而不是任何人都能说的空话？
+- 中间是否写出了过程、证据、代价或反转？
+- 是否把产品、技术或观点说回读者真正面对的问题？
+- 是否有无法由当前素材支撑的数字、经历或承诺？
+- 删除一句后若信息不减少，就删掉它。

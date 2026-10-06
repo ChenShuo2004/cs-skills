@@ -1,11 +1,6 @@
 ---
 name: cs-github-push
 description: "将已完成的本地改动安全提交并推送到 GitHub，或为已提交的改动创建 PR；适用于用户要求推送、同步仓库、发布 skill 或核验远端提交。需要部署网站或应用时使用 cs-ending-time。"
-metadata:
-  author: "陈硕"
-  collection: "CS Skills"
-  source: "https://github.com/ChenShuo2004/cs-skills"
-  compatibility: "Codex and any agent that supports SKILL.md"
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

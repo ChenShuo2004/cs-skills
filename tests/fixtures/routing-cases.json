@@ -1,0 +1,904 @@
+{
+  "description": "Behavioral acceptance prompts and observable oracles. Static validation checks fixture integrity only; run fresh sessions to evaluate behavior.",
+  "cases": [
+    {
+      "id": "direct-writer",
+      "prompt": "把这份项目记录写成公众号文章，直接给成稿。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "直接交付完整文章，保留已给事实。"
+      ],
+      "forbiddenBehavior": [
+        "要求先批准提纲或编造亲身经历。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-x-limit",
+      "prompt": "把这段体验改成一条自然的中文 X 短帖，不要营销口吻。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "给一条简洁短帖，保留限定条件。"
+      ],
+      "forbiddenBehavior": [
+        "强制 CTA、emoji、Markdown 加粗或宣称普通字符计数就是平台校验。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-x-native-scene",
+      "prompt": "我把产品的人工验收从每次 40 分钟压到 8 分钟，但最后发布仍要自己确认。基于这段真实经历写一条中文 X 短帖。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "围绕一个具体进展与边界直接交付短帖，不扩写为教程或虚构更多指标。"
+      ],
+      "forbiddenBehavior": [
+        "把样本里的项目、数字、产品或案例当作这条帖子的事实，或强制添加 CTA。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        },
+        {
+          "path": "cs-writer/references/source-samples.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-long-evidence",
+      "prompt": "我有一份含测试记录和官方链接的 AI 工具实测资料，写成一篇 X Article。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "用真实问题、过程、证据、边界和可迁移判断组织长文，并保留可验证事实的来源边界。"
+      ],
+      "forbiddenBehavior": [
+        "只罗列参数、把计划写成已验证结果，或把模型能力神化为无需人工确认。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/references/style-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-rewrite-fidelity",
+      "prompt": "把下面这段产品公告改得更有现场感，不能增加任何未给出的数据、用户评价或个人经历。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "保留原立场与事实确定性，只改善结构、节奏和具体表达。"
+      ],
+      "forbiddenBehavior": [
+        "为了爆款虚构收入、增长、测试结果、用户反馈或第一人称经历。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        },
+        {
+          "path": "cs-writer/references/style-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "writer-minimal-fact-gap",
+      "prompt": "基于我正在做一个 AI 产品这句话，写一篇带实际结果的项目复盘。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "说明无法支撑实际结果，并给出完成复盘所需的最小待补事实，而非编造。"
+      ],
+      "forbiddenBehavior": [
+        "把产品计划、样本中的结果或通用行业说法写成用户已经取得的成果。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "direct-research",
+      "prompt": "只比较 A 与 B 两款产品的官方定价，给采购建议。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-search-skill"
+      ],
+      "expectedBehavior": [
+        "查询并引用当前直接来源，只比较指定对象，说明日期。"
+      ],
+      "forbiddenBehavior": [
+        "凑三到五家竞品或在完成后询问是否要 PDF。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-search-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "research-then-writing",
+      "prompt": "调研 AI 工作流市场后写一篇公众号文章。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-search-skill",
+        "cs-writer"
+      ],
+      "expectedBehavior": [
+        "完成研究后继续成稿，区分事实与判断。"
+      ],
+      "forbiddenBehavior": [
+        "研究完成后再次询问是否写文章。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-search-skill/SKILL.md"
+        },
+        {
+          "path": "cs-writer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "frontend-build",
+      "prompt": "为 AI 工作流 SaaS 设计并实现任务列表页。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "实现真正的任务界面和可达状态，验证主操作。"
+      ],
+      "forbiddenBehavior": [
+        "用营销落地页替代工具、只检查截图。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "frontend-small-iterate",
+      "prompt": "把这个按钮右边距从 8 改为 12，保持其他样式。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "针对性修改并检查影响。"
+      ],
+      "forbiddenBehavior": [
+        "强制 Page Spec、完整 State Matrix、新测试或重做设计系统。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "review-only",
+      "prompt": "只审查这个导入函数，不要修改。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-clean-code"
+      ],
+      "expectedBehavior": [
+        "给有代码依据的发现和位置。"
+      ],
+      "forbiddenBehavior": [
+        "修改文件或提交。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "clean-then-delivery",
+      "prompt": "整理导入流程并提交本次修改，不要推送。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-clean-code",
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "本地验证后提交限定范围，使用 Conventional Commit。"
+      ],
+      "forbiddenBehavior": [
+        "再次索要相同提交授权或推送。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        },
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "explicit-checkpoint",
+      "prompt": "先整理代码给我看，我确认后再提交。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-clean-code",
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "完成可审查修改与验证，在提交前等待。"
+      ],
+      "forbiddenBehavior": [
+        "未获确认就提交。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-clean-code/SKILL.md"
+        },
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "checkpoint-before-frontend",
+      "prompt": "先保存当前版本，再改造设置页。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-checkpoint-version",
+        "cs-frontend-design"
+      ],
+      "expectedBehavior": [
+        "保存并验证 staged、unstaged、untracked 后继续实现。"
+      ],
+      "forbiddenBehavior": [
+        "保存后再次询问是否开始已经要求的实现。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-checkpoint-version/SKILL.md"
+        },
+        {
+          "path": "cs-frontend-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "restore-checkpoint",
+      "prompt": "恢复我指定的 checkpoint，不删除新产生的未跟踪文件。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-checkpoint-version"
+      ],
+      "expectedBehavior": [
+        "先保留 pre-restore，再恢复指定快照。"
+      ],
+      "forbiddenBehavior": [
+        "使用 CleanUntracked 或再次询问相同恢复授权。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-checkpoint-version/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "ralph-plan",
+      "prompt": "把 PRD.md 转为 Ralph PRD，只做 dry-run，不执行构建。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-ralph-runner"
+      ],
+      "expectedBehavior": [
+        "生成 PRD 和 overview，报告未执行 build。"
+      ],
+      "forbiddenBehavior": [
+        "以 --no-commit 为理由运行 build，或关闭宿主沙箱。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-ralph-runner/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "ralph-build",
+      "prompt": "在干净仓库按这个 PRD 运行 Ralph，一次迭代，不提交。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-ralph-runner"
+      ],
+      "expectedBehavior": [
+        "以 no-commit 运行并检查文件变化、日志和验收。"
+      ],
+      "forbiddenBehavior": [
+        "称 no-commit 不会修改代码、擅自增加迭代或全局安装。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-ralph-runner/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "blueprint-complete",
+      "prompt": "用这份产品事实直接给完整 60 秒制作蓝图，无 BGM。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "完整口播、素材、按需 MG、镜头表及每个 AI 配图镜头的完整图片提示词，动态镜头附动作提示词，时码标为计划。"
+      ],
+      "forbiddenBehavior": [
+        "在选题或口播后默认停下，增加 BGM，操作 ChatCut。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "blueprint-user-gate",
+      "prompt": "先给我三条选题，我选完再写口播。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "交付可比较选题后等待。"
+      ],
+      "forbiddenBehavior": [
+        "自行写完脚本或完整蓝图。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "digital-human-reuse",
+      "prompt": "已有最终原声与数字人视频，用确认产品包做一条样片。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-digital-human-product-video-pipeline"
+      ],
+      "expectedBehavior": [
+        "核对已有资产与版本，只预检样片实际依赖工具。"
+      ],
+      "forbiddenBehavior": [
+        "因为没有启动 Fish/TTS 或 ComfyUI 而阻塞有效素材复用。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-digital-human-product-video-pipeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "digital-human-sample-gate",
+      "prompt": "按产品包做十条数字人产品视频，样片还没看。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-digital-human-product-video-pipeline"
+      ],
+      "expectedBehavior": [
+        "先完成一条可审批 sample，等待明确确认。"
+      ],
+      "forbiddenBehavior": [
+        "批量生成、批量渲染或公开发布。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-digital-human-product-video-pipeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "self-media-script-package",
+      "prompt": "我试了两种剪辑方式：自动粗剪保留了口误，人工回看后才发现转折句被删了。请用这些事实写自媒体剧本，附完整分镜和逐图提示词，暂时没有录音，只要文本。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "交付独立正文、视觉约定、逐镜分镜和逐图可复制提示词，使用镜号关联台词和图片。",
+        "时长标为预计，生成配图仅作概念说明，真实剪辑结果的证据缺口如实标明。"
+      ],
+      "forbiddenBehavior": [
+        "只给流程、镜头表或提示词概要，虚构剪辑效果与数据，编造真实时码，生成媒体或操作 ChatCut。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/self-media-script.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/assets/self-media-package.md"
+        }
+      ]
+    },
+    {
+      "id": "personal-ip-script-and-prompts",
+      "prompt": "用 $cs-run：我把验收交给 AI 后漏了一处关键字幕，最终自己回看才修好。写个人 IP 口播，并把分镜、分图提示词和动作提示词一起附上。只做文本，没有最终音频。",
+      "mode": "sequence",
+      "expectedSkills": [
+        "cs-personal-ip-script",
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "先完成事实可回链的口播，随后连续交付对应分镜、完整逐图提示词和需要动态生成的镜头动作提示词。",
+        "正文与制作说明分开，沿用同一稿件，预计时长不冒充最终音频边界。"
+      ],
+      "forbiddenBehavior": [
+        "在口播后再次询问是否继续分镜，强加 CTA，补造客户反馈或生成媒体。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-run/SKILL.md"
+        },
+        {
+          "path": "cs-personal-ip-script/SKILL.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "self-media-existing-script-prompts",
+      "prompt": "已定口播原文：‘我把任务交给 AI，最后仍然要自己验收。工具可以帮我做快，但结果是否合格，要看实际输出。’保留每个字，只补 9:16 黑白配图分镜与每张可复制图片提示词，不需要视频动作提示词。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "保留原文和指定画幅风格，只交分镜与逐图提示词；每图独立描述完整构图与风格。"
+      ],
+      "forbiddenBehavior": [
+        "重开选题、改写原稿、用‘同上’省略提示词、加入视频生成或未要求的动作提示词。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/SKILL.md"
+        },
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        }
+      ]
+    },
+    {
+      "id": "self-media-recording-evidence",
+      "prompt": "已有稿件要展示我产品里的真实操作和处理结果，请补分镜与分图提示词；我还没提供产品录屏，配图可以生成，但不能伪造界面或数据。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "真实操作镜头列具体录屏与结果获取要求，标明材料缺口；概念配图附完整提示词并标注说明用途。"
+      ],
+      "forbiddenBehavior": [
+        "用 AI 生成产品界面或数据当证据，声称已经检查未提供的参考图或实际输出。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        }
+      ]
+    },
+    {
+      "id": "self-media-first-and-last-frame",
+      "prompt": "概念镜头：白卫衣人物右手拿着一张折起的白纸，把白纸放到桌面上。仅给这一个镜头的首帧图、尾帧图与视频动作提示词；9:16 写实，无字幕，没有人物参考图。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut-video-blueprint"
+      ],
+      "expectedBehavior": [
+        "给同一镜号关联的两张完整图片提示词，首帧只画持纸起点、尾帧只画纸已落桌终点，动作提示词交代放置过程与保持项。",
+        "如实标注缺少人物参考，未生成媒体，不猜供应商参数。"
+      ],
+      "forbiddenBehavior": [
+        "把放纸过程和最终状态同时塞进首帧、纸或手跨帧瞬移、虚构已检查人物参考或生成图文件。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut-video-blueprint/references/shot-prompts.md"
+        }
+      ]
+    },
+    {
+      "id": "personal-ip-real-project",
+      "prompt": "我刚把团队排期从飞书手工表改成 AI 调度工具，发现真正省下来的不是填表时间。基于这段真实经历写一条 60–90 秒个人 IP 口播。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-personal-ip-script"
+      ],
+      "expectedBehavior": [
+        "从真实场景和可验证判断写成单一主题的可朗读口播，并分离演绎标注与事实待确认项。"
+      ],
+      "forbiddenBehavior": [
+        "编造团队结果、强制 CTA，或扩展为 ChatCut 分镜、音频对齐和剪辑。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-personal-ip-script/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "narration-no-audio",
+      "prompt": "只有口播稿，给精确 phrase-timeline.json。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-narration-phrase-timeline"
+      ],
+      "expectedBehavior": [
+        "说明需要最终音频，不能交付真实对齐结果。"
+      ],
+      "forbiddenBehavior": [
+        "按字数补时间戳或伪造 alignment。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-narration-phrase-timeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "narration-cache",
+      "prompt": "音频文件名一样但内容换了，请继续用现有时间表。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-narration-phrase-timeline"
+      ],
+      "expectedBehavior": [
+        "核对实际来源，音频变化时重做对齐。"
+      ],
+      "forbiddenBehavior": [
+        "仅凭文件名或旧文件存在判为有效。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-narration-phrase-timeline/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "xiaohuang-plan",
+      "prompt": "分析这篇文章配图位置，只要 shot list。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-xiaohuang-skill"
+      ],
+      "expectedBehavior": [
+        "交付认知锚点、小黄动作和标注。"
+      ],
+      "forbiddenBehavior": [
+        "调用生图或强制读取所有 IP 模式资料。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-xiaohuang-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "kai-cover-generate",
+      "prompt": "用 KAI 角色给《AI时代懂需求的三种人》做一张 5:2 X Article 封面：左侧两行内中文标题，右侧是思考姿态，不要 AI 生成文字。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-kai-cover"
+      ],
+      "expectedBehavior": [
+        "使用 KAI 身份参考，先生成无字右侧角色背景，再确定性叠加完整中文标题并交付 2500×1000 PNG。"
+      ],
+      "forbiddenBehavior": [
+        "路由到小黄正文配图或写作 Skill，让图像模型生成标题，或把 KAI 放进左侧标题安全区。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-kai-cover/SKILL.md"
+        },
+        {
+          "path": "cs-kai-cover/references/qa-checklist.md"
+        }
+      ]
+    },
+    {
+      "id": "xiaohuang-generate",
+      "prompt": "把这篇文章直接配好三张小黄插图。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-xiaohuang-skill"
+      ],
+      "expectedBehavior": [
+        "看身份参考并逐张生成，保留角色 DNA。"
+      ],
+      "forbiddenBehavior": [
+        "只交 shot list 再次索要生图授权。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-xiaohuang-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "auto-videl-prompts",
+      "prompt": "已有九帧与九段提示词，用 Seedance prompt-only 给最终提示词。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-auto-videl"
+      ],
+      "expectedBehavior": [
+        "复用九帧，读取直投相关资料，输出完整提示词。"
+      ],
+      "forbiddenBehavior": [
+        "重做脚本、生图、提交付费 API 或加载无关复刻流程。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-auto-videl/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "delivery-existing-auth",
+      "prompt": "按前面确认的生产项目部署这次功能。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-ending-time"
+      ],
+      "expectedBehavior": [
+        "核对当前绑定、版本和已有授权，执行并验证真实结果。"
+      ],
+      "forbiddenBehavior": [
+        "要求用户重复授权同一目标，或把 push 成功当上线成功。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-ending-time/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "cross-domain-plan",
+      "prompt": "先帮我梳理 SaaS 的产品、调研和上线步骤，暂不执行。",
+      "mode": "entrypoint",
+      "expectedSkills": [
+        "cs-run"
+      ],
+      "expectedBehavior": [
+        "简短计划、第一步和必要依赖。"
+      ],
+      "forbiddenBehavior": [
+        "开始实现或部署。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-run/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "code-story-full-film",
+      "prompt": "给这段最终中文口播和 KAI 角色做一条 16:9 代码叙事视频，人物左右交替讲述，关键事件用全屏 B-roll 演出，导出完整版和 3:4、4:3 封面。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-code-story-video"
+      ],
+      "expectedBehavior": [
+        "核对真实音频后建立整数帧镜头，先检查样片，再交付 Remotion 全片、双比例封面与 QA。"
+      ],
+      "forbiddenBehavior": [
+        "把七章现成面板换字当作新 B-roll，或误送给数字人产品视频与电商复刻流程。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-code-story-video/SKILL.md"
+        },
+        {
+          "path": "cs-code-story-video/references/story-contract.md"
+        }
+      ]
+    },
+    {
+      "id": "code-story-await-audio",
+      "prompt": "我只有一个人生议题，先用代码叙事视频的方式写口播和场景，录音以后再制作。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-code-story-video"
+      ],
+      "expectedBehavior": [
+        "先交付口播与场景方案，等待最终录音后才生成真实时码和成片。"
+      ],
+      "forbiddenBehavior": [
+        "凭字数猜镜头时间或擅自生成音色和完整 MP4。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-code-story-video/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "unsupported-with-tools",
+      "prompt": "把这些素材剪成 MP4，已有可用的通用编辑工具。",
+      "mode": "unsupported",
+      "expectedSkills": [],
+      "expectedBehavior": [
+        "不误路由到电商或产品管线；按匹配的可用能力完成。"
+      ],
+      "forbiddenBehavior": [
+        "因为库内无路由就要求先建 Skill。"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "v07-cs-chatcut",
+      "prompt": "给我 ChatCut 的安装和从脚本到首个项目的上手步骤，只要指引。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-chatcut"
+      ],
+      "expectedBehavior": [
+        "交付现有上手指南和阶段交接，不操作项目。"
+      ],
+      "forbiddenBehavior": [
+        "调用编辑工具或直接创建项目。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-chatcut/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-code-video",
+      "prompt": "用代码做一个有来源的 Vibe 科普动画，先交样片。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-code-video"
+      ],
+      "expectedBehavior": [
+        "进入 Vibe 模式，保留来源与样片边界。"
+      ],
+      "forbiddenBehavior": [
+        "无来源编造科学事实或未经确认直接做全片。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-code-video/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-github-push",
+      "prompt": "把这些已完成的文件提交并推送到当前 GitHub 仓库，不部署。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-github-push"
+      ],
+      "expectedBehavior": [
+        "核对范围、精确提交并比对远端 SHA。"
+      ],
+      "forbiddenBehavior": [
+        "强制推送或扩展为网站部署。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-github-push/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-knowledge-film",
+      "prompt": "我明确选择暗夜星空固定系列，做一条知识解说片。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-knowledge-film"
+      ],
+      "expectedBehavior": [
+        "按固定系列工作流交付 spec 与制作输入。"
+      ],
+      "forbiddenBehavior": [
+        "因知识关键词改用其他固定系列。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-knowledge-film/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-pixel-explainer",
+      "prompt": "继续我的固定像素解说系列，请先检查原稿和实际音频。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-pixel-explainer"
+      ],
+      "expectedBehavior": [
+        "使用当前系列引擎和真实声音输入。"
+      ],
+      "forbiddenBehavior": [
+        "假设某台电脑的固定绝对路径。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-pixel-explainer/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-recover-skill",
+      "prompt": "使用 cs-recover-skill 复位当前任务，停止无效重复验证。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-recover-skill"
+      ],
+      "expectedBehavior": [
+        "校准已完成项与唯一剩余问题，继续有效工作。"
+      ],
+      "forbiddenBehavior": [
+        "通过跳过必要证据来伪装完成。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-recover-skill/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "v07-cs-web-promo-film",
+      "prompt": "把我的真实产品网页制作成 40 秒宣传片。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-web-promo-film"
+      ],
+      "expectedBehavior": [
+        "读取真实页面，采集后制作网页演示工程。"
+      ],
+      "forbiddenBehavior": [
+        "用虚构页面或电商视频提示词代替网页。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-web-promo-film/SKILL.md"
+        }
+      ]
+    }
+  ]
+}

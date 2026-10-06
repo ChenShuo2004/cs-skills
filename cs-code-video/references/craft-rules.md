@@ -5,7 +5,7 @@
 渲染器会按任意顺序、任意次数调用 `render(t)`：单帧预览、只重渲某一段、运动模糊子帧、多路并行。只要有一点状态藏在上一帧里（累加的位置、计时器、没设种子的随机数），重渲出来就会和上次不一样，并行拼接处还会跳。
 
 - 随机：用 `rnd(seed)`，不用 `Math.random()`。
-- 需要累积的模拟（粒子物理、水面）：用固定步长从 0 推到 t，或改成解析公式。循环片在每圈起点重置种子和粒子池，`render(t)` 只需从本圈起点重放 `t mod 周期`（参考 [`cs-pixel-explainer/assets/reference-wizard.html`](../../cs-pixel-explainer/assets/reference-wizard.html)）。
+- 需要累积的模拟（粒子物理、水面）：用固定步长从 0 推到 t，或改成解析公式。循环片在每圈起点重置种子和粒子池，`render(t)` 只需从本圈起点重放 `t mod 周期`（参考 [`cs-pixel-explainer/assets/reference-wizard.html`](../assets/reference-wizard.html)）。
 - CSS：不用 transition 和 animation，样式全在 `render(t)` 里直接写。
 - 手绘抖动：笔触种子用 `floor(t * 12)`，每秒变 12 次像手绘动画，镜头运动仍每帧平滑。
 - 页面约定：`window.render(t)`、`window.ready = true`（字体和资源加载完）、`window.DURATION`（秒）。

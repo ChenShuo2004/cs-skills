@@ -1,110 +1,32 @@
-# Skill Inventory
+# CS Skills 技能清单
 
-盘点日期：2026-10-04
+盘点日期：2026-10-06。v0.7.0 共 22 个任务技能与 1 个辅助技能，来源为 tests/fixtures/skill-registry.json。
 
-当前目录包含：16 个任务 skill。
+| 目标 | Skill | 产物 |
+| --- | --- | --- |
+| 从目标选择路径、串联多个阶段 | [$cs-run](../cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
+| 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](../cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
+| 调研产品、技术、市场与竞品 | [$cs-search-skill](../cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
+| 做 KAI 固定角色的文章封面 | [$cs-kai-cover](../cs-kai-cover/SKILL.md) | 标题清晰的 5:2 PNG 与无字背景 |
+| 延展小黄 IP、给中文文章配图 | [$cs-xiaohuang-skill](../cs-xiaohuang-skill/SKILL.md) | 角色资产、配图规划与正文插画 |
+| 把真实项目写成个人 IP 口播 | [$cs-personal-ip-script](../cs-personal-ip-script/SKILL.md) | 可录稿、独立演绎标注与事实待补项 |
+| 写自媒体剧本、分镜和逐图提示词 | [$cs-chatcut-video-blueprint](../cs-chatcut-video-blueprint/SKILL.md) | 完整制作文本包或点名补充项 |
+| 了解 ChatCut 安装与制作操作 | [$cs-chatcut](../cs-chatcut/SKILL.md) | 策划、上手指南与编辑工作台交接 |
+| 做电商视频对标、九宫格和生成包 | [$cs-auto-videl](../cs-auto-videl/SKILL.md) | 分镜图、首帧与平台生成提示词 |
+| 用最终口播做角色 A/B-roll 叙事片 | [$cs-code-story-video](../cs-code-story-video/SKILL.md) | Remotion 工程、样片、全片与双比例封面 |
+| 制作代码动画、KAI 教程或 Vibe 科普 | [$cs-code-video](../cs-code-video/SKILL.md) | 风格卡、分镜、样片与可重渲视频 |
+| 把真实网页拍成产品演示宣传片 | [$cs-web-promo-film](../cs-web-promo-film/SKILL.md) | 页面采集、Remotion 工程与 MP4 |
+| 制作固定暗夜星空知识解说系列 | [$cs-knowledge-film](../cs-knowledge-film/SKILL.md) | 场景 spec、配音、双语字幕与 MP4 |
+| 制作固定像素解说系列 | [$cs-pixel-explainer](../cs-pixel-explainer/SKILL.md) | 像素动画、实际配音、SRT 与 MP4 |
+| 做数字人产品介绍视频 | [$cs-digital-human-product-video-pipeline](../cs-digital-human-product-video-pipeline/SKILL.md) | 环境预检、可审批样片与成片 QA |
+| 将最终录音与实际朗读稿对齐 | [$cs-narration-phrase-timeline](../cs-narration-phrase-timeline/SKILL.md) | 词级边界、短语时间表与覆盖率 |
+| 设计、实现或迭代产品页面 | [$cs-frontend-design](../cs-frontend-design/SKILL.md) | 页面实现、交互与浏览器检查 |
+| 定位问题、整理代码与同步文档 | [$cs-clean-code](../cs-clean-code/SKILL.md) | 范围明确的修改与必要验证 |
+| 把 Markdown 需求交给 Ralph 执行 | [$cs-ralph-runner](../cs-ralph-runner/SKILL.md) | PRD、overview、构建结果与日志 |
+| 大改前保存可恢复版本 | [$cs-checkpoint-version](../cs-checkpoint-version/SKILL.md) | 本地 checkpoint 与恢复核对 |
+| 提交、推送、开 PR 或核验 GitHub | [$cs-github-push](../cs-github-push/SKILL.md) | 精确提交、远端 SHA 与按需 PR |
+| 完成验证、发布或应用部署收尾 | [$cs-ending-time](../cs-ending-time/SKILL.md) | 验证记录与已授权的实际交付 |
 
-## 总览
+辅助入口：`cs-recover-skill` 用于执行复位，默认不安装；在安装包中保留，按名称显式安装。
 
-| Skill | 分组 | 目标 | 主要资源 |
-| --- | --- | --- | --- |
-| `cs-run` | 总入口 | 整理目标、提出最小阻塞问题并路由到下游 skill | `agents/openai.yaml` |
-| `cs-writer` | 内容创作 | 把真实项目素材写成具体、温暖、实用的内容 | `references/style-guide.md` |
-| `cs-search-skill` | 深度调研 | 围绕产品、公司、技术、市场和竞品输出有来源的决策简报 | `agents/openai.yaml` |
-| `cs-auto-videl` | 电商视频 | 复刻短视频并生成分镜、首帧和视频生成包 | `references/`, `scripts/`, `tests/` |
-| `cs-xiaohuang-skill` | 小黄 / 有温度 IP 与正文配图 | 保持同一角色 DNA，生成 2D/3D、动作、联名、风格迁移资产，或将内容认知锚点转成小黄手绘配图 | `references/`, `assets/` |
-| `cs-checkpoint-version` | 版本安全 | 在大改前保存可恢复的 dirty worktree checkpoint | `scripts/`, `tests/` |
-| `cs-github-push` | GitHub 发布 | 精确提交、推送、按需创建 PR 并核验远端 | `agents/openai.yaml` |
-| `cs-frontend-design` | 产品设计 | 设计、实现和评审用户界面 | `agents/openai.yaml` |
-| `cs-clean-code` | 工程质量 | 清理代码、同步文档并验证交付质量 | `references/review-checklist.md` |
-| `cs-ralph-runner` | 自动执行 | 把 Markdown PRD 转成 Ralph PRD 并安全 dry-run | `references/` |
-| `cs-ending-time` | Web/App 交付收尾 | 验证、GitHub 与部署 | `agents/openai.yaml` |
-| `cs-chatcut` | ChatCut 视频策划 | 将想法排序并收敛为主题，再生成口播稿、素材清单、Motion Graphics、声音方向、逐镜头蓝图和零到一操作指南 | `agents/openai.yaml`, `references/zero-to-one-guide.html` |
-| `cs-web-promo-film` | 网页产品演示片 | 把真实网页做成 30–60 秒产品演示宣传片：采集长截图、Remotion 运镜、渲染无音轨 mp4，并可附口播稿 | `references/`, `scripts/`, `assets/promo-starter/` |
-| `cs-knowledge-film` | 知识解说片 | 把一个知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的 2–6 分钟解说片：口播稿、spec、edge-tts 配音、Canvas 逐帧渲染 mp4 | `references/`, `scripts/`, `assets/example-spec.json` |
-| `cs-code-video` | 代码动画与 Vibe 知识短片 | 页面暴露 render(t)，Playwright 逐帧截图 + FFmpeg 合成 mp4；通用模式走风格卡、分镜与关键帧；Vibe 模式查证来源、找图、出三张风格样图、先渲 10 秒再做整片；含 KAI 教程片系列 | `references/`, `scripts/`, `assets/` |
-| `cs-pixel-explainer` | 像素解说视频 | 中文文案 → 像素风 + 坐标系隐喻 + 打字机字幕解说片：spec.json、edge-tts 配音、Canvas 逐帧渲染 1080p mp4 + SRT；含像素纯度参考实现 | `engine/`, `assets/` |
-
-## 主入口
-
-所有未明确指定 skill 的任务优先进入 `$cs-run`。
-
-它维护 Goal Card：
-
-```text
-Goal:
-Inputs:
-Expected output:
-Audience/user:
-Constraints:
-Validation:
-Recommended skill:
-```
-
-路由只选择一个主 skill。只有必要的验证或交付步骤，才追加第二个 skill。
-
-## 领域路由
-
-### 内容
-
-- 文章、提纲、项目记录、工具体验、改稿：`$cs-writer`
-- 产品、公司、技术、市场、竞品调研：`$cs-search-skill`
-
-### 小黄 / 有温度 IP 与正文配图
-
-- 小黄 / 有温度 IP 标准图、动作表情、2D/3D、联名、风格迁移和身份修复：`$cs-xiaohuang-skill`
-- 中文文章、帖子、Notion 或方法论到 shot list、小黄轻手绘正文配图和局部改图：`$cs-xiaohuang-skill`
-- 只处理小黄 / 有温度固定角色；不承接无关的通用生图任务。
-
-### 电商视频
-
-- 对标复刻、九宫格分镜、Seedance、Gemini Omni、Google Flow/Veo：`$cs-auto-videl`
-
-### ChatCut 视频筹备
-
-- 单个或一批内容想法到选题、口播稿、素材筛选、Motion Graphics、声音规划和 ChatCut 上手：`$cs-chatcut`
-- 该 Skill 只输出制作蓝图，不创建项目、不上传素材、不修改时间线。
-
-### 网页产品演示片
-
-- 把真实网页做成 30–60 秒产品演示宣传片：`$cs-web-promo-film`
-- 只拍匿名访客能打开的公开页，不重绘产品界面；电商对标复刻仍走 `$cs-auto-videl`，ChatCut 策划仍走 `$cs-chatcut`。
-
-### 知识解说片
-
-- 明确要做 Vibe 知识大赏式、来源可核查的代码科普短片：`$cs-code-video` 的 Vibe 知识模式（`references/vibe-knowledge.md`）
-- 已选定暗夜星空、衬线字幕、金色光点系列视觉的解说片：`$cs-knowledge-film`
-- `$cs-knowledge-film` 自带配音与双语字幕；`$cs-code-video` 的 Vibe 模式默认用短句与配乐，旁白可选。网页演示走 `$cs-web-promo-film`，ChatCut 策划走 `$cs-chatcut`。
-
-### 代码动画视频
-
-- 用代码做动画视频、动态图形、片头、教程片（KAI 教程片）、按选题重新设计画面的解说单片：`$cs-code-video`
-- 中文文案做成像素风 + 坐标系隐喻 + 打字机字幕的解说片，或像素解说系列续集：`$cs-pixel-explainer`
-- `$cs-code-video` 与 `$cs-pixel-explainer` 都用代码生成画面，不剪辑已有素材；网页演示走 `$cs-web-promo-film`，暗夜星空知识片走 `$cs-knowledge-film`。来源查证驱动的 Vibe 知识短片使用 `$cs-code-video` 的专用模式。
-
-### 产品与工程
-
-- 页面、工具、仪表盘：`$cs-frontend-design`
-- 代码清理、重构、文档同步：`$cs-clean-code`
-- Markdown PRD 到 Ralph：`$cs-ralph-runner`
-- 大改前保存或恢复：`$cs-checkpoint-version`
-- 仅提交、推送、PR 或核验 GitHub 远端：`$cs-github-push`
-- Web/App 功能需要连同部署一起收尾：`$cs-ending-time`
-
-## 已退休能力
-
-当前库不再提供：
-
-- 自动剪辑和通用 MP4 渲染。网页产品演示片走 `$cs-web-promo-film`；代码生成的动画视频走 `$cs-code-video`，不剪辑已有素材。
-- 理想车主信息图。
-- Open Design 设计产物。
-
-不要为退休能力保留兼容别名，否则会重新制造触发冲突。
-
-## 发布前检查
-
-1. `SKILL.md` 有合法 frontmatter。
-2. `description` 能明确触发场景。
-3. `agents/openai.yaml` 与 skill 名称一致。
-4. `cs-run` 的路由表不指向已删除 skill。
-5. 新 skill 有明确目标、输入、输出、边界和验证方式。
+相近视频入口的边界见 cs-run/SKILL.md 的“相近视频入口”。模型依赖见 [模型说明](model-dependencies.md)，安装与更新见 [README](../README.md)。

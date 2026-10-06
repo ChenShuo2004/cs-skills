@@ -2,6 +2,16 @@
 
 Use this reference when the cleanup is broader than a local edit, especially before a handoff, commit, PR, or milestone close.
 
+## Scope Gate
+
+Create the Cleanup Diagnostic Card before editing. Keep the original request as the default boundary.
+
+- **Low risk:** local naming, duplicate removal, stale comments, dead code with no public reachability. Verify the owning module or focused test.
+- **Medium risk:** changed business branch, error behavior, data transformation, shared component, or user-facing copy. Map the behavior and run a focused behavior check plus relevant typecheck/lint.
+- **High risk:** public API, route, schema, auth/permission, persistence, money, data migration, deployment, or deletion. Stop for explicit user direction before changing the contract or broadening scope.
+
+Do not use “cleanup” as permission to make a high-risk product or data decision.
+
 ## Requirement Alignment
 
 - What did the user actually ask for?
@@ -59,3 +69,13 @@ Choose the smallest check that proves the behavior:
 - manual command or sample request for scripts and CLIs
 
 If a check cannot run, record the command attempted, the blocker, and the residual risk.
+
+## Requirement → Implementation → Verification Mapping
+
+Before closing, ensure every meaningful row has all three parts:
+
+| Requirement or problem | Implementation evidence | Verification evidence | Outcome |
+| --- | --- | --- | --- |
+| Feature behavior | File, module, or diff | Test, build, browser check, or repeatable manual step | Passed / blocked / residual risk |
+
+If the project has no automated check for a changed behavior, write a reproducible manual step rather than leaving the verification column empty.

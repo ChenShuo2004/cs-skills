@@ -1,101 +1,93 @@
-[![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-e7f3ef?style=for-the-badge&labelColor=e7f3ef&color=3b8279)](README.md)
-[![English](https://img.shields.io/badge/English-0d5d57?style=for-the-badge)](README.en.md)
-[![Follow on X](https://img.shields.io/badge/Follow-%40ChenshuoAI-3b8279?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
-
 # CS Skills
 
-**Repeatable methods from real projects, packaged as installable Agent workflows you can run and verify.** Built for Codex and Claude Code; other agents that support `SKILL.md` can use individual Skills too.
+Reusable Agent workflows from real product, content and video projects by Chen Shuo (KAI). Give the Agent your goal, source material and acceptance criteria; receive artifacts with an honest account of what was verified.
 
-<img src="assets/chenshuo-skills-cover.png" alt="CS Skills: workflows from inputs and creation through verification" width="900">
+**v0.7.0: 22 task skills and 1 optional execution helper.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
 
-The repository contains **16 task Skills**. Know your goal but not the right Skill? Start with [`cs-run`](cs-run/). It clarifies the task and selects one primary workflow. Every Skill can also be installed separately.
+[中文](README.md) · [Download v0.7.0](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)
 
-[Get started](#get-started) · [Choose by goal](#choose-by-goal) · [Real demos](#real-demos) · [Install and maintain](#install-and-maintain)
+## Install or update
 
-## Get started
+Node.js 22+, on Windows, macOS or Linux:
 
-```bash
+```sh
 git clone https://github.com/ChenShuo2004/cs-skills.git
 cd cs-skills
-./scripts/install.sh --codex   # Use --claude for Claude Code; --both for both
+node scripts/install-skills.mjs
 ```
 
-Start a new agent session and state the goal:
+For an existing clone, run `git pull --ff-only`, then:
 
-```text
-$cs-run Turn these project notes into an article with concrete details and steps readers can repeat.
+```sh
+node scripts/install-skills.mjs --update
+node scripts/install-skills.mjs --check
 ```
 
-If you know the workflow, call it directly. For a fact-checked knowledge video:
+Identical content is skipped. Changed directories are backed up before replacement; installed files are verified with SHA-256. No models or runtime packages are downloaded. Backups remain in `.cs-skills-backups/` under the destination.
 
-```text
-$cs-code-video Use Vibe knowledge mode to explain "Why is the sky blue?" Verify sources, make three visual samples and a 10-second opening sample, then render the full video.
+Choose a subset or a different host:
+
+```sh
+node scripts/install-skills.mjs --update cs-run cs-writer
+node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update
+node scripts/install-skills.mjs --dry-run
 ```
 
-This process lives in the [Vibe mode of `cs-code-video`](cs-code-video/references/vibe-knowledge.md); there is no separate knowledge-video Skill to install.
+The Bash symlink installer remains available: `./scripts/install.sh --codex`, `--claude`, or `--both`. It preserves existing directories and foreign links. Keep the source clone for linked installs.
 
-## Choose by goal
+On Windows, native symlinks require appropriate permissions. If unavailable, use the Node installer; Bash will fail explicitly rather than silently copy directories.
 
-<img src="assets/cs-skills-pipeline.en.svg" alt="Goal and source material → cs-run → specialist Skill → verification → optional publishing" width="900">
+Open a new Agent session after installation and confirm the skills are listed. File consistency alone does not prove session discovery.
 
-`cs-run` selects one primary Skill. Add a delivery step only when the task needs a commit, push, or deployment.
+## Choose a workflow
 
-| Goal | Skill | Main output |
-| --- | --- | --- |
-| Unsure where to start | [`cs-run`](cs-run/) | Goal Card, primary Skill, and executed result |
-| Write an article, outline, or project story | [`cs-writer`](cs-writer/) | Grounded draft or revision |
-| Research a product, technology, market, or competitor | [`cs-search-skill`](cs-search-skill/) | Sourced decision brief |
-| Extend Xiaohuang or illustrate an article | [`cs-xiaohuang-skill`](cs-xiaohuang-skill/) | Character assets, shot list, and illustrations |
-| Plan a ChatCut video | [`cs-chatcut`](cs-chatcut/) | Topic, voiceover, assets, and shot-by-shot plan |
-| Analyze ecommerce videos and prepare generation assets | [`cs-auto-videl`](cs-auto-videl/) | Hook, nine-grid plan, first frames, and model prompts |
-| Film a real web page as a product demo | [`cs-web-promo-film`](cs-web-promo-film/) | Remotion project and MP4 |
-| Make code animation or a Vibe knowledge video | [`cs-code-video`](cs-code-video/) | Storyboard, sample, rerenderable project, and MP4; Vibe mode adds sources |
-| Make a fixed night-sky explainer series | [`cs-knowledge-film`](cs-knowledge-film/) | Scene spec, narration, bilingual subtitles, and MP4 |
-| Make a fixed pixel-art explainer series | [`cs-pixel-explainer`](cs-pixel-explainer/) | Pixel animation, narration, SRT, and MP4 |
-| Design or build a product interface | [`cs-frontend-design`](cs-frontend-design/) | Usable UI and browser checks |
-| Clean up code and reconcile docs with behavior | [`cs-clean-code`](cs-clean-code/) | Scoped changes and verification record |
-| Turn Markdown requirements into a Ralph workflow | [`cs-ralph-runner`](cs-ralph-runner/) | Ralph PRD and safe rehearsal |
-| Save a rollback point before a large change | [`cs-checkpoint-version`](cs-checkpoint-version/) | Restorable local checkpoint |
-| Commit, push, or open a PR | [`cs-github-push`](cs-github-push/) | Scoped commit and remote SHA verification |
-| Finish a web or app deployment | [`cs-ending-time`](cs-ending-time/) | Verification, GitHub delivery, and live checks |
+Use `$cs-run` for unclear or multi-stage goals, or invoke a specific skill directly.
 
-Choose video Skills by **source material and production method**: real web pages use `cs-web-promo-film`; ecommerce references and generation packages use `cs-auto-videl`; ChatCut planning uses `cs-chatcut`; code-generated frames use `cs-code-video`. Night-sky and pixel explainers are separate fixed series. See the [Skill inventory](docs/skill-inventory.md) for boundaries. `cs-recover-skill` is an execution calibration helper, not one of the 16 task Skills, and is excluded from the default install.
+| Skill | Purpose |
+| --- | --- |
+| [cs-run](cs-run/SKILL.md) | Task routing |
+| [cs-writer](cs-writer/SKILL.md) | Chinese writing and revision |
+| [cs-search-skill](cs-search-skill/SKILL.md) | Source-backed research |
+| [cs-kai-cover](cs-kai-cover/SKILL.md) | KAI article covers |
+| [cs-xiaohuang-skill](cs-xiaohuang-skill/SKILL.md) | Xiaohuang IP and article illustrations |
+| [cs-personal-ip-script](cs-personal-ip-script/SKILL.md) | Personal project narration |
+| [cs-chatcut-video-blueprint](cs-chatcut-video-blueprint/SKILL.md) | Scripts, storyboards and image prompts |
+| [cs-chatcut](cs-chatcut/SKILL.md) | ChatCut onboarding and planning |
+| [cs-auto-videl](cs-auto-videl/SKILL.md) | Ecommerce reference and generation packages |
+| [cs-code-story-video](cs-code-story-video/SKILL.md) | Narration-driven Remotion story videos |
+| [cs-code-video](cs-code-video/SKILL.md) | Code animation and Vibe science videos |
+| [cs-web-promo-film](cs-web-promo-film/SKILL.md) | Real webpage product demos |
+| [cs-knowledge-film](cs-knowledge-film/SKILL.md) | Fixed night-sky explainer series |
+| [cs-pixel-explainer](cs-pixel-explainer/SKILL.md) | Fixed pixel explainer series |
+| [cs-digital-human-product-video-pipeline](cs-digital-human-product-video-pipeline/SKILL.md) | Digital-human product videos |
+| [cs-narration-phrase-timeline](cs-narration-phrase-timeline/SKILL.md) | Real-audio phrase alignment |
+| [cs-frontend-design](cs-frontend-design/SKILL.md) | Frontend design and implementation |
+| [cs-clean-code](cs-clean-code/SKILL.md) | Code and documentation cleanup |
+| [cs-ralph-runner](cs-ralph-runner/SKILL.md) | Ralph PRD execution |
+| [cs-checkpoint-version](cs-checkpoint-version/SKILL.md) | Recoverable checkpoints |
+| [cs-github-push](cs-github-push/SKILL.md) | Scoped GitHub delivery |
+| [cs-ending-time](cs-ending-time/SKILL.md) | Validation and release or app deployment |
 
-## Real demos
+[cs-recover-skill](cs-recover-skill/SKILL.md) is an execution helper, included in the archive and installed only when explicitly named.
 
-### Improve a README
+## Models and verification
 
-[This original homepage redesign](https://github.com/ChenShuo2004/cs-skills/commit/0b27495ba82a9297eb4028ee443edb69b7a0ef31) shows how to inspect `AGENTS.md`, the Skill directories, and the installer before organizing the Chinese and English entry points and checking links.
+Most skills use the host Agent model without a fixed model name. Images and video services follow actual project configuration. Optional WhisperX Chinese alignment can use the pinned ASR and alignment files in [models/registry.json](models/registry.json).
 
-<a href="assets/demos/readme-optimization/demo-v2.mp4"><img src="assets/demos/readme-optimization/poster.jpg" alt="Watch the CS Skills README improvement code animation" width="680"></a>
-
-[Watch the 73-second tutorial](assets/demos/readme-optimization/demo-v2.mp4) · [Narration, shot list, and reproduction notes](assets/demos/readme-optimization/VO.md)
-
-### Push to GitHub
-
-[`cs-github-push`](cs-github-push/) checks scope, commits precisely, and compares the remote SHA. A local commit, a remote push, and a live deployment are distinct states.
-
-<a href="assets/demos/cs-github-push-demo.mp4"><img src="assets/demos/cs-github-push-poster.jpg" alt="Watch the cs-github-push screen recording" width="680"></a>
-
-[Watch the 45-second recording](assets/demos/cs-github-push-demo.mp4) · [Narration and shot list](assets/demos/cs-github-push-script.md)
-
-For visual examples, see the [Xiaohuang Skill showcase](cs-xiaohuang-skill/README.md).
-
-## Install and maintain
-
-With no names, the script installs all 16 task Skills. You can select individual Skills instead:
-
-```bash
-./scripts/install.sh --claude cs-run cs-code-video  # Claude Code only
-./scripts/install.sh --both cs-run                    # Codex and Claude Code
-./scripts/install.sh --codex --dry-run                # Preview without changes
-./scripts/install.sh --codex --uninstall cs-run       # Remove this repository's link
+```sh
+python scripts/models.py check --profile whisperx-zh
+# Only when this backend is selected and files are missing:
+python -m pip install -r models/requirements.txt
+python scripts/models.py download --profile whisperx-zh
 ```
 
-The script never overwrites existing directories or links from elsewhere. Keep the clone at the same path; after `git pull`, start a new agent session to read updates. Installing `cs-run` alone does not install specialist Skills. The destination directories are `$HOME/.codex/skills` and `$HOME/.claude/skills`. Run `./scripts/install.sh --help` for all options.
+Checks are read-only and offline. Valid caches are reused; only missing files are requested. Damaged files require explicit `--repair`. Model weights stay local. See [dependency notes](docs/model-dependencies.md).
 
-You need an agent to use the Skills and Git plus Bash to clone and install them. Video, image, and deployment Skills list their additional requirements in their own `SKILL.md`. Pushing to GitHub requires write access to the target repository.
+```sh
+node scripts/run-regression.mjs
+python scripts/package-release.py
+```
 
-Each Skill starts at `SKILL.md`. Codex display metadata lives in `agents/openai.yaml`; detailed rules and tools live in `references/`, `scripts/`, and `assets/` as needed. When changing a task Skill, keep [`cs-run` routing](cs-run/SKILL.md), the [Skill inventory](docs/skill-inventory.md), and both READMEs in sync. See [AGENTS.md](AGENTS.md) for maintainer rules. Run `./scripts/test-install.sh` to test the installer in a temporary directory.
+The regression runner needs Python 3.12+ and PowerShell. Use CS_SKILLS_PYTHON to select the interpreter. Archive files have a per-file hash manifest and a separate package checksum. Structural, script and file checks do not prove fresh-session model behavior or final media quality.
 
-[MIT License](LICENSE) · [Changelog](CHANGELOG.md) · [Contributors](CONTRIBUTORS.md) · [Star history](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+[License](LICENSE) · [Changelog](CHANGELOG.md) · [Contributors](CONTRIBUTORS.md)

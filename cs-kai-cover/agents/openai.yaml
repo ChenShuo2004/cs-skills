@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS KAI 文章封面"
+  short_description: "用 KAI 固定角色制作 5:2 X / Twitter 文章封面，标题清晰可读。"
+  default_prompt: "使用 $cs-kai-cover 为《AI时代懂需求的三种人》制作一张 5:2 X Article 封面：左侧两行内中文标题，右侧 KAI 思考姿态，不要让生图模型生成任何文字。"

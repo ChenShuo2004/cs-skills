@@ -1,24 +1,69 @@
 # 更新日志
 
+## v0.7.0 · 2026-10-06
+
+- 统一本地与 GitHub main 的技能集合：22 个任务技能与 1 个执行辅助技能，保留两边已有的内容、视频与工程能力。
+- 用 cs-run 串联 README 优化：cs-writer 整理产品入口与示例，cs-clean-code 核对实际目录、依赖与安装，cs-github-push / cs-ending-time 完成交付。
+- 增加跨平台 Node 安装器：内容一致直接跳过，显式更新先备份，再逐文件 SHA-256 核对；支持 Windows 目录占用时备份后更新文件。
+- 修复 Git Bash 将软链接静默复制的问题：要求真实链接，缺权限时明确提示使用 Node 安装器。
+- 完整安装包包含技能、资产、工具、模型清单与中英文说明；附逐文件哈希和安装包 SHA-256。模型权重与私人工作区不打包。
+- 统一路由、注册表、模型依赖与行为案例，修复独立安装的跨技能资源引用和固定电脑路径。
+
 ## 未发布
 
-- 重排中英文 README：首页先给安装命令和可复制调用，再按目标列出 16 个 Skill；突出 `$cs-code-video` 的 Vibe 知识模式，保留真实演示并删除重复说明。
-- 将 Vibe 知识大赏的搜集、编排、找图、定样式与分镜、检查、先 10 秒再整片流程并入 `$cs-code-video` 的专用模式；更新路由与中英文目录，保持 16 个任务 Skill。
-- 新增 CS Skills README 优化录屏教程：真实仓库改版前后对比、`$cs-clean-code` 调用示例、Fish Audio S2.1 中文音色配音，以及可复现的脚本和分镜。
-- 为 `$cs-github-push` 增加中英文 README 使用示例、公开 GitHub 页面录屏讲解（中文配音与字幕）、封面和可复用口播分镜。
-- 新增 `$cs-code-video`：用代码做动画视频（render(t) 逐帧 + FFmpeg + numpy 配乐），含导演层、KAI 签名层、KAI 教程片系列、GPT 出图 × 代码动画、3D/2D KAI 角色组件、CRT 后期层；开工先问 5 项输入，经分镜表与 3 张关键帧确认后再渲整片。
-- 新增 `$cs-pixel-explainer`：像素风 + 坐标系隐喻 + 打字机字幕的解说片引擎（spec.json → edge-tts → Canvas 逐帧渲染 1080p mp4 + SRT），附 10 场景示例 spec 和像素纯度参考实现（施法巫师，128×96 调色板索引缓冲、固定步长重放的 render(t)）。
-- 将两个新 Skill 接入 `$cs-run` 路由、README、技能清单和仓库规划；任务 skill 数量由 14 更新为 16。
-- 参照 shuohao-skills 的阅读顺序重排首页：语言与作者入口、封面、工作流图、两列 Skill 总表、真实示例、安装、前置条件和仓库约定；新增英文版 README 与中英双语流程图。
-- 增加可重复运行的 Codex／Claude Code 软链接安装脚本：支持按需安装、预览、卸载，并保护已有 Skill；加入临时目录自测。
-- 优化仓库 README 的上手路径：可执行安装命令、技能地图、真实任务示例和仓库约定保持一致。
-- 增加根目录 `AGENTS.md`，固化 Skill 与路由、清单、安装脚本和 GitHub 交付的同步规则。
-- 重写仓库 README：用一句话定位、快速开始、技能地图、典型用法和仓库约定组织首页内容。
-- 新增 `$cs-github-push`：专门处理 GitHub 提交、推送、PR 与远端核验；将 GitHub-only 路由从 `$cs-ending-time` 拆出，任务 skill 数量由 13 更新为 14。
-- 新增 `$cs-knowledge-film`：把知识点做成暗夜星空 + 衬线双语字幕 + 金色光点隐喻的知识解说片（spec.json → edge-tts 配音 → Canvas 逐帧渲染 mp4），含 14 种场景类型与示例 spec。
-- 将 `$cs-knowledge-film` 接入 `$cs-run` 路由、README、技能清单和仓库规划；active skill 数量由 12 更新为 13。
-- 新增 `$cs-web-promo-film`：把真实网页做成 30–60 秒产品演示宣传片（Playwright 长截图 + Remotion 运镜 + 可交付 mp4）。
-- 将 `$cs-web-promo-film` 接入 `$cs-run` 路由、技能清单和仓库规划；active skill 数量由 11 更新为 12。
+### 2026-10-06：模型依赖、缓存检测与 README
+
+- 增加逐技能模型注册表：沿用宿主 Agent，中文 WhisperX 组合按需选择，ComfyUI / Fish 权重以实际配置为准。
+- 固定模型 commit、文件大小与官方哈希；离线检查，共用 HF 缓存，只补缺失，损坏需显式修复，并发下载互斥。
+- 优化安装说明、技能清单与模型操作入口，增加缓存 / 损坏 / 续下 / 进程锁回归并接入统一检查。
+- 实际本地模型文件校验不等于推理、GPU 或新会话行为验收；模型权重保持本地，不随 GitHub 仓库发布。
+
+
+### 2026-10-02：自媒体剧本、分镜与逐图提示词
+
+- 扩展 `$cs-chatcut-video-blueprint` 为自媒体剧本与制作蓝图入口，保留原调用名称；附逐镜分镜、完整逐图图片提示词和按需的视频动作提示词。
+- 接通 `$cs-personal-ip-script` 到蓝图的连续交接；保留只要口播、已有稿件只补点名内容、真实录屏证据和最终音频时间边界。
+- 新增按需的故事方法、镜图提示词规范与可复制文本包模板；同步总入口、UI、注册表、文档和五个行为验收场景。静态检查不代表新会话行为或生成画面效果。
+
+### v0.6.0：面向当前强模型的执行优化
+
+- 新增 `$cs-personal-ip-script`：将真实项目、经历或现场观察收敛为 60–90 秒实战判断口播，分离台词与演绎标注，不编造事实或强制 CTA。
+- 全面审查并调整 14 个 Skill 入口：按任务复杂度执行，复用授权与有效产物，不再机械填表、重复确认。
+- 将电商视频、蓝图格式、Ralph CLI 与生产并发细节移至按需参考；保留产品身份、样片审批与真实音频时间约束。
+- 修复 Ralph 将 --no-commit 误称 dry-run、默认命令绕过宿主权限以及安装规则冲突。
+- 更新 UI 提示、文档、递归资源检查和 25 个行为验收场景；验证记录区分静态检查、脚本回归和新会话实测。
+
+### v0.5.0：数字人产品视频流水线
+
+- 新增 $cs-digital-human-product-video-pipeline：以产品包为合同，按 plan、sample、batch 编排产品事实、口播、配音、数字人、产品场景、ChatCut 剪辑、Remotion 包装和最终验收。
+- 固化预检状态、样片审批、无 BGM 规格、产品事实追溯和透明通道圆形 PIP 回退，不将通用自动剪辑重新引入库中。
+- 扩展 $cs-chatcut-video-blueprint 的产品包交接；确认蓝图后的项目实操、样片和成片验收交给新流水线。
+
+### v0.4.0：高频工作流执行合同
+
+- 为 `$cs-frontend-design` 增加 Build / Iterate / Review 模式、Page Spec、State Matrix 与验证证据格式。
+- 为 `$cs-clean-code` 增加 Cleanup Diagnostic Card、风险范围闸门与 Requirement → Implementation → Verification 映射。
+- 为 `$cs-run` 增加多目标优先级和跨 Skill 交接表，确保“整理后提交”“做完后部署”等请求不会越权并行执行。
+- 扩展自动契约、路由案例与发布前人工验收，覆盖上述行为。
+
+## v0.3.0 · 2026-08-12
+
+### 稳定性
+
+- 将 `$cs-run` 调整为显式优先入口，明确任务直接进入下游 skill。
+- 分离 `$cs-clean-code` 的本地质量职责与 `$cs-ending-time` 的交付职责；Git、PR、预览部署和生产部署采用逐项明确授权。
+- 为 ChatCut 蓝图和小黄正文配图固化不可越界与默认确认边界。
+
+### 质量体系
+
+- 新增零依赖 Node 静态验证器、核心链路契约与路由案例。
+- 新增统一回归命令，覆盖静态检查、`cs-auto-videl` Python 回归和 `cs-checkpoint-version` PowerShell 恢复测试。
+- 新增 Windows GitHub Actions 质量门槛及 v0.3.0 发布前真人验收清单。
+
+### 兼容性
+
+- 所有 active `SKILL.md` frontmatter 仅保留 `name` 与 `description`，提升跨 Agent 兼容性。
+
 - 将 `$cs-you-wendu-ip` 完整合并到 `$cs-xiaohuang-skill`；小黄成为“有温度”品牌 IP 与中文正文配图的唯一入口。
 - 合并角色 DNA、媒介与形态、品牌提示词、QA 规则和示例资产；采用单一干净身份参考图，避免角色标准分叉。
 - 将 `$cs-xiaohuang-skill` 的完整介绍与示例移入 skill 二级页面，根 README 只保留入口。
