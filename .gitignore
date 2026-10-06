@@ -11,6 +11,16 @@ build/
 coverage/
 output/
 .cache/
+# Model weights and download caches stay local; publish manifests instead.
+models--*/
+.cs-skills-locks/
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+models/**/*.bin
+models/**/*.msgpack
+*.incomplete
 .next/
 .turbo/
 .codex-checkpoints/

@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-06",
+  "models": {
+    "whisper-large-v3": {
+      "repo_id": "Systran/faster-whisper-large-v3",
+      "revision": "edaa852ec7e145841d8ffdb056a99866b5f0a478",
+      "purpose": "WhisperX / faster-whisper 可选语音识别后端",
+      "source": "https://huggingface.co/Systran/faster-whisper-large-v3/tree/edaa852ec7e145841d8ffdb056a99866b5f0a478",
+      "files": {
+        "config.json": {
+          "size": 2394,
+          "hash_type": "git-sha1",
+          "hash": "75336feae814999bae6ccccdecf177639ffc6f9d"
+        },
+        "model.bin": {
+          "size": 3087284237,
+          "hash_type": "sha256",
+          "hash": "69f74147e3334731bc3a76048724833325d2ec74642fb52620eda87352e3d4f1"
+        },
+        "preprocessor_config.json": {
+          "size": 340,
+          "hash_type": "git-sha1",
+          "hash": "931c77a740890c46365c7ae0c9d350ba3cca908f"
+        },
+        "tokenizer.json": {
+          "size": 2480617,
+          "hash_type": "git-sha1",
+          "hash": "3a5e2ba63acdcac9a19ba56cf9bd27f185bfff61"
+        },
+        "vocabulary.json": {
+          "size": 1068114,
+          "hash_type": "git-sha1",
+          "hash": "0adcd01e7c237205d593b707e66dd5d7bc785d2d"
+        }
+      }
+    },
+    "wav2vec2-zh": {
+      "repo_id": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
+      "revision": "99ccb2737be22b8bb50dcfcc39ad4d567fb90cfd",
+      "purpose": "WhisperX 中文词级强制对齐",
+      "source": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn/tree/99ccb2737be22b8bb50dcfcc39ad4d567fb90cfd",
+      "files": {
+        "config.json": {
+          "size": 1567,
+          "hash_type": "git-sha1",
+          "hash": "4f7143f7712623888c22adffeca380cef645124c"
+        },
+        "preprocessor_config.json": {
+          "size": 158,
+          "hash_type": "git-sha1",
+          "hash": "0886a48276922a77013d8aa4681192138ae90d90"
+        },
+        "pytorch_model.bin": {
+          "size": 1276296151,
+          "hash_type": "sha256",
+          "hash": "de031fd4b29e0c0667e5346450fadfe1326c89936b888b59c4ede608db763ee4"
+        },
+        "special_tokens_map.json": {
+          "size": 85,
+          "hash_type": "git-sha1",
+          "hash": "25bc39604f72700b3b8e10bd69bb2f227157edd1"
+        },
+        "vocab.json": {
+          "size": 44357,
+          "hash_type": "git-sha1",
+          "hash": "da3e3b635068f5a44c273636b36f0153f964d8bb"
+        }
+      }
+    }
+  },
+  "profiles": {
+    "whisperx-zh": [
+      "whisper-large-v3",
+      "wav2vec2-zh"
+    ]
+  },
+  "skills": {
+    "cs-auto-videl": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [
+        "图像生成工具",
+        "Seedance / Ark（脚本默认 doubao-seedance-2-0-260128，可用 SEEDANCE_MODEL 或 --model 覆盖，需核对账号权限）",
+        "Gemini Omni / Google Flow：按当前任务选择"
+      ],
+      "configuration": [
+        "API 或网页端服务，不下载模型权重；用户自行配置密钥"
+      ]
+    },
+    "cs-chatcut-video-blueprint": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-code-story-video": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [
+        "whisperx-zh"
+      ],
+      "services": [],
+      "configuration": [
+        "需要词级对齐且选择 WhisperX 时复用对齐模型；Remotion 渲染本身不需要模型"
+      ]
+    },
+    "cs-checkpoint-version": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-clean-code": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-digital-human-product-video-pipeline": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [
+        "whisperx-zh"
+      ],
+      "services": [
+        "ChatCut（剪辑工具，不是模型）"
+      ],
+      "configuration": [
+        "ComfyUI 工作流与对应模型文件未固定，须读取 workflow JSON 核对，不能推测型号",
+        "本地 Fish/TTS 版本、checkpoint、声音授权或原声；没有通用可下载型号"
+      ]
+    },
+    "cs-ending-time": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-frontend-design": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-narration-phrase-timeline": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [
+        "whisperx-zh"
+      ],
+      "services": [],
+      "configuration": [
+        "目标项目的真实音频对齐器和短语构建器；WhisperX 是可选后端，VAD 与 Python/GPU 依赖需另查"
+      ]
+    },
+    "cs-personal-ip-script": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-ralph-runner": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-run": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-search-skill": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-writer": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": []
+    },
+    "cs-xiaohuang-skill": {
+      "agent_model": "沿用宿主 Agent 模型，无固定型号要求",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [
+        "宿主图像生成/编辑工具，不固定型号"
+      ],
+      "configuration": [
+        "角色参考图随 Skill 提供"
+      ]
+    }
+  }
+}

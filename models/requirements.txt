@@ -1,0 +1,2 @@
+# 仅 download 在缺少模型文件时使用；list/check 只用 Python 标准库。
+huggingface_hub>=0.27,<2
