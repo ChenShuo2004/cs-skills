@@ -7,6 +7,7 @@ CS Skills 沿用宿主 Agent 的模型，没有绑定某个聊天模型或推理
 | 技能 / 阶段 | 模型要求 | 下载方式 |
 | --- | --- | --- |
 | 路由、写作、调研、口播稿、制作蓝图、前端、代码整理、Ralph、版本与 Git 收尾 | 宿主 Agent 模型，以及对应搜索 / 浏览器 / CLI 工具 | 无本地模型权重要求 |
+| `cs-video-download` 视频下载与归档 | Python 3.10+、curl、FFmpeg/ffprobe 和可用下载器或浏览器工具 | 不下载模型；只下载本次指定的视频 |
 | `cs-codex-image` 内置生图与 Claude 接入 | 支持内置图片生成的 Codex CLI 与 ChatGPT 登录，MCP 需 Node 22+ / npm | 使用已有订阅额度，无 API Key，不下载权重 |
 | `cs-xiaohuang-skill` 图片生成与编辑 | 可用的图像工具，不固定型号；角色参考随技能提供 | 按宿主工具使用 |
 | `cs-auto-videl` 图像 / 视频生成 | 任务选择的图像工具或 Seedance / Gemini Omni / Google Flow；Ark 脚本的默认型号见源码 | 云端 / 网页服务，不下载权重；模型可用性以账号为准 |

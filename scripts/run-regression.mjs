@@ -73,6 +73,7 @@ try {
   run(process.execPath, ["cs-digital-human-product-video-pipeline/tests/validate-product-pack.tests.mjs"]);
 
   const python = resolvePython();
+  run(python.command, [...python.prefix, "-m", "unittest", "discover", "-s", "cs-video-download/tests", "-p", "test_*.py", "-v"]);
   run(python.command, [...python.prefix, "-m", "unittest", "discover", "-s", "tests", "-p", "test_models.py", "-v"]);
   run(
     python.command,

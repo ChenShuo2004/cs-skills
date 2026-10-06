@@ -289,6 +289,15 @@
       "configuration": [
         "需要支持内置生图的 Codex CLI；Claude MCP 桥接需 Node 22+ / npm；无 API Key，无本地模型权重"
       ]
+    },
+    "cs-video-download": {
+      "agent_model": "沿用宿主 Agent，无模型权重依赖",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": [
+        "Python 3.10+、curl、FFmpeg/ffprobe；视频解析需要可用下载器或浏览器控制工具"
+      ]
     }
   }
 }

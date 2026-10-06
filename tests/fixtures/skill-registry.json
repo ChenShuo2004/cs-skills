@@ -121,6 +121,11 @@
       "name": "cs-codex-image",
       "displayName": "CS Codex 内置生图",
       "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-video-download",
+      "displayName": "CS 视频下载",
+      "releaseLevel": "script-regression"
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Reusable Agent workflows from real product, content and video projects by Chen Shuo (KAI). Give the Agent your goal, source material and acceptance criteria; receive artifacts with an honest account of what was verified.
 
-**main: 23 task skills and 1 optional execution helper. Latest packaged release: v0.7.0 with 22 task skills.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
+**main: 24 task skills and 1 optional execution helper. Latest packaged release: v0.7.0 with 22 task skills.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
 
 [中文](README.md) · [Download v0.7.0](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)
 
@@ -48,6 +48,7 @@ Use `$cs-run` for unclear or multi-stage goals, or invoke a specific skill direc
 | [cs-run](cs-run/SKILL.md) | Task routing |
 | [cs-writer](cs-writer/SKILL.md) | Chinese writing and revision |
 | [cs-search-skill](cs-search-skill/SKILL.md) | Source-backed research |
+| [cs-video-download](cs-video-download/SKILL.md) | Download and verify videos in ~/Downloads/Videdown, with source records |
 | [cs-codex-image](cs-codex-image/SKILL.md) | Codex built-in image generation/editing and a local Claude MCP bridge |
 | [cs-kai-cover](cs-kai-cover/SKILL.md) | KAI article covers |
 | [cs-xiaohuang-skill](cs-xiaohuang-skill/SKILL.md) | Xiaohuang IP and article illustrations |

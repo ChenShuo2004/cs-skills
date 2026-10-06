@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前 main 包含 23 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
+CS Skills 当前 main 包含 24 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 按阶段选择所需 skill → 验证结果
@@ -190,4 +190,8 @@ CS Skills 当前 main 包含 23 个任务 skill 与 1 个执行辅助 skill，�
 
 ## main 新增：Codex 内置生图
 
-`cs-codex-image` 包含可移植 MCP 运行时、备份合并配置的安装器、只读连接检查与显式真实出图测试。main 更新为 23 个任务技能 + 1 个辅助技能；现有 v0.7.0 Release 包保持原发布内容。
+`cs-codex-image` 包含可移植 MCP 运行时、备份合并配置的安装器、只读连接检查与显式真实出图测试。main 更新为 24 个任务技能 + 1 个辅助技能；现有 v0.7.0 Release 包保持原发布内容。
+
+## main 新增：视频下载与归档
+
+`cs-video-download` 使用现有下载工具，遇到抖音 403 时转向浏览器已加载的媒体地址。脚本统一归档、复用已验证文件、清理失败下载，并完整解码检查。依赖 Python、curl 和 FFmpeg，无模型权重依赖。

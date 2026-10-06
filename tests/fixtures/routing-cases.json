@@ -940,6 +940,28 @@
           "path": "cs-codex-image/SKILL.md"
         }
       ]
+    },
+    {
+      "id": "video-download-403-fallback",
+      "prompt": "帮我用 Videdown 下载抖音视频，遇到 fresh cookies 403，统一存放。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-video-download"
+      ],
+      "expectedBehavior": [
+        "使用浏览器当前加载的媒体地址回退下载，统一归档并以完整解码验证文件。"
+      ],
+      "forbiddenBehavior": [
+        "循环重试 403、复用过期地址或把解析完成当作下载成功。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-video-download/SKILL.md"
+        },
+        {
+          "path": "cs-video-download/scripts/download_media.py"
+        }
+      ]
     }
   ]
 }

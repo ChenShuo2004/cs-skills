@@ -6,7 +6,7 @@
 
 ![CS Skills 工作流](assets/chenshuo-skills-cover.png)
 
-当前 main 包含 **23 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
+当前 main 包含 **24 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
 
 [安装与更新](#安装与更新) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [模型与依赖](#模型与依赖) · [真实演示](#真实演示)
 
@@ -21,7 +21,7 @@ node scripts/install-skills.mjs --update
 node scripts/install-skills.mjs --check
 ```
 
-默认将 23 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
+默认将 24 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
 
 ### 第一次安装
 
@@ -61,6 +61,7 @@ Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器
 | 你想完成什么 | 使用哪个 Skill | 交付什么 |
 | --- | --- | --- |
 | 从目标选择路径、串联多个阶段 | [$cs-run](cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
+| 下载视频链接并统一归档 | [$cs-video-download](cs-video-download/SKILL.md) | 已验证 MP4 与来源记录，默认 ~/Downloads/Videdown |
 | 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
 | 调研产品、技术、市场与竞品 | [$cs-search-skill](cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
 | 使用 Codex 内置生图，或接入 Claude | [$cs-codex-image](cs-codex-image/SKILL.md) | 真实 PNG、参考图编辑与可检查的本地 MCP |

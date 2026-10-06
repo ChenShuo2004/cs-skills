@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS 视频下载"
+  short_description: "下载抖音等视频到统一文件夹，自动处理解析失败并核验文件完整性"
+  default_prompt: "使用 $cs-video-download 下载我提供的视频链接，统一归档并返回已验证的本地文件。"

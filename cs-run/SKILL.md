@@ -15,6 +15,7 @@ Choose one primary route from this table:
 
 | User goal | Route | Typical output |
 | --- | --- | --- |
+| 下载在线视频链接、Videdown 下载或统一归档视频 | `$cs-video-download` | 已验证的媒体文件与来源记录，默认 ~/Downloads/Videdown |
 | Write, outline, rewrite, polish, or turn project material into an article | `$cs-writer` | Angle, outline, draft, rewrite, or review |
 | Research a product, company, technology, market, or competitor set for a decision | `$cs-search-skill` | Source-backed decision brief, comparison, risks, and next actions |
 | Generate or edit images with Codex built-in imagegen, or connect it to Claude / a local MCP Agent | `$cs-codex-image` | Verified image files or a tested local image MCP connection |
