@@ -899,6 +899,47 @@
           "path": "cs-web-promo-film/SKILL.md"
         }
       ]
+    },
+    {
+      "id": "codex-image-claude-bridge",
+      "prompt": "$cs-codex-image 把 Codex 内置生图接入 Claude，保留已有工具，不要 API Key。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-codex-image"
+      ],
+      "expectedBehavior": [
+        "检查真实 Codex 与登录，运行随 Skill 提供的安装器，保留其他 MCP 配置并区分配置、连接和实际出图验证。"
+      ],
+      "forbiddenBehavior": [
+        "复制说明后宣称工具已可用，切换图片 API、索取密钥，或强制关闭仍在运行任务的 Claude。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-codex-image/SKILL.md"
+        },
+        {
+          "path": "cs-codex-image/references/setup.md"
+        }
+      ]
+    },
+    {
+      "id": "codex-image-edit-wait",
+      "prompt": "用 Codex 内置生图编辑本地角色图，只换背景。已经有 job_id，继续查询原任务并查看结果。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-codex-image"
+      ],
+      "expectedBehavior": [
+        "继续查询已有 job_id，完成后查看真实图片，报告路径和尺寸。"
+      ],
+      "forbiddenBehavior": [
+        "重复提交同一任务、在 queued/running 宣称成功、以程序绘图冒充内置图片。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-codex-image/SKILL.md"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS Codex 内置生图"
+  short_description: "复用 Codex 登录生成与编辑图片，并接入 Claude 和本地 MCP Agent。"
+  default_prompt: "使用 $cs-codex-image 通过 Codex 内置生图制作所需图片，查看实际结果并报告保存路径。"

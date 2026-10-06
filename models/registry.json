@@ -278,6 +278,17 @@
       "optional_profiles": [],
       "services": [],
       "configuration": []
+    },
+    "cs-codex-image": {
+      "agent_model": "沿用宿主 Agent；桥接默认使用 Codex 默认模型，可显式配置已知可用模型",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [
+        "Codex 内置图片生成，使用当前 ChatGPT/Codex 登录与账号额度"
+      ],
+      "configuration": [
+        "需要支持内置生图的 Codex CLI；Claude MCP 桥接需 Node 22+ / npm；无 API Key，无本地模型权重"
+      ]
     }
   }
 }

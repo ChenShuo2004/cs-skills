@@ -116,6 +116,11 @@
       "name": "cs-web-promo-film",
       "displayName": "CS 网页宣传片",
       "releaseLevel": "core"
+    },
+    {
+      "name": "cs-codex-image",
+      "displayName": "CS Codex 内置生图",
+      "releaseLevel": "script-regression"
     }
   ]
 }

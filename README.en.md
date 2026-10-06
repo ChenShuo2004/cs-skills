@@ -2,7 +2,7 @@
 
 Reusable Agent workflows from real product, content and video projects by Chen Shuo (KAI). Give the Agent your goal, source material and acceptance criteria; receive artifacts with an honest account of what was verified.
 
-**v0.7.0: 22 task skills and 1 optional execution helper.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
+**main: 23 task skills and 1 optional execution helper. Latest packaged release: v0.7.0 with 22 task skills.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
 
 [中文](README.md) · [Download v0.7.0](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)
 
@@ -48,6 +48,7 @@ Use `$cs-run` for unclear or multi-stage goals, or invoke a specific skill direc
 | [cs-run](cs-run/SKILL.md) | Task routing |
 | [cs-writer](cs-writer/SKILL.md) | Chinese writing and revision |
 | [cs-search-skill](cs-search-skill/SKILL.md) | Source-backed research |
+| [cs-codex-image](cs-codex-image/SKILL.md) | Codex built-in image generation/editing and a local Claude MCP bridge |
 | [cs-kai-cover](cs-kai-cover/SKILL.md) | KAI article covers |
 | [cs-xiaohuang-skill](cs-xiaohuang-skill/SKILL.md) | Xiaohuang IP and article illustrations |
 | [cs-personal-ip-script](cs-personal-ip-script/SKILL.md) | Personal project narration |
@@ -91,3 +92,15 @@ python scripts/package-release.py
 The regression runner needs Python 3.12+ and PowerShell. Use CS_SKILLS_PYTHON to select the interpreter. Archive files have a per-file hash manifest and a separate package checksum. Structural, script and file checks do not prove fresh-session model behavior or final media quality.
 
 [License](LICENSE) · [Changelog](CHANGELOG.md) · [Contributors](CONTRIBUTORS.md)
+
+## Codex built-in images in Claude
+
+The new Skill is on main and is not included in the existing v0.7.0 release archive.
+
+```bash
+node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update cs-codex-image
+node cs-codex-image/scripts/install.mjs --target both
+node cs-codex-image/scripts/install.mjs --target both --check
+```
+
+Use `$cs-codex-image` in a new Claude session. The bridge uses the existing ChatGPT/Codex login, without an API key. Desktop configuration currently supports macOS. Installation, MCP connectivity, actual generation and Claude model invocation are separate checks. See [setup and recovery](cs-codex-image/references/setup.md).

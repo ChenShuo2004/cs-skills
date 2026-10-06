@@ -17,6 +17,7 @@ Choose one primary route from this table:
 | --- | --- | --- |
 | Write, outline, rewrite, polish, or turn project material into an article | `$cs-writer` | Angle, outline, draft, rewrite, or review |
 | Research a product, company, technology, market, or competitor set for a decision | `$cs-search-skill` | Source-backed decision brief, comparison, risks, and next actions |
+| Generate or edit images with Codex built-in imagegen, or connect it to Claude / a local MCP Agent | `$cs-codex-image` | Verified image files or a tested local image MCP connection |
 | Create a 5:2 X / Twitter article cover with the fixed KAI character and clear Chinese title | `$cs-kai-cover` | KAI background plus deterministic-title PNG |
 | Design, build, revise, or review a user-facing web interface | `$cs-frontend-design` | UI plan, implementation guidance, and browser checks |
 | Clean up code, reconcile implementation with requirements, or prepare a maintainable handoff | `$cs-clean-code` | Scoped edits, documentation sync, tests, and verification |
@@ -42,6 +43,8 @@ Choose one primary route from this table:
 ## Retired Routes
 
 本库没有对任意素材做通用自动剪辑的入口；`$cs-code-story-video` 只处理有口播、角色和代码场景的叙事视频。理想汽车信息图与 Open Design 也没有专用入口。不要把这些请求误送到电商或数字人产品视频流程。缺少库内路由不等于无法工作：已有其他可用工具/Skill 且范围匹配时直接使用，缺能力时准确说明缺口。不要要求用户先创建新 Skill。
+
+内置图片生成与 Claude 图片工具接入用 `$cs-codex-image`；品牌画面仍由 KAI 或小黄 Skill 决定，本工具只承担实际出图与接入。
 
 ## 执行尺度
 

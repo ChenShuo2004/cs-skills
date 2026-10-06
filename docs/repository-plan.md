@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前包含 22 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
+CS Skills 当前 main 包含 23 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 按阶段选择所需 skill → 验证结果
@@ -31,6 +31,8 @@ CS Skills 当前包含 22 个任务 skill 与 1 个执行辅助 skill，并采�
 负责读取必要上下文、按需澄清目标、选择每阶段的能力并连续完成已授权任务。
 
 ### 内容、视觉与电商视频
+
+- `cs-codex-image`：复用 Codex 内置生图，生成 / 编辑图片并接入 Claude 本地 MCP；不绑定聊天模型、不下载权重、不切换 API。
 
 - `cs-writer`
 - `cs-kai-cover`
@@ -185,3 +187,7 @@ CS Skills 当前包含 22 个任务 skill 与 1 个执行辅助 skill，并采�
 - `cs-web-promo-film`
 
 新增跨平台 Node 安装器：内容相同跳过，显式更新先备份，安装后 SHA-256 核对。Release 包附逐文件清单与包哈希；本地同步与远端 SHA 分别验收。
+
+## main 新增：Codex 内置生图
+
+`cs-codex-image` 包含可移植 MCP 运行时、备份合并配置的安装器、只读连接检查与显式真实出图测试。main 更新为 23 个任务技能 + 1 个辅助技能；现有 v0.7.0 Release 包保持原发布内容。

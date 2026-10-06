@@ -6,7 +6,7 @@
 
 ![CS Skills 工作流](assets/chenshuo-skills-cover.png)
 
-当前版本 **v0.7.0**，包含 **22 个任务技能 + 1 个执行辅助技能**。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
+当前 main 包含 **23 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
 
 [安装与更新](#安装与更新) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [模型与依赖](#模型与依赖) · [真实演示](#真实演示)
 
@@ -21,7 +21,7 @@ node scripts/install-skills.mjs --update
 node scripts/install-skills.mjs --check
 ```
 
-默认将 22 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
+默认将 23 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
 
 ### 第一次安装
 
@@ -63,6 +63,7 @@ Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器
 | 从目标选择路径、串联多个阶段 | [$cs-run](cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
 | 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
 | 调研产品、技术、市场与竞品 | [$cs-search-skill](cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
+| 使用 Codex 内置生图，或接入 Claude | [$cs-codex-image](cs-codex-image/SKILL.md) | 真实 PNG、参考图编辑与可检查的本地 MCP |
 | 做 KAI 固定角色的文章封面 | [$cs-kai-cover](cs-kai-cover/SKILL.md) | 标题清晰的 5:2 PNG 与无字背景 |
 | 延展小黄 IP、给中文文章配图 | [$cs-xiaohuang-skill](cs-xiaohuang-skill/SKILL.md) | 角色资产、配图规划与正文插画 |
 | 把真实项目写成个人 IP 口播 | [$cs-personal-ip-script](cs-personal-ip-script/SKILL.md) | 可录稿、独立演绎标注与事实待补项 |
@@ -119,6 +120,16 @@ $cs-code-story-video 这里是最终口播音频、实际朗读稿和角色图�
 $cs-run 检查实际技能、路由和安装器，用 cs-writer 优化 README 的产品介绍，用 cs-clean-code 核对安装命令。先更新我的本地技能并校验一致，再更新 GitHub 默认分支和完整安装包。
 ```
 
+**在 Claude 使用 Codex 内置生图：**
+
+```bash
+node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update cs-codex-image
+node cs-codex-image/scripts/install.mjs --target both
+node cs-codex-image/scripts/install.mjs --target both --check
+```
+
+打开新的 Claude 会话，调用 `$cs-codex-image` 出图。MCP 安装器会保留其他设置并备份变化，使用现有 ChatGPT/Codex 登录，不要求 API Key；桌面配置安装器当前支持 macOS。配置、连接与真实出图分别检查，详见 [接入说明](cs-codex-image/references/setup.md)。此 Skill 在 main，v0.7.0 安装包尚未包含。
+
 ## 模型与依赖
 
 **安装技能不会自动下载模型。** 写作、调研、代码和文本蓝图沿用宿主 Agent 的模型，没有统一绑定的聊天模型型号。
@@ -126,6 +137,7 @@ $cs-run 检查实际技能、路由和安装器，用 cs-writer 优化 README �
 | 阶段 | 需要什么 |
 | --- | --- |
 | 写作、规划、开发与 Git 交付 | 宿主 Agent 和当前任务需要的搜索、浏览器或 CLI |
+| Codex 内置生图与 Claude 接入 | 支持内置图片工具的 Codex、ChatGPT 登录；MCP 桥接需 Node 22+ / npm |
 | KAI / 小黄图片与电商视频生成 | 已配置的图像工具或任务选择的云端服务 |
 | 中文音频对齐，已选择 WhisperX | 可选 Whisper large-v3 + 中文 wav2vec2，共约 4.37 GB |
 | 代码视频渲染 | 对应 Node / Python、浏览器、Remotion 或 FFmpeg；渲染本身不需要生成模型 |

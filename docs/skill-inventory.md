@@ -1,12 +1,13 @@
 # CS Skills 技能清单
 
-盘点日期：2026-10-06。v0.7.0 共 22 个任务技能与 1 个辅助技能，来源为 tests/fixtures/skill-registry.json。
+盘点日期：2026-10-06。main 共 23 个任务技能与 1 个辅助技能（最新完整发布包 v0.7.0 为 22 个任务技能），来源为 tests/fixtures/skill-registry.json。
 
 | 目标 | Skill | 产物 |
 | --- | --- | --- |
 | 从目标选择路径、串联多个阶段 | [$cs-run](../cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
 | 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](../cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
 | 调研产品、技术、市场与竞品 | [$cs-search-skill](../cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
+| 使用 Codex 内置生图，或接入 Claude | [$cs-codex-image](../cs-codex-image/SKILL.md) | PNG、参考图编辑与本地 MCP 连接 |
 | 做 KAI 固定角色的文章封面 | [$cs-kai-cover](../cs-kai-cover/SKILL.md) | 标题清晰的 5:2 PNG 与无字背景 |
 | 延展小黄 IP、给中文文章配图 | [$cs-xiaohuang-skill](../cs-xiaohuang-skill/SKILL.md) | 角色资产、配图规划与正文插画 |
 | 把真实项目写成个人 IP 口播 | [$cs-personal-ip-script](../cs-personal-ip-script/SKILL.md) | 可录稿、独立演绎标注与事实待补项 |
@@ -30,3 +31,5 @@
 辅助入口：`cs-recover-skill` 用于执行复位，默认不安装；在安装包中保留，按名称显式安装。
 
 相近视频入口的边界见 cs-run/SKILL.md 的“相近视频入口”。模型依赖见 [模型说明](model-dependencies.md)，安装与更新见 [README](../README.md)。
+
+内置生图与客户端接入使用 `cs-codex-image`，不自动改用 API；KAI / 小黄规范仍由品牌 Skill 决定。安装 Skill 不自动安装 MCP，实际连接需运行该 Skill 的安装器。
