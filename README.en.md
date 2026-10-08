@@ -2,7 +2,7 @@
 
 Reusable Agent workflows from real product, content and video projects by Chen Shuo (KAI). Give the Agent your goal, source material and acceptance criteria; receive artifacts with an honest account of what was verified.
 
-**main: 24 task skills and 1 optional execution helper. Latest packaged release: v0.7.0 with 22 task skills.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
+**main: 25 task skills and 1 optional execution helper. Latest packaged release: v0.7.0 with 22 task skills.** Supports Codex; other Agents that read SKILL.md can reuse the workflows with their own tools.
 
 [中文](README.md) · [Download v0.7.0](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)
 
@@ -48,6 +48,7 @@ Use `$cs-run` for unclear or multi-stage goals, or invoke a specific skill direc
 | [cs-run](cs-run/SKILL.md) | Task routing |
 | [cs-writer](cs-writer/SKILL.md) | Chinese writing and revision |
 | [cs-search-skill](cs-search-skill/SKILL.md) | Source-backed research |
+| [cs-guoshen](cs-guoshen/SKILL.md) | Pre-publication draft/video risk review, evidence locators and minimal edits |
 | [cs-video-download](cs-video-download/SKILL.md) | Download and verify videos in ~/Downloads/Videdown, with source records |
 | [cs-codex-image](cs-codex-image/SKILL.md) | Codex built-in image generation/editing and a local Claude MCP bridge |
 | [cs-kai-cover](cs-kai-cover/SKILL.md) | KAI article covers |
@@ -86,6 +87,7 @@ python scripts/models.py download --profile whisperx-zh
 Checks are read-only and offline. Valid caches are reused; only missing files are requested. Damaged files require explicit `--repair`. Model weights stay local. See [dependency notes](docs/model-dependencies.md).
 
 ```sh
+python -m pip install -r cs-guoshen/requirements-dev.txt
 node scripts/run-regression.mjs
 python scripts/package-release.py
 ```
@@ -109,3 +111,7 @@ Use `$cs-codex-image` in a new Claude session. The bridge uses the existing Chat
 ## Star History
 
 [![CS Skills Star History](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+
+## Publication risk review
+
+`cs-guoshen` adapts [huangbai-AI/guoshen](https://github.com/huangbai-AI/guoshen) under MIT, preserving upstream attribution and rule verification dates. It adds draft review, a local preparation CLI, revision checks and edit handoff. Candidate scans never guarantee platform approval. Available on main, outside the existing v0.7.0 archive. See [usage and dependencies](cs-guoshen/references/workflow.md).

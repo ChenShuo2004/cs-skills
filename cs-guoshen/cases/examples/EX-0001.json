@@ -1,0 +1,30 @@
+{
+  "id": "EX-0001",
+  "synthetic": true,
+  "platform": "douyin",
+  "scene": "post",
+  "submitted_at": "2026-09-07",
+  "privacy": {
+    "public_consent": true,
+    "anonymized": true
+  },
+  "outcome": "rejected",
+  "platform_notice": null,
+  "evidence": [
+    {
+      "channel": "screen",
+      "start": 0,
+      "end": 2,
+      "text": "example.com"
+    }
+  ],
+  "hypothesis": "怀疑站外引导，平台未给具体条款。",
+  "confirmed_reason": null,
+  "attempts": [],
+  "confounders": [
+    "模拟数据，不是平台实测；不可计入案例统计或规则证据。"
+  ],
+  "rule_ids": [
+    "GS-D001"
+  ]
+}

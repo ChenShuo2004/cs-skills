@@ -15,6 +15,7 @@ Choose one primary route from this table:
 
 | User goal | Route | Typical output |
 | --- | --- | --- |
+| 稿件或成片发布风险预检、卡审分析与修改后复查 | `$cs-guoshen` | 分平台结论、原文定位、来源缺口与最小修改清单 |
 | 下载在线视频链接、Videdown 下载或统一归档视频 | `$cs-video-download` | 已验证的媒体文件与来源记录，默认 ~/Downloads/Videdown |
 | Write, outline, rewrite, polish, or turn project material into an article | `$cs-writer` | Angle, outline, draft, rewrite, or review |
 | Research a product, company, technology, market, or competitor set for a decision | `$cs-search-skill` | Source-backed decision brief, comparison, risks, and next actions |
@@ -70,6 +71,7 @@ Choose one primary route from this table:
 | 整理代码后提交 | $cs-clean-code 本地验证后，由 $cs-ending-time 使用已有提交授权。 |
 | 先保存再大改 | $cs-checkpoint-version 验证快照后，继续约定的实现。 |
 | 做完后部署 | 先实现验证，再由 $cs-ending-time 执行已授权且目标明确的部署。 |
+| 制作后检查发布风险 | 完成实际稿件或成片后用 $cs-guoshen；只有稿件不声称画面已检查，发布仍按用户授权。 |
 | 我确认后再继续 | 完成可审查产物，在用户明确设置的检查点暂停。 |
 | 数字人产品视频 | 完成 product-pack 与样片；用户确认样片后才进入 batch。 |
 

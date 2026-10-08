@@ -1,0 +1,30 @@
+{
+  "id": "EX-0002",
+  "synthetic": true,
+  "platform": "xiaohongshu",
+  "scene": "post",
+  "submitted_at": "2026-09-07",
+  "privacy": {
+    "public_consent": true,
+    "anonymized": true
+  },
+  "outcome": "passed",
+  "platform_notice": null,
+  "evidence": [
+    {
+      "channel": "speech",
+      "start": 0,
+      "end": 2,
+      "text": "通过本笔记官方技能入口使用"
+    }
+  ],
+  "hypothesis": "仅演示填写方式：站内组件须核当次权限和内容。",
+  "confirmed_reason": null,
+  "attempts": [],
+  "confounders": [
+    "模拟数据，不是平台实测；不可计入案例统计或规则证据。"
+  ],
+  "rule_ids": [
+    "GS-X001"
+  ]
+}

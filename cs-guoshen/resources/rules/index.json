@@ -1,0 +1,26 @@
+{
+  "version": "2026.09.07.1",
+  "platforms": {
+    "xiaohongshu": {
+      "name": "小红书",
+      "rules_file": "platforms/xiaohongshu.json",
+      "guide": "platforms/xiaohongshu.md"
+    },
+    "douyin": {
+      "name": "抖音",
+      "rules_file": "platforms/douyin.json",
+      "guide": "platforms/douyin.md"
+    },
+    "bilibili": {
+      "name": "B站",
+      "rules_file": "platforms/bilibili.json",
+      "guide": "platforms/bilibili.md"
+    },
+    "wechat_channels": {
+      "name": "视频号",
+      "rules_file": "platforms/wechat_channels.json",
+      "guide": "platforms/wechat_channels.md"
+    }
+  },
+  "common_file": "common/rules.json"
+}

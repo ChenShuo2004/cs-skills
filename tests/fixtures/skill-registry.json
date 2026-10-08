@@ -126,6 +126,11 @@
       "name": "cs-video-download",
       "displayName": "CS 视频下载",
       "releaseLevel": "script-regression"
+    },
+    {
+      "name": "cs-guoshen",
+      "displayName": "CS 过审预检",
+      "releaseLevel": "script-regression"
     }
   ]
 }

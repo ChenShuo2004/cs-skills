@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CS Skills 当前 main 包含 24 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
+CS Skills 当前 main 包含 25 个任务 skill 与 1 个执行辅助 skill，并采用单入口架构：
 
 ```text
 用户目标 → cs-run → 按阶段选择所需 skill → 验证结果
@@ -195,3 +195,7 @@ CS Skills 当前 main 包含 24 个任务 skill 与 1 个执行辅助 skill，�
 ## main 新增：视频下载与归档
 
 `cs-video-download` 使用现有下载工具，遇到抖音 403 时转向浏览器已加载的媒体地址。脚本统一归档、复用已验证文件、清理失败下载，并完整解码检查。依赖 Python、curl 和 FFmpeg，无模型权重依赖。
+
+## main 新增：发布前风险预检
+
+`cs-guoshen` 保留 guoshen 的证据提取与规则框架，新增稿件/视频/已有证据统一编排和修改后复查。原作者 MIT 版权及规则日期保留；只生成候选的脚本不充当审核裁决，不默认公开案例。main 为25个任务技能与1个辅助技能；旧 Release 保持原发布内容。

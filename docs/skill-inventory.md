@@ -1,10 +1,11 @@
 # CS Skills 技能清单
 
-盘点日期：2026-10-06。main 共 24 个任务技能与 1 个辅助技能（最新完整发布包 v0.7.0 为 22 个任务技能），来源为 tests/fixtures/skill-registry.json。
+盘点日期：2026-10-08。main 共 25 个任务技能与 1 个辅助技能（最新完整发布包 v0.7.0 为 22 个任务技能），来源为 tests/fixtures/skill-registry.json。
 
 | 目标 | Skill | 产物 |
 | --- | --- | --- |
 | 从目标选择路径、串联多个阶段 | [$cs-run](../cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
+| 预检稿件/成片发布风险、卡审与修改后复查 | [$cs-guoshen](../cs-guoshen/SKILL.md) | 有依据的分平台报告与最小修改清单 |
 | 下载视频链接并统一归档 | [$cs-video-download](../cs-video-download/SKILL.md) | 已验证视频与来源记录 |
 | 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](../cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
 | 调研产品、技术、市场与竞品 | [$cs-search-skill](../cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |

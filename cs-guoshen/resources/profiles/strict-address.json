@@ -1,0 +1,34 @@
+{
+  "profile_type": "可选严格发布标准：小红书、抖音不推广国外模型和 AI，不出现 URL 或疑似 URL；不是官方普遍禁令",
+  "default_platforms": [
+    "xiaohongshu",
+    "douyin",
+    "bilibili",
+    "wechat_channels"
+  ],
+  "default_scenario": "普通视频投稿",
+  "strict_visual_address_platforms": [
+    "xiaohongshu",
+    "douyin"
+  ],
+  "strict_visual_categories": [
+    "url",
+    "suspected_url",
+    "email",
+    "ip_address",
+    "physical_address"
+  ],
+  "scan_all_video_frames_for_zero_address_claim": true,
+  "physical_address_scope": "具体街道门牌、收货/居住地址、可定位到具体地点的地址；单独省市名或泛指地点不自动算具体地址",
+  "bilibili_policy": "普通教程网址不自动拦截；商业导流、隐私、危险链接和付费课程仍按相应规则复核",
+  "speech_policy": "独立检查语音中的地址与导流目的；不把有字幕当作语音已审",
+  "allow_user_override_per_request": true,
+  "foreign_ai_promotion_platforms": [
+    "xiaohongshu",
+    "douyin"
+  ],
+  "disallow_foreign_ai_promotion": true,
+  "foreign_ai_policy": "助手独立复核口播、字幕、品牌标志、录屏步骤、入口、提示词及片尾的国外模型和 AI 推广；归属不明需查证，英文名称不自动判国外，候选扫描器不自动完成该检查",
+  "url_policy": "不出现完整网址、裸域名、短链、地址栏、悬浮提示或代码资源网址，疑似网址亦按用户要求处理；独立查口播和发布资料，回环地址不豁免；不把文件名或互不相干文字拼接成已证实网址",
+  "decision_label": "按你的要求修改"
+}

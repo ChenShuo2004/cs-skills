@@ -1,0 +1,30 @@
+{
+  "id": "EX-0003",
+  "synthetic": true,
+  "platform": "bilibili",
+  "scene": "post",
+  "submitted_at": "2026-09-07",
+  "privacy": {
+    "public_consent": true,
+    "anonymized": true
+  },
+  "outcome": "pending",
+  "platform_notice": null,
+  "evidence": [
+    {
+      "channel": "speech",
+      "start": 0,
+      "end": 2,
+      "text": "不要点击陌生链接转账"
+    }
+  ],
+  "hypothesis": "否定语境不能按链接关键词定违规。",
+  "confirmed_reason": null,
+  "attempts": [],
+  "confounders": [
+    "模拟数据，不是平台实测；不可计入案例统计或规则证据。"
+  ],
+  "rule_ids": [
+    "GS-C006"
+  ]
+}

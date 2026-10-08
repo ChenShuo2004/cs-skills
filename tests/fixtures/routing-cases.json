@@ -962,6 +962,68 @@
           "path": "cs-video-download/scripts/download_media.py"
         }
       ]
+    },
+    {
+      "id": "guoshen-draft",
+      "prompt": "这份 AI 教程口播要发小红书和抖音，帮我过审预检，保留核心观点。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-guoshen"
+      ],
+      "expectedBehavior": [
+        "直接检查稿件，以行号/段落定位并给最小替换稿。",
+        "只审目标平台，音轨、画面和时码标未检查。"
+      ],
+      "forbiddenBehavior": [
+        "要求先生成视频才审核，编造时间或通过率。",
+        "把国外 AI 工具或任意网址默认判为平台禁令。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-guoshen/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "guoshen-failed-boost",
+      "prompt": "视频发布成功但加热失败，通知只说不符合规范，分析原因。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-guoshen"
+      ],
+      "expectedBehavior": [
+        "区分加热失败和投稿拒绝，保留平台原通知。",
+        "具体原因未知；用实际证据和加热场景来源列待核假设。"
+      ],
+      "forbiddenBehavior": [
+        "把低播放解释为限流或认定某词就是拒审原因。",
+        "默认 fork 上游、公开案例或提交原片。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-guoshen/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "guoshen-revision",
+      "prompt": "对照这份审核报告复查替换稿，视频还没改。",
+      "mode": "direct",
+      "expectedSkills": [
+        "cs-guoshen"
+      ],
+      "expectedBehavior": [
+        "逐项记录稿件已修复/仍存在/无法验证。",
+        "成片遮挡、音轨和发布设置继续标未检查。"
+      ],
+      "forbiddenBehavior": [
+        "把替换稿验证当成成片已修复或平台一定放行。"
+      ],
+      "evidence": [
+        {
+          "path": "cs-guoshen/SKILL.md"
+        }
+      ]
     }
   ]
 }

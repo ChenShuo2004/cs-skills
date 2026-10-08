@@ -1,0 +1,97 @@
+[
+  {
+    "id": "GS-B001",
+    "version": 1,
+    "title": "网址与商业导流",
+    "scope": "bilibili",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "B01",
+      "B02"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "普通知识分享不因出现网址自动拦截；商业导流仍核合规渠道，不设置全平台网址豁免。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-B002",
+    "version": 1,
+    "title": "课程内容专项",
+    "scope": "bilibili",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "B03"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "付费课程与普通投稿分开，适用课堂的外站引导限制时不能套普通教程处理。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-B003",
+    "version": 1,
+    "title": "社区、原创与投稿质量",
+    "scope": "bilibili",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "B01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "查社区公约的科学真实性、低俗谐音梗实际语境、创作公平、低质观感、分区和转载声明。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-B004",
+    "version": 1,
+    "title": "AI创作声明",
+    "scope": "bilibili",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "B04",
+      "B05",
+      "L05"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "核投稿创作声明和生成合成内容，不把AI标识降格为永远可选。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  }
+]

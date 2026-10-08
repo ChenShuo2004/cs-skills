@@ -1,0 +1,94 @@
+[
+  {
+    "id": "GS-W001",
+    "version": 1,
+    "title": "真实性、AI与演绎标识",
+    "scope": "wechat_channels",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "W01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-10-07",
+    "check": "依运营规范第5章检查违法、不良信息和失实内容；6.4要求对生成合成的非真实音视频及虚构演绎显著标识。逐次核实具体内容与发布声明，不将所有剪辑都归为虚构。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-W002",
+    "version": 1,
+    "title": "诱导互动与刷量",
+    "scope": "wechat_channels",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "W01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-10-07",
+    "check": "4.4区分正常互动与奖励诱导、胁迫、煽动及未成年人应援消费；4.5覆盖虚假数据和刷量方法传播。官方入口可用不等于其互动玩法一定合规。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-W003",
+    "version": 1,
+    "title": "原创、相关性与内容质量",
+    "scope": "wechat_channels",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "W01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-10-07",
+    "check": "5.3核素材权利和隐私；5.11核标题、链接、配音与内容是否相关；5.12—5.14核批量同质化、伪科学与低质表现。6.1的减少推荐、删除及服务限制分别记录；6.3核可见权利标识与授权。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-W004",
+    "version": 1,
+    "title": "违规外链、营销与医疗专项",
+    "scope": "wechat_channels",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "W01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-10-07",
+    "check": "4.8.3限制违反微信外链规范的链接及域名，不能推导所有网址都禁止。4.6核违法营销与广告可识别性；医疗科普另核5.15—5.20，尤其5.20个人联系方式引流。直播、电商、加热和外链专项全文另行核实。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  }
+]

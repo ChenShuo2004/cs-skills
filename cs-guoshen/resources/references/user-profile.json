@@ -1,0 +1,23 @@
+{
+  "profile_type": "公开中性预检；个人严格要求由额外配置覆盖",
+  "default_platforms": [
+    "xiaohongshu",
+    "douyin",
+    "bilibili",
+    "wechat_channels"
+  ],
+  "default_scenario": "普通视频投稿",
+  "strict_visual_address_platforms": [],
+  "strict_visual_categories": [
+    "url",
+    "suspected_url",
+    "email",
+    "ip_address",
+    "physical_address"
+  ],
+  "scan_all_video_frames_for_zero_address_claim": true,
+  "physical_address_scope": "具体街道门牌、收货/居住地址、可定位到具体地点的地址；单独省市名或泛指地点不自动算具体地址",
+  "bilibili_policy": "普通教程网址不自动拦截；商业导流、隐私、危险链接和付费课程仍按相应规则复核",
+  "speech_policy": "独立检查语音中的地址与导流目的；不把有字幕当作语音已审",
+  "allow_user_override_per_request": true
+}

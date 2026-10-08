@@ -1,0 +1,6 @@
+interface:
+  display_name: "CS 过审预检"
+  short_description: "联合口播、字幕和画面检查四平台发布风险，交付有依据的定位报告与最小修改清单"
+  default_prompt: "用 $cs-guoshen 检查这份稿件或视频的发布风险，按目标平台给出依据、定位和最小修改清单。"
+policy:
+  allow_implicit_invocation: true

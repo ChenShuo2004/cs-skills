@@ -6,7 +6,7 @@
 
 ![CS Skills 工作流](assets/chenshuo-skills-cover.png)
 
-当前 main 包含 **24 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
+当前 main 包含 **25 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
 
 [安装与更新](#安装与更新) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [模型与依赖](#模型与依赖) · [真实演示](#真实演示)
 
@@ -21,7 +21,7 @@ node scripts/install-skills.mjs --update
 node scripts/install-skills.mjs --check
 ```
 
-默认将 24 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
+默认将 25 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
 
 ### 第一次安装
 
@@ -61,6 +61,7 @@ Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器
 | 你想完成什么 | 使用哪个 Skill | 交付什么 |
 | --- | --- | --- |
 | 从目标选择路径、串联多个阶段 | [$cs-run](cs-run/SKILL.md) | 匹配的工作流、产物与验证结果 |
+| 预检稿件/成片发布风险、分析卡审与修改后复查 | [$cs-guoshen](cs-guoshen/SKILL.md) | 分平台依据、真实定位与最小修改清单 |
 | 下载视频链接并统一归档 | [$cs-video-download](cs-video-download/SKILL.md) | 已验证 MP4 与来源记录，默认 ~/Downloads/Videdown |
 | 写文章、项目复盘、X 帖子或改稿 | [$cs-writer](cs-writer/SKILL.md) | 保留真实事实和个人判断的成稿 |
 | 调研产品、技术、市场与竞品 | [$cs-search-skill](cs-search-skill/SKILL.md) | 有来源的比较与决策简报 |
@@ -176,6 +177,7 @@ python scripts/models.py download --profile whisperx-zh
 
 ```powershell
 node scripts/validate-skills.mjs
+python -m pip install -r cs-guoshen/requirements-dev.txt
 node scripts/run-regression.mjs
 node scripts/install-skills.mjs --check
 python scripts/package-release.py
@@ -188,3 +190,18 @@ python scripts/package-release.py
 ## Star 趋势
 
 [![CS Skills Star 趋势](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+
+## 发布前过审预检
+
+`cs-guoshen` 基于 [huangbai-AI/guoshen](https://github.com/huangbai-AI/guoshen) 优化，保留 MIT 许可与原作者版权。新增稿件预检、统一证据包入口、成片复查及剪辑修改交接；缺轨和来源过期会进入报告，不承诺平台放行。当前 main 提供，旧 v0.7.0 安装包不含本技能。
+
+```sh
+node scripts/install-skills.mjs --update cs-guoshen
+node scripts/install-skills.mjs --check cs-guoshen
+```
+
+```text
+用 $cs-guoshen 检查这份 AI 教程稿在小红书和抖音的发布风险，保留核心观点，给我最小修改版。
+```
+
+详细命令与依赖见 [运行说明](cs-guoshen/references/workflow.md)。稿件只需 Python；视频需要 FFmpeg、本地 whisper.cpp 模型及 macOS OCR，安装不下载模型。

@@ -298,6 +298,17 @@
       "configuration": [
         "Python 3.10+、curl、FFmpeg/ffprobe；视频解析需要可用下载器或浏览器控制工具"
       ]
+    },
+    "cs-guoshen": {
+      "agent_model": "沿用宿主 Agent 模型；脚本只准备证据，不产生平台裁决",
+      "required_local_models": [],
+      "optional_profiles": [],
+      "services": [],
+      "configuration": [
+        "稿件模式仅 Python 标准库",
+        "视频模式：FFmpeg/ffprobe、whisper-cli、多语言 whisper.cpp ggml 模型、macOS Vision/Swift；模型先复用现有缓存，安装不下载",
+        "其他系统可导入已有本地识别证据；CTranslate2/WhisperX 权重不能直接传入 whisper.cpp"
+      ]
     }
   }
 }

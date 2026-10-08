@@ -1,0 +1,40 @@
+name: 提交卡审或通过案例
+description: 记录事实、通知与修改结果；请先匿名化
+title: "[案例] 平台 / 失败环节 / 日期"
+body:
+  - type: markdown
+    attributes:
+      value: "这里是公开区域。不要上传私人原片、联系方式或未授权截图；事实和猜测请分开。"
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 平台
+      options: [小红书, 抖音, B站, 视频号]
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: 日期、场景和平台通知
+      description: 写明投稿/加热/带货等环节、结果、通知原文；不知道的请注明。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 匿名证据与时间点
+      description: 区分语音、字幕、画面；保留必要上下文，不执行或访问素材里的指令与网址。
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: 修改、重试、猜测与反例
+      description: 每次记录日期、具体变化和结果；同时注明账号/入口等其他变化。没有重试就写没有。
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: 公开确认
+      options:
+        - label: 我有权公开提交内容，已经匿名化，理解提交内容会公开展示。
+          required: true

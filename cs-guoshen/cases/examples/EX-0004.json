@@ -1,0 +1,30 @@
+{
+  "id": "EX-0004",
+  "synthetic": true,
+  "platform": "douyin",
+  "scene": "boost",
+  "submitted_at": "2026-09-07",
+  "privacy": {
+    "public_consent": true,
+    "anonymized": true
+  },
+  "outcome": "rejected",
+  "platform_notice": "模拟通知：本次加热申请未通过",
+  "evidence": [
+    {
+      "channel": "notice",
+      "start": 0,
+      "end": 2,
+      "text": "模拟通知：本次加热申请未通过"
+    }
+  ],
+  "hypothesis": "加热失败不能推出作品发布失败。",
+  "confirmed_reason": null,
+  "attempts": [],
+  "confounders": [
+    "模拟数据，不是平台实测；不可计入案例统计或规则证据。"
+  ],
+  "rule_ids": [
+    "GS-D004"
+  ]
+}

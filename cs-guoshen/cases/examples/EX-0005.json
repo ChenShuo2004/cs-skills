@@ -1,0 +1,30 @@
+{
+  "id": "EX-0005",
+  "synthetic": true,
+  "platform": "wechat_channels",
+  "scene": "post",
+  "submitted_at": "2026-09-07",
+  "privacy": {
+    "public_consent": true,
+    "anonymized": true
+  },
+  "outcome": "pending",
+  "platform_notice": null,
+  "evidence": [
+    {
+      "channel": "screen",
+      "start": 0,
+      "end": 2,
+      "text": "模拟功能演示画面"
+    }
+  ],
+  "hypothesis": "取得基础规范后，仍需确认具体功能权限及相关专项。",
+  "confirmed_reason": null,
+  "attempts": [],
+  "confounders": [
+    "模拟数据，不是平台实测；不可计入案例统计或规则证据。"
+  ],
+  "rule_ids": [
+    "GS-W001"
+  ]
+}

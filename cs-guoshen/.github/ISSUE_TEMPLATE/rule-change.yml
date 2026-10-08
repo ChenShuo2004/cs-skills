@@ -1,0 +1,22 @@
+name: 提议规则修订
+description: 补充来源、日期、场景和反例
+title: "[规则] 平台 / 规则编号或主题"
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: 哪条判断需要修改，为什么
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 官方来源、条款位置与日期
+      description: 写明链接、发布/生效/查阅日期；正文无法取得请直说，不把转述当官方全文。
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: 适用场景、例外、案例与反例
+      description: 区分投稿、加热、广告和交易。案例需匿名且获授权；仅为猜测请标明。

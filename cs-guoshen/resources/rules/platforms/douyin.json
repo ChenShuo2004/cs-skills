@@ -1,0 +1,97 @@
+[
+  {
+    "id": "GS-D001",
+    "version": 1,
+    "title": "不当营销与恶意导流",
+    "scope": "douyin",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "D01",
+      "D02"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "依据公约33/34核营销、外链用途及承接；展示普通工具名称或教程网址不直接判恶意链接。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-D002",
+    "version": 1,
+    "title": "生成合成与演绎声明",
+    "scope": "douyin",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "D02",
+      "L05"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "依据用户协议4.5核实际使用生成合成技术、真实性和显著标识；不虚构固定前5秒要求。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-D003",
+    "version": 1,
+    "title": "医疗及未成年人专项",
+    "scope": "douyin",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "D03",
+      "D04"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "出现健康建议、危险模仿、未成年人权益时加载相应专项，核账号资质和呈现方式。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-D004",
+    "version": 1,
+    "title": "投稿、加热与电商分开",
+    "scope": "douyin",
+    "scenes": [
+      "all"
+    ],
+    "status": "verification_needed",
+    "evidence_type": "source_pending",
+    "source_ids": [
+      "D05"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-09-14",
+    "check": "作品能发布不等于能投DOU+；若仅加热失败不能报成作品封禁。按实际拒审环节补查投放或电商专项，D05仅入口不能代表条文已读。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  }
+]

@@ -81,6 +81,11 @@ try {
     path.isAbsolute(python.command) ? { CS_SKILLS_PYTHON: python.command } : {},
   );
 
+  run(python.command, [...python.prefix, "-m", "unittest", "discover", "-s", "cs-guoshen/tests", "-v"]);
+  for (const script of ["validate_framework.py", "test_candidates.py", "test_framework.py", "test_resource_paths.py"]) {
+    run(python.command, [...python.prefix, `cs-guoshen/scripts/${script}`]);
+  }
+
   const powerShell = resolvePowerShell();
   run(powerShell, ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "cs-checkpoint-version/tests/cs-checkpoint-version.tests.ps1"]);
 

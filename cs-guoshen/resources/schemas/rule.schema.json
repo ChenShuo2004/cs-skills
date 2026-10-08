@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "title",
+    "scope",
+    "scenes",
+    "status",
+    "evidence_type",
+    "source_ids",
+    "effective_from",
+    "effective_to",
+    "last_verified",
+    "review_after",
+    "check",
+    "exceptions",
+    "action",
+    "supersedes",
+    "case_ids"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^GS-[A-Z][0-9]{3}$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "enum": [
+        "common",
+        "xiaohongshu",
+        "douyin",
+        "bilibili",
+        "wechat_channels"
+      ]
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "all",
+          "post",
+          "advertising",
+          "boost",
+          "commerce",
+          "course",
+          "live"
+        ]
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "candidate",
+        "verification_needed",
+        "retired",
+        "superseded"
+      ]
+    },
+    "evidence_type": {
+      "enum": [
+        "official",
+        "method",
+        "source_pending",
+        "case_observation"
+      ]
+    },
+    "source_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "effective_from": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "effective_to": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "last_verified": {
+      "type": "string",
+      "format": "date"
+    },
+    "review_after": {
+      "type": "string",
+      "format": "date"
+    },
+    "check": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exceptions": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "case_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

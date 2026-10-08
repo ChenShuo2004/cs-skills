@@ -1,0 +1,232 @@
+[
+  {
+    "id": "GS-C001",
+    "version": 1,
+    "title": "违法违禁与危险内容",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C01—C10逐项检查语音、画面与传播目的，区分新闻科普与实际鼓励、交易或方法演示。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C002",
+    "version": 1,
+    "title": "隐私、人格与未成年人",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C11—C14核隐私、网暴与未成年人权益；组合信息也可能暴露身份。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C003",
+    "version": 1,
+    "title": "真实性与演绎",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C15—C18、C24检查事实来源、时间、演绎身份、标题和封面；没有标题不能说标题已查。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C004",
+    "version": 1,
+    "title": "素材权利与身份",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C19—C21核原创、素材授权与冒充；有署名不等于取得授权。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C005",
+    "version": 1,
+    "title": "生成合成标识",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L05"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C22—C23核已知AI生成、换脸、拟声内容及实际发布页声明；未知来源不得仅凭外观定性。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C006",
+    "version": 1,
+    "title": "网址与承接方式",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "method",
+    "source_ids": [],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-09-14",
+    "check": "按C25—C34找地址、二维码、口令及跨段获取指引；分别确认教程引用、官方组件、站外交易、恶意链接和本机回环地址。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C007",
+    "version": 1,
+    "title": "商业表述与真实证据",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L02",
+      "L03",
+      "L04",
+      "L06"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C35—C41核商业关系、广告标识、功能价格、排名数据、免责声明与真实依据；普通主观体验不机械套广告绝对化禁词。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C008",
+    "version": 1,
+    "title": "专业行业与准入",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L02",
+      "L03"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C42—C50核医疗财经教育等资质和禁限售；社区投稿、商单、带货和投放分别查。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C009",
+    "version": 1,
+    "title": "互动、秩序与发布设置",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "official",
+    "source_ids": [
+      "L01"
+    ],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-06",
+    "review_after": "2026-10-06",
+    "check": "按C51—C58检查强制/欺骗互动、刷量、功能位置、画质和实际挂载；播放少不能推出限流。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  },
+  {
+    "id": "GS-C010",
+    "version": 1,
+    "title": "证据覆盖与识别误差",
+    "scope": "common",
+    "scenes": [
+      "all"
+    ],
+    "status": "active",
+    "evidence_type": "method",
+    "source_ids": [],
+    "effective_from": null,
+    "effective_to": null,
+    "last_verified": "2026-09-07",
+    "review_after": "2026-09-14",
+    "check": "字幕不能替代语音；按清单核全部音轨、全画面、地址栏、跨帧文字、否定句及识别失败。没有关键词不代表没有风险。",
+    "exceptions": "按真实目的、场景、上下文、授权及来源核实，不因关键词单独定违规。",
+    "action": "先定位原始证据，再核适用条款；无法确认时输出需复核。",
+    "supersedes": null,
+    "case_ids": []
+  }
+]

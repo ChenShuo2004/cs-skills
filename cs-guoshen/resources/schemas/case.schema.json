@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "synthetic",
+    "platform",
+    "scene",
+    "submitted_at",
+    "privacy",
+    "outcome",
+    "platform_notice",
+    "evidence",
+    "hypothesis",
+    "confirmed_reason",
+    "attempts",
+    "confounders",
+    "rule_ids"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(EX|CASE)-[0-9]{4}$"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "platform": {
+      "enum": [
+        "xiaohongshu",
+        "douyin",
+        "bilibili",
+        "wechat_channels"
+      ]
+    },
+    "scene": {
+      "enum": [
+        "post",
+        "advertising",
+        "boost",
+        "commerce",
+        "course",
+        "live"
+      ]
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_consent",
+        "anonymized"
+      ],
+      "properties": {
+        "public_consent": {
+          "const": true
+        },
+        "anonymized": {
+          "const": true
+        }
+      }
+    },
+    "outcome": {
+      "enum": [
+        "rejected",
+        "passed",
+        "appeal_passed",
+        "pending"
+      ]
+    },
+    "platform_notice": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "channel",
+          "start",
+          "end",
+          "text"
+        ],
+        "properties": {
+          "channel": {
+            "enum": [
+              "speech",
+              "subtitle",
+              "screen",
+              "notice"
+            ]
+          },
+          "start": {
+            "type": "number",
+            "minimum": 0
+          },
+          "end": {
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "hypothesis": {
+      "type": "string"
+    },
+    "confirmed_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "date",
+          "change",
+          "result"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "change": {
+            "type": "string"
+          },
+          "result": {
+            "enum": [
+              "rejected",
+              "passed",
+              "pending"
+            ]
+          }
+        }
+      }
+    },
+    "confounders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rule_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
