@@ -1,7 +1,9 @@
 ---
 name: cs-video-download
-description: 下载用户提供的抖音或其他在线视频链接，统一保存并校验媒体文件。用于“帮我下载视频”、Videdown 下载、视频链接归档；不自动扩展为转写、发布或视频制作。
+description: "下载用户提供的抖音或其他在线视频链接，统一保存并校验媒体文件。用于“帮我下载视频”、Videdown 下载、视频链接归档；不自动扩展为转写、发布或视频制作。"
 ---
+
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
 # CS 视频下载
 

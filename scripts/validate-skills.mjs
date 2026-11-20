@@ -270,6 +270,7 @@ if (registry && coreContracts && routeCases) {
     const displayName = parseAgentField(agentText, "display_name");
     const shortDescription = parseAgentField(agentText, "short_description");
     const defaultPrompt = parseAgentField(agentText, "default_prompt");
+    const implicitPolicy = parseAgentField(agentText, "allow_implicit_invocation");
     if (displayName !== registryItem.displayName) {
       errors.push(`${agentPath}: display_name must match skill-registry.json`);
     }
@@ -278,6 +279,9 @@ if (registry && coreContracts && routeCases) {
     }
     if (!defaultPrompt.includes(`$${skillName}`)) {
       errors.push(`${agentPath}: default_prompt must include $${skillName}`);
+    }
+    if ((agentText.includes("policy:") || agentText.includes("allow_implicit_invocation")) && !["true", "false"].includes(implicitPolicy)) {
+      errors.push(`${agentPath}: policy.allow_implicit_invocation must be true or false`);
     }
 
     validateResourceReferences(skillName, skillText);
@@ -288,11 +292,39 @@ if (registry && coreContracts && routeCases) {
   }
 
   const readme = readText("README.md");
+  const readmeEn = readText("README.en.md");
   const inventory = readText("docs/skill-inventory.md");
   const repositoryPlan = readText("docs/repository-plan.md");
   for (const skillName of registryNames) {
-    for (const [documentPath, documentText] of [["README.md", readme], ["docs/skill-inventory.md", inventory], ["docs/repository-plan.md", repositoryPlan]]) {
+    for (const [documentPath, documentText] of [
+      ["README.md", readme],
+      ["README.en.md", readmeEn],
+      ["docs/skill-inventory.md", inventory],
+      ["docs/repository-plan.md", repositoryPlan],
+    ]) {
       assertContains(documentPath, documentText, skillName, "active skill inventory");
+    }
+  }
+
+  for (const docRelPath of ["README.md", "README.en.md", "docs/skill-inventory.md", "docs/model-dependencies.md"]) {
+    const docText = readText(docRelPath);
+    const stripped = docText.replace(/```[^\n]*\n[\s\S]*?```/g, "").replace(/~~~[^\n]*\n[\s\S]*?~~~/g, "");
+    const baseDir = path.dirname(path.join(root, docRelPath));
+    for (const match of stripped.matchAll(/\[[^\]\n]*\]\(([^)\n]+)\)/g)) {
+      const target = match[1].trim().replace(/^<|>$/g, "");
+      if (/^(?:[a-z][a-z0-9+.-]*:|#)/i.test(target)) continue;
+      const location = target.split(/[?#]/)[0];
+      if (!location) continue;
+      let decoded;
+      try {
+        decoded = decodeURIComponent(location);
+      } catch {
+        errors.push(`${docRelPath}: invalid link encoding: ${target}`);
+        continue;
+      }
+      if (!fs.existsSync(path.resolve(baseDir, decoded))) {
+        errors.push(`${docRelPath}: broken relative link: ${target}`);
+      }
     }
   }
 

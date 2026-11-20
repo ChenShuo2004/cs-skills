@@ -61,13 +61,14 @@ function resolvePowerShell() {
       return candidate;
     }
   }
-  throw new Error("PowerShell is required for cs-checkpoint-version regression tests.");
+  return null;
 }
 
 try {
   run(process.execPath, ["scripts/validate-skills.mjs"]);
   run(process.execPath, ["--test", "tests/skill-resources.test.mjs"]);
   run(process.execPath, ["--test", "tests/install-skills.test.mjs"]);
+  run(process.execPath, ["--test", "cs-checkpoint-version/tests/checkpoint.test.mjs"]);
   run(process.execPath, ["--test", "cs-codex-image/tests/runtime.test.mjs"]);
   run(process.execPath, ["--test", "cs-code-story-video/tests/pipeline.test.mjs"]);
   run(process.execPath, ["cs-digital-human-product-video-pipeline/tests/validate-product-pack.tests.mjs"]);
@@ -82,12 +83,23 @@ try {
   );
 
   run(python.command, [...python.prefix, "-m", "unittest", "discover", "-s", "cs-guoshen/tests", "-v"]);
+  if (!canRun(python.command, [...python.prefix, "-c", "import jsonschema"])) {
+    throw new Error(
+      "Missing Python dependency 'jsonschema' for cs-guoshen framework tests. Install with: python -m pip install -r cs-guoshen/requirements-dev.txt",
+    );
+  }
   for (const script of ["validate_framework.py", "test_candidates.py", "test_framework.py", "test_resource_paths.py"]) {
     run(python.command, [...python.prefix, `cs-guoshen/scripts/${script}`]);
   }
 
   const powerShell = resolvePowerShell();
-  run(powerShell, ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "cs-checkpoint-version/tests/cs-checkpoint-version.tests.ps1"]);
+  if (powerShell) {
+    run(powerShell, ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "cs-checkpoint-version/tests/cs-checkpoint-version.tests.ps1"]);
+  } else if (process.env.CS_SKILLS_REQUIRE_PWSH === "1") {
+    throw new Error("PowerShell is required when CS_SKILLS_REQUIRE_PWSH=1.");
+  } else {
+    console.log("\n[skip] PowerShell not found; cross-platform cs-checkpoint-version Node tests already passed.");
+  }
 
   console.log("\nAll regression checks passed.");
 } catch (error) {

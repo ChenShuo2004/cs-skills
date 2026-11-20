@@ -1,6 +1,6 @@
 ---
 name: cs-auto-videl
-description: "Use when the user types $cs-auto-videl or asks for Douyin/TikTok ecommerce video workflows, including competitor replication, strong-Hook nine-grid prompt_image.md to image2 storyboards, Seedance prompts/API submission, Gemini Omni first-frame video, or Google Flow/Veo first-frame-to-video packages."
+description: "抖音/TikTok 电商短视频复刻与生成包工作流：竞品拆解与产品替换、强 Hook 九宫格 prompt_image.md 到 image2 分镜、Seedance 提示词/API 提交、Gemini Omni 首帧视频、Google Flow/Veo 首帧转视频包。Use when the user types $cs-auto-videl or asks for Douyin/TikTok ecommerce video workflows."
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

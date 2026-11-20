@@ -3,6 +3,8 @@ name: cs-kai-cover
 description: "当用户要用 KAI 固定角色制作 X / Twitter 文章封面、5:2 横版观点封面或清晰中文标题封面时使用；输出角色背景与确定性文字合成 PNG，不用于小黄 IP、正文配图、PPT 或通用头像设计。"
 ---
 
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
+
 # KAI 文章封面
 
 为 X / Twitter 文章制作标题优先的 5:2 横版封面。KAI 是固定角色：可以换姿态和主题物件，但不能换角色身份。封面服务文章点击与快速阅读，标题清晰度优先于装饰复杂度。

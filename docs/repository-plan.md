@@ -30,37 +30,50 @@ CS Skills 当前 main 包含 25 个任务 skill 与 1 个执行辅助 skill，�
 
 负责读取必要上下文、按需澄清目标、选择每阶段的能力并连续完成已授权任务。
 
-### 内容、视觉与电商视频
-
-- `cs-codex-image`：复用 Codex 内置生图，生成 / 编辑图片并接入 Claude 本地 MCP；不绑定聊天模型、不下载权重、不切换 API。
+### 写作、调研与发布审查
 
 - `cs-writer`
+- `cs-search-skill`
+- `cs-guoshen`
+- `cs-video-download`
+
+覆盖陈硕风格写作与语料方法、有来源的深度研究与决策简报、多平台发布风险预检与复查，以及在线视频下载与归档。
+
+### 图像与品牌 IP
+
+- `cs-codex-image`：复用 Codex 内置生图，生成 / 编辑图片并接入 Claude 本地 MCP；不绑定聊天模型、不下载权重、不切换 API。
 - `cs-kai-cover`
 - `cs-xiaohuang-skill`
-- `cs-auto-videl`
+
+分别覆盖 KAI 固定角色的 5:2 标题优先文章封面，以及小黄 / 有温度品牌 IP 的一致性延展和中文正文配图。
+
+### 视频策划、制作与音频对齐
+
 - `cs-personal-ip-script`
 - `cs-chatcut-video-blueprint`
+- `cs-chatcut`
+- `cs-auto-videl`
 - `cs-code-story-video`
+- `cs-code-video`
+- `cs-web-promo-film`
+- `cs-knowledge-film`
+- `cs-pixel-explainer`
 - `cs-digital-human-product-video-pipeline`
 - `cs-narration-phrase-timeline`
 
-分别覆盖陈硕风格写作、KAI 固定角色的 5:2 标题优先文章封面、小黄 / 有温度品牌 IP 的一致性延展和中文正文配图、电商短视频复刻与生成包、真实项目到个人 IP 实战口播、从内容想法到 ChatCut 制作蓝图的收敛流程、口播驱动的代码叙事视频、数字人产品视频的预检到最终验收，以及最终口播的真实短语时间对齐。
+分别覆盖真实项目到个人 IP 实战口播、自媒体剧本与逐图蓝图、ChatCut 上手与策划、电商短视频复刻与生成包、口播驱动的代码叙事视频、通用代码动画与 Vibe 科普片、真实网页产品宣传片、固定暗夜星空/像素解说系列、数字人产品视频的预检到最终验收，以及最终口播的真实短语时间对齐。
 
-### 调研与决策
-
-- `cs-search-skill`
-
-负责产品、公司、技术、市场和竞品的深度研究，输出带来源、风险和行动建议的决策简报。
-
-### 产品、工程与交付
+### 产品、工程、交付与辅助
 
 - `cs-frontend-design`
 - `cs-clean-code`
 - `cs-ralph-runner`
 - `cs-checkpoint-version`
+- `cs-github-push`
 - `cs-ending-time`
+- `cs-recover-skill`（执行复位辅助项，默认不安装）
 
-覆盖界面设计、工程质量、PRD 执行、版本回退和最后一公里交付。
+覆盖界面设计、工程质量、PRD 执行、跨平台版本回退、精确 GitHub 交付、完整发布/部署收尾与执行校准。
 
 `cs-xiaohuang-skill` 是小黄 / 有温度品牌角色的唯一入口：它能稳定生成、编辑和延展 2D/3D、动作、联名、风格迁移和身份修复资产，也能将中文文章、帖子或方法论中的认知锚点转为小黄轻手绘正文配图；不做 ChatCut 策划、PPT 信息图或复杂架构图。
 

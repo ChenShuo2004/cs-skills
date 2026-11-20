@@ -66,7 +66,7 @@ description: "把真实网页做成 30–60 秒产品演示宣传片：Playwrigh
 
 ### 4. 量坐标，不要目测
 
-运行 `node scripts/measure.mjs` 产出 `boxes.json`，拿到每个关键元素的页面坐标。**所有推进落点、平移目标、点击位置都从实测坐标算**。目测的运镜一定会把四列网格裁成三列半，或者把指针点在链接旁边的空白上。
+运行 `node scripts/measure.mjs` 产出 `boxes.json`，拿到每个关键元素的页面坐标；需要按颜色定位品牌题字或 Logo 裁切框时运行 `node scripts/find-region.mjs <图片> [gold|bright|dark|--rule "..."]`。**所有推进落点、平移目标、点击位置都从实测坐标算**。目测的运镜一定会把四列网格裁成三列半，或者把指针点在链接旁边的空白上。
 
 ### 5. 写分镜，再搭片子
 

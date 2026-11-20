@@ -1,6 +1,6 @@
 ---
 name: cs-narration-phrase-timeline
-description: "Use when the user needs a Chinese narration phrase timeline from real audio: phrase-timeline.json, 逐句或逐短语时间标注, Whisper word-boundary alignment, timed captions, or narration-driven infographic and motion-graphics timing. Requires the final narration audio and the exact spoken copy; do not use for estimated timing, generic editing, or MP4 rendering."
+description: "将最终中文口播音频与实际朗读稿对齐为 phrase-timeline.json（逐句/逐短语真实毫秒、帧号与 Whisper 词级边界），供字幕、重点词与动态图文定时使用。Use for Chinese narration phrase timeline from real audio; do not use for estimated timing, generic editing, or MP4 rendering."
 ---
 
 <!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->

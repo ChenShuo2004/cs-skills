@@ -183,13 +183,7 @@ node scripts/install-skills.mjs --check
 python scripts/package-release.py
 ```
 
-回归需要 Python 3.12+ 与 PowerShell；多版本 Python 可通过 `CS_SKILLS_PYTHON` 指定。Bash 安装器的检查为 `./scripts/test-install.sh`。结构、脚本与文件一致性通过，不等于模型在新会话中的行为已经通过；[行为验收](docs/evals/README.md)单独记录。
-
-[English](README.en.md) · [协作规则](AGENTS.md) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [MIT License](LICENSE) · [陈硕 KAI](https://everlightai.top)
-
-## Star 趋势
-
-[![CS Skills Star 趋势](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+回归需要 Node.js 22+ 与 Python 3.12+；多版本 Python 可通过 `CS_SKILLS_PYTHON` 指定。`cs-checkpoint-version` 默认运行跨平台 Node 测试，检测到 PowerShell 时额外运行 `.ps1` 兼容测试。Bash 安装器的检查为 `./scripts/test-install.sh`。结构、脚本与文件一致性通过，不等于模型在新会话中的行为已经通过；[行为验收](docs/evals/README.md)单独记录。
 
 ## 发布前过审预检
 
@@ -205,3 +199,9 @@ node scripts/install-skills.mjs --check cs-guoshen
 ```
 
 详细命令与依赖见 [运行说明](cs-guoshen/references/workflow.md)。稿件只需 Python；视频需要 FFmpeg、本地 whisper.cpp 模型及 macOS OCR，安装不下载模型。
+
+[English](README.en.md) · [协作规则](AGENTS.md) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [MIT License](LICENSE) · [陈硕 KAI](https://everlightai.top)
+
+## Star 趋势
+
+[![CS Skills Star 趋势](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)

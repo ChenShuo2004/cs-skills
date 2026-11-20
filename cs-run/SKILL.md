@@ -11,36 +11,53 @@ description: "CS Skills 总入口：用户明确调用 cs-run、询问用哪个 
 
 ## Active Routes
 
-Choose one primary route from this table:
+按领域选择唯一主路由（跨领域任务见下方交接规则）：
 
-| User goal | Route | Typical output |
+### 写作、调研与发布审查
+
+| 用户目标 | 主路由 | 典型交付 |
 | --- | --- | --- |
-| 稿件或成片发布风险预检、卡审分析与修改后复查 | `$cs-guoshen` | 分平台结论、原文定位、来源缺口与最小修改清单 |
+| 写文案、标题、产品介绍、X 短帖/长文、项目复盘、提纲或改稿 | `$cs-writer` | 角度、提纲、成稿、改写或审稿 |
+| 调研产品、公司、技术、市场或竞品，支持决策 | `$cs-search-skill` | 有来源的决策简报、对比、风险与建议 |
+| 稿件或成片发布风险预检、卡审分析与修改后复查 | `$cs-guoshen` | 分平台结论、原文/时码定位、来源缺口与最小修改清单 |
 | 下载在线视频链接、Videdown 下载或统一归档视频 | `$cs-video-download` | 已验证的媒体文件与来源记录，默认 ~/Downloads/Videdown |
-| Write, outline, rewrite, polish, or turn project material into an article | `$cs-writer` | Angle, outline, draft, rewrite, or review |
-| Research a product, company, technology, market, or competitor set for a decision | `$cs-search-skill` | Source-backed decision brief, comparison, risks, and next actions |
-| Generate or edit images with Codex built-in imagegen, or connect it to Claude / a local MCP Agent | `$cs-codex-image` | Verified image files or a tested local image MCP connection |
-| Create a 5:2 X / Twitter article cover with the fixed KAI character and clear Chinese title | `$cs-kai-cover` | KAI background plus deterministic-title PNG |
-| Design, build, revise, or review a user-facing web interface | `$cs-frontend-design` | UI plan, implementation guidance, and browser checks |
-| Clean up code, reconcile implementation with requirements, or prepare a maintainable handoff | `$cs-clean-code` | Scoped edits, documentation sync, tests, and verification |
-| Save a rollback point before risky repository changes | `$cs-checkpoint-version` | Restorable local checkpoint and verification |
-| Turn a Markdown PRD into a Ralph plan or requested build | `$cs-ralph-runner` | Ralph PRD, overview, no-commit build results and logs |
-| Verify, commit, push, open a PR, or deploy a completed change | `$cs-ending-time` | Delivery verification and GitHub/Vercel handoff |
-| Generate, edit, convert, or extend the fixed 小黄 / “有温度” brand IP while preserving character identity | `$cs-xiaohuang-skill` | 2D/3D character assets, action variants, collaboration art, identity QA, or article illustration shot lists |
-| Replicate an ecommerce short video or create storyboard/Seedance/Flow/Veo packages | `$cs-auto-videl` | Storyboards, prompts, generation package, and QC |
+
+### 图像与品牌 IP
+
+| 用户目标 | 主路由 | 典型交付 |
+| --- | --- | --- |
+| 使用 Codex 内置生图/编辑，或接入 Claude / 本地 MCP Agent | `$cs-codex-image` | 已验证 PNG 图片或可测试的本地图片 MCP 连接 |
+| 用固定 KAI 角色做 5:2 X / Twitter 中文标题文章封面 | `$cs-kai-cover` | 无字 KAI 角色背景与确定性排版 PNG |
+| 延展小黄 / “有温度”品牌 IP 资产，或给中文文章配图 | `$cs-xiaohuang-skill` | 2D/3D 角色资产、身份 QA、正文配图 shot list 与插画 |
+
+### 视频策划、制作与音频对齐
+
+| 用户目标 | 主路由 | 典型交付 |
+| --- | --- | --- |
 | 将真实项目、经历或现场观察写成 60–90 秒个人 IP 实战口播 | `$cs-personal-ip-script` | 可直接录制的口播稿、演绎标注、事实待确认项与自检 |
-| 将自媒体素材、内容想法或已有口播做成剧本包、分镜分图提示词或制作蓝图 | `$cs-chatcut-video-blueprint` | 中文剧本、视觉约定、逐镜分镜、逐图图片提示词、动作提示词与素材清单 |
-| 将口播与角色制作成代码叙事视频，包含独立 A/B-roll 场景、样片、成片和双比例封面 | `$cs-code-story-video` | Remotion 工程、真实音频时间轴、16:9 视频、3:4/4:3 封面与 QA |
-| 用已确认产品包制作数字人产品介绍视频，或需要 ChatCut 实操、Remotion 包装与最终验收 | `$cs-digital-human-product-video-pipeline` | 预检、样片审批、产品证据剪辑、确定性包装和成片 QA |
-| 将最终口播音频与逐字稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
-| ChatCut 安装上手与从脚本到编辑工作台的操作指引 | `$cs-chatcut` | 中文策划、操作指南与项目交接 |
-| 将真实网页制作成产品演示宣传片 | `$cs-web-promo-film` | 真实页面采集、Remotion 工程与 MP4 |
-| 用代码制作动画、KAI 教程片或来源可核查的 Vibe 科普片 | `$cs-code-video` | 风格卡、分镜、样片与可重渲工程 |
-| 明确选择暗夜星空系列知识解说片 | `$cs-knowledge-film` | 场景 spec、配音、双语字幕与 MP4 |
-| 明确选择固定像素解说系列 | `$cs-pixel-explainer` | 像素动画、实际配音、SRT 与 MP4 |
-| GitHub 提交、推送、PR 与远端提交核验 | `$cs-github-push` | 精确提交、远端 SHA 与按需 PR |
-| 显式要求执行复位，或陷入无效验证循环时辅助当前任务 | `$cs-recover-skill` | 校准行动与恢复有效进展（辅助项） |
-| The user has not described a usable goal yet | `$cs-run` | Goal Card and the smallest useful questions |
+| 将自媒体素材、内容想法或已有口播写成剧本包、逐镜分镜与逐图提示词 | `$cs-chatcut-video-blueprint` | 中文剧本、视觉约定、逐镜分镜、逐图图片提示词与动作提示词 |
+| ChatCut 零到一安装上手与两轮确认短视频策划 | `$cs-chatcut` | 中文策划方案、操作指南与 ChatCut 工作台交接 |
+| 抖音/TikTok 电商视频对标复刻、九宫格分镜、Seedance / Flow / Veo 生成包 | `$cs-auto-videl` | 分镜图、首帧、平台提示词、可选 API 提交与 QC |
+| 用最终口播与角色制作 16:9 代码叙事视频（独立 A/B-roll 与双比例封面） | `$cs-code-story-video` | Remotion 工程、真实音频时间轴、样片/全片与 3:4/4:3 封面 |
+| 用代码制作动画、KAI 教程片或来源可核查的 Vibe 科普片 | `$cs-code-video` | 风格卡、分镜、样片与可重渲 `render(t)` 工程及 MP4 |
+| 把真实网页拍成 30–60 秒产品演示宣传片 | `$cs-web-promo-film` | Playwright 长截图采集、Remotion 工程与 MP4 |
+| 明确选择暗夜星空系列知识解说片 | `$cs-knowledge-film` | 场景 spec、配音、双语字幕与 1080p MP4 |
+| 明确选择固定像素解说系列 | `$cs-pixel-explainer` | 像素动画、真实配音、SRT 与 1080p MP4 |
+| 用已确认产品包编排数字人产品介绍视频（预检、样片审批与最终 QA） | `$cs-digital-human-product-video-pipeline` | 预检结论、样片审批、ChatCut/Remotion 包装与成片 QA |
+| 将最终口播音频与实际朗读稿对齐为短语时间表 | `$cs-narration-phrase-timeline` | `phrase-timeline.json`、词级对齐结果与覆盖率报告 |
+
+### 产品、工程、交付与辅助
+
+| 用户目标 | 主路由 | 典型交付 |
+| --- | --- | --- |
+| 设计、实现、迭代或评审真实前端页面与交互流程 | `$cs-frontend-design` | 页面实现、可达状态与浏览器检查证据 |
+| 整理代码、重构、审查实现、修复已定位问题或同步开发文档 | `$cs-clean-code` | 范围明确的修改、文档同步与本地验证 |
+| 在大改或高风险变更前保存可恢复的本地回退点 | `$cs-checkpoint-version` | 本地 checkpoint 快照与恢复核对 |
+| 明确要求把 Markdown PRD 交给 Ralph 执行规划或无提交构建 | `$cs-ralph-runner` | Ralph PRD、overview、no-commit 构建结果与日志 |
+| 精确提交、推送、开 PR 或核验 GitHub 远端提交 | `$cs-github-push` | 精确提交、远端 SHA 核验与按需 PR |
+| 完成已授权的验证、发布或网站/应用部署收尾 | `$cs-ending-time` | 交付验证与 GitHub/部署平台真实状态核对 |
+| 显式要求执行复位，或陷入无效验证循环时校准当前任务 | `$cs-recover-skill` | 校准工程判断并恢复有效进展（辅助项） |
+| 目标仍模糊、尚未给出可用任务 | `$cs-run` | Goal Card 与最小澄清问题 |
 
 ## Retired Routes
 

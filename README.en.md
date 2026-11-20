@@ -92,9 +92,7 @@ node scripts/run-regression.mjs
 python scripts/package-release.py
 ```
 
-The regression runner needs Python 3.12+ and PowerShell. Use CS_SKILLS_PYTHON to select the interpreter. Archive files have a per-file hash manifest and a separate package checksum. Structural, script and file checks do not prove fresh-session model behavior or final media quality.
-
-[License](LICENSE) · [Changelog](CHANGELOG.md) · [Contributors](CONTRIBUTORS.md)
+The regression runner needs Node.js 22+ and Python 3.12+ (PowerShell tests run automatically when PowerShell is available). Use `CS_SKILLS_PYTHON` to select the interpreter. Archive files have a per-file hash manifest and a separate package checksum. Structural, script and file checks do not prove fresh-session model behavior or final media quality.
 
 ## Codex built-in images in Claude
 
@@ -108,10 +106,12 @@ node cs-codex-image/scripts/install.mjs --target both --check
 
 Use `$cs-codex-image` in a new Claude session. The bridge uses the existing ChatGPT/Codex login, without an API key. Desktop configuration currently supports macOS. Installation, MCP connectivity, actual generation and Claude model invocation are separate checks. See [setup and recovery](cs-codex-image/references/setup.md).
 
-## Star History
-
-[![CS Skills Star History](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
-
 ## Publication risk review
 
 `cs-guoshen` adapts [huangbai-AI/guoshen](https://github.com/huangbai-AI/guoshen) under MIT, preserving upstream attribution and rule verification dates. It adds draft review, a local preparation CLI, revision checks and edit handoff. Candidate scans never guarantee platform approval. Available on main, outside the existing v0.7.0 archive. See [usage and dependencies](cs-guoshen/references/workflow.md).
+
+[License](LICENSE) · [Changelog](CHANGELOG.md) · [Contributors](CONTRIBUTORS.md)
+
+## Star History
+
+[![CS Skills Star History](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)

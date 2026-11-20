@@ -108,7 +108,7 @@
     },
     {
       "name": "cs-recover-skill",
-      "displayName": "GPT-5.6 复位",
+      "displayName": "CS 执行复位",
       "releaseLevel": "core",
       "auxiliary": true
     },

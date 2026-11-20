@@ -1,112 +1,70 @@
 ---
 name: cs-checkpoint-version
-description: |
-  Use when the user asks to save the current repository version, create a rollback point, checkpoint dirty worktree changes, preserve staged/unstaged/untracked files before risky edits, or restore a prior checkpoint. Trigger for "$cs-checkpoint-version", "保存当前版本", "方便回退", "回退点", "checkpoint", "rollback", "restore checkpoint", or similar wording.
+description: "在大改或高风险修改前保存当前 Git 仓库的可恢复回退点（保留分支、HEAD、staged/unstaged diff 和未跟踪文件），或在用户明确要求时恢复历史回退点。触发词包括 $cs-checkpoint-version、保存当前版本、方便回退、回退点、checkpoint、rollback、restore checkpoint。"
 ---
 
-<!-- CS Skills · 陈硕 | portable skill entry | https://github.com/ChenShuo2004/cs-skills -->
+<!-- CS Skills · 陈硕 | https://github.com/ChenShuo2004/cs-skills -->
 
-# Checkpoint Version
+# CS Checkpoint Version
 
-## Purpose
+为单个 Git 仓库创建本地文件级回退点。默认不创建提交、不切换分支，完整保存当前分支、HEAD、staged diff、unstaged diff 与未跟踪的非忽略文件。
 
-Use this skill to create a local, file-based rollback point for one Git repository.
+## 硬规则
 
-The default goal is safety: preserve the current branch, HEAD, staged diff, unstaged diff, and untracked files without creating a commit or changing the branch.
+- 仅作用于单个 Git 仓库根目录，先用 `git rev-parse --show-toplevel` 确认。
+- 只在用户请求或高风险改动前创建回退点，不为常规小改动每次快照；若 HEAD、staged/unstaged diff 和未跟踪文件均未变化，可复用已验证回退点。
+- 默认保存在仓库 `.codex-checkpoints/` 下（建议已加入 `.gitignore`）；除非用户明确要求，不自动创建 Git checkpoint commit。
+- 包含 staged、unstaged 和未跟踪的非忽略文件；不打包依赖目录、构建产物、缓存或密钥等忽略文件。
+- 除非用户明确要求回滚或恢复，绝不执行恢复。
+- 恢复前必须自动保存当前脏工作区的 `pre-restore` 回退点；`-CleanUntracked` / `--clean-untracked` 仅在用户要求彻底清理回退点之后新增的未跟踪文件时开启（脚本自动排除 `.codex-checkpoints/`）。
 
-## Rules
+## 保存回退点
 
-- Work in one Git repository root. Confirm with `git rev-parse --show-toplevel`.
-- Create a checkpoint when requested or when this change needs a rollback artifact; do not snapshot every routine edit. Reuse a verified checkpoint only if HEAD, staged/unstaged diffs and untracked inputs have not changed.
-- Default to a safe snapshot under `.codex-checkpoints/`; do not commit unless the user explicitly asks for a Git checkpoint commit.
-- Include staged, unstaged, and untracked non-ignored files. Do not include ignored files such as dependencies, builds, caches, or secrets.
-- Never restore a checkpoint unless the user explicitly asks to roll back or restore.
-- Before restore, preserve the current worktree with a `pre-restore` checkpoint.
+优先使用跨平台 Node.js 脚本 [`scripts/checkpoint.mjs`](scripts/checkpoint.mjs)（macOS / Linux / Windows 通用）：
 
-## Save Workflow
-
-1. Inspect the repository:
-
-```powershell
+```bash
 git rev-parse --show-toplevel
 git status --short --branch
+node "<skill-root>/scripts/checkpoint.mjs" save --repo "<repo-root>" --slug "before-refactor"
 ```
 
-2. Pick a short slug from the task, such as `before-refactor`, `before-release`, or `current-version`.
-
-3. Run the bundled script from this skill:
+Windows PowerShell 环境也兼容原脚本 [`scripts/create-checkpoint.ps1`](scripts/create-checkpoint.ps1)：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "<skill-root>\scripts\create-checkpoint.ps1" -Repo "<repo-root>" -Slug "current-version"
+powershell -NoProfile -ExecutionPolicy Bypass -File "<skill-root>\scripts\create-checkpoint.ps1" -Repo "<repo-root>" -Slug "before-refactor"
 ```
 
-4. Report:
+完成后报告：回退点目录、分支与 HEAD、是否捕获 staged / unstaged / 未跟踪文件，以及对应的恢复命令。
 
-- checkpoint directory
-- branch and HEAD
-- whether staged, unstaged, and untracked files were captured
-- restore command
+## 恢复回退点（仅用户明确要求时）
 
-## Restore Workflow
+1. 查看可用回退点与 `metadata.json`：
 
-Use this only after the user explicitly asks to restore a checkpoint.
-
-1. Inspect available checkpoints:
-
-```powershell
-Get-ChildItem -Directory "<repo-root>\.codex-checkpoints" | Sort-Object Name -Descending
+```bash
+node "<skill-root>/scripts/checkpoint.mjs" list --repo "<repo-root>"
 ```
 
-2. Read the checkpoint metadata:
+2. 用户已明确指定要恢复某个回退点时，直接恢复（不重复索要同一确认）；目标模糊时先问清楚要恢复哪一个：
 
-```powershell
-Get-Content "<checkpoint-path>\metadata.json" -Raw
+```bash
+node "<skill-root>/scripts/checkpoint.mjs" restore --repo "<repo-root>" --checkpoint "<checkpoint-path>" --force
+# 仅在用户要求精确移除回退点后新增的未跟踪文件时追加：--clean-untracked
 ```
 
-3. Restore with the bundled script. The restore request supplies authorization; do not ask again for the same checkpoint. Still preserve pre-restore state and respect the separate CleanUntracked boundary:
+PowerShell 兼容命令（[`scripts/restore-checkpoint.ps1`](scripts/restore-checkpoint.ps1)）：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File "<skill-root>\scripts\restore-checkpoint.ps1" -Repo "<repo-root>" -Checkpoint "<checkpoint-path>" -Force
 ```
 
-Add `-CleanUntracked` only when the user wants an exact rollback that removes untracked files created after the checkpoint. The restore script excludes `.codex-checkpoints/` from `git clean`.
+3. 恢复后验证 `git status --short --branch`、`git diff --cached --stat` 和 `git diff --stat`。
 
-4. Verify after restore:
+## 产物结构与验证
 
-```powershell
-git status --short --branch
-git diff --cached --stat
-git diff --stat
-```
+每个回退点目录包含：`metadata.json`、`status.txt`、`status-porcelain.txt`、`staged.patch`、`unstaged.patch`、`untracked-files.txt`，以及存在未跟踪文件时的 `untracked.zip`。
 
-## Script Outputs
+修改脚本后运行跨平台回归测试：
 
-`scripts/create-checkpoint.ps1` writes:
-
-- `metadata.json`: branch, HEAD, timestamp, counts, and restore hint
-- `status.txt`: branch-aware short status
-- `status-porcelain.txt`: exact status entries with untracked files expanded
-- `staged.patch`: binary-safe staged diff
-- `unstaged.patch`: binary-safe unstaged diff
-- `untracked-files.txt`: untracked non-ignored file list
-- `untracked.zip`: untracked file archive when untracked files exist
-
-`scripts/restore-checkpoint.ps1` resets to the checkpoint HEAD, reapplies staged and unstaged patches, restores untracked files, and creates a `pre-restore` checkpoint when the current worktree is not clean.
-
-## Common Mistakes
-
-| Mistake | Correct behavior |
-| --- | --- |
-| Treating checkpoint as a commit | Use file snapshots by default; commit only when requested. |
-| Saving only `git diff` | Also capture staged diff and untracked files. |
-| Restoring without preserving current state | Let the restore script create `pre-restore` first. |
-| Including ignored outputs | Keep dependencies, build folders, caches, logs, and secrets out. |
-| Running restore for a vague request | Ask which checkpoint to restore before changing files. |
-
-## Verification
-
-Run the bundled tests after editing the scripts:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "<skill-root>\tests\cs-checkpoint-version.tests.ps1"
+```bash
+node --test "<skill-root>/tests/checkpoint.test.mjs"
 ```
