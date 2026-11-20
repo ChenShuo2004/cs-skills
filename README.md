@@ -1,3 +1,5 @@
+> **English:** Reusable Codex and agent workflows for product building, research, writing, video production, and delivery.
+
 # CS Skills
 
 **把做过的事留成方法，让 AI 接着把事情做完。**
