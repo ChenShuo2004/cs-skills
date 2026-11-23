@@ -1,64 +1,91 @@
-> **English:** Reusable Codex and agent workflows for product building, research, writing, video production, and delivery.
+<div align="center">
 
 # CS Skills
 
 **把做过的事留成方法，让 AI 接着把事情做完。**
 
-做产品、写内容、做视频，真正需要交给 AI 的，往往还有项目里的判断：先看哪些资料，什么时候继续，什么结果算完成。CS Skills 把陈硕（KAI）在真实项目中整理的方法，做成可以安装、反复使用的 Agent 工作流。你带着目标、仓库或素材来，交付可以是一页能用的界面、一篇文章、一套分镜，也可以是一支有可编辑工程的视频。
+把陈硕（KAI）在真实项目中沉淀的 **产品开发、深度调研、内容写作、IP 配图、代码视频与发布交付** 经验，整理为 **25 个任务技能 + 1 个执行辅助技能**。  
+带着目标、仓库或素材来，一条命令安装到 **Codex / Claude Code** 或其他支持 `SKILL.md` 的 Agent，直接复用可验证的交付工作流。
 
-![CS Skills 工作流](assets/chenshuo-skills-cover.png)
+[![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-111111?style=for-the-badge)](README.md)
+[![English](https://img.shields.io/badge/English-27272a?style=for-the-badge&logo=readme&logoColor=white)](README.en.md)
 
-当前 main 包含 **25 个任务技能 + 1 个执行辅助技能**；最新完整发布包为 **v0.7.0**（22 个任务技能）。支持 Codex；Claude Code 和其他能读取 `SKILL.md` 的 Agent 可复用工作流，工具能力按各自环境配置。
+[![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/cs-skills?style=for-the-badge&color=111111&labelColor=e4e4e7&label=Release)](https://github.com/ChenShuo2004/cs-skills/releases/latest)
+[![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/cs-skills?style=for-the-badge&color=18181b&labelColor=f4f4f5)](https://github.com/ChenShuo2004/cs-skills/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
+[![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
+[![产品介绍页](https://img.shields.io/badge/%E6%9C%89%E6%B8%A9%E5%BA%A6AI-%E4%BA%A7%E5%93%81%E9%A1%B5-111111?style=for-the-badge)](https://page.aiyouwendu.com/products/cs-skills/)
 
-[安装与更新](#安装与更新) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [模型与依赖](#模型与依赖) · [真实演示](#真实演示)
+[安装与更新](#安装与更新) · [核心亮点](#核心亮点) · [按目标选技能](#按目标选技能) · [直接复制使用](#直接复制使用) · [真实演示](#真实演示) · [模型与依赖](#模型与依赖) · [常见问题](#常见问题)
+
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="assets/chenshuo-skills-cover.png" alt="CS Skills 工作流架构" width="100%" />
+  <p>
+    <sub>
+      🧭 <b>CS Skills 工作流全景</b>：当前 <code>main</code> 包含 <b>25 个任务技能 + 1 个执行辅助技能</b>；最新完整发布包为 <a href="https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0"><b>v0.7.0</b></a>（22 个任务技能）
+    </sub>
+  </p>
+</div>
+
+### 真实过程演示（点击封面看 1080p 演示成片）
+
+| 🎬 01 · README 专项优化讲解 | 🚀 02 · GitHub 精确提交与远端核验 |
+| --- | --- |
+| [![README 优化讲解](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo-v2.mp4)<br/><sub>检查仓库实际能力 → `cs-writer` 改写 → `cs-clean-code` 核对命令 · [观看 MP4](assets/demos/readme-optimization/demo-v2.mp4) · [口播与复现](assets/demos/readme-optimization/VO.md)</sub> | [![GitHub 推送讲解](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)<br/><sub>用 `$cs-github-push` 精确提交、推送并校验远端 SHA · [观看 MP4](assets/demos/cs-github-push-demo.mp4) · [口播与分镜](assets/demos/cs-github-push-script.md)</sub> |
+
+## 核心亮点
+
+- **不止是提示词，而是可验收的工程与内容工作流**：每个技能都明确「先看哪些资料、什么时候继续、什么结果算完成」，从单一入口 `$cs-run` 到专项交付闭环。
+- **跨平台可校验安装，安全备份不覆盖定制**：Node 安装器通用 Windows / macOS / Linux，内容一致自动跳过，有变化先备份到 `.cs-skills-backups/` 再核对 SHA-256，绝不自动下载大模型或运行库。
+- **覆盖产品、写作、视觉、视频与发布前过审预检**：包含 `$cs-guoshen` 多平台过审风险预检、`$cs-codex-image` 将 Codex 内置生图以本地 MCP 接入 Claude Code，以及 [小黄 IP 与正文配图](cs-xiaohuang-skill/README.md) 等实战能力。
+
+---
 
 ## 安装与更新
 
-### 已有本地仓库
-
-在仓库目录运行（Node.js 22+，Windows / macOS / Linux 通用）：
-
-```powershell
-node scripts/install-skills.mjs --update
-node scripts/install-skills.mjs --check
-```
-
-默认将 25 个任务技能同步到 Codex 的技能目录。**内容一致就跳过；有变化先备份旧目录，再安装并核对 SHA-256。** 不下载模型、不安装运行库。备份在目标技能目录的 `.cs-skills-backups/` 中，本地定制也会保留在备份里。
-
-### 第一次安装
+### 第一次安装（Node.js 22+，Windows / macOS / Linux 通用）
 
 ```powershell
 git clone https://github.com/ChenShuo2004/cs-skills.git
 cd cs-skills
 node scripts/install-skills.mjs
+node scripts/install-skills.mjs --check
 ```
 
-已有仓库只需在该目录 `git pull --ff-only`，然后重新运行更新命令，避免重复克隆。已有同名目录时，普通安装会保留它并报告冲突；明确更新时使用 `--update`。
-
-也可下载 [v0.7.0 完整安装包](https://github.com/ChenShuo2004/cs-skills/releases/download/v0.7.0/cs-skills-v0.7.0.zip)，解压后运行同样的安装命令。[Release 页面](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)附包文件 SHA-256，包内的 `INSTALL-MANIFEST.json` 记录全部文件哈希。
-
-### 只安装需要的技能
+### 已有本地仓库更新
 
 ```powershell
+git pull --ff-only
+node scripts/install-skills.mjs --update
+node scripts/install-skills.mjs --check
+```
+
+默认将 25 个任务技能同步到 Codex 的技能目录。也可下载 [v0.7.0 完整安装包](https://github.com/ChenShuo2004/cs-skills/releases/download/v0.7.0/cs-skills-v0.7.0.zip) 解压后执行相同命令（[Release 页面](https://github.com/ChenShuo2004/cs-skills/releases/tag/v0.7.0)附包文件 SHA-256，包内 `INSTALL-MANIFEST.json` 记录全部文件哈希）。
+
+### 按需挑选技能 / 安装到 Claude Code
+
+```powershell
+# 只安装需要的几个技能（先 --dry-run 预览）
 node scripts/install-skills.mjs --update cs-run cs-writer cs-search-skill
 node scripts/install-skills.mjs --dry-run
-```
 
-Claude Code 使用 `--target` 指定其技能目录；同一命令也可指定其他宿主目录：
-
-```powershell
+# 同步到 Claude Code 或其他支持 SKILL.md 的宿主目录
 node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update
 ```
 
-已有 Bash 的用户可继续使用 `./scripts/install.sh --codex`、`--claude` 或 `--both`。它创建指向本仓库的链接，保留克隆目录后即可随 `git pull` 更新；已有目录或其他来源的链接会保留。需要更新目录副本时使用上面的 Node 安装器。
+> [!TIP]
+> - 已有 Bash 环境也可继续使用 `./scripts/install.sh --codex`、`--claude` 或 `--both` 创建软链接随 `git pull` 更新（Windows 若无软链接权限请使用上面的 Node 安装器）。
+> - **安装完成后请打开新会话检查技能列表**：Codex 总入口显示名为 `cs-skills`，调用名为 `$cs-run`；只装 `cs-run` 不会自动安装下游技能。
 
-Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器会明确失败，请使用 Node 安装器。
-
-**安装完成后打开新会话，检查技能是否出现在列表中。** Codex 的总入口显示名为 `cs-skills`，调用名为 `$cs-run`。只装 `cs-run` 不会自动安装下游技能。安装文件一致与新会话已加载是两项检查。
+---
 
 ## 按目标选技能
 
-知道要什么就直接调用对应技能；跨领域或还不清楚入口时用 `$cs-run`。它按阶段连接工作流，小任务直接执行。
+知道要什么就直接调用对应技能；跨领域或还不清楚入口时用 `$cs-run`。名称与数量以 [注册表](tests/fixtures/skill-registry.json) 为准，详细边界见 [技能清单](docs/skill-inventory.md)。
 
 | 你想完成什么 | 使用哪个 Skill | 交付什么 |
 | --- | --- | --- |
@@ -88,9 +115,9 @@ Windows 创建原生软链接需要相应权限；权限不足时 Bash 安装器
 | 提交、推送、开 PR 或核验 GitHub | [$cs-github-push](cs-github-push/SKILL.md) | 精确提交、远端 SHA 与按需 PR |
 | 完成验证、发布或应用部署收尾 | [$cs-ending-time](cs-ending-time/SKILL.md) | 验证记录与已授权的实际交付 |
 
-[$cs-recover-skill](cs-recover-skill/SKILL.md) 是辅助入口：陷入反复验证、无效追问或范围失控时校准执行。它保留在安装包中，默认不安装；需要时显式指定名称。名称与数量以 [注册表](tests/fixtures/skill-registry.json) 为准。
+> [$cs-recover-skill](cs-recover-skill/SKILL.md) 为执行校准辅助入口：陷入反复验证或范围失控时复位执行。它保留在安装包中，默认不安装，需要时显式指定名称即可。
 
-视频入口按素材和交付选：网页录制、代码动画、原声角色叙事、电商生成包各有自己的路径；暗夜星空与像素解说用于明确选定的系列。纯文本分镜可先完成，精确音频对齐需要最终录音。详细边界见 [技能清单](docs/skill-inventory.md)。
+---
 
 ## 直接复制使用
 
@@ -124,7 +151,10 @@ $cs-code-story-video 这里是最终口播音频、实际朗读稿和角色图�
 $cs-run 检查实际技能、路由和安装器，用 cs-writer 优化 README 的产品介绍，用 cs-clean-code 核对安装命令。先更新我的本地技能并校验一致，再更新 GitHub 默认分支和完整安装包。
 ```
 
-**在 Claude 使用 Codex 内置生图：**
+### 近期新增重点技能（`main` 分支）
+
+<details>
+<summary><b>1. 在 Claude 使用 Codex 内置生图（<code>$cs-codex-image</code>）</b></summary>
 
 ```bash
 node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update cs-codex-image
@@ -132,64 +162,14 @@ node cs-codex-image/scripts/install.mjs --target both
 node cs-codex-image/scripts/install.mjs --target both --check
 ```
 
-打开新的 Claude 会话，调用 `$cs-codex-image` 出图。MCP 安装器会保留其他设置并备份变化，使用现有 ChatGPT/Codex 登录，不要求 API Key；桌面配置安装器当前支持 macOS。配置、连接与真实出图分别检查，详见 [接入说明](cs-codex-image/references/setup.md)。此 Skill 在 main，v0.7.0 安装包尚未包含。
+打开新的 Claude 会话，调用 `$cs-codex-image` 出图。MCP 安装器会保留其他设置并备份变化，使用现有 ChatGPT/Codex 登录，不要求 API Key；桌面配置安装器当前支持 macOS。详见 [接入说明](cs-codex-image/references/setup.md)（v0.7.0 安装包尚未包含）。
 
-## 模型与依赖
+</details>
 
-**安装技能不会自动下载模型。** 写作、调研、代码和文本蓝图沿用宿主 Agent 的模型，没有统一绑定的聊天模型型号。
+<details>
+<summary><b>2. 发布前多平台过审预检（<code>$cs-guoshen</code>）</b></summary>
 
-| 阶段 | 需要什么 |
-| --- | --- |
-| 写作、规划、开发与 Git 交付 | 宿主 Agent 和当前任务需要的搜索、浏览器或 CLI |
-| Codex 内置生图与 Claude 接入 | 支持内置图片工具的 Codex、ChatGPT 登录；MCP 桥接需 Node 22+ / npm |
-| KAI / 小黄图片与电商视频生成 | 已配置的图像工具或任务选择的云端服务 |
-| 中文音频对齐，已选择 WhisperX | 可选 Whisper large-v3 + 中文 wav2vec2，共约 4.37 GB |
-| 代码视频渲染 | 对应 Node / Python、浏览器、Remotion 或 FFmpeg；渲染本身不需要生成模型 |
-| 数字人与 TTS | 实际 ComfyUI 工作流、Fish/TTS 配置或用户原声，按版本确认模型 |
-
-[模型注册表](models/registry.json)包含每个技能的依赖、参考模型的固定版本、官方文件大小和哈希。[依赖说明](docs/model-dependencies.md)提供缓存位置与运行时复用方法。需要检查模型时，在完整仓库或安装包根目录运行（Python 3.12+）：
-
-```powershell
-python scripts/models.py check --profile whisperx-zh
-
-# 已选该后端且确有缺失时再运行
-python -m pip install -r models/requirements.txt
-python scripts/models.py download --profile whisperx-zh
-```
-
-检查只读、不联网；有效缓存直接复用，只补缺失文件。损坏文件须显式 `--repair`；进程锁避免同一模型并发重复下载。已有独立模型目录可以用 `--model-dir` 指定。模型权重留在本地共用缓存，GitHub 发布清单和脚本。
-
-模型文件齐全仍需验证 Python/GPU、VAD、真实音频对齐器和服务配置。技术检查、实际运行、最终画面与人工听审分别报告；数字人样片确认、付费生成与发布遵循用户已有授权。
-
-## 真实演示
-
-这些是仓库已有的演示素材，展示对应制作过程；当前安装方式以上文为准。
-
-[![README 优化讲解](assets/demos/readme-optimization/poster.jpg)](assets/demos/readme-optimization/demo-v2.mp4)
-
-[观看 README 优化讲解](assets/demos/readme-optimization/demo-v2.mp4) · [口播与复现说明](assets/demos/readme-optimization/VO.md)
-
-[![GitHub 推送讲解](assets/demos/cs-github-push-poster.jpg)](assets/demos/cs-github-push-demo.mp4)
-
-[观看 GitHub 推送录屏](assets/demos/cs-github-push-demo.mp4) · [口播与分镜](assets/demos/cs-github-push-script.md) · [小黄 IP 与正文配图展示](cs-xiaohuang-skill/README.md)
-
-## 维护与验证
-
-每个技能以 `SKILL.md` 为入口，Codex 展示配置在 `agents/openai.yaml`；参考资料、资产、脚本按阶段读取。新增入口时同步路由、注册表、模型依赖、两份 README 与相关行为案例。
-
-```powershell
-node scripts/validate-skills.mjs
-python -m pip install -r cs-guoshen/requirements-dev.txt
-node scripts/run-regression.mjs
-node scripts/install-skills.mjs --check
-python scripts/package-release.py
-```
-
-回归需要 Node.js 22+ 与 Python 3.12+；多版本 Python 可通过 `CS_SKILLS_PYTHON` 指定。`cs-checkpoint-version` 默认运行跨平台 Node 测试，检测到 PowerShell 时额外运行 `.ps1` 兼容测试。Bash 安装器的检查为 `./scripts/test-install.sh`。结构、脚本与文件一致性通过，不等于模型在新会话中的行为已经通过；[行为验收](docs/evals/README.md)单独记录。
-
-## 发布前过审预检
-
-`cs-guoshen` 基于 [huangbai-AI/guoshen](https://github.com/huangbai-AI/guoshen) 优化，保留 MIT 许可与原作者版权。新增稿件预检、统一证据包入口、成片复查及剪辑修改交接；缺轨和来源过期会进入报告，不承诺平台放行。当前 main 提供，旧 v0.7.0 安装包不含本技能。
+`cs-guoshen` 基于 [huangbai-AI/guoshen](https://github.com/huangbai-AI/guoshen) 优化，保留 MIT 许可与原作者版权。新增稿件预检、统一证据包入口、成片复查及剪辑修改交接；缺轨和来源过期会进入报告，不承诺平台放行（v0.7.0 安装包尚未包含）。
 
 ```sh
 node scripts/install-skills.mjs --update cs-guoshen
@@ -202,8 +182,92 @@ node scripts/install-skills.mjs --check cs-guoshen
 
 详细命令与依赖见 [运行说明](cs-guoshen/references/workflow.md)。稿件只需 Python；视频需要 FFmpeg、本地 whisper.cpp 模型及 macOS OCR，安装不下载模型。
 
-[English](README.en.md) · [协作规则](AGENTS.md) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [MIT License](LICENSE) · [陈硕 KAI](https://everlightai.top)
+</details>
 
-## Star 趋势
+---
+
+## 真实演示
+
+- [README 优化讲解 MP4](assets/demos/readme-optimization/demo-v2.mp4) · [口播与复现说明](assets/demos/readme-optimization/VO.md)
+- [GitHub 推送录屏 MP4](assets/demos/cs-github-push-demo.mp4) · [口播与分镜](assets/demos/cs-github-push-script.md)
+- [小黄 IP 与正文配图展示](cs-xiaohuang-skill/README.md)
+
+---
+
+## 模型与依赖
+
+**安装技能不会自动下载模型。** 写作、调研、代码和文本蓝图沿用宿主 Agent 的模型，没有统一绑定的聊天模型型号。
+
+| 阶段 | 需要什么 |
+| --- | --- |
+| **写作、规划、开发与 Git 交付** | 宿主 Agent 和当前任务需要的搜索、浏览器或 CLI |
+| **Codex 内置生图与 Claude 接入** | 支持内置图片工具的 Codex、ChatGPT 登录；MCP 桥接需 Node 22+ / npm |
+| **KAI / 小黄图片与电商视频生成** | 已配置的图像工具或任务选择的云端服务 |
+| **中文音频对齐（可选 WhisperX）** | 可选 Whisper large-v3 + 中文 wav2vec2，共约 4.37 GB |
+| **代码视频渲染** | 对应 Node / Python、浏览器、Remotion 或 FFmpeg；渲染本身不需要生成模型 |
+| **数字人与 TTS** | 实际 ComfyUI 工作流、Fish/TTS 配置或用户原声，按版本确认模型 |
+
+[模型注册表](models/registry.json)记录固定版本、官方大小与哈希，[依赖说明](docs/model-dependencies.md)提供缓存复用方法（Python 3.12+）：
+
+```powershell
+python scripts/models.py check --profile whisperx-zh
+
+# 已选该后端且确有缺失时再运行
+python -m pip install -r models/requirements.txt
+python scripts/models.py download --profile whisperx-zh
+```
+
+检查只读、不联网；有效缓存直接复用，损坏文件须显式 `--repair`，已有目录可用 `--model-dir` 指定。
+
+---
+
+## 维护与验证
+
+每个技能以 `SKILL.md` 为入口，Codex 展示配置在 `agents/openai.yaml`。新增入口时同步路由、注册表、模型依赖、两份 README 与相关行为案例。
+
+```powershell
+node scripts/validate-skills.mjs
+python -m pip install -r cs-guoshen/requirements-dev.txt
+node scripts/run-regression.mjs
+node scripts/install-skills.mjs --check
+python scripts/package-release.py
+```
+
+回归需要 Node.js 22+ 与 Python 3.12+（多版本 Python 可通过 `CS_SKILLS_PYTHON` 指定）；Bash 安装器检查为 `./scripts/test-install.sh`。结构与脚本通过不等于新会话模型行为已通过，[行为验收](docs/evals/README.md)单独记录。
+
+---
+
+## 常见问题
+
+<details>
+<summary><b>1. 安装技能会覆盖我本地改过的旧技能吗？</b></summary>
+
+不会静默覆盖。普通安装遇到已有同名目录会保留并报告冲突；使用 `--update` 时，有变化的旧目录会先完整备份到目标技能目录下的 `.cs-skills-backups/`，再写入新版本并校验 SHA-256。
+
+</details>
+
+<details>
+<summary><b>2. 只安装 <code>cs-run</code> 就能自动调用全部 25 个技能吗？</b></summary>
+
+不能。`$cs-run` 负责按目标路由和串联阶段，但不会自动安装下游技能；如需全套能力，请运行 `node scripts/install-skills.mjs` 默认安装全部任务技能，或显式列出所需技能名。
+
+</details>
+
+<details>
+<summary><b>3. Claude Code 或其他 Agent 可以使用吗？</b></summary>
+
+可以。使用 `node scripts/install-skills.mjs --target "$HOME/.claude/skills" --update` 同步到目标目录即可复用工作流；具体工具、MCP 连接和模型权限以各自宿主环境为准。
+
+</details>
+
+---
+
+## 致谢与许可证
+
+[English](README.en.md) · [协作规则](AGENTS.md) · [更新日志](CHANGELOG.md) · [贡献者](CONTRIBUTORS.md) · [MIT License](LICENSE) · [有温度AI 产品页](https://page.aiyouwendu.com/products/cs-skills/) · [陈硕 KAI](https://everlightai.top)
+
+<div align="center">
 
 [![CS Skills Star 趋势](https://api.star-history.com/svg?repos=ChenShuo2004/cs-skills&type=Date)](https://star-history.com/#ChenShuo2004/cs-skills&Date)
+
+</div>
